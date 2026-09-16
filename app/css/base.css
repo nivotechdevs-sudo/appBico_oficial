@@ -1,0 +1,58 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { margin: 0; color: var(--text-strong); font-family: var(--font-display); letter-spacing: -0.02em; }
+p { margin: 0; }
+a { color: var(--text-link); }
+a:hover { color: var(--text-link-hover); }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+::selection { background: var(--blue-100); color: var(--gray-900); }
+[hidden] { display: none !important; }
+
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+
+@keyframes bicos-spin { to { transform: rotate(360deg); } }
+@keyframes bicos-shine { 0% { background-position: -180% 0; } 100% { background-position: 180% 0; } }
+@keyframes bicos-slide-up { from { transform: translateY(0.75rem); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes bicos-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.animate-spin-token { animation: bicos-spin 0.7s linear infinite; }
+.animate-slide-up { animation: bicos-slide-up var(--dur-slow) var(--ease-standard); }
+.animate-fade-in { animation: bicos-fade-in var(--dur-normal) var(--ease-standard); }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 37%, var(--skeleton-base) 63%);
+  background-size: 400% 100%;
+  animation: bicos-shine 1.4s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Lucide icon rendered as a currentColor mask */
+.icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* thin scrollbars for chip rows, kept off the main page scroller */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

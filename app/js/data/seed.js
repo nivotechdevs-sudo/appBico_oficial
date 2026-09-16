@@ -1,0 +1,169 @@
+// Mock marketplace data. In production this is an API — here it seeds the in-memory
+// store (see store.js), which is the single source of truth every screen reads from,
+// so the same job/candidate/company record renders identically wherever it's used.
+
+export const CURRENT_COMPANY_ID = 'meridiano';
+export const CURRENT_WORKER_ID = 'jorge';
+
+export const COMPANIES = {
+  meridiano: {
+    id: 'meridiano', name: 'Construtora Meridiano',
+    cnpj: '18.402.551/0001-07', tipoObra: 'Residencial e reforma', location: 'Zona Leste, SP',
+    whatsapp: '(11) 98842-3310', rating: 4.7, reviewCount: 31,
+    verified: true, verifiedSince: '12 ago', sinceLabel: 'Na Bicos desde março de 2025',
+    respondTime: 'Responde em 1h20, em média', paidCount: 128,
+    reviews: [
+      { author: 'Marcos A. · servente', value: 5, text: 'Pagou em PIX no fim da diária, como combinado.', date: '2 set' },
+      { author: 'Jorge M. · pedreiro', value: 4, text: 'Obra organizada e EPI no local. Começou 30 min atrasado.', date: '25 ago' },
+      { author: 'Edson B. · pedreiro', value: 5, text: 'Já trabalhei com eles três vezes. Sempre no horário certo.', date: '18 ago' }
+    ]
+  },
+  alvorada: { id: 'alvorada', name: 'Construtora Alvorada', location: 'Mooca, SP', rating: 4.5, reviewCount: 18, verified: true,
+    reviews: [{ author: 'Caio N. · pedreiro', value: 4, text: 'Bom acabamento, chegou 20 min atrasado.', date: '30 jul' }] },
+  'vila-formosa': { id: 'vila-formosa', name: 'Instalações Vila Formosa', location: 'Vila Formosa, SP', rating: 4.6, reviewCount: 9, verified: false, reviews: [] },
+  'serra-braganca': { id: 'serra-braganca', name: 'Reforma Serra de Bragança', location: 'Tatuapé, SP', rating: 4.8, reviewCount: 14, verified: true,
+    reviews: [{ author: 'Nelson A. · azulejista', value: 5, text: 'Assentamento impecável, obra organizada.', date: '22 ago' }] },
+  'vila-prudente': { id: 'vila-prudente', name: 'Obra Vila Prudente', location: 'Vila Prudente, SP', rating: 4.4, reviewCount: 7, verified: false,
+    reviews: [{ author: 'Bruno T. · servente', value: 5, text: 'Trabalhador de confiança. Já chamei três vezes.', date: '27 ago' }] },
+  belem: { id: 'belem', name: 'Obra Belém', location: 'Belém, SP', rating: 4.3, reviewCount: 5, verified: false, reviews: [] },
+  aricanduva: { id: 'aricanduva', name: 'Obra Aricanduva', location: 'Aricanduva, SP', rating: 4.2, reviewCount: 4, verified: false, reviews: [] },
+  cangaiba: { id: 'cangaiba', name: 'Obra Cangaíba', location: 'Cangaíba, SP', rating: 4.3, reviewCount: 6, verified: false, reviews: [] }
+};
+
+export const WORKERS = {
+  jorge: { id: 'jorge', name: 'Jorge Mendes', initials: 'JM', role: 'Pedreiro de acabamento', region: 'Tatuapé, SP', distance: '3,2 km', rating: 4.8, jobsDone: 23, verified: true, specialties: ['Acabamento', 'Alvenaria', 'Reboco', 'Assentamento'],
+    facts: ['23 diárias pagas pela plataforma', 'RG e CPF conferidos em 12 ago', 'Responde em 40 min, em média', 'Nunca faltou a uma diária combinada'],
+    reviews: [
+      { company: 'Obra Vila Prudente', value: 5, text: 'Trabalhou o dia todo sem reclamar. Deixou a área limpa.', date: '14 ago' },
+      { company: 'Reforma Serra de Bragança', value: 5, text: 'Chegou no horário, acabamento bem feito.', date: '2 ago' },
+      { company: 'Construtora Meridiano', value: 5, text: 'Chegou no horário, acabamento bem feito. Chamo de novo.', date: '28 ago' }
+    ] },
+  rafael: { id: 'rafael', name: 'Rafael Duarte', initials: 'RD', role: 'Servente de obra', region: 'Vila Prudente, SP', distance: '1,8 km', rating: 4.5, jobsDone: 17, verified: true, specialties: ['Carga de material', 'Limpeza de obra'],
+    facts: ['17 diárias pagas pela plataforma', 'RG e CPF conferidos em 5 ago', 'Responde em 55 min, em média'],
+    reviews: [{ company: 'Obra Belém', value: 4, text: 'Fez o serviço direito. Saiu 20 min mais cedo.', date: '19 ago' }] },
+  nelson: { id: 'nelson', name: 'Nelson Aquino', initials: 'NA', role: 'Azulejista', region: 'Tatuapé, SP', distance: '1,6 km', rating: 4.9, jobsDone: 52, verified: true, specialties: ['Porcelanato 60x60', 'Rejunte', 'Nivelamento'],
+    facts: ['52 diárias pagas pela plataforma', 'RG e CPF conferidos em 8 abr', 'Responde em 15 min, em média'],
+    reviews: [{ company: 'Reforma Serra de Bragança', value: 5, text: 'Assentamento impecável. Levou as próprias ferramentas.', date: '22 ago' }] },
+  bruno: { id: 'bruno', name: 'Bruno Tavares', initials: 'BT', role: 'Servente de obra', region: 'Vila Prudente, SP', distance: '2,9 km', rating: 4.8, jobsDone: 28, verified: true, specialties: ['Carga de material', 'Massa'],
+    facts: ['28 diárias pagas pela plataforma', 'RG e CPF conferidos em 15 jun', 'Nunca faltou a uma diária combinada'],
+    reviews: [{ company: 'Obra Vila Prudente', value: 5, text: 'Trabalhador de confiança. Já chamei três vezes.', date: '27 ago' }] },
+  marcos: { id: 'marcos', name: 'Marcos Aurélio', initials: 'MA', role: 'Servente e ajudante', region: 'Penha, SP', distance: '5,1 km', rating: 4.6, jobsDone: 41, verified: true, specialties: ['Carga de material', 'Limpeza de obra', 'Massa'],
+    facts: ['41 diárias pagas pela plataforma', 'RG e CPF conferidos em 30 jul', 'Responde em 1h10, em média'],
+    reviews: [{ company: 'Construtora Alvorada', value: 5, text: 'Pegou no pesado o dia todo. Chamo de novo.', date: '21 ago' }] },
+  silas: { id: 'silas', name: 'Silas Pereira', initials: 'SP', role: 'Azulejista', region: 'Mooca, SP', distance: '2,4 km', rating: 0, jobsDone: 0, novo: true, verified: false, specialties: ['Porcelanato', 'Rejunte'],
+    facts: ['11 anos de obra, primeiro bico pela plataforma', 'Documentos enviados, em conferência', 'Telefone confirmado por SMS'], reviews: [] },
+  vitor: { id: 'vitor', name: 'Vitor Camargo', initials: 'VC', role: 'Pedreiro', region: 'Tatuapé, SP', distance: '2,1 km', rating: 4.7, jobsDone: 31, verified: true, specialties: ['Reboco', 'Contrapiso'],
+    facts: ['31 diárias pagas pela plataforma', 'RG e CPF conferidos em 21 jul', 'Responde em 35 min, em média'],
+    reviews: [{ company: 'Obra Belém', value: 5, text: 'Serviço limpo e no prazo combinado.', date: '12 ago' }] },
+  caio: { id: 'caio', name: 'Caio Nogueira', initials: 'CN', role: 'Pedreiro de acabamento', region: 'Penha, SP', distance: '7,4 km', rating: 4.2, jobsDone: 9, verified: true, specialties: ['Massa corrida', 'Acabamento'],
+    facts: ['9 diárias pagas pela plataforma', 'RG e CPF conferidos em 2 set', 'Faltou a 1 diária combinada em julho'],
+    reviews: [{ company: 'Construtora Alvorada', value: 4, text: 'Bom acabamento, chegou 20 min atrasado.', date: '30 jul' }] },
+  edson: { id: 'edson', name: 'Edson Batista', initials: 'EB', role: 'Pedreiro', region: 'Belém, SP', distance: '6,8 km', rating: 4.9, jobsDone: 64, verified: true, specialties: ['Alvenaria estrutural', 'Contrapiso', 'Reboco'],
+    facts: ['64 diárias pagas pela plataforma', 'RG e CPF conferidos em 4 mar', 'Responde em 25 min, em média'],
+    reviews: [{ company: 'Construtora Meridiano', value: 5, text: 'Já trabalhou com a gente três vezes. Sempre pontual.', date: '18 ago' }] },
+  joel: { id: 'joel', name: 'Joel Ribeiro', initials: 'JR', role: 'Ajudante geral', region: 'Belém, SP', distance: '6,1 km', rating: 0, jobsDone: 0, novo: true, verified: false, specialties: ['Carga de material'],
+    facts: ['6 anos de obra, primeiro bico pela plataforma', 'Documentos enviados, em conferência', 'Telefone confirmado por SMS'], reviews: [] },
+  antonio: { id: 'antonio', name: 'Antônio Ferraz', initials: 'AF', role: 'Servente de obra', region: 'Vila Prudente, SP', distance: '4,0 km', rating: 4.6, jobsDone: 19, verified: true, specialties: ['Carga de material', 'Limpeza de obra'],
+    facts: ['19 diárias pagas pela plataforma', 'RG e CPF conferidos em 3 mai'], reviews: [] }
+};
+
+// pay: number = fixed R$/diária. pay: null = "A combinar".
+export const JOBS = {
+  'BC-4821': { id: 'BC-4821', companyId: 'meridiano', role: 'Pedreiro de acabamento', pay: 220, location: 'Tatuapé, SP', address: 'Rua Serra de Bragança, 1240', distance: '3,2 km', date: 'Hoje', dateLong: 'Hoje · 7h–17h', hours: '7h–17h', duration: '1 diária, com 1h de almoço', urgent: true, boosted: true, slots: 4,
+    description: 'Reboco e regularização de duas paredes externas e acabamento em massa corrida numa reforma residencial. Material já está no canteiro.',
+    requirements: ['Experiência com reboco e massa corrida', 'Botina e capacete próprios', 'Chegar 10 minutos antes'] },
+  'BC-4822': { id: 'BC-4822', companyId: 'alvorada', role: 'Pintor', pay: null, location: 'Mooca, SP', address: 'Rua da Mooca, 3180', distance: '4,4 km', date: 'Hoje', dateLong: 'Hoje · 8h–17h', hours: '8h–17h', duration: '1 diária', urgent: true, slots: 1,
+    description: 'Pintura interna em parede lisa de apartamento recém-reformado, duas demãos de tinta acrílica branca.',
+    requirements: ['Pintura interna, parede lisa', 'Rolo e pincel próprios', 'Tinta e lixa fornecidas pela obra'] },
+  'BC-4855': { id: 'BC-4855', companyId: 'vila-formosa', role: 'Eletricista', pay: null, location: 'Vila Formosa, SP', address: 'Rua Vila Formosa, 210', distance: '5,6 km', date: 'Seg, 14 set', dateLong: 'Seg, 14 set · 7h–17h', hours: '7h–17h', duration: '1 diária', slots: 1,
+    description: 'Instalação elétrica residencial em casa em reforma: troca de disjuntores, tomadas e pontos de luz em três cômodos.',
+    requirements: ['Instalação elétrica residencial', 'Ferramentas próprias', 'Combine o valor direto com a construtora'] },
+  'BC-4830': { id: 'BC-4830', companyId: 'vila-prudente', role: 'Servente de obra', pay: 150, location: 'Vila Prudente, SP', address: 'Av. Vila Ema, 2790', distance: '6,8 km', date: 'Qua, 9 set', dateLong: 'Qua, 9 set · 7h–16h', hours: '7h–16h', duration: '2 diárias seguidas', slots: 1,
+    description: 'Carga e descarga de material de construção e limpeza do piso ao fim do expediente, em obra residencial de dois pavimentos.',
+    requirements: ['Carregar material e limpar o piso', 'Botina própria', 'Capacete fornecido pela obra'] },
+  'BC-4835': { id: 'BC-4835', companyId: 'serra-braganca', role: 'Azulejista', pay: 260, location: 'Tatuapé, SP', address: 'Rua Serra de Bragança, 640', distance: '4,1 km', date: 'Qui, 10 set', dateLong: 'Qui, 10 set · 8h–17h', hours: '8h–17h', duration: '1 diária', slots: 1,
+    description: 'Assentamento de porcelanato 60x60 em sala e cozinha, com nivelamento e rejunte incluídos.',
+    requirements: ['Assentamento de porcelanato 60x60', 'Desempenadeira e nível próprios', 'Argamassa fornecida pela obra'] },
+  'BC-4841': { id: 'BC-4841', companyId: 'meridiano', role: 'Armador', pay: 240, location: 'Penha, SP', address: 'Rua Cantagalo, 890', distance: '5,0 km', date: 'Sex, 11 set', dateLong: 'Sex, 11 set · 7h–17h', hours: '7h–17h', duration: '3 diárias', slots: 1,
+    description: 'Montagem da ferragem de laje de um pavimento, seguindo projeto estrutural fornecido pela construtora.',
+    requirements: ['Montagem de ferragem de laje', 'Botina, capacete e luva próprios', 'Experiência com vergalhão'] },
+  'BC-4848': { id: 'BC-4848', companyId: 'belem', role: 'Ajudante geral', pay: 140, location: 'Belém, SP', address: 'Rua Padre Adelino, 410', distance: '7,2 km', date: 'Sáb, 12 set', dateLong: 'Sáb, 12 set · 8h–14h', hours: '8h–14h', duration: 'Meia diária', slots: 1,
+    description: 'Descarregar um caminhão de material de construção e organizar no canteiro. Serviço de meio período.',
+    requirements: ['Descarregar caminhão de material', 'Botina própria', 'Sem experiência exigida'] },
+  'BC-4998': { id: 'BC-4998', companyId: 'meridiano', role: 'Servente de obra', pay: 150, location: 'Vila Prudente, SP', address: 'Av. Vila Ema, 2790', distance: '6,8 km', date: 'Qua, 9 set', dateLong: 'Qua, 9 set · 7h–16h', hours: '7h–16h', duration: '2 diárias seguidas', slots: 2,
+    description: 'Carga e descarga de material de construção e limpeza do piso ao fim do expediente, em obra residencial de dois pavimentos.',
+    requirements: ['Carregar material e limpar o piso', 'Botina própria'] },
+  'BC-4995': { id: 'BC-4995', companyId: 'meridiano', role: 'Azulejista', pay: 260, location: 'Tatuapé, SP', address: 'Rua Serra de Bragança, 640', distance: '4,1 km', date: 'Qui, 10 set', dateLong: 'Qui, 10 set · 8h–17h', hours: '8h–17h', duration: '1 diária', slots: 1,
+    description: 'Assentamento de porcelanato 60x60 em sala e cozinha, com nivelamento e rejunte incluídos.',
+    requirements: ['Assentamento de porcelanato 60x60', 'Desempenadeira e nível próprios'] },
+  // closed / historical
+  'BC-4712': { id: 'BC-4712', companyId: 'aricanduva', role: 'Ajudante geral', pay: 140, location: 'Aricanduva, SP', address: 'Av. Aricanduva, 5200', distance: '9,4 km', date: 'Ter, 26 ago', dateLong: 'Ter, 26 ago · 8h–14h', hours: '8h–14h', duration: 'Meia diária', slots: 1, closed: true,
+    description: 'Descarregar material de construção na entrada da obra e organizar no canteiro.',
+    requirements: ['Descarregar material', 'Botina própria'] },
+  'BC-4703': { id: 'BC-4703', companyId: 'cangaiba', role: 'Servente de obra', pay: 150, location: 'Cangaíba, SP', address: 'Rua Cachoeira Tijuco Preto, 75', distance: '8,5 km', date: 'Sáb, 30 ago', dateLong: 'Sáb, 30 ago · 8h–14h', hours: '8h–14h', duration: '1 diária', slots: 1, closed: true,
+    description: 'Limpeza geral do piso e carga de material de construção durante a diária.',
+    requirements: ['Limpeza de piso e carga de material', 'Botina própria'] },
+  'BC-4698': { id: 'BC-4698', companyId: 'alvorada', role: 'Pintor', pay: 190, location: 'Mooca, SP', address: 'Rua da Mooca, 3180', distance: '4,4 km', date: 'Qui, 21 ago', dateLong: 'Qui, 21 ago · 8h–17h', hours: '8h–17h', duration: '1 diária', slots: 1, closed: true,
+    description: 'Pintura interna em parede lisa, duas demãos de tinta acrílica.',
+    requirements: ['Pintura interna', 'Rolo e pincel próprios'] },
+  'BC-4960': { id: 'BC-4960', companyId: 'meridiano', role: 'Pintor', pay: 190, location: 'Mooca, SP', address: 'Rua da Mooca, 3180', distance: '4,4 km', date: 'Qui, 21 ago', dateLong: 'Qui, 21 ago · 8h–17h', hours: '8h–17h', duration: '1 diária', slots: 1, closed: true,
+    description: 'Pintura interna em parede lisa, duas demãos de tinta acrílica.',
+    requirements: ['Pintura interna', 'Rolo e pincel próprios'] },
+  'BC-4944': { id: 'BC-4944', companyId: 'meridiano', role: 'Armador', pay: 240, location: 'Penha, SP', address: 'Rua Cantagalo, 890', distance: '5,0 km', date: 'Sex, 15 ago', dateLong: 'Sex, 15 ago · 7h–17h', hours: '7h–17h', duration: '3 diárias', slots: 2, closed: true, semContratacao: true,
+    description: 'Montagem da ferragem de laje de um pavimento, seguindo projeto estrutural fornecido pela construtora.',
+    requirements: ['Montagem de ferragem de laje'] },
+  'BC-4918': { id: 'BC-4918', companyId: 'meridiano', role: 'Pedreiro de acabamento', pay: 220, location: 'Tatuapé, SP', address: 'Rua Serra de Bragança, 1240', distance: '3,2 km', date: '18 ago', dateLong: '18 ago · 7h–17h', hours: '7h–17h', duration: '1 diária', slots: 1, closed: true,
+    description: 'Reboco e regularização de parede externa numa reforma residencial.',
+    requirements: ['Experiência com reboco e massa corrida'] },
+  'BC-4899': { id: 'BC-4899', companyId: 'meridiano', role: 'Pedreiro de acabamento', pay: 220, location: 'Tatuapé, SP', address: 'Rua Serra de Bragança, 1240', distance: '3,2 km', date: '14 ago', dateLong: '14 ago · 7h–17h', hours: '7h–17h', duration: '1 diária', slots: 1, closed: true,
+    description: 'Acabamento em massa corrida antes da pintura, numa reforma residencial.',
+    requirements: ['Experiência com reboco e massa corrida'] },
+  'BC-4870': { id: 'BC-4870', companyId: 'meridiano', role: 'Servente de obra', pay: 150, location: 'Vila Prudente, SP', address: 'Av. Vila Ema, 2790', distance: '6,8 km', date: '9 ago', dateLong: '9 ago · 7h–16h', hours: '7h–16h', duration: '1 diária', slots: 1, closed: true,
+    description: 'Carga de material de construção e limpeza do piso ao fim do expediente.',
+    requirements: ['Carregar material e limpar o piso'] }
+};
+
+// One application = one worker's candidacy on one job. Status funnel (worker-facing):
+// enviada -> em_analise -> pre_selecionado -> contratado -> concluida (needs review) | avaliada
+// nao_selecionado is a terminal rejection at any point.
+export const APPLICATIONS = [
+  { id: 'a1', jobId: 'BC-4821', workerId: 'jorge', status: 'pre_selecionado' },
+  { id: 'a2', jobId: 'BC-4821', workerId: 'edson', status: 'em_analise' },
+  { id: 'a3', jobId: 'BC-4821', workerId: 'marcos', status: 'em_analise' },
+  { id: 'a4', jobId: 'BC-4821', workerId: 'vitor', status: 'em_analise' },
+  { id: 'a5', jobId: 'BC-4821', workerId: 'caio', status: 'em_analise' },
+  { id: 'a6', jobId: 'BC-4830', workerId: 'jorge', status: 'em_analise' },
+  { id: 'a7', jobId: 'BC-4835', workerId: 'jorge', status: 'enviada' },
+  { id: 'a8', jobId: 'BC-4712', workerId: 'jorge', status: 'contratado' },
+  { id: 'a9', jobId: 'BC-4703', workerId: 'jorge', status: 'concluida' },
+  { id: 'a10', jobId: 'BC-4698', workerId: 'jorge', status: 'nao_selecionado' },
+  { id: 'a11', jobId: 'BC-4998', workerId: 'rafael', status: 'em_analise' },
+  { id: 'a12', jobId: 'BC-4998', workerId: 'bruno', status: 'em_analise' },
+  { id: 'a13', jobId: 'BC-4998', workerId: 'joel', status: 'em_analise' },
+  { id: 'a14', jobId: 'BC-4995', workerId: 'nelson', status: 'em_analise' },
+  { id: 'a15', jobId: 'BC-4995', workerId: 'silas', status: 'em_analise' },
+  { id: 'a16', jobId: 'BC-4960', workerId: 'marcos', status: 'concluida' },
+  { id: 'a17', jobId: 'BC-4918', workerId: 'edson', status: 'concluida' },
+  { id: 'a18', jobId: 'BC-4899', workerId: 'jorge', status: 'concluida' },
+  { id: 'a19', jobId: 'BC-4870', workerId: 'antonio', status: 'concluida' }
+];
+
+export const SAVED_JOB_IDS = ['BC-4841', 'BC-4848', 'BC-4712', 'BC-4698'];
+
+export const CARGOS_TRABALHADOR = ['Pedreiro de acabamento', 'Servente de obra', 'Pintor', 'Eletricista', 'Azulejista', 'Armador', 'Ajudante geral', 'Encanador'];
+export const REGIOES_TRABALHADOR = ['Tatuapé, SP', 'Mooca, SP', 'Penha, SP', 'Vila Prudente, SP', 'Belém, SP', 'Vila Formosa, SP'];
+export const ESPECIALIDADES = ['Acabamento', 'Alvenaria', 'Reboco', 'Assentamento', 'Pintura', 'Elétrica', 'Hidráulica'];
+export const TIPOS_OBRA = ['Residencial', 'Comercial', 'Reforma', 'Residencial e reforma', 'Industrial'];
+export const REGIOES_RECRUTADOR = ['Zona Leste, SP', 'Zona Norte, SP', 'Zona Sul, SP', 'Zona Oeste, SP', 'Centro, SP'];
+export const TIPOS_SERVICO = ['Pedreiro', 'Servente', 'Azulejista', 'Pintor', 'Armador', 'Ajudante geral'];
+export const REQUISITOS_OPCOES = ['Botina e capacete próprios', 'Ferramenta própria', 'Experiência comprovada', 'Chegar 10 min antes', 'EPI fornecido pela obra'];
+export const LOCAIS_BAIRRO = ['Tatuapé, SP', 'Mooca, SP', 'Penha, SP', 'Vila Prudente, SP', 'Belém, SP'];
+
+// Portfolio posts (photo/video of finished work) a worker publishes on their own profile.
+// mediaUrl: null renders the same neutral placeholder job photos use elsewhere in the app —
+// there's no real uploaded file behind the seed data, only what a real session uploads.
+export const WORKER_POSTS = [
+  { id: 'wp1', workerId: 'jorge', mediaUrl: null, mediaType: 'image', caption: 'Reboco e regularização de parede externa, obra em Tatuapé. Dois dias de serviço.', date: '2026-09-10' },
+  { id: 'wp2', workerId: 'jorge', mediaUrl: null, mediaType: 'image', caption: 'Acabamento em massa corrida antes da pintura. Cliente pediu prazo curto e entreguei em 1 diária.', date: '2026-08-22' },
+  { id: 'wp3', workerId: 'jorge', mediaUrl: null, mediaType: 'image', caption: 'Assentamento de contrapiso em área externa.', date: '2026-08-05' }
+];
