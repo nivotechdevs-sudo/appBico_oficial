@@ -2,7 +2,7 @@
 // next action, reused by MyApplications, SavedJobs and any other screen showing it.
 export function statusInfo(status, jobId) {
   switch (status) {
-    case 'enviada': return { label: 'Enviada', tone: 'neutral', icon: 'send', hint: 'Ver a vaga', to: '/vaga/' + jobId };
+    case 'enviada':
     case 'em_analise': return { label: 'Em análise', tone: 'warning', icon: 'clock', hint: 'Ver a vaga', to: '/vaga/' + jobId };
     case 'pre_selecionado': return { label: 'Pré-selecionado', tone: 'brand', icon: 'message-circle', hint: 'Falar no WhatsApp', to: '/selecionado/' + jobId };
     case 'contratado': return { label: 'Contratado', tone: 'success', icon: 'circle-check', hint: 'Falar no WhatsApp', to: '/selecionado/' + jobId };

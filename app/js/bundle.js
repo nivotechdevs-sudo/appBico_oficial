@@ -784,6 +784,13 @@
     }
     notify();
   }
+  function cancelApplication(jobId, workerId) {
+    const i = state.db.applications.findIndex((a) => a.jobId === jobId && a.workerId === workerId);
+    if (i >= 0) {
+      state.db.applications.splice(i, 1);
+      notify();
+    }
+  }
   function decideApplication(jobId, workerId, decision) {
     const app = applicationFor(jobId, workerId);
     if (!app) return;
@@ -990,7 +997,6 @@
   function statusInfo(status, jobId) {
     switch (status) {
       case "enviada":
-        return { label: "Enviada", tone: "neutral", icon: "send", hint: "Ver a vaga", to: "/vaga/" + jobId };
       case "em_analise":
         return { label: "Em an\xE1lise", tone: "warning", icon: "clock", hint: "Ver a vaga", to: "/vaga/" + jobId };
       case "pre_selecionado":
@@ -2725,7 +2731,7 @@
     const isOwn = !params.id;
     const company = isOwn ? currentCompany() : getCompany(params.id);
     if (!company) return notFound2(navigate2);
-    const ui = getUI("company-profile", { capa: null, deleteId: null });
+    const ui = getUI("company-profile", { capa: null, logo: null, deleteId: null });
     const openJobs = activeJobs().filter((j) => j.companyId === company.id && !j.closed && !isJobFull(j));
     const postToDelete = openJobs.find((j) => j.id === ui.deleteId);
     const successfulJobs = successfulJobsForCompany(company.id);
@@ -2740,7 +2746,11 @@
         h(
           "div",
           { class: "absolute left-4 sm:left-6 -bottom-10 w-24 h-24 rounded-full bg-white p-1 shadow-raised" },
-          h("div", { class: "w-full h-full rounded-full bg-brand-50 flex items-center justify-center overflow-hidden" }, Icon("building-2", { size: 26, color: "var(--brand)" }))
+          h(
+            "div",
+            { class: "w-full h-full rounded-full bg-brand-50 flex items-center justify-center overflow-hidden" },
+            isOwn && ui.logo ? h("img", { src: ui.logo, alt: "", class: "w-full h-full object-cover" }) : Icon("building-2", { size: 26, color: "var(--brand)" })
+          )
         )
       ),
       h(
@@ -2864,7 +2874,7 @@
   function renderEditCompanyProfile(navigate2) {
     const company = currentCompany();
     const ui = getUI(KEY7, () => ({ name: company.name, tipoObra: company.tipoObra, location: company.location, whatsapp: company.whatsapp }));
-    const banner = getUI(BANNER_KEY2, { capa: null, deleteId: null });
+    const banner = getUI(BANNER_KEY2, { capa: null, logo: null, deleteId: null });
     return h(
       "div",
       { class: "min-h-screen flex flex-col bg-concrete-50 lg:bg-transparent lg:min-h-0" },
@@ -2877,6 +2887,17 @@
           { class: "flex flex-col gap-1.5" },
           h("span", { class: "text-sm font-semibold text-concrete-900" }, "Foto de capa"),
           PhotoSlot({ shape: "rect", height: "9rem", placeholder: "Capa da construtora", value: banner.capa, onChange: (v) => setUI(BANNER_KEY2, { capa: v }) })
+        ),
+        h(
+          "div",
+          { class: "flex items-center gap-4" },
+          PhotoSlot({ shape: "circle", value: banner.logo, onChange: (v) => setUI(BANNER_KEY2, { logo: v }), className: "w-20 h-20 shrink-0", placeholder: "Logo" }),
+          h(
+            "div",
+            { class: "flex flex-col gap-1" },
+            h("span", { class: "text-sm font-semibold text-concrete-900" }, "Foto de perfil"),
+            h("span", { class: "text-sm text-concrete-500" }, "Aparece como o \xEDcone da sua empresa no app.")
+          )
         ),
         Input({ id: "edit-company-name", label: "Nome da empresa", icon: "building-2", hint: "\xC9 esse nome que aparece no seu perfil e nas vagas que voc\xEA publicar.", value: ui.name, onInput: (v) => setUI(KEY7, { name: v }) }),
         h(
@@ -3185,6 +3206,7 @@
   }
 
   // js/screens/worker/JobDetail.js
+  var KEY9 = "job-detail";
   function renderJobDetail(navigate2, params) {
     const job = getJob(params.id);
     if (!job) return notFound4(navigate2);
@@ -3192,6 +3214,8 @@
     const role = getRole();
     const worker = currentWorker();
     const application = role === "trabalhador" ? applicationFor(job.id, worker.id) : null;
+    const canCancel = application && (application.status === "enviada" || application.status === "em_analise");
+    const ui = getUI(KEY9, { confirmCancel: false });
     return h(
       "div",
       { class: "flex flex-col" },
@@ -3272,9 +3296,28 @@
       role === "trabalhador" ? h(
         "div",
         { class: "sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app" },
-        application ? Button({ label: "Ver minhas candidaturas", size: "lg", fullWidth: true, variant: "secondary", onClick: () => navigate2("/minhas-candidaturas") }) : Button({ label: "Quero esse bico", size: "lg", fullWidth: true, onClick: () => navigate2("/confirmar/" + job.id) }),
+        application ? h(
+          "div",
+          { class: "flex flex-col gap-2" },
+          Button({ label: "Ver minhas candidaturas", size: "lg", fullWidth: true, variant: "secondary", onClick: () => navigate2("/minhas-candidaturas") }),
+          canCancel ? Button({ label: "Cancelar candidatura", variant: "ghost", fullWidth: true, onClick: () => setUI(KEY9, { confirmCancel: true }) }) : null
+        ) : Button({ label: "Quero esse bico", size: "lg", fullWidth: true, onClick: () => navigate2("/confirmar/" + job.id) }),
         !application ? h("span", { class: "text-center text-xs text-concrete-500" }, "Voc\xEA n\xE3o paga nada para se candidatar") : null
-      ) : null
+      ) : null,
+      Dialog({
+        open: ui.confirmCancel,
+        tone: "danger",
+        title: "Cancelar essa candidatura?",
+        description: "Voc\xEA sai da lista de candidatos dessa vaga. Se quiser, pode se candidatar de novo depois.",
+        confirmLabel: "Cancelar candidatura",
+        onConfirm: () => {
+          cancelApplication(job.id, worker.id);
+          setUI(KEY9, { confirmCancel: false });
+          navigate2("/minhas-candidaturas");
+        },
+        cancelLabel: "Voltar",
+        onCancel: () => setUI(KEY9, { confirmCancel: false })
+      })
     );
   }
   function section(title, content) {
@@ -3298,13 +3341,13 @@
   }
 
   // js/screens/worker/ConfirmApplication.js
-  var KEY9 = "confirm-application";
+  var KEY10 = "confirm-application";
   function renderConfirmApplication(navigate2, params) {
     const job = getJob(params.id);
     if (!job) return h("div", { class: "p-6 text-concrete-500" }, "Vaga n\xE3o encontrada.");
     const company = getCompany(job.companyId);
     const worker = currentWorker();
-    const ui = getUI(KEY9, { submitting: false });
+    const ui = getUI(KEY10, { submitting: false });
     return h(
       "div",
       { class: "flex flex-col" },
@@ -3349,9 +3392,9 @@
           fullWidth: true,
           loading: ui.submitting,
           onClick: () => {
-            setUI(KEY9, { submitting: true });
+            setUI(KEY10, { submitting: true });
             setTimeout(() => {
-              setUI(KEY9, { submitting: false });
+              setUI(KEY10, { submitting: false });
               applyToJob(job.id, worker.id);
               navigate2("/enviado/" + job.id);
             }, 600);
@@ -3559,7 +3602,7 @@
   }
 
   // js/screens/worker/RateJob.js
-  var KEY10 = "rate-job";
+  var KEY11 = "rate-job";
   var OPTIONS = [
     { id: "pagou", label: "Pagou no dia", icon: "hand-coins" },
     { id: "epi", label: "EPI no local", icon: "hard-hat" },
@@ -3570,7 +3613,7 @@
     const job = getJob(params.id);
     if (!job) return h("div", { class: "p-6 text-concrete-500" }, "Vaga n\xE3o encontrada.");
     const company = getCompany(job.companyId);
-    const ui = getUI(KEY10, { rating: 5, selected: ["pagou"], comment: "" });
+    const ui = getUI(KEY11, { rating: 5, selected: ["pagou"], comment: "" });
     return h(
       "div",
       { class: "flex flex-col" },
@@ -3590,7 +3633,7 @@
             "div",
             { class: "flex flex-col items-center gap-3" },
             h("span", { class: "font-semibold text-concrete-900" }, "Sua nota para a construtora"),
-            Rating({ value: ui.rating, editable: true, onChange: (v) => setUI(KEY10, { rating: v }) })
+            Rating({ value: ui.rating, editable: true, onChange: (v) => setUI(KEY11, { rating: v }) })
           )
         ),
         h(
@@ -3601,7 +3644,7 @@
             label: o.label,
             icon: o.icon,
             selected: ui.selected.includes(o.id),
-            onClick: () => setUI(KEY10, { selected: ui.selected.includes(o.id) ? ui.selected.filter((x) => x !== o.id) : ui.selected.concat([o.id]) })
+            onClick: () => setUI(KEY11, { selected: ui.selected.includes(o.id) ? ui.selected.filter((x) => x !== o.id) : ui.selected.concat([o.id]) })
           })))
         ),
         Input({
@@ -3610,7 +3653,7 @@
           placeholder: "Ex.: obra organizada, pagamento em PIX no fim do dia",
           hint: "Sua avalia\xE7\xE3o aparece no perfil da construtora.",
           value: ui.comment,
-          onInput: (v) => setUI(KEY10, { comment: v })
+          onInput: (v) => setUI(KEY11, { comment: v })
         }),
         h("div", { class: "pt-1" }, Button({
           label: "Enviar avalia\xE7\xE3o",
@@ -3626,7 +3669,7 @@
   }
 
   // js/screens/recruiter/CreateJob.js
-  var KEY11 = "create-job";
+  var KEY12 = "create-job";
   function nextJobId() {
     return "BC-" + (5100 + Math.floor(Math.random() * 800));
   }
@@ -3634,7 +3677,7 @@
     return String(v).replace(/\D/g, "").slice(0, max);
   }
   function renderCreateJob(navigate2) {
-    const ui = getUI(KEY11, {
+    const ui = getUI(KEY12, {
       step: 1,
       foto: null,
       tipo: "",
@@ -3677,18 +3720,18 @@
       if (ui.step === 1) {
         const errors2 = validateStep1();
         if (Object.keys(errors2).length) {
-          setUI(KEY11, { errors: errors2 });
+          setUI(KEY12, { errors: errors2 });
           return;
         }
-        setUI(KEY11, { step: 2, errors: {} });
+        setUI(KEY12, { step: 2, errors: {} });
         return;
       }
       const errors = validateStep2();
       if (Object.keys(errors).length) {
-        setUI(KEY11, { errors });
+        setUI(KEY12, { errors });
         return;
       }
-      setUI(KEY11, { publishing: true });
+      setUI(KEY12, { publishing: true });
       setTimeout(() => {
         const id = nextJobId();
         const hours = `${ui.periodoInicio}h\u2013${ui.periodoFim}h`;
@@ -3711,8 +3754,8 @@
           description: ui.detalhe.trim(),
           photo: ui.foto
         });
-        setUI(KEY11, { publishing: false });
-        resetUI(KEY11);
+        setUI(KEY12, { publishing: false });
+        resetUI(KEY12);
         navigate2("/vaga-publicada/" + id);
       }, 700);
     }
@@ -3723,7 +3766,7 @@
         "div",
         { class: "flex flex-col gap-1.5" },
         h("span", { class: "text-sm font-semibold text-concrete-900" }, "Foto da vaga (opcional)"),
-        PhotoSlot({ shape: "rect", height: "9rem", placeholder: "Toque para escolher uma foto do canteiro", value: ui.foto, onChange: (v) => setUI(KEY11, { foto: v }) }),
+        PhotoSlot({ shape: "rect", height: "9rem", placeholder: "Toque para escolher uma foto do canteiro", value: ui.foto, onChange: (v) => setUI(KEY12, { foto: v }) }),
         h("span", { class: "text-sm text-concrete-500" }, 'Aparece no card da vaga no mural. Voc\xEA pode trocar depois em "Sua vaga".')
       ),
       Input({
@@ -3733,10 +3776,10 @@
         icon: "hammer",
         value: ui.tipo,
         error: ui.errors.tipo,
-        onInput: (v) => setUI(KEY11, { tipo: v, errors: Object.assign({}, ui.errors, { tipo: null }) })
+        onInput: (v) => setUI(KEY12, { tipo: v, errors: Object.assign({}, ui.errors, { tipo: null }) })
       }),
-      Input({ id: "create-job-local", label: "Endere\xE7o da obra", placeholder: "Rua, n\xFAmero e bairro", icon: "map-pin", value: ui.local, error: ui.errors.local, onInput: (v) => setUI(KEY11, { local: v, errors: Object.assign({}, ui.errors, { local: null }) }) }),
-      Input({ id: "create-job-data", label: "Data da di\xE1ria", placeholder: "Ex.: 12 set", icon: "calendar", value: ui.data, error: ui.errors.data, onInput: (v) => setUI(KEY11, { data: v, errors: Object.assign({}, ui.errors, { data: null }) }) }),
+      Input({ id: "create-job-local", label: "Endere\xE7o da obra", placeholder: "Rua, n\xFAmero e bairro", icon: "map-pin", value: ui.local, error: ui.errors.local, onInput: (v) => setUI(KEY12, { local: v, errors: Object.assign({}, ui.errors, { local: null }) }) }),
+      Input({ id: "create-job-data", label: "Data da di\xE1ria", placeholder: "Ex.: 12 set", icon: "calendar", value: ui.data, error: ui.errors.data, onInput: (v) => setUI(KEY12, { data: v, errors: Object.assign({}, ui.errors, { data: null }) }) }),
       h(
         "div",
         { class: "flex flex-col gap-1.5" },
@@ -3744,8 +3787,8 @@
         h(
           "div",
           { class: "flex items-end gap-3" },
-          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-inicio", label: "Das", placeholder: "7", suffix: "h", inputMode: "numeric", value: ui.periodoInicio, onInput: (v) => setUI(KEY11, { periodoInicio: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) })),
-          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-fim", label: "At\xE9", placeholder: "17", suffix: "h", inputMode: "numeric", value: ui.periodoFim, onInput: (v) => setUI(KEY11, { periodoFim: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) }))
+          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-inicio", label: "Das", placeholder: "7", suffix: "h", inputMode: "numeric", value: ui.periodoInicio, onInput: (v) => setUI(KEY12, { periodoInicio: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) })),
+          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-fim", label: "At\xE9", placeholder: "17", suffix: "h", inputMode: "numeric", value: ui.periodoFim, onInput: (v) => setUI(KEY12, { periodoFim: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) }))
         ),
         ui.errors.periodo ? h("span", { class: "text-sm text-danger-500" }, ui.errors.periodo) : null
       ),
@@ -3757,7 +3800,7 @@
         inputMode: "numeric",
         value: ui.diarias,
         error: ui.errors.diarias,
-        onInput: (v) => setUI(KEY11, { diarias: digits(v, 2), errors: Object.assign({}, ui.errors, { diarias: null }) })
+        onInput: (v) => setUI(KEY12, { diarias: digits(v, 2), errors: Object.assign({}, ui.errors, { diarias: null }) })
       })
     );
     const step2 = h(
@@ -3775,22 +3818,22 @@
           value: ui.negociavel ? "" : ui.valor,
           error: ui.errors.valor,
           hint: ui.errors.valor || ui.negociavel ? null : "O trabalhador v\xEA esse valor no mural. M\xEDnimo de R$ 80.",
-          onInput: (v) => setUI(KEY11, { valor: digits(v, 5), errors: Object.assign({}, ui.errors, { valor: null }) })
+          onInput: (v) => setUI(KEY12, { valor: digits(v, 5), errors: Object.assign({}, ui.errors, { valor: null }) })
         }),
-        ui.negociavel ? null : Button({ label: "Deixar valor a combinar", variant: "ghost", size: "sm", iconLeft: "handshake", onClick: () => setUI(KEY11, { negociavel: true, valor: "", errors: Object.assign({}, ui.errors, { valor: null }) }) }),
+        ui.negociavel ? null : Button({ label: "Deixar valor a combinar", variant: "ghost", size: "sm", iconLeft: "handshake", onClick: () => setUI(KEY12, { negociavel: true, valor: "", errors: Object.assign({}, ui.errors, { valor: null }) }) }),
         ui.negociavel ? h(
           "div",
           { class: "flex items-center gap-2 p-3 rounded-control bg-brand-50 border border-brand-200" },
           Icon("handshake", { size: 18, color: "var(--text-brand)" }),
           h("span", { class: "flex-1 text-sm text-brand-600" }, 'O trabalhador v\xEA "A combinar" no lugar do valor, e negocia direto com voc\xEA.'),
-          Button({ label: "Definir um valor", variant: "ghost", size: "sm", onClick: () => setUI(KEY11, { negociavel: false }) })
+          Button({ label: "Definir um valor", variant: "ghost", size: "sm", onClick: () => setUI(KEY12, { negociavel: false }) })
         ) : null
       ),
       h(
         "div",
         { class: "flex flex-col gap-2.5" },
         h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "O que o trabalhador precisa levar"),
-        h("div", { class: "flex flex-wrap gap-2" }, ...REQUISITOS_OPCOES.map((r) => Tag({ label: r, selected: ui.requisitos.includes(r), onClick: () => setUI(KEY11, { requisitos: ui.requisitos.includes(r) ? ui.requisitos.filter((x) => x !== r) : ui.requisitos.concat([r]) }) })))
+        h("div", { class: "flex flex-wrap gap-2" }, ...REQUISITOS_OPCOES.map((r) => Tag({ label: r, selected: ui.requisitos.includes(r), onClick: () => setUI(KEY12, { requisitos: ui.requisitos.includes(r) ? ui.requisitos.filter((x) => x !== r) : ui.requisitos.concat([r]) }) })))
       ),
       h(
         "div",
@@ -3806,11 +3849,11 @@
             "w-full px-3 py-2.5 bg-white rounded-control border outline-none text-base text-concrete-900 placeholder:text-concrete-400 resize-none transition-colors duration-150",
             ui.errors.detalhe ? "border-danger-500" : "border-concrete-300 focus:border-brand-500 focus:ring-4 focus:ring-brand-100"
           ),
-          oninput: (e) => setUI(KEY11, { detalhe: e.target.value, errors: Object.assign({}, ui.errors, { detalhe: null }) })
+          oninput: (e) => setUI(KEY12, { detalhe: e.target.value, errors: Object.assign({}, ui.errors, { detalhe: null }) })
         }),
         ui.errors.detalhe ? h("span", { class: "flex items-center gap-1.5 text-sm text-danger-500" }, Icon("circle-alert", { size: 14 }), ui.errors.detalhe) : h("span", { class: "text-sm text-concrete-500" }, "Quanto mais claro, menos desencontro no canteiro. Essa descri\xE7\xE3o aparece para quem ver o bico.")
       ),
-      h("div", { class: "pt-1 border-t border-concrete-200" }, Switch({ label: "Marcar como urgente", description: "A vaga aparece no topo do mural com selo de urgente.", checked: ui.urgente, onChange: (v) => setUI(KEY11, { urgente: v }) })),
+      h("div", { class: "pt-1 border-t border-concrete-200" }, Switch({ label: "Marcar como urgente", description: "A vaga aparece no topo do mural com selo de urgente.", checked: ui.urgente, onChange: (v) => setUI(KEY12, { urgente: v }) })),
       Card(
         { tone: "sunken", padding: "md" },
         h(
@@ -3839,7 +3882,7 @@
     return h(
       "div",
       { class: "flex flex-col" },
-      BackBar({ title: "Publicar vaga", onBack: () => ui.step === 2 ? setUI(KEY11, { step: 1 }) : goBack("/mural") }),
+      BackBar({ title: "Publicar vaga", onBack: () => ui.step === 2 ? setUI(KEY12, { step: 1 }) : goBack("/mural") }),
       h(
         "div",
         { class: "flex items-center gap-2 px-4 sm:px-0 pt-3" },
@@ -3944,11 +3987,11 @@
   }
 
   // js/screens/recruiter/JobManage.js
-  var KEY12 = "job-manage";
+  var KEY13 = "job-manage";
   function renderJobManage(navigate2, params) {
     const job = getJob(params.id);
     if (!job) return h("div", { class: "p-6 text-concrete-500" }, "Vaga n\xE3o encontrada.");
-    const ui = getUI(KEY12, { confirmClose: false });
+    const ui = getUI(KEY13, { confirmClose: false });
     const applications = applicationsForJob(job.id);
     const slots = job.slots || 1;
     const approved = approvedCount(job.id);
@@ -4061,7 +4104,7 @@
         { class: "sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app" },
         Button({ label: "Editar vaga", variant: "secondary", iconLeft: "pencil", className: "flex-1", onClick: () => {
         } }),
-        Button({ label: "Encerrar vaga", variant: "ghost", className: "flex-1", onClick: () => setUI(KEY12, { confirmClose: true }) })
+        Button({ label: "Encerrar vaga", variant: "ghost", className: "flex-1", onClick: () => setUI(KEY13, { confirmClose: true }) })
       ) : null,
       Dialog({
         open: ui.confirmClose,
@@ -4071,11 +4114,11 @@
         confirmLabel: "Encerrar vaga",
         onConfirm: () => {
           closeJob(job.id);
-          setUI(KEY12, { confirmClose: false });
+          setUI(KEY13, { confirmClose: false });
           navigate2("/mural");
         },
         cancelLabel: "Cancelar",
-        onCancel: () => setUI(KEY12, { confirmClose: false })
+        onCancel: () => setUI(KEY13, { confirmClose: false })
       })
     );
   }
@@ -4168,7 +4211,7 @@
   }
 
   // js/screens/recruiter/BoostJob.js
-  var KEY13 = "boost-job";
+  var KEY14 = "boost-job";
   var PLANS = [
     { id: "24h", label: "Topo do mural por 24h", desc: "Aparece antes das outras vagas da regi\xE3o.", price: "R$ 12" },
     { id: "3d", label: "Topo do mural por 3 dias", desc: "Para vaga com data mais distante.", price: "R$ 28" },
@@ -4177,7 +4220,7 @@
   function renderBoostJob(navigate2, params) {
     const job = getJob(params.id);
     if (!job) return h("div", { class: "p-6 text-concrete-500" }, "Vaga n\xE3o encontrada.");
-    const ui = getUI(KEY13, { plan: "24h" });
+    const ui = getUI(KEY14, { plan: "24h" });
     const chosen = PLANS.find((p) => p.id === ui.plan);
     return h(
       "div",
@@ -4212,7 +4255,7 @@
               "button",
               {
                 type: "button",
-                onClick: () => setUI(KEY13, { plan: p.id }),
+                onClick: () => setUI(KEY14, { plan: p.id }),
                 class: `flex items-center gap-3 w-full min-h-[4.5rem] px-4 py-3.5 rounded-card border transition-colors text-left ${active ? "bg-brand-50 border-brand-500" : "bg-white border-concrete-300 shadow-card"}`
               },
               h("span", { class: `shrink-0 w-5 h-5 rounded-full border-2 ${active ? "border-brand-500 bg-brand-500" : "border-concrete-400"}` }),

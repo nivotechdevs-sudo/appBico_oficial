@@ -90,6 +90,11 @@ export function applyToJob(jobId, workerId) {
   notify();
 }
 
+export function cancelApplication(jobId, workerId) {
+  const i = state.db.applications.findIndex((a) => a.jobId === jobId && a.workerId === workerId);
+  if (i >= 0) { state.db.applications.splice(i, 1); notify(); }
+}
+
 export function decideApplication(jobId, workerId, decision) {
   const app = applicationFor(jobId, workerId);
   if (!app) return;

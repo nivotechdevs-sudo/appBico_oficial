@@ -4,10 +4,13 @@ import { Card } from '../../components/Card.js';
 import { Badge } from '../../components/Badge.js';
 import { Rating } from '../../components/Rating.js';
 import { Button } from '../../components/Button.js';
+import { Dialog } from '../../components/Modal.js';
 import { Icon } from '../../utils/icons.js';
 import { formatBRL } from '../../utils/format.js';
 import { goBack } from '../../router.js';
 import * as store from '../../store.js';
+
+const KEY = 'job-detail';
 
 export default function renderJobDetail(navigate, params) {
   const job = store.getJob(params.id);
@@ -16,6 +19,8 @@ export default function renderJobDetail(navigate, params) {
   const role = store.getRole();
   const worker = store.currentWorker();
   const application = role === 'trabalhador' ? store.applicationFor(job.id, worker.id) : null;
+  const canCancel = application && (application.status === 'enviada' || application.status === 'em_analise');
+  const ui = store.getUI(KEY, { confirmCancel: false });
 
   return h('div', { class: 'flex flex-col' },
     BackBar({ title: 'Detalhe da vaga', onBack: () => goBack('/mural') }),
@@ -74,10 +79,20 @@ export default function renderJobDetail(navigate, params) {
 
     role === 'trabalhador' ? h('div', { class: 'sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app' },
       application
-        ? Button({ label: 'Ver minhas candidaturas', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => navigate('/minhas-candidaturas') })
+        ? h('div', { class: 'flex flex-col gap-2' },
+            Button({ label: 'Ver minhas candidaturas', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => navigate('/minhas-candidaturas') }),
+            canCancel ? Button({ label: 'Cancelar candidatura', variant: 'ghost', fullWidth: true, onClick: () => store.setUI(KEY, { confirmCancel: true }) }) : null
+          )
         : Button({ label: 'Quero esse bico', size: 'lg', fullWidth: true, onClick: () => navigate('/confirmar/' + job.id) }),
       !application ? h('span', { class: 'text-center text-xs text-concrete-500' }, 'Você não paga nada para se candidatar') : null
-    ) : null
+    ) : null,
+
+    Dialog({
+      open: ui.confirmCancel, tone: 'danger', title: 'Cancelar essa candidatura?',
+      description: 'Você sai da lista de candidatos dessa vaga. Se quiser, pode se candidatar de novo depois.',
+      confirmLabel: 'Cancelar candidatura', onConfirm: () => { store.cancelApplication(job.id, worker.id); store.setUI(KEY, { confirmCancel: false }); navigate('/minhas-candidaturas'); },
+      cancelLabel: 'Voltar', onCancel: () => store.setUI(KEY, { confirmCancel: false })
+    })
   );
 }
 

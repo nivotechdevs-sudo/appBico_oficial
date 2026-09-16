@@ -16,7 +16,7 @@ export default function renderCompanyProfile(navigate, params) {
   const company = isOwn ? store.currentCompany() : store.getCompany(params.id);
   if (!company) return notFound(navigate);
 
-  const ui = store.getUI('company-profile', { capa: null, deleteId: null });
+  const ui = store.getUI('company-profile', { capa: null, logo: null, deleteId: null });
 
   const openJobs = store.activeJobs().filter((j) => j.companyId === company.id && !j.closed && !store.isJobFull(j));
   const postToDelete = openJobs.find((j) => j.id === ui.deleteId);
@@ -29,7 +29,11 @@ export default function renderCompanyProfile(navigate, params) {
         : h('div', { class: 'h-48 bg-concrete-200 lg:rounded-card' }),
       !isOwn ? h('div', { class: 'absolute top-2 left-2' }, IconButton({ icon: 'arrow-left', label: 'Voltar', variant: 'solid', onClick: () => goBack('/mural') })) : null,
       h('div', { class: 'absolute left-4 sm:left-6 -bottom-10 w-24 h-24 rounded-full bg-white p-1 shadow-raised' },
-        h('div', { class: 'w-full h-full rounded-full bg-brand-50 flex items-center justify-center overflow-hidden' }, Icon('building-2', { size: 26, color: 'var(--brand)' }))
+        h('div', { class: 'w-full h-full rounded-full bg-brand-50 flex items-center justify-center overflow-hidden' },
+          isOwn && ui.logo
+            ? h('img', { src: ui.logo, alt: '', class: 'w-full h-full object-cover' })
+            : Icon('building-2', { size: 26, color: 'var(--brand)' })
+        )
       )
     ),
     h('div', { class: 'flex flex-col gap-5 pt-12 px-4 sm:px-6 pb-24 lg:pb-6' },

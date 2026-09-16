@@ -15,7 +15,7 @@ const BANNER_KEY = 'company-profile';
 export default function renderEditCompanyProfile(navigate) {
   const company = currentCompany();
   const ui = getUI(KEY, () => ({ name: company.name, tipoObra: company.tipoObra, location: company.location, whatsapp: company.whatsapp }));
-  const banner = getUI(BANNER_KEY, { capa: null, deleteId: null });
+  const banner = getUI(BANNER_KEY, { capa: null, logo: null, deleteId: null });
 
   return h('div', { class: 'min-h-screen flex flex-col bg-concrete-50 lg:bg-transparent lg:min-h-0' },
     BackBar({ title: 'Editar empresa', onBack: () => goBack('/empresa') }),
@@ -23,6 +23,13 @@ export default function renderEditCompanyProfile(navigate) {
       h('div', { class: 'flex flex-col gap-1.5' },
         h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Foto de capa'),
         PhotoSlot({ shape: 'rect', height: '9rem', placeholder: 'Capa da construtora', value: banner.capa, onChange: (v) => setUI(BANNER_KEY, { capa: v }) })
+      ),
+      h('div', { class: 'flex items-center gap-4' },
+        PhotoSlot({ shape: 'circle', value: banner.logo, onChange: (v) => setUI(BANNER_KEY, { logo: v }), className: 'w-20 h-20 shrink-0', placeholder: 'Logo' }),
+        h('div', { class: 'flex flex-col gap-1' },
+          h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Foto de perfil'),
+          h('span', { class: 'text-sm text-concrete-500' }, 'Aparece como o ícone da sua empresa no app.')
+        )
       ),
       Input({ id: 'edit-company-name', label: 'Nome da empresa', icon: 'building-2', hint: 'É esse nome que aparece no seu perfil e nas vagas que você publicar.', value: ui.name, onInput: (v) => setUI(KEY, { name: v }) }),
       h('div', { class: 'flex flex-col gap-1.5 w-full' },
