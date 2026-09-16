@@ -2376,7 +2376,9 @@
     const isOwn = !params.id;
     const worker = isOwn ? currentWorker() : getWorker(params.id);
     if (!worker) return notFound(navigate2);
-    const jobId = params.jobId;
+    const jobIdRaw = params.jobId;
+    const jobForCtx = jobIdRaw ? getJob(jobIdRaw) : null;
+    const jobId = jobForCtx && getRole() === "recrutador" && jobForCtx.companyId === currentCompanyId() ? jobIdRaw : null;
     const decision = jobId ? (applicationFor(jobId, worker.id) || {}).status : null;
     const decidedForJob = jobId && (decision === "pre_selecionado" || decision === "nao_selecionado");
     const jobFull = jobId ? isJobClosed(getJob(jobId)) : false;
@@ -2890,14 +2892,8 @@
         ),
         h(
           "div",
-          { class: "flex items-center gap-4" },
-          PhotoSlot({ shape: "circle", value: banner.logo, onChange: (v) => setUI(BANNER_KEY2, { logo: v }), className: "w-20 h-20 shrink-0", placeholder: "Logo" }),
-          h(
-            "div",
-            { class: "flex flex-col gap-1" },
-            h("span", { class: "text-sm font-semibold text-concrete-900" }, "Foto de perfil"),
-            h("span", { class: "text-sm text-concrete-500" }, "Aparece como o \xEDcone da sua empresa no app.")
-          )
+          { class: "flex flex-col items-center gap-2" },
+          PhotoSlot({ shape: "circle", value: banner.logo, onChange: (v) => setUI(BANNER_KEY2, { logo: v }), className: "w-24 h-24", placeholder: "Logo" })
         ),
         Input({ id: "edit-company-name", label: "Nome da empresa", icon: "building-2", hint: "\xC9 esse nome que aparece no seu perfil e nas vagas que voc\xEA publicar.", value: ui.name, onInput: (v) => setUI(KEY7, { name: v }) }),
         h(
@@ -3296,12 +3292,7 @@
       role === "trabalhador" ? h(
         "div",
         { class: "sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app" },
-        application ? h(
-          "div",
-          { class: "flex flex-col gap-2" },
-          Button({ label: "Ver minhas candidaturas", size: "lg", fullWidth: true, variant: "secondary", onClick: () => navigate2("/minhas-candidaturas") }),
-          canCancel ? Button({ label: "Cancelar candidatura", variant: "ghost", fullWidth: true, onClick: () => setUI(KEY9, { confirmCancel: true }) }) : null
-        ) : Button({ label: "Quero esse bico", size: "lg", fullWidth: true, onClick: () => navigate2("/confirmar/" + job.id) }),
+        application ? canCancel ? Button({ label: "Cancelar candidatura", size: "lg", fullWidth: true, variant: "secondary", onClick: () => setUI(KEY9, { confirmCancel: true }) }) : Button({ label: "Ver minhas candidaturas", size: "lg", fullWidth: true, variant: "secondary", onClick: () => navigate2("/minhas-candidaturas") }) : Button({ label: "Quero esse bico", size: "lg", fullWidth: true, onClick: () => navigate2("/confirmar/" + job.id) }),
         !application ? h("span", { class: "text-center text-xs text-concrete-500" }, "Voc\xEA n\xE3o paga nada para se candidatar") : null
       ) : null,
       Dialog({
@@ -3686,6 +3677,7 @@
       periodoInicio: "7",
       periodoFim: "17",
       diarias: "1",
+      vagas: "1",
       valor: "",
       negociavel: false,
       requisitos: ["Botina e capacete pr\xF3prios"],
@@ -3704,6 +3696,7 @@
       if (!ui.data.trim()) errors.data = "Informe a data da di\xE1ria.";
       if (!ui.periodoInicio || !ui.periodoFim) errors.periodo = "Informe o hor\xE1rio de in\xEDcio e fim.";
       if (!ui.diarias || Number(ui.diarias) < 1) errors.diarias = "Informe quantas di\xE1rias.";
+      if (!ui.vagas || Number(ui.vagas) < 1) errors.vagas = "Informe quantas pessoas a vaga precisa.";
       return errors;
     }
     function validateStep2() {
@@ -3749,7 +3742,7 @@
           hours,
           duration: diariasNum === 1 ? "1 di\xE1ria" : `${diariasNum} di\xE1rias`,
           urgent: ui.urgente,
-          slots: 1,
+          slots: Number(ui.vagas) || 1,
           requirements: ui.requisitos,
           description: ui.detalhe.trim(),
           photo: ui.foto
@@ -3801,6 +3794,17 @@
         value: ui.diarias,
         error: ui.errors.diarias,
         onInput: (v) => setUI(KEY12, { diarias: digits(v, 2), errors: Object.assign({}, ui.errors, { diarias: null }) })
+      }),
+      Input({
+        id: "create-job-vagas",
+        label: "Quantidade de pessoas para a vaga",
+        placeholder: "1",
+        suffix: "pessoa(s)",
+        inputMode: "numeric",
+        hint: "Quantos trabalhadores voc\xEA precisa contratar para esse bico.",
+        error: ui.errors.vagas,
+        value: ui.vagas,
+        onInput: (v) => setUI(KEY12, { vagas: digits(v, 2), errors: Object.assign({}, ui.errors, { vagas: null }) })
       })
     );
     const step2 = h(
@@ -3991,6 +3995,18 @@
   function renderJobManage(navigate2, params) {
     const job = getJob(params.id);
     if (!job) return h("div", { class: "p-6 text-concrete-500" }, "Vaga n\xE3o encontrada.");
+    if (job.companyId !== currentCompanyId()) {
+      return h(
+        "div",
+        { class: "flex flex-col" },
+        BackBar({ title: "Sua vaga", onBack: () => goBack("/mural") }),
+        EmptyState({
+          icon: "lock",
+          title: "Essa vaga n\xE3o \xE9 sua",
+          description: "S\xF3 a construtora que publicou o bico pode ver os candidatos e a quantidade de vagas."
+        })
+      );
+    }
     const ui = getUI(KEY13, { confirmClose: false });
     const applications = applicationsForJob(job.id);
     const slots = job.slots || 1;

@@ -23,7 +23,7 @@ function digits(v, max) {
 
 export default function renderCreateJob(navigate) {
   const ui = getUI(KEY, {
-    step: 1, foto: null, tipo: '', local: '', data: '', periodoInicio: '7', periodoFim: '17', diarias: '1',
+    step: 1, foto: null, tipo: '', local: '', data: '', periodoInicio: '7', periodoFim: '17', diarias: '1', vagas: '1',
     valor: '', negociavel: false, requisitos: ['Botina e capacete próprios'], detalhe: '', urgente: false,
     errors: {}, publishing: false
   });
@@ -39,6 +39,7 @@ export default function renderCreateJob(navigate) {
     if (!ui.data.trim()) errors.data = 'Informe a data da diária.';
     if (!ui.periodoInicio || !ui.periodoFim) errors.periodo = 'Informe o horário de início e fim.';
     if (!ui.diarias || Number(ui.diarias) < 1) errors.diarias = 'Informe quantas diárias.';
+    if (!ui.vagas || Number(ui.vagas) < 1) errors.vagas = 'Informe quantas pessoas a vaga precisa.';
     return errors;
   }
   function validateStep2() {
@@ -69,7 +70,7 @@ export default function renderCreateJob(navigate) {
       createJob({
         id, companyId: currentCompanyId(), role: ui.tipo.trim(), pay: ui.negociavel ? null : parseInt(ui.valor, 10),
         location: 'Tatuapé, SP', address: ui.local, distance: '0 km', date: ui.data, dateLong: `${ui.data} · ${hours}`,
-        hours, duration: diariasNum === 1 ? '1 diária' : `${diariasNum} diárias`, urgent: ui.urgente, slots: 1, requirements: ui.requisitos,
+        hours, duration: diariasNum === 1 ? '1 diária' : `${diariasNum} diárias`, urgent: ui.urgente, slots: Number(ui.vagas) || 1, requirements: ui.requisitos,
         description: ui.detalhe.trim(), photo: ui.foto
       });
       setUI(KEY, { publishing: false });
@@ -101,6 +102,11 @@ export default function renderCreateJob(navigate) {
     Input({
       id: 'create-job-diarias', label: 'Quantidade de diárias', placeholder: '1', suffix: 'diária(s)', inputMode: 'numeric',
       value: ui.diarias, error: ui.errors.diarias, onInput: (v) => setUI(KEY, { diarias: digits(v, 2), errors: Object.assign({}, ui.errors, { diarias: null }) })
+    }),
+    Input({
+      id: 'create-job-vagas', label: 'Quantidade de pessoas para a vaga', placeholder: '1', suffix: 'pessoa(s)', inputMode: 'numeric',
+      hint: 'Quantos trabalhadores você precisa contratar para esse bico.', error: ui.errors.vagas,
+      value: ui.vagas, onInput: (v) => setUI(KEY, { vagas: digits(v, 2), errors: Object.assign({}, ui.errors, { vagas: null }) })
     })
   );
 

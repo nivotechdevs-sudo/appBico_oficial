@@ -79,10 +79,9 @@ export default function renderJobDetail(navigate, params) {
 
     role === 'trabalhador' ? h('div', { class: 'sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app' },
       application
-        ? h('div', { class: 'flex flex-col gap-2' },
-            Button({ label: 'Ver minhas candidaturas', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => navigate('/minhas-candidaturas') }),
-            canCancel ? Button({ label: 'Cancelar candidatura', variant: 'ghost', fullWidth: true, onClick: () => store.setUI(KEY, { confirmCancel: true }) }) : null
-          )
+        ? (canCancel
+            ? Button({ label: 'Cancelar candidatura', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => store.setUI(KEY, { confirmCancel: true }) })
+            : Button({ label: 'Ver minhas candidaturas', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => navigate('/minhas-candidaturas') }))
         : Button({ label: 'Quero esse bico', size: 'lg', fullWidth: true, onClick: () => navigate('/confirmar/' + job.id) }),
       !application ? h('span', { class: 'text-center text-xs text-concrete-500' }, 'Você não paga nada para se candidatar') : null
     ) : null,

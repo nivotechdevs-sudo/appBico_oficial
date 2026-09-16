@@ -17,6 +17,17 @@ const KEY = 'job-manage';
 export default function renderJobManage(navigate, params) {
   const job = store.getJob(params.id);
   if (!job) return h('div', { class: 'p-6 text-concrete-500' }, 'Vaga não encontrada.');
+
+  if (job.companyId !== store.currentCompanyId()) {
+    return h('div', { class: 'flex flex-col' },
+      BackBar({ title: 'Sua vaga', onBack: () => goBack('/mural') }),
+      EmptyState({
+        icon: 'lock', title: 'Essa vaga não é sua',
+        description: 'Só a construtora que publicou o bico pode ver os candidatos e a quantidade de vagas.'
+      })
+    );
+  }
+
   const ui = store.getUI(KEY, { confirmClose: false });
 
   const applications = store.applicationsForJob(job.id);

@@ -18,7 +18,10 @@ export default function renderWorkerProfile(navigate, params) {
   const worker = isOwn ? store.currentWorker() : store.getWorker(params.id);
   if (!worker) return notFound(navigate);
 
-  const jobId = params.jobId;
+  const jobIdRaw = params.jobId;
+  const jobForCtx = jobIdRaw ? store.getJob(jobIdRaw) : null;
+  // Only the recruiter who owns this job may see candidate-review context (approve/reject, slots left).
+  const jobId = jobForCtx && store.getRole() === 'recrutador' && jobForCtx.companyId === store.currentCompanyId() ? jobIdRaw : null;
   const decision = jobId ? (store.applicationFor(jobId, worker.id) || {}).status : null;
   const decidedForJob = jobId && (decision === 'pre_selecionado' || decision === 'nao_selecionado');
   const jobFull = jobId ? store.isJobClosed(store.getJob(jobId)) : false;
