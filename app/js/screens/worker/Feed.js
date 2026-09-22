@@ -1,4 +1,4 @@
-import { h } from '../../dom.js';
+import { h, cx } from '../../dom.js';
 import { Input } from '../../components/Input.js';
 import { IconButton } from '../../components/IconButton.js';
 import { NotificationBell } from '../../components/TopBar.js';
@@ -10,7 +10,11 @@ import { Rating } from '../../components/Rating.js';
 import { EmptyState } from '../../components/EmptyState.js';
 import { Sheet } from '../../components/Modal.js';
 import { JobCard, UrgentOverlay, MineOverlay } from '../../components/JobCard.js';
+import { JobTile, PublishTile } from '../../components/JobTile.js';
+import { JobRail } from '../../components/JobRail.js';
 import { Icon } from '../../utils/icons.js';
+import { formatBRL } from '../../utils/format.js';
+import { statusInfo } from '../../utils/applicationStatus.js';
 import * as store from '../../store.js';
 import { LOCAIS_BAIRRO, TIPOS_SERVICO } from '../../data/seed.js';
 
@@ -25,7 +29,11 @@ function payNum(job) { return job.pay == null ? -1 : job.pay; }
 
 export default function renderFeed(navigate) {
   const role = store.getRole();
-  const ui = store.getUI(KEY, { search: '', location: 'Tatuapé, SP', locationOpen: false, filtersOpen: false, tipo: null, dist: 'Toda a cidade', quando: null, sort: 'perto', notifyUrgent: true });
+  const ui = store.getUI(KEY, { search: '', location: 'Tatuapé, SP', locationOpen: false, filtersOpen: false, tipo: null, dist: 'Toda a cidade', quando: null, sort: 'perto', notifyUrgent: true, expanded: null });
+  return h('div', {}, mobileFeed(navigate, role, ui), desktopFeed(navigate, role, ui));
+}
+
+function mobileFeed(navigate, role, ui) {
 
   const q = ui.search.trim().toLowerCase();
   const searching = q.length > 0;
@@ -147,7 +155,7 @@ export default function renderFeed(navigate) {
       : (destaques.length === 0 ? EmptyState({ icon: 'search-x', title: 'Nenhuma vaga com esse filtro', description: 'Tire um filtro ou aumente a distância para ver mais bicos.', actionLabel: 'Limpar filtros', onAction: () => store.setUI(KEY, { tipo: null, dist: 'Toda a cidade', quando: null }) }) : null)
   );
 
-  return h('div', { class: 'flex flex-col' },
+  return h('div', { class: 'flex flex-col lg:hidden' },
     header,
     h('div', { class: 'px-4 sm:px-0 py-4 flex flex-col gap-5' }, searching ? searchResults : browseResults),
 
@@ -181,6 +189,197 @@ export default function renderFeed(navigate) {
         Button({ label: `Ver ${filtered.length === 1 ? '1 vaga' : filtered.length + ' vagas'}`, className: 'flex-[1.4]', onClick: () => store.setUI(KEY, { filtersOpen: false }) })
       )
     )
+  );
+}
+
+// ---------- Desktop / tablet (>= 770px) ----------
+
+function bairro(job) { return String(job.location || '').split(',')[0]; }
+function companyRating(job) { return store.getCompany(job.companyId).rating || 0; }
+function ratingText(company) { return company.rating ? `★ ${company.rating.toFixed(1).replace('.', ',')}` : 'Nova na Bicos'; }
+
+function priceLine(job, extra) {
+  return h('span', {},
+    h('span', { class: 'font-semibold text-concrete-900' }, job.pay == null ? 'A combinar' : formatBRL(job.pay)),
+    job.pay == null ? '' : ' a diária',
+    extra ? ` · ${extra}` : ''
+  );
+}
+
+function desktopFeed(navigate, role, ui) {
+  const open = store.activeJobs().filter((j) => !store.isJobClosed(j));
+  const byDistance = (a, b) => km(a.distance) - km(b.distance);
+  const byPay = (a, b) => payNum(b) - payNum(a);
+
+  // One tile per job, shaped by who is looking: a worker can save any job; a recruiter
+  // sees their own jobs' pipeline (private to them) and other companies' jobs as reference.
+  function tileFor(job) {
+    const company = store.getCompany(job.companyId);
+    if (role === 'recrutador' && store.isMine(job)) {
+      const slots = job.slots || 1;
+      const pending = store.pendingCount(job.id);
+      const total = store.applicationsForJob(job.id).length;
+      const pill = pending ? { label: `${pending} para analisar`, icon: 'clock', tone: 'warning' }
+        : total ? { label: total === 1 ? '1 candidato' : `${total} candidatos`, icon: 'users', tone: 'brand' }
+        : { label: 'Sem candidatos', icon: 'search-x', tone: 'neutral' };
+      return JobTile({
+        job, pill, onClick: () => navigate('/vaga-gerenciar/' + job.id),
+        lines: [
+          `${store.approvedCount(job.id)} de ${slots} ${slots === 1 ? 'vaga preenchida' : 'vagas preenchidas'}`,
+          `${job.date} · ${job.hours} · ${bairro(job)}`,
+          priceLine(job)
+        ]
+      });
+    }
+    const app = role === 'trabalhador' ? store.applicationFor(job.id, store.currentWorkerId()) : null;
+    const info = app ? statusInfo(app.status, job.id) : null;
+    const pill = info ? { label: info.label, icon: info.icon, tone: info.tone }
+      : job.urgent ? { label: 'Urgente', icon: 'zap', tone: 'danger' }
+      : company.verified ? { label: 'Verificada', icon: 'shield-check', tone: 'success' } : null;
+    return JobTile({
+      job, pill, onClick: () => navigate('/vaga/' + job.id),
+      saved: store.isJobSaved(job.id),
+      onToggleSave: role === 'trabalhador' ? () => store.toggleSavedJob(job.id) : null,
+      lines: [company.name, `${job.date} · ${job.hours} · ${bairro(job)}`, priceLine(job, ratingText(company))]
+    });
+  }
+
+  const publishTile = () => PublishTile({ onClick: () => navigate('/criar-vaga') });
+
+  const sections = role === 'recrutador'
+    ? (() => {
+        const mine = open.filter((j) => store.isMine(j));
+        const others = open.filter((j) => !store.isMine(j));
+        return [
+          { id: 'minhas', title: 'Suas vagas abertas', jobs: mine, lead: publishTile, keepEmpty: true },
+          { id: 'regiao', title: 'Outras vagas na sua região', jobs: others.slice().sort(byDistance) },
+          { id: 'maiores-regiao', title: 'Maiores diárias da região', jobs: others.filter((j) => j.pay != null).sort(byPay) }
+        ];
+      })()
+    : [
+        { id: 'urgentes', title: 'Precisam de gente agora', jobs: open.filter((j) => j.urgent).sort(byDistance) },
+        { id: 'perto', title: `Perto de você · ${ui.location.split(',')[0]}`, jobs: open.slice().sort(byDistance) },
+        { id: 'maiores', title: 'Maiores diárias da semana', jobs: open.filter((j) => j.pay != null).sort(byPay) },
+        { id: 'bem-avaliadas', title: 'Das construtoras mais bem avaliadas', jobs: open.filter((j) => companyRating(j) >= 4.6).sort((a, b) => companyRating(b) - companyRating(a)) },
+        { id: 'a-combinar', title: 'Diária a combinar', jobs: open.filter((j) => j.pay == null).sort(byDistance) }
+      ];
+  const visible = sections.filter((s) => s.keepEmpty || s.jobs.length);
+
+  const q = ui.search.trim().toLowerCase();
+  const expanded = !q && ui.expanded ? visible.find((s) => s.id === ui.expanded) : null;
+
+  let body;
+  if (q) {
+    body = desktopSearchResults(navigate, role, ui, open, tileFor);
+  } else if (expanded) {
+    body = h('div', { class: 'flex flex-col gap-7' },
+      h('div', { class: 'flex items-center gap-3' },
+        h('button', {
+          type: 'button', 'aria-label': 'Voltar para o início', title: 'Voltar',
+          class: 'inline-flex items-center justify-center w-10 h-10 rounded-full bg-concrete-100 text-concrete-900 transition-colors hover:bg-concrete-200',
+          onClick: () => { store.setUI(KEY, { expanded: null }); window.scrollTo(0, 0); }
+        }, Icon('arrow-left', { size: 18 })),
+        h('h1', { class: 'text-[1.75rem] font-semibold leading-tight text-concrete-900' }, expanded.title),
+        h('span', { class: 'text-concrete-500' }, expanded.jobs.length === 1 ? '1 vaga' : `${expanded.jobs.length} vagas`)
+      ),
+      h('div', { class: 'job-grid job-cols' }, expanded.lead ? expanded.lead() : null, ...expanded.jobs.map(tileFor))
+    );
+  } else {
+    body = h('div', { class: 'flex flex-col gap-12' }, ...visible.map((s) => JobRail({
+      id: 'mural-' + role + '-' + s.id, title: s.title, count: s.jobs.length,
+      onSeeAll: () => { store.setUI(KEY, { expanded: s.id }); window.scrollTo(0, 0); },
+      items: (s.lead ? [s.lead()] : []).concat(s.jobs.map(tileFor))
+    })));
+  }
+
+  return h('div', { class: 'hidden lg:block bg-white min-h-[calc(100vh-5rem)]' },
+    h('div', { class: 'page-x pt-1 pb-9 border-b border-concrete-200' },
+      h('div', { class: 'max-w-[52rem] mx-auto' }, desktopSearch(role, ui))
+    ),
+    h('div', { class: 'page-x pt-10 pb-20' }, body)
+  );
+}
+
+function desktopSearch(role, ui) {
+  const inputId = 'feed-search-desktop';
+  const input = h('input', {
+    id: inputId, 'data-focus-id': inputId, type: 'text', autocomplete: 'off', spellcheck: 'false',
+    placeholder: role === 'recrutador' ? 'Vaga, construtora ou trabalhador' : 'Serviço, bairro ou construtora',
+    value: ui.search,
+    class: 'w-full bg-transparent outline-none text-[0.9375rem] text-concrete-900 placeholder:text-concrete-500',
+    oninput: (e) => store.setUI(KEY, { search: e.target.value, expanded: null }),
+    onkeydown: (e) => { if (e.key === 'Escape') store.setUI(KEY, { search: '' }); }
+  });
+  return h('div', {
+    role: 'search',
+    class: 'flex items-center gap-4 h-[4.25rem] pl-2 pr-3 rounded-full bg-white border border-concrete-200 shadow-float transition focus-within:border-brand-300 focus-within:ring-4 focus-within:ring-brand-100'
+  },
+    h('button', {
+      type: 'button', 'aria-label': 'Buscar', title: 'Buscar',
+      class: 'shrink-0 inline-flex items-center justify-center w-[3.25rem] h-[3.25rem] rounded-full bg-brand-500 shadow-raised transition hover:bg-brand-600 active:scale-95',
+      onClick: () => { const el = document.getElementById(inputId); if (el) el.focus(); }
+    }, Icon('search', { size: 22, color: '#fff' })),
+    h('label', { for: inputId, class: 'flex-1 min-w-0 flex flex-col justify-center gap-0.5 cursor-text' },
+      h('span', { class: 'text-xs font-bold text-concrete-900' }, role === 'recrutador' ? 'Buscar na Bicos' : 'Buscar bicos'),
+      input
+    ),
+    ui.search ? h('button', {
+      type: 'button', 'aria-label': 'Limpar busca', title: 'Limpar busca',
+      class: 'shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full text-concrete-500 transition-colors hover:bg-concrete-100 hover:text-concrete-900',
+      onClick: () => store.setUI(KEY, { search: '' })
+    }, Icon('x', { size: 18 })) : null
+  );
+}
+
+function desktopSearchResults(navigate, role, ui, open, tileFor) {
+  const q = ui.search.trim().toLowerCase();
+  const jobs = open.filter((j) => (j.role + ' ' + store.getCompany(j.companyId).name + ' ' + j.location).toLowerCase().includes(q));
+  const companies = store.allCompanies().filter((c) => (c.name + ' ' + c.location).toLowerCase().includes(q));
+  const workers = store.allWorkers().filter((w) => (w.name + ' ' + w.role + ' ' + w.region).toLowerCase().includes(q));
+  const parts = [
+    jobs.length ? (jobs.length === 1 ? '1 vaga' : `${jobs.length} vagas`) : null,
+    companies.length ? (companies.length === 1 ? '1 construtora' : `${companies.length} construtoras`) : null,
+    workers.length ? (workers.length === 1 ? '1 trabalhador' : `${workers.length} trabalhadores`) : null
+  ].filter(Boolean);
+
+  const heading = h('div', { class: 'flex items-baseline gap-3 flex-wrap' },
+    h('h1', { class: 'text-[1.75rem] font-semibold leading-tight text-concrete-900' }, `Resultados para “${ui.search.trim()}”`),
+    parts.length ? h('span', { class: 'text-concrete-500' }, parts.join(' · ')) : null
+  );
+
+  if (!parts.length) {
+    return h('div', { class: 'flex flex-col gap-4' }, heading,
+      EmptyState({ icon: 'search-x', title: 'Nenhum resultado para essa busca', description: 'Confira a grafia ou tente um termo mais curto, como o nome do serviço ou do bairro.', actionLabel: 'Limpar busca', onAction: () => store.setUI(KEY, { search: '' }) })
+    );
+  }
+
+  const group = (title, content) => h('section', { class: 'flex flex-col gap-4' }, h('h2', { class: 'text-[1.375rem] font-semibold text-concrete-900' }, title), content);
+  const personGrid = (children) => h('div', { class: 'grid gap-4 grid-cols-[repeat(auto-fill,minmax(17rem,1fr))]' }, ...children);
+  const personCard = ({ avatar, name, meta, rating, onClick }) => h(onClick ? 'button' : 'div', {
+    type: onClick ? 'button' : null, onClick,
+    class: cx('flex items-center gap-4 p-4 rounded-2xl border border-concrete-200 bg-white text-left', onClick ? 'transition hover:shadow-raised hover:border-concrete-300' : '')
+  },
+    avatar,
+    h('div', { class: 'flex-1 min-w-0 flex flex-col gap-0.5' },
+      h('span', { class: 'font-semibold text-concrete-900 truncate' }, name),
+      h('span', { class: 'text-sm text-concrete-500 truncate' }, meta),
+      rating
+    )
+  );
+
+  return h('div', { class: 'flex flex-col gap-12' },
+    heading,
+    jobs.length ? group('Vagas', h('div', { class: 'job-grid job-cols' }, ...jobs.map(tileFor))) : null,
+    companies.length ? group('Construtoras', personGrid(companies.map((c) => personCard({
+      avatar: h('span', { class: 'inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-50 shrink-0' }, Icon('building-2', { size: 22, color: 'var(--brand)' })),
+      name: c.name, meta: c.location, rating: Rating({ value: c.rating, count: c.reviewCount }),
+      onClick: () => navigate('/construtora/' + c.id)
+    })))) : null,
+    workers.length ? group('Trabalhadores', personGrid(workers.map((w) => personCard({
+      avatar: h('span', { class: 'inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-50 text-accent-600 font-bold shrink-0' }, w.initials),
+      name: w.name, meta: `${w.role} · ${w.region}`, rating: Rating({ value: w.rating, count: w.jobsDone }),
+      onClick: role === 'recrutador' ? () => navigate('/trabalhador/' + w.id) : null
+    })))) : null
   );
 }
 

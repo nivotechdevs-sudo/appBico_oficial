@@ -1,6 +1,7 @@
 import { h, cx } from '../dom.js';
 import { Icon } from '../utils/icons.js';
 import { Card } from './Card.js';
+import { JobCover } from './JobTile.js';
 import { formatBRL } from '../utils/format.js';
 
 function PayBlock({ job, muted }) {
@@ -27,10 +28,13 @@ function PayBlock({ job, muted }) {
  * and company-profile posts — only `footer` and the overlay `badge` change per screen.
  */
 export function JobCard({ job, companyName, onClick, overlay = null, footer = null, photoLabel = 'Foto do canteiro', muted = false }) {
-  const photo = h('div', { class: cx('relative h-[9.25rem] bg-concrete-200', muted ? 'grayscale' : '') },
+  const photo = h('div', { class: cx('relative h-[9.25rem] bg-concrete-200 overflow-hidden', muted ? 'grayscale' : '') },
     job.photo
       ? h('img', { src: job.photo, alt: '', class: 'w-full h-full object-cover' })
-      : h('div', { class: 'w-full h-full flex items-center justify-center text-concrete-400 text-xs' }, photoLabel),
+      : [
+          h('div', { class: 'lg:hidden w-full h-full flex items-center justify-center text-concrete-400 text-xs' }, photoLabel),
+          h('div', { class: 'hidden lg:block absolute inset-0' }, JobCover({ job }))
+        ],
     overlay
   );
 

@@ -172,8 +172,8 @@ export default function renderCreateJob(navigate) {
       h('span', { class: 'flex-1 h-px bg-concrete-200' }),
       stepDot(2, ui.step >= 2), h('span', { class: 'text-sm text-concrete-500' }, 'Valor e requisitos')
     ),
-    h('div', { class: 'px-4 sm:px-0 py-5 lg:max-w-app' }, ui.step === 1 ? step1 : step2),
-    h('div', { class: 'px-4 sm:px-0 py-3 flex flex-col gap-1.5 lg:max-w-app' },
+    h('div', { class: 'px-4 sm:px-0 py-5' }, ui.step === 1 ? step1 : step2),
+    h('div', { class: 'px-4 sm:px-0 py-3 flex flex-col gap-1.5' },
       Button({ label: ui.step === 1 ? 'Continuar' : 'Publicar vaga', size: 'lg', fullWidth: true, loading: ui.publishing, onClick: advance }),
       h('span', { class: 'text-center text-xs text-concrete-500' }, 'Publicar é grátis. Você paga só se impulsionar.')
     )

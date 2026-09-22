@@ -80,7 +80,7 @@ export default function renderCompanyProfile(navigate, params) {
             ),
             openJobs.length === 0
               ? EmptyState({ icon: 'hammer', title: 'Você ainda não publicou nenhuma vaga', description: 'Publique seu primeiro bico para começar a receber candidatos.', actionLabel: 'Publicar vaga', onAction: () => navigate('/criar-vaga') })
-              : h('div', { class: 'flex flex-col gap-3' }, ...openJobs.map((job) => JobCard({
+              : h('div', { class: 'flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5' }, ...openJobs.map((job) => JobCard({
                   job, companyName: null, onClick: () => navigate('/vaga-gerenciar/' + job.id),
                   footer: JobCardFooter({
                     badgeEl: Badge(statusBadge(job)),
@@ -94,7 +94,7 @@ export default function renderCompanyProfile(navigate, params) {
             h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Vagas publicadas'),
             openJobs.length === 0
               ? EmptyState({ icon: 'hammer', title: 'Nenhuma vaga aberta no momento', description: `${company.name} não tem bicos publicados agora. Volte mais tarde para ver novidades.` })
-              : h('div', { class: 'flex flex-col gap-3' }, ...openJobs.map((job) => JobCard({ job, companyName: null, onClick: () => navigate('/vaga/' + job.id) })))
+              : h('div', { class: 'flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5' }, ...openJobs.map((job) => JobCard({ job, companyName: null, onClick: () => navigate('/vaga/' + job.id) })))
           )
     ),
     Dialog({

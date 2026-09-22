@@ -21,7 +21,7 @@ export default function renderBoostJob(navigate, params) {
 
   return h('div', { class: 'flex flex-col' },
     BackBar({ title: 'Impulsionar vaga', onBack: () => goBack('/vaga-gerenciar/' + job.id) }),
-    h('div', { class: 'flex flex-col gap-5 px-4 sm:px-0 py-4 lg:max-w-app' },
+    h('div', { class: 'flex flex-col gap-5 px-4 sm:px-0 py-4' },
       h('div', { class: 'flex flex-col gap-1' },
         h('h1', { class: 'font-display font-bold text-2xl text-concrete-900' }, 'Sua vaga no topo do mural'),
         h('span', { class: 'text-sm text-concrete-700' }, `${job.role} · ${job.location}`)
@@ -52,7 +52,7 @@ export default function renderBoostJob(navigate, params) {
       ),
       h('span', { class: 'text-sm text-concrete-500' }, 'Cobrança única no cartão cadastrado. Sem renovação automática. O trabalhador nunca paga nada.')
     ),
-    h('div', { class: 'px-4 sm:px-0 py-3 flex flex-col gap-2 lg:max-w-app' },
+    h('div', { class: 'px-4 sm:px-0 py-3 flex flex-col gap-2' },
       Button({ label: `Impulsionar por ${chosen.price}`, size: 'lg', fullWidth: true, onClick: () => { job.boosted = true; job.urgent = true; navigate('/vaga-gerenciar/' + job.id); } }),
       Button({ label: 'Agora não', variant: 'ghost', fullWidth: true, onClick: () => navigate('/vaga-gerenciar/' + job.id) })
     )

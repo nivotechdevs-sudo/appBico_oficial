@@ -26,8 +26,8 @@ export default function renderMyApplications(navigate) {
   }
 
   return h('div', { class: 'flex flex-col' },
-    h('div', { class: 'sticky top-0 z-20 flex items-center justify-between min-h-14 px-4 sm:px-0 bg-white border-b border-concrete-200 lg:static lg:border-0' },
-      h('h1', { class: 'font-display font-semibold text-xl text-concrete-900' }, 'Minhas candidaturas'),
+    h('div', { class: 'sticky top-0 z-20 flex items-center justify-between min-h-14 px-4 sm:px-0 bg-white border-b border-concrete-200 lg:static lg:bg-transparent lg:border-0 lg:pb-2' },
+      h('h1', { class: 'font-display font-semibold text-xl lg:text-[1.75rem] text-concrete-900' }, 'Minhas candidaturas'),
       h('span', { class: 'text-sm text-concrete-500' }, apps.length === 1 ? '1 no total' : `${apps.length} no total`)
     ),
     h('div', { class: 'flex flex-col gap-3 px-4 sm:px-0 py-4' },

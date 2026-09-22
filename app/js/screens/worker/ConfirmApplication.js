@@ -17,7 +17,7 @@ export default function renderConfirmApplication(navigate, params) {
 
   return h('div', { class: 'flex flex-col' },
     BackBar({ title: 'Confirmar candidatura', onBack: () => goBack('/vaga/' + job.id) }),
-    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 lg:max-w-app' },
+    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4' },
       h('div', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Confira antes de enviar'),
       Card({ padding: 'md' },
         h('div', { class: 'flex flex-col gap-4' },
@@ -37,7 +37,7 @@ export default function renderConfirmApplication(navigate, params) {
       ),
       h('span', { class: 'text-sm text-concrete-500' }, 'A construtora vai ver seu perfil, suas especialidades e suas avaliações. O contato por WhatsApp só abre se ela te escolher.')
     ),
-    h('div', { class: 'px-4 sm:px-0 py-3 flex flex-col gap-2 lg:max-w-app' },
+    h('div', { class: 'px-4 sm:px-0 py-3 flex flex-col gap-2' },
       Button({
         label: 'Sim, quero esse bico', size: 'lg', fullWidth: true, loading: ui.submitting,
         onClick: () => {

@@ -83,6 +83,14 @@ function isAuthFlow(path) {
   return path.startsWith('/cadastro/') || path.startsWith('/completar-perfil/');
 }
 
+// Desktop/tablet content width per screen: the mural spans the whole window, focused
+// tasks (forms, confirmations) get a narrow centered column, everything else a page column.
+const NARROW_SCREENS = new Set([
+  '/criar-vaga', '/perfil/editar', '/empresa/editar', '/configuracoes', '/configuracoes/privacidade', '/notificacoes',
+  '/confirmar/:id', '/enviado/:id', '/avaliar/:id', '/selecionado/:id', '/vaga-publicada/:id', '/impulsionar/:id',
+  '/fechado/:id', '/avaliacoes/:type/:id'
+]);
+
 const appEl = document.getElementById('app');
 
 function build(m, path) {
@@ -95,18 +103,35 @@ function build(m, path) {
   const role = store.getRole();
   const badges = role === 'trabalhador' ? { 'minhas-candidaturas': inProgressCount() } : {};
   const activeId = tabIdForPath(path, role);
+  const isMural = path === '/mural';
 
   const showMobileNav = TAB_ROOTS[role] && TAB_ROOTS[role].has(path);
-  const nav = AppNav({ role, active: activeId, navigate, badges, showMobilePill: showMobileNav });
+  const nav = AppNav({
+    role, active: activeId, navigate, badges, showMobilePill: showMobileNav, flush: isMural,
+    notifications: role === 'recrutador' ? 3 : 2, account: accountSummary(role)
+  });
 
   const shell = document.createElement('div');
-  shell.className = 'lg:flex lg:max-w-panel lg:mx-auto lg:px-8 lg:items-start';
+  shell.className = 'lg:flex lg:flex-col lg:min-h-screen';
   shell.appendChild(nav);
-  const main = document.createElement('div');
-  main.className = cx('flex-1 min-w-0 lg:py-6', showMobileNav ? 'pb-28 lg:pb-6' : '');
+  const main = document.createElement('main');
+  main.className = cx(
+    'flex-1 min-w-0',
+    showMobileNav ? 'pb-28 lg:pb-0' : '',
+    isMural ? '' : cx('lg:w-full lg:mx-auto lg:px-8 lg:pt-8 lg:pb-16', NARROW_SCREENS.has(m.pattern) ? 'lg:max-w-[40rem]' : 'lg:max-w-panel')
+  );
   main.appendChild(content);
   shell.appendChild(main);
   return shell;
+}
+
+function accountSummary(role) {
+  if (role === 'recrutador') {
+    const company = store.currentCompany();
+    return { name: company.name, photo: store.getUI('company-profile', { capa: null, logo: null, deleteId: null }).logo };
+  }
+  const worker = store.currentWorker();
+  return { name: worker.name, initials: worker.initials };
 }
 
 function tabIdForPath(path, role) {
@@ -154,6 +179,7 @@ function render(m, path) {
 
 onRouteChange((m, path) => {
   window.scrollTo(0, 0);
+  store.getUI('app-nav', { menuOpen: false }).menuOpen = false; // a route change always closes the account menu
   render(m, path);
 });
 

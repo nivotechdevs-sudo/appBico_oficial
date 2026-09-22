@@ -27,7 +27,7 @@ export default function renderJobClosed(navigate, params) {
       h('h1', { class: 'font-display font-bold text-3xl leading-tight text-white' }, title),
       h('p', { class: 'text-white/85' }, `${job.role} · ${job.date}`)
     ),
-    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 lg:max-w-app' },
+    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4' },
       Card({ tone: 'sunken', padding: 'sm' },
         h('div', { class: 'flex items-center gap-3' },
           Icon('circle-check', { size: 20, color: 'var(--green-500)' }),

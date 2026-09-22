@@ -37,13 +37,45 @@ export default function renderJobManage(navigate, params) {
   const closed = store.isJobClosed(job);
   const status = jobStatus(job, approved, pending);
 
+  // Pay, headcount and actions are built fresh for each placement: in the page flow on
+  // phones, and in the sticky side card on tablet/desktop.
+  const payCard = (className) => Card({ tone: 'brand', padding: 'md', className },
+    h('div', { class: 'flex flex-col gap-4' },
+      h('div', { class: 'flex items-end justify-between gap-3' },
+        h('div', { class: 'flex flex-col gap-0.5' }, h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-brand-600' }, 'Diária que você ofereceu'), h('span', { class: 'font-mono font-bold text-4xl text-concrete-900' }, job.pay == null ? 'A combinar' : formatBRL(job.pay))),
+        h('span', { class: 'text-sm text-concrete-700 text-right' }, 'Pago no fim', h('br'), 'da diária')
+      ),
+      h('div', { class: 'flex items-center gap-2 pt-4 border-t border-brand-200' }, Icon('calendar', { size: 20, color: 'var(--text-brand)' }), h('span', { class: 'font-display font-semibold text-lg text-concrete-900' }, job.dateLong || job.date))
+    )
+  );
+  const slotsCard = (className) => Card({ padding: 'md', className },
+    h('div', { class: 'flex flex-col gap-3' },
+      h('div', { class: 'flex items-baseline justify-between gap-3' },
+        h('span', { class: 'font-semibold text-concrete-900' }, `${approved} de ${slots} ${slots === 1 ? 'vaga preenchida' : 'vagas preenchidas'}`),
+        h('span', { class: 'font-mono text-sm text-concrete-500' }, `${slots} no total`)
+      ),
+      h('div', { class: 'flex gap-1.5' }, ...Array.from({ length: slots }).map((_, i) => h('span', { class: `flex-1 h-2 rounded-full ${i < approved ? 'bg-brand-500' : 'bg-concrete-200'}` }))),
+      h('span', { class: `text-sm ${closed ? 'text-success-500' : 'text-concrete-500'}` }, closed ? 'Bico fechado. A vaga saiu do mural e não recebe mais candidatura.' : 'Aprove candidatos até preencher todas as vagas. Aí o bico fecha sozinho.')
+    )
+  );
+  const actions = () => [
+    Button({ label: 'Editar vaga', variant: 'secondary', iconLeft: 'pencil', className: 'flex-1', onClick: () => {} }),
+    Button({ label: 'Encerrar vaga', variant: 'ghost', className: 'flex-1', onClick: () => store.setUI(KEY, { confirmClose: true }) })
+  ];
+
+  const side = h('aside', { class: 'hidden lg:flex lg:flex-col lg:gap-4 lg:sticky lg:top-28' },
+    payCard(),
+    slotsCard(),
+    !closed ? h('div', { class: 'flex gap-3' }, ...actions()) : null
+  );
+
   return h('div', { class: 'flex flex-col' },
     BackBar({ title: 'Sua vaga', onBack: () => goBack('/mural') }),
-    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[1fr_22rem] lg:items-start lg:gap-6' },
-      h('div', { class: 'flex flex-col gap-4' },
+    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-10' },
+      h('div', { class: 'flex flex-col gap-4 lg:gap-6' },
         h('div', { class: 'flex flex-col gap-1.5' },
           h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Foto da vaga'),
-          PhotoSlot({ shape: 'rect', height: '9rem', placeholder: 'Toque para escolher uma foto do canteiro', value: job.photo, onChange: (v) => store.updateJob(job.id, { photo: v }) })
+          PhotoSlot({ shape: 'rect', height: '9rem', placeholder: 'Toque para escolher uma foto do canteiro', value: job.photo, onChange: (v) => store.updateJob(job.id, { photo: v }), className: 'lg:!h-56' })
         ),
         h('div', { class: 'flex flex-col gap-1.5' },
           h('div', { class: 'flex items-center gap-2' }, Badge(status), h('span', { class: 'font-mono text-xs text-concrete-500' }, job.id)),
@@ -51,26 +83,8 @@ export default function renderJobManage(navigate, params) {
           job.description ? h('p', { class: 'text-sm text-concrete-700 leading-relaxed' }, job.description) : null
         ),
 
-        Card({ tone: 'brand', padding: 'md' },
-          h('div', { class: 'flex flex-col gap-4' },
-            h('div', { class: 'flex items-end justify-between gap-3' },
-              h('div', { class: 'flex flex-col gap-0.5' }, h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-brand-600' }, 'Diária que você ofereceu'), h('span', { class: 'font-mono font-bold text-4xl text-concrete-900' }, job.pay == null ? 'A combinar' : formatBRL(job.pay))),
-              h('span', { class: 'text-sm text-concrete-700 text-right' }, 'Pago no fim', h('br'), 'da diária')
-            ),
-            h('div', { class: 'flex items-center gap-2 pt-4 border-t border-brand-200' }, Icon('calendar', { size: 20, color: 'var(--text-brand)' }), h('span', { class: 'font-display font-semibold text-lg text-concrete-900' }, job.dateLong || job.date))
-          )
-        ),
-
-        Card({ padding: 'md' },
-          h('div', { class: 'flex flex-col gap-3' },
-            h('div', { class: 'flex items-baseline justify-between gap-3' },
-              h('span', { class: 'font-semibold text-concrete-900' }, `${approved} de ${slots} ${slots === 1 ? 'vaga preenchida' : 'vagas preenchidas'}`),
-              h('span', { class: 'font-mono text-sm text-concrete-500' }, `${slots} no total`)
-            ),
-            h('div', { class: 'flex gap-1.5' }, ...Array.from({ length: slots }).map((_, i) => h('span', { class: `flex-1 h-2 rounded-full ${i < approved ? 'bg-brand-500' : 'bg-concrete-200'}` }))),
-            h('span', { class: `text-sm ${closed ? 'text-success-500' : 'text-concrete-500'}` }, closed ? 'Bico fechado. A vaga saiu do mural e não recebe mais candidatura.' : 'Aprove candidatos até preencher todas as vagas. Aí o bico fecha sozinho.')
-          )
-        ),
+        payCard('lg:hidden'),
+        slotsCard('lg:hidden'),
 
         h('div', { class: 'flex flex-col gap-2' },
           h('div', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Onde e como'),
@@ -102,12 +116,9 @@ export default function renderJobManage(navigate, params) {
             : EmptyState({ icon: 'users', title: 'Nenhum candidato ainda', description: 'Vagas com valor acima da média da região costumam receber candidato no mesmo dia. Você também pode impulsionar.', actionLabel: 'Impulsionar vaga', onAction: () => navigate('/impulsionar/' + job.id) })
         )
       ),
-      h('div', {})
+      side
     ),
-    !closed ? h('div', { class: 'sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app' },
-      Button({ label: 'Editar vaga', variant: 'secondary', iconLeft: 'pencil', className: 'flex-1', onClick: () => {} }),
-      Button({ label: 'Encerrar vaga', variant: 'ghost', className: 'flex-1', onClick: () => store.setUI(KEY, { confirmClose: true }) })
-    ) : null,
+    !closed ? h('div', { class: 'sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex gap-3 lg:hidden' }, ...actions()) : null,
     Dialog({
       open: ui.confirmClose, tone: 'danger', title: 'Encerrar essa vaga?',
       description: 'A vaga sai do mural imediatamente e para de receber candidaturas. Isso não pode ser desfeito.',

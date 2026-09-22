@@ -472,6 +472,282 @@
       description: "Assentamento de porcelanato 60x60 em sala e cozinha, com nivelamento e rejunte inclu\xEDdos.",
       requirements: ["Assentamento de porcelanato 60x60", "Desempenadeira e n\xEDvel pr\xF3prios"]
     },
+    "BC-5010": {
+      id: "BC-5010",
+      companyId: "alvorada",
+      role: "Eletricista",
+      pay: 250,
+      location: "Mooca, SP",
+      address: "Rua Taquari, 1180",
+      distance: "4,4 km",
+      date: "Amanh\xE3",
+      dateLong: "Amanh\xE3 \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "1 di\xE1ria",
+      urgent: true,
+      slots: 1,
+      description: "Troca da fia\xE7\xE3o de um apartamento de dois quartos e instala\xE7\xE3o de quadro de distribui\xE7\xE3o novo.",
+      requirements: ["NR-10 em dia", "Ferramentas pr\xF3prias", "Material fornecido pela obra"]
+    },
+    "BC-5011": {
+      id: "BC-5011",
+      companyId: "serra-braganca",
+      role: "Pintor",
+      pay: 200,
+      location: "Tatuap\xE9, SP",
+      address: "Rua Tuiuti, 2210",
+      distance: "2,6 km",
+      date: "Sex, 25 set",
+      dateLong: "Sex, 25 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "2 di\xE1rias",
+      slots: 2,
+      description: "Pintura de fachada de sobrado, com andaime j\xE1 montado pela obra.",
+      requirements: ["Experi\xEAncia com pintura externa", "Rolo, pincel e trincha pr\xF3prios", "EPI fornecido pela obra"]
+    },
+    "BC-5012": {
+      id: "BC-5012",
+      companyId: "vila-prudente",
+      role: "Encanador",
+      pay: null,
+      location: "Vila Prudente, SP",
+      address: "Rua Ibitirama, 845",
+      distance: "5,9 km",
+      date: "Hoje",
+      dateLong: "Hoje \xB7 9h\u201318h",
+      hours: "9h\u201318h",
+      duration: "1 di\xE1ria",
+      urgent: true,
+      slots: 1,
+      description: "Vazamento na prumada do banheiro. Trocar a tubula\xE7\xE3o de \xE1gua fria e testar a press\xE3o.",
+      requirements: ["Experi\xEAncia com PVC e PPR", "Ferramentas pr\xF3prias"]
+    },
+    "BC-5013": {
+      id: "BC-5013",
+      companyId: "belem",
+      role: "Servente de obra",
+      pay: 150,
+      location: "Bel\xE9m, SP",
+      address: "Rua Siqueira Bueno, 1320",
+      distance: "6,5 km",
+      date: "S\xE1b, 26 set",
+      dateLong: "S\xE1b, 26 set \xB7 7h\u201316h",
+      hours: "7h\u201316h",
+      duration: "1 di\xE1ria",
+      slots: 2,
+      description: "Apoio ao pedreiro no preparo de massa e transporte de blocos para o segundo andar.",
+      requirements: ["Botina pr\xF3pria", "Capacete e luvas fornecidos pela obra"]
+    },
+    "BC-5014": {
+      id: "BC-5014",
+      companyId: "alvorada",
+      role: "Azulejista",
+      pay: 280,
+      location: "Mooca, SP",
+      address: "Rua Javari, 540",
+      distance: "4,8 km",
+      date: "Seg, 28 set",
+      dateLong: "Seg, 28 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "2 di\xE1rias",
+      slots: 1,
+      description: "Revestimento de banheiro inteiro com porcelanato 60x120, incluindo recortes para nichos.",
+      requirements: ["Experi\xEAncia com pe\xE7a grande", "Cortador e n\xEDvel a laser pr\xF3prios"]
+    },
+    "BC-5015": {
+      id: "BC-5015",
+      companyId: "vila-formosa",
+      role: "Carpinteiro",
+      pay: 260,
+      location: "Vila Formosa, SP",
+      address: "Av. Renata, 910",
+      distance: "5,2 km",
+      date: "Ter, 29 set",
+      dateLong: "Ter, 29 set \xB7 7h\u201317h",
+      hours: "7h\u201317h",
+      duration: "3 di\xE1rias",
+      slots: 2,
+      description: "Montagem de f\xF4rmas de madeira para a laje do t\xE9rreo.",
+      requirements: ["Experi\xEAncia com f\xF4rma de laje", "Serrote, martelo e trena pr\xF3prios"]
+    },
+    "BC-5016": {
+      id: "BC-5016",
+      companyId: "cangaiba",
+      role: "Pedreiro",
+      pay: 230,
+      location: "Canga\xEDba, SP",
+      address: "Rua Pedro \xC1lvares, 77",
+      distance: "8,1 km",
+      date: "Amanh\xE3",
+      dateLong: "Amanh\xE3 \xB7 7h\u201317h",
+      hours: "7h\u201317h",
+      duration: "2 di\xE1rias",
+      slots: 1,
+      description: "Levantamento de muro de divisa com bloco de concreto, cerca de 20 metros.",
+      requirements: ["Experi\xEAncia com alvenaria", "Colher e prumo pr\xF3prios"]
+    },
+    "BC-5017": {
+      id: "BC-5017",
+      companyId: "aricanduva",
+      role: "Ajudante geral",
+      pay: 130,
+      location: "Aricanduva, SP",
+      address: "Rua Olga Fadel Abarca, 300",
+      distance: "9,0 km",
+      date: "Hoje",
+      dateLong: "Hoje \xB7 8h\u201314h",
+      hours: "8h\u201314h",
+      duration: "Meia di\xE1ria",
+      urgent: true,
+      slots: 1,
+      description: "Limpeza p\xF3s-obra de uma casa t\xE9rrea: retirada de entulho e varri\xE7\xE3o.",
+      requirements: ["Sem experi\xEAncia exigida", "Botina pr\xF3pria"]
+    },
+    "BC-5018": {
+      id: "BC-5018",
+      companyId: "serra-braganca",
+      role: "Gesseiro",
+      pay: 240,
+      location: "Tatuap\xE9, SP",
+      address: "Rua Apucarana, 1450",
+      distance: "3,0 km",
+      date: "Qua, 30 set",
+      dateLong: "Qua, 30 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "2 di\xE1rias",
+      slots: 1,
+      description: "Instala\xE7\xE3o de forro de gesso em sala e dois quartos, com sanca aberta na sala.",
+      requirements: ["Experi\xEAncia com forro e sanca", "Ferramentas pr\xF3prias"]
+    },
+    "BC-5019": {
+      id: "BC-5019",
+      companyId: "vila-prudente",
+      role: "Pintor",
+      pay: 190,
+      location: "Vila Prudente, SP",
+      address: "Av. Paes de Barros, 3100",
+      distance: "6,1 km",
+      date: "Sex, 25 set",
+      dateLong: "Sex, 25 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "1 di\xE1ria",
+      slots: 1,
+      description: "Pintura interna de apartamento de 60 m\xB2, com massa corrida nos pontos danificados.",
+      requirements: ["Rolo e pincel pr\xF3prios", "Tinta fornecida pela obra"]
+    },
+    "BC-5020": {
+      id: "BC-5020",
+      companyId: "belem",
+      role: "Eletricista",
+      pay: null,
+      location: "Bel\xE9m, SP",
+      address: "Av. \xC1lvaro Ramos, 890",
+      distance: "6,9 km",
+      date: "Seg, 28 set",
+      dateLong: "Seg, 28 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "1 di\xE1ria",
+      slots: 1,
+      description: "Instala\xE7\xE3o de ilumina\xE7\xE3o em LED e tomadas numa loja de 80 m\xB2.",
+      requirements: ["NR-10 em dia", "Ferramentas pr\xF3prias"]
+    },
+    "BC-5021": {
+      id: "BC-5021",
+      companyId: "alvorada",
+      role: "Mestre de obras",
+      pay: 380,
+      location: "Mooca, SP",
+      address: "Rua dos Trilhos, 1600",
+      distance: "4,4 km",
+      date: "Qui, 1 out",
+      dateLong: "Qui, 1 out \xB7 7h\u201317h",
+      hours: "7h\u201317h",
+      duration: "5 di\xE1rias",
+      slots: 1,
+      description: "Coordenar uma equipe de quatro pessoas na reforma completa de um apartamento.",
+      requirements: ["Experi\xEAncia comprovada como mestre", "Leitura de projeto"]
+    },
+    "BC-5022": {
+      id: "BC-5022",
+      companyId: "cangaiba",
+      role: "Servente de obra",
+      pay: 140,
+      location: "Canga\xEDba, SP",
+      address: "Rua Dr. Assis Ribeiro, 2200",
+      distance: "7,7 km",
+      date: "Hoje",
+      dateLong: "Hoje \xB7 7h\u201316h",
+      hours: "7h\u201316h",
+      duration: "1 di\xE1ria",
+      urgent: true,
+      slots: 2,
+      description: "Carga e descarga de sacos de cimento e areia para a concretagem de s\xE1bado.",
+      requirements: ["Botina pr\xF3pria"]
+    },
+    "BC-5023": {
+      id: "BC-5023",
+      companyId: "vila-formosa",
+      role: "Encanador",
+      pay: 220,
+      location: "Vila Formosa, SP",
+      address: "Rua Itapeti, 60",
+      distance: "5,4 km",
+      date: "S\xE1b, 26 set",
+      dateLong: "S\xE1b, 26 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "1 di\xE1ria",
+      slots: 1,
+      description: "Instala\xE7\xE3o de aquecedor a g\xE1s e liga\xE7\xE3o das tubula\xE7\xF5es de \xE1gua quente.",
+      requirements: ["Experi\xEAncia com aquecedor a g\xE1s", "Ferramentas pr\xF3prias"]
+    },
+    "BC-5024": {
+      id: "BC-5024",
+      companyId: "serra-braganca",
+      role: "Pedreiro de acabamento",
+      pay: 240,
+      location: "Tatuap\xE9, SP",
+      address: "Rua Cantagalo, 1220",
+      distance: "2,2 km",
+      date: "Ter, 29 set",
+      dateLong: "Ter, 29 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "1 di\xE1ria",
+      slots: 1,
+      description: "Assentamento de rodap\xE9 e soleiras de granito, com acabamento em rejunte ep\xF3xi.",
+      requirements: ["Experi\xEAncia com granito", "N\xEDvel e esquadro pr\xF3prios"]
+    },
+    "BC-5025": {
+      id: "BC-5025",
+      companyId: "meridiano",
+      role: "Telhadista",
+      pay: 250,
+      location: "Penha, SP",
+      address: "Rua Padre Jo\xE3o, 480",
+      distance: "5,0 km",
+      date: "Qua, 30 set",
+      dateLong: "Qua, 30 set \xB7 7h\u201316h",
+      hours: "7h\u201316h",
+      duration: "1 di\xE1ria",
+      slots: 2,
+      description: "Troca de telhas quebradas e revis\xE3o das calhas de um galp\xE3o.",
+      requirements: ["Experi\xEAncia em altura", "Cinto de seguran\xE7a fornecido pela obra"]
+    },
+    "BC-5026": {
+      id: "BC-5026",
+      companyId: "meridiano",
+      role: "Pintor",
+      pay: 210,
+      location: "Tatuap\xE9, SP",
+      address: "Rua Itapura, 900",
+      distance: "3,4 km",
+      date: "Sex, 25 set",
+      dateLong: "Sex, 25 set \xB7 8h\u201317h",
+      hours: "8h\u201317h",
+      duration: "2 di\xE1rias",
+      slots: 3,
+      description: "Pintura das \xE1reas comuns de um condom\xEDnio: escadas e corredores de quatro andares.",
+      requirements: ["Rolo e pincel pr\xF3prios", "Tinta fornecida pela obra"]
+    },
     // closed / historical
     "BC-4712": {
       id: "BC-4712",
@@ -810,6 +1086,9 @@
       notify();
     }
   }
+  function isJobSaved(jobId) {
+    return state.db.savedJobIds.indexOf(jobId) >= 0;
+  }
   function toggleSavedJob(jobId) {
     const i = state.db.savedJobIds.indexOf(jobId);
     if (i >= 0) state.db.savedJobIds.splice(i, 1);
@@ -839,42 +1118,56 @@
     "arrow-left": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-arrow-left%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m12%2019-7-7%207-7%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M19%2012H5%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "arrow-right": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-arrow-right%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M5%2012h14%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m12%205%207%207-7%207%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "bell": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-bell%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M10.268%2021a2%202%200%200%200%203.464%200%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3.262%2015.326A1%201%200%200%200%204%2017h16a1%201%200%200%200%20.74-1.673C19.41%2013.956%2018%2012.499%2018%208A6%206%200%200%200%206%208c0%204.499-1.411%205.956-2.738%207.326%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "bookmark-solid": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-bookmark-solid%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22%23000%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M17%203a2%202%200%200%201%202%202v15a1%201%200%200%201-1.496.868l-4.512-2.578a2%202%200%200%200-1.984%200l-4.512%202.578A1%201%200%200%201%205%2020V5a2%202%200%200%201%202-2z%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "bookmark-x": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-bookmark-x%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m14.5%207.5-5%205%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M17%203a2%202%200%200%201%202%202v15a1%201%200%200%201-1.496.868l-4.512-2.578a2%202%200%200%200-1.984%200l-4.512%202.578A1%201%200%200%201%205%2020V5a2%202%200%200%201%202-2z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m9.5%207.5%205%205%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "bookmark": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-bookmark%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M17%203a2%202%200%200%201%202%202v15a1%201%200%200%201-1.496.868l-4.512-2.578a2%202%200%200%200-1.984%200l-4.512%202.578A1%201%200%200%201%205%2020V5a2%202%200%200%201%202-2z%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "brick-wall": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-brick-wall%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%209v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2015v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%203v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%2015h18%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2015v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%203v6%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "building-2": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-building-2%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M10%2012h4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M10%208h4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M14%2021v-3a2%202%200%200%200-4%200v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M6%2010H4a2%202%200%200%200-2%202v7a2%202%200%200%200%202%202h16a2%202%200%200%200%202-2V9a2%202%200%200%200-2-2h-2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M6%2021V5a2%202%200%200%201%202-2h8a2%202%200%200%201%202%202v16%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "calendar": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-calendar%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M8%202v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%202v3%22%20%2F%3E%0A%20%20%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "camera": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-camera%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M13.997%204a2%202%200%200%201%201.76%201.05l.486.9A2%202%200%200%200%2018.003%207H20a2%202%200%200%201%202%202v9a2%202%200%200%201-2%202H4a2%202%200%200%201-2-2V9a2%202%200%200%201%202-2h1.997a2%202%200%200%200%201.759-1.048l.489-.904A2%202%200%200%201%2010.004%204z%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2213%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "check": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-check%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M20%206%209%2017l-5-5%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "chevron-down": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-chevron-down%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m6%209%206%206%206-6%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "chevron-left": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-chevron-left%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m15%2018-6-6%206-6%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "chevron-right": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-chevron-right%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m9%2018%206-6-6-6%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "circle-alert": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-circle-alert%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%228%22%20y2%3D%2212%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2216%22%20y2%3D%2216%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "circle-check": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-circle-check%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m16%209-5.5%205.5L8%2012%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "circle-x": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-circle-x%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m15%209-6%206%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m9%209%206%206%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "circle": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-circle%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "clock": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-clock%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%206v6l4%202%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "construction": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-construction%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%2220%22%20height%3D%228%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M17%2014v7%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M7%2014v7%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M17%203v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M7%203v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M10%2014%202.3%206.3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m14%206%207.7%207.7%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m8%206%208%208%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "download": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-download%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M12%2015V3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%2015v4a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m7%2010%205%205%205-5%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "droplets": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-droplets%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M7%2016.3c2.2%200%204-1.83%204-4.05%200-1.16-.57-2.26-1.71-3.19S7.29%206.75%207%205.3c-.29%201.45-1.14%202.84-2.29%203.76S3%2011.1%203%2012.25c0%202.22%201.8%204.05%204%204.05z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12.56%206.6A10.97%2010.97%200%200%200%2014%203.02c.5%202.5%202%204.9%204%206.5s3%203.5%203%205.5a6.98%206.98%200%200%201-11.91%204.97%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "file-check": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-file-check%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M6%2022a2%202%200%200%201-2-2V4a2%202%200%200%201%202-2h8a2.4%202.4%200%200%201%201.704.706l3.588%203.588A2.4%202.4%200%200%201%2020%208v12a2%202%200%200%201-2%202z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M14%202v5a1%201%200%200%200%201%201h5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m9%2015%202%202%204-4%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "globe": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-globe%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%202a14.5%2014.5%200%200%200%200%2020%2014.5%2014.5%200%200%200%200-20%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M2%2012h20%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "hammer": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-hammer%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m15%2012-9.373%209.373a1%201%200%200%201-3.001-3L12%209%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m18%2015%204-4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m21.5%2011.5-1.914-1.914A2%202%200%200%201%2019%208.172v-.344a2%202%200%200%200-.586-1.414l-1.657-1.657A6%206%200%200%200%2012.516%203H9l1.243%201.243A6%206%200%200%201%2012%208.485V10l2%202h1.172a2%202%200%200%201%201.414.586L18.5%2014.5%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "hand-coins": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-hand-coins%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M11%2015h2a2%202%200%201%200%200-4h-3c-.6%200-1.1.2-1.4.6L3%2017%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m7%2021%201.6-1.4c.3-.4.8-.6%201.4-.6h4c1.1%200%202.1-.4%202.8-1.2l4.6-4.4a2%202%200%200%200-2.75-2.91l-4.2%203.9%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m2%2016%206%206%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2216%22%20cy%3D%229%22%20r%3D%222.9%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%226%22%20cy%3D%225%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "handshake": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-handshake%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m11%2017%202%202a1%201%200%201%200%203-3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m14%2014%202.5%202.5a1%201%200%201%200%203-3l-3.88-3.88a3%203%200%200%200-4.24%200l-.88.88a1%201%200%201%201-3-3l2.81-2.81a5.79%205.79%200%200%201%207.06-.87l.47.28a2%202%200%200%200%201.42.25L21%204%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m21%203%201%2011h-2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%203%202%2014l6.5%206.5a1%201%200%201%200%203-3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%204h8%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "hard-hat": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-hard-hat%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M10%2010V5a1%201%200%200%201%201-1h2a1%201%200%200%201%201%201v5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M14%206a6%206%200%200%201%206%206v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M4%2015v-3a6%206%200%200%201%206-6%22%20%2F%3E%0A%20%20%3Crect%20x%3D%222%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%224%22%20rx%3D%221%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "history": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-history%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M3%2012a9%209%200%201%200%209-9%209.75%209.75%200%200%200-6.74%202.74L3%208%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%203v5h5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%207v5l4%202%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "house": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-house%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M15%2021v-8a1%201%200%200%200-1-1h-4a1%201%200%200%200-1%201v8%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%2010a2%202%200%200%201%20.709-1.528l7-6a2%202%200%200%201%202.582%200l7%206A2%202%200%200%201%2021%2010v9a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2z%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "id-card": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-id-card%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M13%2019a4%204%200%2000-8%200%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2010h2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2014h2%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%229%22%20cy%3D%2212%22%20r%3D%223%22%20%2F%3E%0A%20%20%3Crect%20x%3D%222%22%20y%3D%225%22%20width%3D%2220%22%20height%3D%2214%22%20rx%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "layout-grid": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-layout-grid%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%223%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%2214%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%2214%22%20rx%3D%221%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "locate-fixed": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-locate-fixed%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cline%20x1%3D%222%22%20x2%3D%225%22%20y1%3D%2212%22%20y2%3D%2212%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2219%22%20x2%3D%2222%22%20y1%3D%2212%22%20y2%3D%2212%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%222%22%20y2%3D%225%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%2219%22%20y2%3D%2222%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%227%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "lock": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-lock%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%2218%22%20height%3D%2211%22%20x%3D%223%22%20y%3D%2211%22%20rx%3D%222%22%20ry%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M7%2011V7a5%205%200%200%201%2010%200v4%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "log-out": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-log-out%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m16%2017%205-5-5-5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%2012H9%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M9%2021H5a2%202%200%200%201-2-2V5a2%202%200%200%201%202-2h4%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "mail-check": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-mail-check%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M22%2013V6a2%202%200%200%200-2-2H4a2%202%200%200%200-2%202v12c0%201.1.9%202%202%202h8%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m22%207-8.97%205.7a1.94%201.94%200%200%201-2.06%200L2%207%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m16%2019%202%202%204-4%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "mail": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-mail%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m22%207-8.991%205.727a2%202%200%200%201-2.009%200L2%207%22%20%2F%3E%0A%20%20%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%2216%22%20rx%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "map-pin": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-map-pin%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M20%2010c0%204.993-5.539%2010.193-7.399%2011.799a1%201%200%200%201-1.202%200C9.539%2020.193%204%2014.993%204%2010a8%208%200%200%201%2016%200%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2210%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "menu": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-menu%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M4%205h16%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M4%2012h16%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M4%2019h16%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "message-circle": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-message-circle%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M2.992%2016.342a2%202%200%200%201%20.094%201.167l-1.065%203.29a1%201%200%200%200%201.236%201.168l3.413-.998a2%202%200%200%201%201.099.092%2010%2010%200%201%200-4.777-4.719%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "paint-roller": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-paint-roller%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%2216%22%20height%3D%226%22%20x%3D%222%22%20y%3D%222%22%20rx%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M10%2016v-2a2%202%200%200%201%202-2h8a2%202%200%200%200%202-2V7a2%202%200%200%200-2-2h-2%22%20%2F%3E%0A%20%20%3Crect%20width%3D%224%22%20height%3D%226%22%20x%3D%228%22%20y%3D%2216%22%20rx%3D%221%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "pencil": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-pencil%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M21.174%206.812a1%201%200%200%200-3.986-3.987L3.842%2016.174a2%202%200%200%200-.5.83l-1.321%204.352a.5.5%200%200%200%20.623.622l4.353-1.32a2%202%200%200%200%20.83-.497z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m15%205%204%204%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "phone-call": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-phone-call%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M13%202a9%209%200%200%201%209%209%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M13%206a5%205%200%200%201%205%205%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M13.832%2016.568a1%201%200%200%200%201.213-.303l.355-.465A2%202%200%200%201%2017%2015h3a2%202%200%200%201%202%202v3a2%202%200%200%201-2%202A18%2018%200%200%201%202%204a2%202%200%200%201%202-2h3a2%202%200%200%201%202%202v3a2%202%200%200%201-.8%201.6l-.468.351a1%201%200%200%200-.292%201.233%2014%2014%200%200%200%206.392%206.384%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "phone": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-phone%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M13.832%2016.568a1%201%200%200%200%201.213-.303l.355-.465A2%202%200%200%201%2017%2015h3a2%202%200%200%201%202%202v3a2%202%200%200%201-2%202A18%2018%200%200%201%202%204a2%202%200%200%201%202-2h3a2%202%200%200%201%202%202v3a2%202%200%200%201-.8%201.6l-.468.351a1%201%200%200%200-.292%201.233%2014%2014%200%200%200%206.392%206.384%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "plug-zap": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-plug-zap%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M6.3%2020.3a2.4%202.4%200%200%200%203.4%200L12%2018l-6-6-2.3%202.3a2.4%202.4%200%200%200%200%203.4Z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m2%2022%203-3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M7.5%2013.5%2010%2011%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M10.5%2016.5%2013%2014%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m18%203-4%204h6l-4%204%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "plus": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-plus%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M5%2012h14%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%205v14%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "ruler": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-ruler%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M21.3%2015.3a2.4%202.4%200%200%201%200%203.4l-2.6%202.6a2.4%202.4%200%200%201-3.4%200L2.7%208.7a2.41%202.41%200%200%201%200-3.4l2.6-2.6a2.41%202.41%200%200%201%203.4%200Z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m14.5%2012.5%202-2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m11.5%209.5%202-2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m8.5%206.5%202-2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m17.5%2015.5%202-2%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "search-x": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-search-x%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m13.5%208.5-5%205%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m8.5%208.5%205%205%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%228%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m21%2021-4.3-4.3%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "search": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-search%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m21%2021-4.34-4.34%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%228%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "send": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-send%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M14.536%2021.686a.5.5%200%200%200%20.937-.024l6.5-19a.496.496%200%200%200-.635-.635l-19%206.5a.5.5%200%200%200-.024.937l7.93%203.18a2%202%200%200%201%201.112%201.11z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m21.854%202.147-10.94%2010.939%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "settings": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-settings%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M9.671%204.136a2.34%202.34%200%200%201%204.659%200%202.34%202.34%200%200%200%203.319%201.915%202.34%202.34%200%200%201%202.33%204.033%202.34%202.34%200%200%200%200%203.831%202.34%202.34%200%200%201-2.33%204.033%202.34%202.34%200%200%200-3.319%201.915%202.34%202.34%200%200%201-4.659%200%202.34%202.34%200%200%200-3.32-1.915%202.34%202.34%200%200%201-2.33-4.033%202.34%202.34%200%200%200%200-3.831A2.34%202.34%200%200%201%206.35%206.051a2.34%202.34%200%200%200%203.319-1.915%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "shield-check": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-shield-check%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M20%2013c0%205-3.5%207.5-7.66%208.95a1%201%200%200%201-.67-.01C7.5%2020.5%204%2018%204%2013V6a1%201%200%200%201%201-1c2%200%204.5-1.2%206.24-2.72a1.17%201.17%200%200%201%201.52%200C14.51%203.81%2017%205%2019%205a1%201%200%200%201%201%201z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m9%2012%202%202%204-4%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "shovel": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-shovel%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M21.56%204.56a1.5%201.5%200%200%201%200%202.122l-.47.47a3%203%200%200%201-4.212-.03%203%203%200%200%201%200-4.243l.44-.44a1.5%201.5%200%200%201%202.121%200z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%2022a1%201%200%200%201-1-1v-3.586a1%201%200%200%201%20.293-.707l3.355-3.355a1.205%201.205%200%200%201%201.704%200l3.296%203.296a1.205%201.205%200%200%201%200%201.704l-3.355%203.355a1%201%200%200%201-.707.293z%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22m9%2015%207.879-7.878%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "sliders-horizontal": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-sliders-horizontal%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M10%205H3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%2019H3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M14%203v4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2017v4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%2012h-9%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%2019h-5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%205h-7%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2010v4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2012H3%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "smartphone": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-smartphone%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%2214%22%20height%3D%2220%22%20x%3D%225%22%20y%3D%222%22%20rx%3D%222%22%20ry%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%2018h.01%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "star": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-star%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M11.525%202.295a.53.53%200%200%201%20.95%200l2.31%204.679a2.123%202.123%200%200%200%201.595%201.16l5.166.756a.53.53%200%200%201%20.294.904l-3.736%203.638a2.123%202.123%200%200%200-.611%201.878l.882%205.14a.53.53%200%200%201-.771.56l-4.618-2.428a2.122%202.122%200%200%200-1.973%200L6.396%2021.01a.53.53%200%200%201-.77-.56l.881-5.139a2.122%202.122%200%200%200-.611-1.879L2.16%209.795a.53.53%200%200%201%20.294-.906l5.165-.755a2.122%202.122%200%200%200%201.597-1.16z%22%20%2F%3E%0A%3C%2Fsvg%3E",
@@ -927,36 +1220,47 @@
   var ITEMS = {
     trabalhador: [
       { id: "mural", icon: "hammer", label: "Vagas", path: "/mural" },
-      { id: "minhas-candidaturas", icon: "file-check", label: "Minhas", path: "/minhas-candidaturas" },
+      { id: "minhas-candidaturas", icon: "file-check", label: "Minhas", desktopLabel: "Candidaturas", path: "/minhas-candidaturas" },
       { id: "perfil", icon: "user", label: "Perfil", path: "/perfil" }
     ],
     recrutador: [
       { id: "mural", icon: "hammer", label: "In\xEDcio", path: "/mural" },
-      { id: "criar-vaga", icon: "plus", label: "Publicar", path: "/criar-vaga" },
+      { id: "criar-vaga", icon: "plus", label: "Publicar", desktopLabel: "Publicar vaga", path: "/criar-vaga" },
       { id: "empresa", icon: "building-2", label: "Perfil", path: "/empresa" }
     ]
   };
-  function AppNav({ role, active, navigate: navigate2, badges = {}, showMobilePill = true }) {
+  var MENU = {
+    trabalhador: [
+      { icon: "user", label: "Meu perfil", path: "/perfil" },
+      { icon: "bookmark", label: "Vagas salvas", path: "/vagas-salvas" },
+      { icon: "bell", label: "Notifica\xE7\xF5es", path: "/notificacoes" },
+      { icon: "settings", label: "Configura\xE7\xF5es", path: "/configuracoes" }
+    ],
+    recrutador: [
+      { icon: "building-2", label: "Minha empresa", path: "/empresa" },
+      { icon: "history", label: "Bicos fechados", path: "/historico" },
+      { icon: "bell", label: "Notifica\xE7\xF5es", path: "/notificacoes" },
+      { icon: "settings", label: "Configura\xE7\xF5es", path: "/configuracoes" }
+    ]
+  };
+  var MENU_KEY = "app-nav";
+  if (typeof window !== "undefined") {
+    window.addEventListener("scroll", () => {
+      const header = document.querySelector(".app-header");
+      if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
+    }, { passive: true });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && getUI(MENU_KEY, { menuOpen: false }).menuOpen) setUI(MENU_KEY, { menuOpen: false });
+    });
+  }
+  function AppNav({ role, active, navigate: navigate2, badges = {}, showMobilePill = true, flush = false, notifications = 0, account = {} }) {
     const items = ITEMS[role] || ITEMS.trabalhador;
     const mobile = showMobilePill ? h("nav", {
       "aria-label": "Navega\xE7\xE3o principal",
       class: "lg:hidden fixed left-1/2 -translate-x-1/2 z-30 flex items-center gap-3.5 rounded-full px-5 py-2 shadow-raised border border-white/60",
       style: { bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))", backgroundColor: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px) saturate(1.6)", WebkitBackdropFilter: "blur(16px) saturate(1.6)" }
     }, ...items.map((it) => navPill(it, active, navigate2, badges))) : null;
-    const desktop = h(
-      "nav",
-      {
-        "aria-label": "Navega\xE7\xE3o principal",
-        class: "hidden lg:flex lg:flex-col lg:gap-1 lg:w-56 lg:shrink-0 lg:sticky lg:top-6 lg:self-start lg:py-6 lg:pr-4"
-      },
-      h(
-        "div",
-        { class: "flex items-center gap-2 px-3 pb-6" },
-        h("span", { class: "font-display font-bold text-2xl text-concrete-900 tracking-tight" }, "Bicos")
-      ),
-      ...items.map((it) => sidebarLink(it, active, navigate2, badges))
-    );
-    return h("div", { class: "contents" }, mobile, desktop);
+    return h("div", { class: "contents" }, mobile, topBar({ role, items, active, navigate: navigate2, badges, flush, notifications, account }));
   }
   function navPill(it, active, navigate2, badges) {
     const isActive = active === it.id;
@@ -977,20 +1281,123 @@
       )
     );
   }
-  function sidebarLink(it, active, navigate2, badges) {
+  function topBar({ role, items, active, navigate: navigate2, badges, flush, notifications, account }) {
+    const menu = getUI(MENU_KEY, { menuOpen: false });
+    const go = (path) => {
+      setUI(MENU_KEY, { menuOpen: false });
+      navigate2(path);
+    };
+    const logo = h(
+      "button",
+      { type: "button", class: "inline-flex items-center gap-2.5 rounded-control", "aria-label": "Bicos, ir para o in\xEDcio", onClick: () => go("/mural") },
+      h("span", { class: "inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand-500 shadow-raised" }, Icon("hammer", { size: 21, color: "#fff" })),
+      h("span", { class: "font-display font-bold text-[1.625rem] leading-none tracking-tight text-brand-500" }, "Bicos")
+    );
+    const tabs = h(
+      "nav",
+      { "aria-label": "Navega\xE7\xE3o principal", class: "flex items-stretch self-stretch gap-1 xl:gap-3" },
+      ...items.map((it) => topTab(it, active, go, badges))
+    );
+    const bell = h(
+      "button",
+      {
+        type: "button",
+        "aria-label": notifications ? `Notifica\xE7\xF5es, ${notifications} novas` : "Notifica\xE7\xF5es",
+        title: "Notifica\xE7\xF5es",
+        class: "relative inline-flex items-center justify-center w-10 h-10 rounded-full bg-concrete-100 text-concrete-900 transition-colors hover:bg-concrete-200",
+        onClick: () => go("/notificacoes")
+      },
+      Icon("bell", { size: 18 }),
+      notifications ? h("span", { class: "absolute -top-0.5 -right-0.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-[1.125rem] text-center ring-2 ring-white" }, String(notifications)) : null
+    );
+    const avatar = h(
+      "span",
+      { class: cx("inline-flex items-center justify-center w-8 h-8 rounded-full overflow-hidden text-xs font-bold", role === "recrutador" ? "bg-brand-50" : "bg-accent-50 text-accent-600") },
+      account.photo ? h("img", { src: account.photo, alt: "", class: "w-full h-full object-cover" }) : role === "recrutador" ? Icon("building-2", { size: 16, color: "var(--brand)" }) : account.initials || ""
+    );
+    const menuButton = h("button", {
+      type: "button",
+      "aria-label": "Menu da conta",
+      "aria-haspopup": "menu",
+      "aria-expanded": menu.menuOpen ? "true" : "false",
+      class: cx("inline-flex items-center gap-2.5 h-11 pl-3.5 pr-1.5 rounded-full border bg-white transition-shadow hover:shadow-raised", menu.menuOpen ? "border-concrete-300 shadow-raised" : "border-concrete-200"),
+      onClick: () => setUI(MENU_KEY, { menuOpen: !menu.menuOpen })
+    }, Icon("menu", { size: 18, color: "var(--gray-700)" }), avatar);
+    const dropdown = menu.menuOpen ? [
+      h("div", { class: "fixed inset-0 z-40", "aria-hidden": "true", onClick: () => setUI(MENU_KEY, { menuOpen: false }) }),
+      h(
+        "div",
+        { role: "menu", class: "absolute right-0 top-full mt-3 z-50 w-72 py-2 bg-white rounded-2xl border border-concrete-200 shadow-float animate-fade-in" },
+        h(
+          "div",
+          { class: "flex items-center gap-3 px-4 pt-2 pb-3" },
+          h(
+            "span",
+            { class: cx("inline-flex items-center justify-center w-10 h-10 rounded-full overflow-hidden shrink-0 text-sm font-bold", role === "recrutador" ? "bg-brand-50" : "bg-accent-50 text-accent-600") },
+            account.photo ? h("img", { src: account.photo, alt: "", class: "w-full h-full object-cover" }) : role === "recrutador" ? Icon("building-2", { size: 20, color: "var(--brand)" }) : account.initials || ""
+          ),
+          h(
+            "div",
+            { class: "flex flex-col min-w-0" },
+            h("span", { class: "font-semibold text-concrete-900 truncate" }, account.name || ""),
+            h("span", { class: "text-sm text-concrete-500 truncate" }, role === "recrutador" ? "Conta de recrutador" : "Conta de trabalhador")
+          )
+        ),
+        h("div", { class: "h-px bg-concrete-200 my-1" }),
+        ...(MENU[role] || MENU.trabalhador).map((m) => menuItem(m, () => go(m.path))),
+        h("div", { class: "h-px bg-concrete-200 my-1" }),
+        menuItem({ icon: "log-out", label: "Sair da conta", danger: true }, () => go("/login"))
+      )
+    ] : [];
+    return h(
+      "header",
+      { class: cx("app-header hidden lg:block sticky top-0 z-30 bg-white transition-shadow", flush ? "" : "border-b border-concrete-200", window.scrollY > 8 ? "is-scrolled" : "") },
+      h(
+        "div",
+        { class: "page-x h-20 flex items-center gap-6" },
+        h("div", { class: "flex-1 min-w-0 flex items-center" }, logo),
+        tabs,
+        h(
+          "div",
+          { class: "flex-1 flex items-center justify-end gap-2.5" },
+          bell,
+          h("div", { class: "relative" }, menuButton, ...dropdown)
+        )
+      )
+    );
+  }
+  function topTab(it, active, go, badges) {
     const isActive = active === it.id;
     return h(
       "button",
       {
         type: "button",
         "aria-current": isActive ? "page" : null,
-        class: cx("flex items-center gap-3 px-3 h-12 rounded-control text-left font-semibold transition-colors", isActive ? "bg-brand-50 text-brand-600" : "text-concrete-700 hover:bg-concrete-100"),
-        onClick: () => navigate2(it.path)
+        class: cx("group relative inline-flex items-center gap-2.5 px-3 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors", isActive ? "text-concrete-900" : "text-concrete-500 hover:text-concrete-900"),
+        onClick: () => go(it.path)
       },
-      Icon(it.icon, { size: 20, color: isActive ? "var(--brand)" : "var(--gray-500)" }),
-      h("span", { class: "flex-1" }, it.label),
-      badges[it.id] ? h("span", { class: "px-2 h-5 inline-flex items-center rounded-full bg-danger-500 text-white text-xs font-bold" }, String(badges[it.id])) : null
+      h(
+        "span",
+        {
+          class: cx(
+            "relative inline-flex items-center justify-center w-9 h-9 rounded-xl transition-all",
+            isActive ? "bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-raised" : "bg-concrete-100 text-concrete-600 group-hover:bg-concrete-200"
+          )
+        },
+        Icon(it.icon, { size: 19 }),
+        badges[it.id] ? h("span", { class: "absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-[1.125rem] text-center ring-2 ring-white" }, String(badges[it.id])) : null
+      ),
+      it.desktopLabel || it.label,
+      h("span", { class: cx("absolute left-3 right-3 bottom-0 h-[3px] rounded-t-full transition-colors", isActive ? "bg-brand-500" : "bg-transparent group-hover:bg-concrete-200") })
     );
+  }
+  function menuItem(m, onClick) {
+    return h("button", {
+      type: "button",
+      role: "menuitem",
+      class: cx("w-full flex items-center gap-3 px-4 h-11 text-left text-[0.9375rem] transition-colors hover:bg-concrete-50", m.danger ? "text-danger-500 font-semibold" : "text-concrete-800"),
+      onClick
+    }, Icon(m.icon, { size: 18, color: m.danger ? "var(--red-500)" : "var(--gray-500)" }), m.label);
   }
 
   // js/utils/applicationStatus.js
@@ -1178,7 +1585,7 @@
     return h(
       "header",
       {
-        class: "sticky top-0 z-20 flex items-center gap-1.5 min-h-14 px-2 bg-white border-b border-concrete-200 lg:static lg:border-0 lg:px-0 lg:pb-4 lg:mb-2"
+        class: "sticky top-0 z-20 flex items-center gap-1.5 min-h-14 px-2 bg-white border-b border-concrete-200 lg:static lg:bg-transparent lg:border-0 lg:-ml-3 lg:px-0 lg:pb-4 lg:mb-2"
       },
       onBack ? IconButton({ icon: "arrow-left", label: "Voltar", onClick: onBack }) : null,
       h("h1", { class: "flex-1 min-w-0 font-display font-semibold text-xl text-concrete-900 truncate" }, title),
@@ -2447,21 +2854,22 @@
       ),
       !isOwn && jobId ? h(
         "div",
-        { class: "sticky bottom-0 px-4 sm:px-6 py-3 bg-white shadow-bar flex flex-col gap-2 lg:static lg:bg-transparent lg:shadow-none" },
+        { class: "sticky bottom-0 px-4 sm:px-6 py-3 bg-white shadow-bar flex flex-col gap-2 lg:static lg:bg-transparent lg:shadow-none lg:pt-0 lg:pb-6" },
         !decidedForJob && !jobFull ? h(
           "div",
-          { class: "flex flex-col gap-2" },
+          { class: "flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-3" },
           Button({
             label: `Aprovar para a vaga \xB7 ${approvedCount(jobId) + 1} de ${getJob(jobId).slots || 1}`,
             size: "lg",
             fullWidth: true,
             iconLeft: "circle-check",
+            className: "lg:w-auto lg:px-8",
             onClick: () => {
               decideApplication(jobId, worker.id, "aprovado");
               navigate2(isJobClosed(getJob(jobId)) ? "/fechado/" + jobId : "/vaga-gerenciar/" + jobId);
             }
           }),
-          Button({ label: "Recusar candidato", variant: "ghost", fullWidth: true, onClick: () => {
+          Button({ label: "Recusar candidato", variant: "ghost", fullWidth: true, className: "lg:w-auto", onClick: () => {
             decideApplication(jobId, worker.id, "recusado");
             navigate2("/vaga-gerenciar/" + jobId);
           } })
@@ -2496,7 +2904,7 @@
         description: isOwn ? "Publique fotos ou v\xEDdeos dos seus bicos para as construtoras verem a qualidade do seu servi\xE7o." : `${firstName} ainda n\xE3o publicou fotos ou v\xEDdeos do trabalho.`,
         actionLabel: isOwn ? "Publicar primeiro post" : null,
         onAction: isOwn ? () => setUI(POSTS_KEY, { composing: true }) : null
-      }) : h("div", { class: "flex flex-col gap-4" }, ...posts.map((p) => postCard(p, isOwn))),
+      }) : h("div", { class: "flex flex-col gap-4 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...posts.map((p) => postCard(p, isOwn))),
       isOwn ? composer(worker, ui) : null,
       isOwn ? Dialog({
         open: Boolean(ui.deleteId),
@@ -2520,7 +2928,7 @@
       h(
         "div",
         { class: "relative" },
-        post.mediaUrl ? post.mediaType === "video" ? h("video", { src: post.mediaUrl, controls: true, class: "w-full h-72 object-cover bg-concrete-900" }) : h("img", { src: post.mediaUrl, alt: "", class: "w-full h-72 object-cover" }) : h("div", { class: "w-full h-72 bg-concrete-200 flex items-center justify-center" }, Icon("camera", { size: 32, color: "var(--text-subtle)" })),
+        post.mediaUrl ? post.mediaType === "video" ? h("video", { src: post.mediaUrl, controls: true, class: "w-full h-72 lg:h-auto lg:aspect-square object-cover bg-concrete-900" }) : h("img", { src: post.mediaUrl, alt: "", class: "w-full h-72 lg:h-auto lg:aspect-square object-cover" }) : h("div", { class: "w-full h-72 lg:h-auto lg:aspect-square bg-concrete-200 flex items-center justify-center" }, Icon("camera", { size: 32, color: "var(--text-subtle)" })),
         post.mediaType === "video" ? h("span", { class: "absolute top-2.5 left-2.5" }, Badge({ label: "V\xEDdeo", tone: "neutral" })) : null,
         isOwn ? h("span", { class: "absolute top-2.5 right-2.5" }, IconButton({ icon: "trash-2", label: "Excluir post", variant: "solid", size: "sm", onClick: () => setUI(POSTS_KEY, { deleteId: post.id }) })) : null
       ),
@@ -2603,7 +3011,7 @@
       BackBar({ title: "Editar perfil", onBack: () => goBack("/perfil") }),
       h(
         "div",
-        { class: "flex-1 flex flex-col gap-5 px-4 sm:px-6 py-4" },
+        { class: "flex-1 flex flex-col gap-5 px-4 sm:px-6 lg:px-0 py-4" },
         h(
           "div",
           { class: "flex flex-col gap-1.5" },
@@ -2632,13 +3040,129 @@
       ),
       h(
         "div",
-        { class: "px-4 sm:px-6 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none" },
+        { class: "px-4 sm:px-6 lg:px-0 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none" },
         Button({ label: "Cancelar", variant: "secondary", className: "flex-1", onClick: () => navigate2("/perfil") }),
         Button({ label: "Salvar altera\xE7\xF5es", className: "flex-[1.4]", onClick: () => {
           Object.assign(worker, { name: ui.name, role: ui.role, region: ui.region, specialties: ui.specialties });
           navigate2("/perfil");
         } })
       )
+    );
+  }
+
+  // js/components/JobTile.js
+  var COVERS = [
+    { test: /eletric/i, icon: "plug-zap", from: "#2F4BB5", to: "#0A1A54" },
+    { test: /pint/i, icon: "paint-roller", from: "#2AA096", to: "#08514A" },
+    { test: /azulej|porcelan|revest/i, icon: "layout-grid", from: "#6E8DF5", to: "#1D3FB8" },
+    { test: /encanad|hidr/i, icon: "droplets", from: "#3AA9D1", to: "#0C5F80" },
+    { test: /armador|ferr/i, icon: "construction", from: "#5C6672", to: "#161C24" },
+    { test: /carpint|marcen/i, icon: "hammer", from: "#C08A4A", to: "#6E4015" },
+    { test: /gess/i, icon: "ruler", from: "#8E9DB5", to: "#46546B" },
+    { test: /telhad|telhado/i, icon: "house", from: "#E0A24A", to: "#94540F" },
+    { test: /mestre/i, icon: "hard-hat", from: "#3F63F0", to: "#0E2472" },
+    { test: /servente|ajudante/i, icon: "shovel", from: "#9AA3AE", to: "#3F4852" },
+    { test: /pedreiro|alvenaria|reboco|acabamento/i, icon: "brick-wall", from: "#D9774B", to: "#842F12" }
+  ];
+  var DEFAULT_COVER = { icon: "hard-hat", from: "#1D4BED", to: "#0A1A54" };
+  function coverFor(role) {
+    return COVERS.find((c) => c.test.test(role)) || DEFAULT_COVER;
+  }
+  function JobCover({ job, muted = false }) {
+    const c = coverFor(job.role || "");
+    return h(
+      "div",
+      {
+        class: cx("absolute inset-0 transition-transform duration-300 ease-out group-hover:scale-[1.04]", muted ? "grayscale" : ""),
+        style: { background: `linear-gradient(145deg, ${c.from}, ${c.to})` }
+      },
+      h("div", { class: "absolute inset-0 job-cover-grid" }),
+      h("div", { class: "absolute inset-0", style: { background: "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.22), transparent 58%)" } }),
+      h("span", { class: "absolute -right-8 -bottom-8 opacity-[0.13] -rotate-12" }, Icon(c.icon, { size: 168, color: "#fff" })),
+      h(
+        "div",
+        { class: "absolute inset-0 flex items-center justify-center" },
+        h(
+          "span",
+          { class: "inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/15 ring-1 ring-white/30 shadow-raised", style: { backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" } },
+          Icon(c.icon, { size: 30, color: "#fff" })
+        )
+      )
+    );
+  }
+  function SaveFlag({ saved, onToggle, label }) {
+    return h(
+      "button",
+      {
+        type: "button",
+        "aria-label": label,
+        "aria-pressed": saved ? "true" : "false",
+        title: label,
+        class: "absolute top-2 right-2 z-10 inline-flex items-center justify-center w-10 h-10 rounded-full transition-transform active:scale-90 hover:scale-110",
+        onClick: (e) => {
+          e.stopPropagation();
+          onToggle();
+        }
+      },
+      h(
+        "span",
+        { class: "relative inline-flex w-6 h-6", style: { filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))" } },
+        Icon("bookmark-solid", { size: 24, color: saved ? "var(--brand)" : "rgba(16,20,24,0.32)", className: "absolute inset-0" }),
+        Icon("bookmark", { size: 24, color: "#fff", className: "absolute inset-0" })
+      )
+    );
+  }
+  var PILL_TONES = {
+    neutral: "var(--gray-700)",
+    danger: "var(--red-500)",
+    brand: "var(--blue-600)",
+    success: "var(--green-500)",
+    warning: "var(--amber-500)",
+    accent: "var(--teal-600)"
+  };
+  function JobTile({ job, title, lines = [], onClick, pill = null, saved = false, onToggleSave = null, muted = false }) {
+    return h(
+      "div",
+      { class: "group relative flex flex-col gap-3 min-w-0" },
+      h(
+        "div",
+        { class: "relative w-full aspect-[20/19] rounded-2xl overflow-hidden bg-concrete-100" },
+        job.photo ? h("img", { src: job.photo, alt: "", class: cx("absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04]", muted ? "grayscale" : "") }) : JobCover({ job, muted }),
+        pill ? h(
+          "span",
+          { class: cx("absolute top-3 left-3 inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full bg-white/95 shadow-raised text-xs font-semibold text-concrete-900", onToggleSave ? "max-w-[calc(100%-4rem)]" : "max-w-[calc(100%-1.5rem)]") },
+          pill.icon ? Icon(pill.icon, { size: 13, color: PILL_TONES[pill.tone] || PILL_TONES.neutral }) : null,
+          h("span", { class: "truncate" }, pill.label)
+        ) : null,
+        onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave, label: saved ? "Remover dos salvos" : "Salvar vaga" }) : null
+      ),
+      h(
+        "div",
+        { class: "flex flex-col gap-0.5 min-w-0" },
+        h("button", {
+          type: "button",
+          class: "text-left font-semibold text-[0.9375rem] leading-snug text-concrete-900 truncate after:content-[''] after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-500 focus-visible:after:ring-offset-4",
+          onClick
+        }, title || job.role),
+        ...lines.map((line) => h("span", { class: "text-sm text-concrete-500 truncate" }, line))
+      )
+    );
+  }
+  function PublishTile({ onClick }) {
+    return h(
+      "button",
+      {
+        type: "button",
+        onClick,
+        class: "group flex flex-col gap-3 min-w-0 text-left"
+      },
+      h(
+        "span",
+        { class: "relative w-full aspect-[20/19] rounded-2xl border-2 border-dashed border-concrete-300 bg-concrete-25 flex flex-col items-center justify-center gap-3 transition-colors group-hover:border-brand-400 group-hover:bg-brand-50" },
+        h("span", { class: "inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-500 shadow-raised transition-transform group-hover:scale-105" }, Icon("plus", { size: 26, color: "#fff" })),
+        h("span", { class: "font-semibold text-concrete-900" }, "Publicar nova vaga")
+      ),
+      h("span", { class: "text-sm text-concrete-500" }, "Leva menos de dois minutos.")
     );
   }
 
@@ -2670,8 +3194,11 @@
   function JobCard({ job, companyName, onClick, overlay = null, footer = null, photoLabel = "Foto do canteiro", muted = false }) {
     const photo = h(
       "div",
-      { class: cx("relative h-[9.25rem] bg-concrete-200", muted ? "grayscale" : "") },
-      job.photo ? h("img", { src: job.photo, alt: "", class: "w-full h-full object-cover" }) : h("div", { class: "w-full h-full flex items-center justify-center text-concrete-400 text-xs" }, photoLabel),
+      { class: cx("relative h-[9.25rem] bg-concrete-200 overflow-hidden", muted ? "grayscale" : "") },
+      job.photo ? h("img", { src: job.photo, alt: "", class: "w-full h-full object-cover" }) : [
+        h("div", { class: "lg:hidden w-full h-full flex items-center justify-center text-concrete-400 text-xs" }, photoLabel),
+        h("div", { class: "hidden lg:block absolute inset-0" }, JobCover({ job }))
+      ],
       overlay
     );
     const body = h(
@@ -2814,7 +3341,7 @@
             h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Seus posts"),
             Button({ label: "Publicar", variant: "ghost", size: "sm", iconLeft: "plus", onClick: () => navigate2("/criar-vaga") })
           ),
-          openJobs.length === 0 ? EmptyState({ icon: "hammer", title: "Voc\xEA ainda n\xE3o publicou nenhuma vaga", description: "Publique seu primeiro bico para come\xE7ar a receber candidatos.", actionLabel: "Publicar vaga", onAction: () => navigate2("/criar-vaga") }) : h("div", { class: "flex flex-col gap-3" }, ...openJobs.map((job) => JobCard({
+          openJobs.length === 0 ? EmptyState({ icon: "hammer", title: "Voc\xEA ainda n\xE3o publicou nenhuma vaga", description: "Publique seu primeiro bico para come\xE7ar a receber candidatos.", actionLabel: "Publicar vaga", onAction: () => navigate2("/criar-vaga") }) : h("div", { class: "flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...openJobs.map((job) => JobCard({
             job,
             companyName: null,
             onClick: () => navigate2("/vaga-gerenciar/" + job.id),
@@ -2834,7 +3361,7 @@
           "div",
           { class: "flex flex-col gap-2.5" },
           h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Vagas publicadas"),
-          openJobs.length === 0 ? EmptyState({ icon: "hammer", title: "Nenhuma vaga aberta no momento", description: `${company.name} n\xE3o tem bicos publicados agora. Volte mais tarde para ver novidades.` }) : h("div", { class: "flex flex-col gap-3" }, ...openJobs.map((job) => JobCard({ job, companyName: null, onClick: () => navigate2("/vaga/" + job.id) })))
+          openJobs.length === 0 ? EmptyState({ icon: "hammer", title: "Nenhuma vaga aberta no momento", description: `${company.name} n\xE3o tem bicos publicados agora. Volte mais tarde para ver novidades.` }) : h("div", { class: "flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...openJobs.map((job) => JobCard({ job, companyName: null, onClick: () => navigate2("/vaga/" + job.id) })))
         )
       ),
       Dialog({
@@ -2883,7 +3410,7 @@
       BackBar({ title: "Editar empresa", onBack: () => goBack("/empresa") }),
       h(
         "div",
-        { class: "flex-1 flex flex-col gap-5 px-4 sm:px-6 py-4" },
+        { class: "flex-1 flex flex-col gap-5 px-4 sm:px-6 lg:px-0 py-4" },
         h(
           "div",
           { class: "flex flex-col gap-1.5" },
@@ -2915,7 +3442,7 @@
       ),
       h(
         "div",
-        { class: "px-4 sm:px-6 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none" },
+        { class: "px-4 sm:px-6 lg:px-0 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none" },
         Button({ label: "Cancelar", variant: "secondary", className: "flex-1", onClick: () => navigate2("/empresa") }),
         Button({ label: "Salvar altera\xE7\xF5es", className: "flex-[1.4]", onClick: () => {
           Object.assign(company, ui);
@@ -2953,7 +3480,7 @@
       BackBar({ title: "Avalia\xE7\xF5es", onBack: () => goBack(backTarget) }),
       h(
         "div",
-        { class: "flex flex-col gap-5 px-4 sm:px-6 py-4 lg:max-w-app" },
+        { class: "flex flex-col gap-5 px-4 sm:px-6 lg:px-0 py-4" },
         h(
           "div",
           { class: "flex flex-col gap-1.5" },
@@ -2982,6 +3509,71 @@
     );
   }
 
+  // js/utils/scrollMemory.js
+  var offsets = /* @__PURE__ */ new Map();
+  function rememberScroll(key, left) {
+    offsets.set(key, left);
+  }
+  function recalledScroll(key) {
+    return offsets.get(key) || 0;
+  }
+
+  // js/components/JobRail.js
+  if (typeof window !== "undefined") {
+    window.addEventListener("resize", () => {
+      document.querySelectorAll("[data-rail]").forEach((el) => el.syncArrows && el.syncArrows());
+    });
+  }
+  function arrowButton(icon, label, onClick) {
+    return h("button", {
+      type: "button",
+      "aria-label": label,
+      title: label,
+      class: "inline-flex items-center justify-center w-8 h-8 rounded-full bg-white border border-concrete-200 text-concrete-900 shadow-card transition hover:shadow-raised hover:scale-105 disabled:opacity-40 disabled:shadow-none disabled:hover:scale-100 disabled:cursor-default",
+      onClick
+    }, Icon(icon, { size: 16 }));
+  }
+  function JobRail({ id, title, count, onSeeAll, items }) {
+    const rail = h("div", { class: "job-rail job-cols no-scrollbar pb-1", "data-rail": id }, ...items);
+    const prev = arrowButton("chevron-left", "Anteriores", () => rail.scrollBy({ left: -rail.clientWidth, behavior: "smooth" }));
+    const next = arrowButton("chevron-right", "Pr\xF3ximas", () => rail.scrollBy({ left: rail.clientWidth, behavior: "smooth" }));
+    rail.syncArrows = () => {
+      prev.disabled = rail.scrollLeft <= 2;
+      next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2;
+    };
+    rail.addEventListener("scroll", () => {
+      rememberScroll(id, rail.scrollLeft);
+      rail.syncArrows();
+    }, { passive: true });
+    requestAnimationFrame(() => {
+      const left = recalledScroll(id);
+      if (left) rail.scrollLeft = left;
+      rail.syncArrows();
+    });
+    return h(
+      "section",
+      { class: "flex flex-col gap-4 min-w-0", "aria-label": title },
+      h(
+        "div",
+        { class: "flex items-center justify-between gap-4" },
+        h(
+          "button",
+          {
+            type: "button",
+            class: "group inline-flex items-center gap-2.5 min-w-0 text-left",
+            onClick: onSeeAll,
+            title: "Ver todas"
+          },
+          h("h2", { class: "text-[1.375rem] font-semibold leading-tight text-concrete-900 truncate" }, title),
+          count != null ? h("span", { class: "hidden xl:inline text-sm text-concrete-500 whitespace-nowrap" }, count === 1 ? "1 vaga" : `${count} vagas`) : null,
+          h("span", { class: "shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-concrete-100 text-concrete-900 transition-colors group-hover:bg-concrete-200" }, Icon("arrow-right", { size: 15 }))
+        ),
+        h("div", { class: cx("flex items-center gap-2 shrink-0") }, prev, next)
+      ),
+      rail
+    );
+  }
+
   // js/screens/worker/Feed.js
   var KEY8 = "feed";
   function openJob(navigate2, role, job) {
@@ -2995,7 +3587,10 @@
   }
   function renderFeed(navigate2) {
     const role = getRole();
-    const ui = getUI(KEY8, { search: "", location: "Tatuap\xE9, SP", locationOpen: false, filtersOpen: false, tipo: null, dist: "Toda a cidade", quando: null, sort: "perto", notifyUrgent: true });
+    const ui = getUI(KEY8, { search: "", location: "Tatuap\xE9, SP", locationOpen: false, filtersOpen: false, tipo: null, dist: "Toda a cidade", quando: null, sort: "perto", notifyUrgent: true, expanded: null });
+    return h("div", {}, mobileFeed(navigate2, role, ui), desktopFeed(navigate2, role, ui));
+  }
+  function mobileFeed(navigate2, role, ui) {
     const q = ui.search.trim().toLowerCase();
     const searching = q.length > 0;
     const openJobs = activeJobs().filter((j) => !isJobClosed(j));
@@ -3149,7 +3744,7 @@
     );
     return h(
       "div",
-      { class: "flex flex-col" },
+      { class: "flex flex-col lg:hidden" },
       header,
       h("div", { class: "px-4 sm:px-0 py-4 flex flex-col gap-5" }, searching ? searchResults : browseResults),
       Sheet(
@@ -3157,8 +3752,8 @@
         Button({ label: "Usar minha localiza\xE7\xE3o agora", variant: "secondary", fullWidth: true, iconLeft: "locate-fixed", onClick: () => setUI(KEY8, { location: "Tatuap\xE9, SP", locationOpen: false }) }),
         h("div", { class: "flex flex-col" }, ...LOCAIS_BAIRRO.concat(["Toda S\xE3o Paulo"]).map((l) => {
           const active = ui.location === l;
-          const bairro = l.split(",")[0];
-          const count = l === "Toda S\xE3o Paulo" ? openJobs.length : openJobs.filter((j) => j.location.indexOf(bairro) === 0).length;
+          const bairro2 = l.split(",")[0];
+          const count = l === "Toda S\xE3o Paulo" ? openJobs.length : openJobs.filter((j) => j.location.indexOf(bairro2) === 0).length;
           return h(
             "button",
             {
@@ -3192,6 +3787,235 @@
       )
     );
   }
+  function bairro(job) {
+    return String(job.location || "").split(",")[0];
+  }
+  function companyRating(job) {
+    return getCompany(job.companyId).rating || 0;
+  }
+  function ratingText(company) {
+    return company.rating ? `\u2605 ${company.rating.toFixed(1).replace(".", ",")}` : "Nova na Bicos";
+  }
+  function priceLine(job, extra) {
+    return h(
+      "span",
+      {},
+      h("span", { class: "font-semibold text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay)),
+      job.pay == null ? "" : " a di\xE1ria",
+      extra ? ` \xB7 ${extra}` : ""
+    );
+  }
+  function desktopFeed(navigate2, role, ui) {
+    const open = activeJobs().filter((j) => !isJobClosed(j));
+    const byDistance = (a, b) => km(a.distance) - km(b.distance);
+    const byPay = (a, b) => payNum(b) - payNum(a);
+    function tileFor(job) {
+      const company = getCompany(job.companyId);
+      if (role === "recrutador" && isMine(job)) {
+        const slots = job.slots || 1;
+        const pending = pendingCount(job.id);
+        const total = applicationsForJob(job.id).length;
+        const pill2 = pending ? { label: `${pending} para analisar`, icon: "clock", tone: "warning" } : total ? { label: total === 1 ? "1 candidato" : `${total} candidatos`, icon: "users", tone: "brand" } : { label: "Sem candidatos", icon: "search-x", tone: "neutral" };
+        return JobTile({
+          job,
+          pill: pill2,
+          onClick: () => navigate2("/vaga-gerenciar/" + job.id),
+          lines: [
+            `${approvedCount(job.id)} de ${slots} ${slots === 1 ? "vaga preenchida" : "vagas preenchidas"}`,
+            `${job.date} \xB7 ${job.hours} \xB7 ${bairro(job)}`,
+            priceLine(job)
+          ]
+        });
+      }
+      const app = role === "trabalhador" ? applicationFor(job.id, currentWorkerId()) : null;
+      const info = app ? statusInfo(app.status, job.id) : null;
+      const pill = info ? { label: info.label, icon: info.icon, tone: info.tone } : job.urgent ? { label: "Urgente", icon: "zap", tone: "danger" } : company.verified ? { label: "Verificada", icon: "shield-check", tone: "success" } : null;
+      return JobTile({
+        job,
+        pill,
+        onClick: () => navigate2("/vaga/" + job.id),
+        saved: isJobSaved(job.id),
+        onToggleSave: role === "trabalhador" ? () => toggleSavedJob(job.id) : null,
+        lines: [company.name, `${job.date} \xB7 ${job.hours} \xB7 ${bairro(job)}`, priceLine(job, ratingText(company))]
+      });
+    }
+    const publishTile = () => PublishTile({ onClick: () => navigate2("/criar-vaga") });
+    const sections = role === "recrutador" ? (() => {
+      const mine = open.filter((j) => isMine(j));
+      const others = open.filter((j) => !isMine(j));
+      return [
+        { id: "minhas", title: "Suas vagas abertas", jobs: mine, lead: publishTile, keepEmpty: true },
+        { id: "regiao", title: "Outras vagas na sua regi\xE3o", jobs: others.slice().sort(byDistance) },
+        { id: "maiores-regiao", title: "Maiores di\xE1rias da regi\xE3o", jobs: others.filter((j) => j.pay != null).sort(byPay) }
+      ];
+    })() : [
+      { id: "urgentes", title: "Precisam de gente agora", jobs: open.filter((j) => j.urgent).sort(byDistance) },
+      { id: "perto", title: `Perto de voc\xEA \xB7 ${ui.location.split(",")[0]}`, jobs: open.slice().sort(byDistance) },
+      { id: "maiores", title: "Maiores di\xE1rias da semana", jobs: open.filter((j) => j.pay != null).sort(byPay) },
+      { id: "bem-avaliadas", title: "Das construtoras mais bem avaliadas", jobs: open.filter((j) => companyRating(j) >= 4.6).sort((a, b) => companyRating(b) - companyRating(a)) },
+      { id: "a-combinar", title: "Di\xE1ria a combinar", jobs: open.filter((j) => j.pay == null).sort(byDistance) }
+    ];
+    const visible = sections.filter((s) => s.keepEmpty || s.jobs.length);
+    const q = ui.search.trim().toLowerCase();
+    const expanded = !q && ui.expanded ? visible.find((s) => s.id === ui.expanded) : null;
+    let body;
+    if (q) {
+      body = desktopSearchResults(navigate2, role, ui, open, tileFor);
+    } else if (expanded) {
+      body = h(
+        "div",
+        { class: "flex flex-col gap-7" },
+        h(
+          "div",
+          { class: "flex items-center gap-3" },
+          h("button", {
+            type: "button",
+            "aria-label": "Voltar para o in\xEDcio",
+            title: "Voltar",
+            class: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-concrete-100 text-concrete-900 transition-colors hover:bg-concrete-200",
+            onClick: () => {
+              setUI(KEY8, { expanded: null });
+              window.scrollTo(0, 0);
+            }
+          }, Icon("arrow-left", { size: 18 })),
+          h("h1", { class: "text-[1.75rem] font-semibold leading-tight text-concrete-900" }, expanded.title),
+          h("span", { class: "text-concrete-500" }, expanded.jobs.length === 1 ? "1 vaga" : `${expanded.jobs.length} vagas`)
+        ),
+        h("div", { class: "job-grid job-cols" }, expanded.lead ? expanded.lead() : null, ...expanded.jobs.map(tileFor))
+      );
+    } else {
+      body = h("div", { class: "flex flex-col gap-12" }, ...visible.map((s) => JobRail({
+        id: "mural-" + role + "-" + s.id,
+        title: s.title,
+        count: s.jobs.length,
+        onSeeAll: () => {
+          setUI(KEY8, { expanded: s.id });
+          window.scrollTo(0, 0);
+        },
+        items: (s.lead ? [s.lead()] : []).concat(s.jobs.map(tileFor))
+      })));
+    }
+    return h(
+      "div",
+      { class: "hidden lg:block bg-white min-h-[calc(100vh-5rem)]" },
+      h(
+        "div",
+        { class: "page-x pt-1 pb-9 border-b border-concrete-200" },
+        h("div", { class: "max-w-[52rem] mx-auto" }, desktopSearch(role, ui))
+      ),
+      h("div", { class: "page-x pt-10 pb-20" }, body)
+    );
+  }
+  function desktopSearch(role, ui) {
+    const inputId = "feed-search-desktop";
+    const input = h("input", {
+      id: inputId,
+      "data-focus-id": inputId,
+      type: "text",
+      autocomplete: "off",
+      spellcheck: "false",
+      placeholder: role === "recrutador" ? "Vaga, construtora ou trabalhador" : "Servi\xE7o, bairro ou construtora",
+      value: ui.search,
+      class: "w-full bg-transparent outline-none text-[0.9375rem] text-concrete-900 placeholder:text-concrete-500",
+      oninput: (e) => setUI(KEY8, { search: e.target.value, expanded: null }),
+      onkeydown: (e) => {
+        if (e.key === "Escape") setUI(KEY8, { search: "" });
+      }
+    });
+    return h(
+      "div",
+      {
+        role: "search",
+        class: "flex items-center gap-4 h-[4.25rem] pl-2 pr-3 rounded-full bg-white border border-concrete-200 shadow-float transition focus-within:border-brand-300 focus-within:ring-4 focus-within:ring-brand-100"
+      },
+      h("button", {
+        type: "button",
+        "aria-label": "Buscar",
+        title: "Buscar",
+        class: "shrink-0 inline-flex items-center justify-center w-[3.25rem] h-[3.25rem] rounded-full bg-brand-500 shadow-raised transition hover:bg-brand-600 active:scale-95",
+        onClick: () => {
+          const el = document.getElementById(inputId);
+          if (el) el.focus();
+        }
+      }, Icon("search", { size: 22, color: "#fff" })),
+      h(
+        "label",
+        { for: inputId, class: "flex-1 min-w-0 flex flex-col justify-center gap-0.5 cursor-text" },
+        h("span", { class: "text-xs font-bold text-concrete-900" }, role === "recrutador" ? "Buscar na Bicos" : "Buscar bicos"),
+        input
+      ),
+      ui.search ? h("button", {
+        type: "button",
+        "aria-label": "Limpar busca",
+        title: "Limpar busca",
+        class: "shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full text-concrete-500 transition-colors hover:bg-concrete-100 hover:text-concrete-900",
+        onClick: () => setUI(KEY8, { search: "" })
+      }, Icon("x", { size: 18 })) : null
+    );
+  }
+  function desktopSearchResults(navigate2, role, ui, open, tileFor) {
+    const q = ui.search.trim().toLowerCase();
+    const jobs = open.filter((j) => (j.role + " " + getCompany(j.companyId).name + " " + j.location).toLowerCase().includes(q));
+    const companies = allCompanies().filter((c) => (c.name + " " + c.location).toLowerCase().includes(q));
+    const workers = allWorkers().filter((w) => (w.name + " " + w.role + " " + w.region).toLowerCase().includes(q));
+    const parts = [
+      jobs.length ? jobs.length === 1 ? "1 vaga" : `${jobs.length} vagas` : null,
+      companies.length ? companies.length === 1 ? "1 construtora" : `${companies.length} construtoras` : null,
+      workers.length ? workers.length === 1 ? "1 trabalhador" : `${workers.length} trabalhadores` : null
+    ].filter(Boolean);
+    const heading2 = h(
+      "div",
+      { class: "flex items-baseline gap-3 flex-wrap" },
+      h("h1", { class: "text-[1.75rem] font-semibold leading-tight text-concrete-900" }, `Resultados para \u201C${ui.search.trim()}\u201D`),
+      parts.length ? h("span", { class: "text-concrete-500" }, parts.join(" \xB7 ")) : null
+    );
+    if (!parts.length) {
+      return h(
+        "div",
+        { class: "flex flex-col gap-4" },
+        heading2,
+        EmptyState({ icon: "search-x", title: "Nenhum resultado para essa busca", description: "Confira a grafia ou tente um termo mais curto, como o nome do servi\xE7o ou do bairro.", actionLabel: "Limpar busca", onAction: () => setUI(KEY8, { search: "" }) })
+      );
+    }
+    const group = (title, content) => h("section", { class: "flex flex-col gap-4" }, h("h2", { class: "text-[1.375rem] font-semibold text-concrete-900" }, title), content);
+    const personGrid = (children) => h("div", { class: "grid gap-4 grid-cols-[repeat(auto-fill,minmax(17rem,1fr))]" }, ...children);
+    const personCard = ({ avatar, name, meta, rating, onClick }) => h(
+      onClick ? "button" : "div",
+      {
+        type: onClick ? "button" : null,
+        onClick,
+        class: cx("flex items-center gap-4 p-4 rounded-2xl border border-concrete-200 bg-white text-left", onClick ? "transition hover:shadow-raised hover:border-concrete-300" : "")
+      },
+      avatar,
+      h(
+        "div",
+        { class: "flex-1 min-w-0 flex flex-col gap-0.5" },
+        h("span", { class: "font-semibold text-concrete-900 truncate" }, name),
+        h("span", { class: "text-sm text-concrete-500 truncate" }, meta),
+        rating
+      )
+    );
+    return h(
+      "div",
+      { class: "flex flex-col gap-12" },
+      heading2,
+      jobs.length ? group("Vagas", h("div", { class: "job-grid job-cols" }, ...jobs.map(tileFor))) : null,
+      companies.length ? group("Construtoras", personGrid(companies.map((c) => personCard({
+        avatar: h("span", { class: "inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-50 shrink-0" }, Icon("building-2", { size: 22, color: "var(--brand)" })),
+        name: c.name,
+        meta: c.location,
+        rating: Rating({ value: c.rating, count: c.reviewCount }),
+        onClick: () => navigate2("/construtora/" + c.id)
+      })))) : null,
+      workers.length ? group("Trabalhadores", personGrid(workers.map((w) => personCard({
+        avatar: h("span", { class: "inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent-50 text-accent-600 font-bold shrink-0" }, w.initials),
+        name: w.name,
+        meta: `${w.role} \xB7 ${w.region}`,
+        rating: Rating({ value: w.rating, count: w.jobsDone }),
+        onClick: role === "recrutador" ? () => navigate2("/trabalhador/" + w.id) : null
+      })))) : null
+    );
+  }
   function filterGroup(title, options, active, onSelect) {
     return h(
       "div",
@@ -3212,16 +4036,48 @@
     const application = role === "trabalhador" ? applicationFor(job.id, worker.id) : null;
     const canCancel = application && (application.status === "enviada" || application.status === "em_analise");
     const ui = getUI(KEY9, { confirmCancel: false });
+    const actions = () => role === "trabalhador" ? [
+      application ? canCancel ? Button({ label: "Cancelar candidatura", size: "lg", fullWidth: true, variant: "secondary", onClick: () => setUI(KEY9, { confirmCancel: true }) }) : Button({ label: "Ver minhas candidaturas", size: "lg", fullWidth: true, variant: "secondary", onClick: () => navigate2("/minhas-candidaturas") }) : Button({ label: "Quero esse bico", size: "lg", fullWidth: true, onClick: () => navigate2("/confirmar/" + job.id) }),
+      !application ? h("span", { class: "text-center text-xs text-concrete-500" }, "Voc\xEA n\xE3o paga nada para se candidatar") : null
+    ] : [];
+    const summary = h(
+      "aside",
+      { class: "hidden lg:block lg:sticky lg:top-28" },
+      h(
+        "div",
+        { class: "flex flex-col gap-5 p-6 bg-white rounded-2xl border border-concrete-200 shadow-float" },
+        h(
+          "div",
+          { class: "flex flex-col gap-1" },
+          h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-brand-600" }, "Di\xE1ria"),
+          h(
+            "div",
+            { class: "flex items-baseline gap-2" },
+            h("span", { class: "font-mono font-bold text-3xl text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay)),
+            job.pay == null ? null : h("span", { class: "text-concrete-500" }, "por dia")
+          )
+        ),
+        h(
+          "div",
+          { class: "flex flex-col rounded-xl border border-concrete-200 divide-y divide-concrete-200" },
+          summaryRow("calendar", "Quando", job.dateLong || job.date),
+          summaryRow("clock", "Dura\xE7\xE3o", job.duration),
+          summaryRow("map-pin", "Onde", `${job.location} \xB7 ${job.distance}`)
+        ),
+        ...actions(),
+        h("div", { class: "flex items-start gap-2 text-sm text-concrete-500" }, Icon("hand-coins", { size: 18, color: "var(--text-subtle)" }), h("span", {}, "Pagamento em PIX no fim da di\xE1ria, combinado direto com a construtora."))
+      )
+    );
     return h(
       "div",
       { class: "flex flex-col" },
       BackBar({ title: "Detalhe da vaga", onBack: () => goBack("/mural") }),
       h(
         "div",
-        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[1fr_20rem] lg:items-start lg:gap-6" },
+        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:gap-10" },
         h(
           "div",
-          { class: "flex flex-col gap-4" },
+          { class: "flex flex-col gap-4 lg:gap-6" },
           Card(
             { padding: "none" },
             h(
@@ -3254,7 +4110,7 @@
             job.description ? h("p", { class: "text-sm text-concrete-700 leading-relaxed" }, job.description) : null
           ),
           Card(
-            { tone: "brand", padding: "md" },
+            { tone: "brand", padding: "md", className: "lg:hidden" },
             h(
               "div",
               { class: "flex flex-col gap-4" },
@@ -3287,14 +4143,9 @@
             h("div", { class: "flex flex-col gap-3" }, ...job.requirements.map((r) => h("div", { class: "flex gap-2.5 items-center" }, Icon("circle-check", { size: 20, color: "var(--green-500)" }), h("span", { class: "text-concrete-700" }, r))))
           ))
         ),
-        h("div", {})
+        summary
       ),
-      role === "trabalhador" ? h(
-        "div",
-        { class: "sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app" },
-        application ? canCancel ? Button({ label: "Cancelar candidatura", size: "lg", fullWidth: true, variant: "secondary", onClick: () => setUI(KEY9, { confirmCancel: true }) }) : Button({ label: "Ver minhas candidaturas", size: "lg", fullWidth: true, variant: "secondary", onClick: () => navigate2("/minhas-candidaturas") }) : Button({ label: "Quero esse bico", size: "lg", fullWidth: true, onClick: () => navigate2("/confirmar/" + job.id) }),
-        !application ? h("span", { class: "text-center text-xs text-concrete-500" }, "Voc\xEA n\xE3o paga nada para se candidatar") : null
-      ) : null,
+      role === "trabalhador" ? h("div", { class: "sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:hidden" }, ...actions()) : null,
       Dialog({
         open: ui.confirmCancel,
         tone: "danger",
@@ -3309,6 +4160,19 @@
         cancelLabel: "Voltar",
         onCancel: () => setUI(KEY9, { confirmCancel: false })
       })
+    );
+  }
+  function summaryRow(icon, label, value) {
+    return h(
+      "div",
+      { class: "flex items-center gap-3 px-4 py-3" },
+      Icon(icon, { size: 18, color: "var(--text-subtle)" }),
+      h(
+        "div",
+        { class: "flex flex-col min-w-0" },
+        h("span", { class: "text-xs font-bold uppercase tracking-[0.06em] text-concrete-500" }, label),
+        h("span", { class: "text-sm font-semibold text-concrete-900 truncate" }, value)
+      )
     );
   }
   function section(title, content) {
@@ -3345,7 +4209,7 @@
       BackBar({ title: "Confirmar candidatura", onBack: () => goBack("/vaga/" + job.id) }),
       h(
         "div",
-        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4 lg:max-w-app" },
+        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4" },
         h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Confira antes de enviar"),
         Card(
           { padding: "md" },
@@ -3376,7 +4240,7 @@
       ),
       h(
         "div",
-        { class: "px-4 sm:px-0 py-3 flex flex-col gap-2 lg:max-w-app" },
+        { class: "px-4 sm:px-0 py-3 flex flex-col gap-2" },
         Button({
           label: "Sim, quero esse bico",
           size: "lg",
@@ -3459,8 +4323,8 @@
       { class: "flex flex-col" },
       h(
         "div",
-        { class: "sticky top-0 z-20 flex items-center justify-between min-h-14 px-4 sm:px-0 bg-white border-b border-concrete-200 lg:static lg:border-0" },
-        h("h1", { class: "font-display font-semibold text-xl text-concrete-900" }, "Minhas candidaturas"),
+        { class: "sticky top-0 z-20 flex items-center justify-between min-h-14 px-4 sm:px-0 bg-white border-b border-concrete-200 lg:static lg:bg-transparent lg:border-0 lg:pb-2" },
+        h("h1", { class: "font-display font-semibold text-xl lg:text-[1.75rem] text-concrete-900" }, "Minhas candidaturas"),
         h("span", { class: "text-sm text-concrete-500" }, apps.length === 1 ? "1 no total" : `${apps.length} no total`)
       ),
       h(
@@ -3557,7 +4421,7 @@
       ),
       h(
         "div",
-        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4 lg:max-w-app" },
+        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4" },
         Card(
           { padding: "md" },
           h(
@@ -3611,7 +4475,7 @@
       BackBar({ title: "Avaliar a di\xE1ria", onBack: () => goBack("/minhas-candidaturas") }),
       h(
         "div",
-        { class: "flex flex-col gap-5 px-4 sm:px-0 py-4 lg:max-w-app" },
+        { class: "flex flex-col gap-5 px-4 sm:px-0 py-4" },
         h(
           "div",
           { class: "flex flex-col gap-1" },
@@ -3896,10 +4760,10 @@
         stepDot(2, ui.step >= 2),
         h("span", { class: "text-sm text-concrete-500" }, "Valor e requisitos")
       ),
-      h("div", { class: "px-4 sm:px-0 py-5 lg:max-w-app" }, ui.step === 1 ? step1 : step2),
+      h("div", { class: "px-4 sm:px-0 py-5" }, ui.step === 1 ? step1 : step2),
       h(
         "div",
-        { class: "px-4 sm:px-0 py-3 flex flex-col gap-1.5 lg:max-w-app" },
+        { class: "px-4 sm:px-0 py-3 flex flex-col gap-1.5" },
         Button({ label: ui.step === 1 ? "Continuar" : "Publicar vaga", size: "lg", fullWidth: true, loading: ui.publishing, onClick: advance }),
         h("span", { class: "text-center text-xs text-concrete-500" }, "Publicar \xE9 gr\xE1tis. Voc\xEA paga s\xF3 se impulsionar.")
       )
@@ -4014,21 +4878,62 @@
     const pending = pendingCount(job.id);
     const closed = isJobClosed(job);
     const status = jobStatus(job, approved, pending);
+    const payCard = (className) => Card(
+      { tone: "brand", padding: "md", className },
+      h(
+        "div",
+        { class: "flex flex-col gap-4" },
+        h(
+          "div",
+          { class: "flex items-end justify-between gap-3" },
+          h("div", { class: "flex flex-col gap-0.5" }, h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-brand-600" }, "Di\xE1ria que voc\xEA ofereceu"), h("span", { class: "font-mono font-bold text-4xl text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay))),
+          h("span", { class: "text-sm text-concrete-700 text-right" }, "Pago no fim", h("br"), "da di\xE1ria")
+        ),
+        h("div", { class: "flex items-center gap-2 pt-4 border-t border-brand-200" }, Icon("calendar", { size: 20, color: "var(--text-brand)" }), h("span", { class: "font-display font-semibold text-lg text-concrete-900" }, job.dateLong || job.date))
+      )
+    );
+    const slotsCard = (className) => Card(
+      { padding: "md", className },
+      h(
+        "div",
+        { class: "flex flex-col gap-3" },
+        h(
+          "div",
+          { class: "flex items-baseline justify-between gap-3" },
+          h("span", { class: "font-semibold text-concrete-900" }, `${approved} de ${slots} ${slots === 1 ? "vaga preenchida" : "vagas preenchidas"}`),
+          h("span", { class: "font-mono text-sm text-concrete-500" }, `${slots} no total`)
+        ),
+        h("div", { class: "flex gap-1.5" }, ...Array.from({ length: slots }).map((_, i) => h("span", { class: `flex-1 h-2 rounded-full ${i < approved ? "bg-brand-500" : "bg-concrete-200"}` }))),
+        h("span", { class: `text-sm ${closed ? "text-success-500" : "text-concrete-500"}` }, closed ? "Bico fechado. A vaga saiu do mural e n\xE3o recebe mais candidatura." : "Aprove candidatos at\xE9 preencher todas as vagas. A\xED o bico fecha sozinho.")
+      )
+    );
+    const actions = () => [
+      Button({ label: "Editar vaga", variant: "secondary", iconLeft: "pencil", className: "flex-1", onClick: () => {
+      } }),
+      Button({ label: "Encerrar vaga", variant: "ghost", className: "flex-1", onClick: () => setUI(KEY13, { confirmClose: true }) })
+    ];
+    const side = h(
+      "aside",
+      { class: "hidden lg:flex lg:flex-col lg:gap-4 lg:sticky lg:top-28" },
+      payCard(),
+      slotsCard(),
+      !closed ? h("div", { class: "flex gap-3" }, ...actions()) : null
+    );
     return h(
       "div",
       { class: "flex flex-col" },
       BackBar({ title: "Sua vaga", onBack: () => goBack("/mural") }),
       h(
         "div",
-        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[1fr_22rem] lg:items-start lg:gap-6" },
+        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-10" },
         h(
           "div",
-          { class: "flex flex-col gap-4" },
+          { class: "flex flex-col gap-4 lg:gap-6" },
           h(
             "div",
             { class: "flex flex-col gap-1.5" },
             h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Foto da vaga"),
-            PhotoSlot({ shape: "rect", height: "9rem", placeholder: "Toque para escolher uma foto do canteiro", value: job.photo, onChange: (v) => updateJob(job.id, { photo: v }) })
+            PhotoSlot({ shape: "rect", height: "9rem", placeholder: "Toque para escolher uma foto do canteiro", value: job.photo, onChange: (v) => updateJob(job.id, { photo: v }), className: "lg:!h-56" })
           ),
           h(
             "div",
@@ -4037,35 +4942,8 @@
             h("h1", { class: "font-display font-bold text-2xl text-concrete-900" }, job.role),
             job.description ? h("p", { class: "text-sm text-concrete-700 leading-relaxed" }, job.description) : null
           ),
-          Card(
-            { tone: "brand", padding: "md" },
-            h(
-              "div",
-              { class: "flex flex-col gap-4" },
-              h(
-                "div",
-                { class: "flex items-end justify-between gap-3" },
-                h("div", { class: "flex flex-col gap-0.5" }, h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-brand-600" }, "Di\xE1ria que voc\xEA ofereceu"), h("span", { class: "font-mono font-bold text-4xl text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay))),
-                h("span", { class: "text-sm text-concrete-700 text-right" }, "Pago no fim", h("br"), "da di\xE1ria")
-              ),
-              h("div", { class: "flex items-center gap-2 pt-4 border-t border-brand-200" }, Icon("calendar", { size: 20, color: "var(--text-brand)" }), h("span", { class: "font-display font-semibold text-lg text-concrete-900" }, job.dateLong || job.date))
-            )
-          ),
-          Card(
-            { padding: "md" },
-            h(
-              "div",
-              { class: "flex flex-col gap-3" },
-              h(
-                "div",
-                { class: "flex items-baseline justify-between gap-3" },
-                h("span", { class: "font-semibold text-concrete-900" }, `${approved} de ${slots} ${slots === 1 ? "vaga preenchida" : "vagas preenchidas"}`),
-                h("span", { class: "font-mono text-sm text-concrete-500" }, `${slots} no total`)
-              ),
-              h("div", { class: "flex gap-1.5" }, ...Array.from({ length: slots }).map((_, i) => h("span", { class: `flex-1 h-2 rounded-full ${i < approved ? "bg-brand-500" : "bg-concrete-200"}` }))),
-              h("span", { class: `text-sm ${closed ? "text-success-500" : "text-concrete-500"}` }, closed ? "Bico fechado. A vaga saiu do mural e n\xE3o recebe mais candidatura." : "Aprove candidatos at\xE9 preencher todas as vagas. A\xED o bico fecha sozinho.")
-            )
-          ),
+          payCard("lg:hidden"),
+          slotsCard("lg:hidden"),
           h(
             "div",
             { class: "flex flex-col gap-2" },
@@ -4113,15 +4991,9 @@
             })) : EmptyState({ icon: "users", title: "Nenhum candidato ainda", description: "Vagas com valor acima da m\xE9dia da regi\xE3o costumam receber candidato no mesmo dia. Voc\xEA tamb\xE9m pode impulsionar.", actionLabel: "Impulsionar vaga", onAction: () => navigate2("/impulsionar/" + job.id) })
           )
         ),
-        h("div", {})
+        side
       ),
-      !closed ? h(
-        "div",
-        { class: "sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app" },
-        Button({ label: "Editar vaga", variant: "secondary", iconLeft: "pencil", className: "flex-1", onClick: () => {
-        } }),
-        Button({ label: "Encerrar vaga", variant: "ghost", className: "flex-1", onClick: () => setUI(KEY13, { confirmClose: true }) })
-      ) : null,
+      !closed ? h("div", { class: "sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex gap-3 lg:hidden" }, ...actions()) : null,
       Dialog({
         open: ui.confirmClose,
         tone: "danger",
@@ -4182,7 +5054,7 @@
       ),
       h(
         "div",
-        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4 lg:max-w-app" },
+        { class: "flex flex-col gap-4 px-4 sm:px-0 py-4" },
         Card(
           { tone: "sunken", padding: "sm" },
           h(
@@ -4244,7 +5116,7 @@
       BackBar({ title: "Impulsionar vaga", onBack: () => goBack("/vaga-gerenciar/" + job.id) }),
       h(
         "div",
-        { class: "flex flex-col gap-5 px-4 sm:px-0 py-4 lg:max-w-app" },
+        { class: "flex flex-col gap-5 px-4 sm:px-0 py-4" },
         h(
           "div",
           { class: "flex flex-col gap-1" },
@@ -4289,7 +5161,7 @@
       ),
       h(
         "div",
-        { class: "px-4 sm:px-0 py-3 flex flex-col gap-2 lg:max-w-app" },
+        { class: "px-4 sm:px-0 py-3 flex flex-col gap-2" },
         Button({ label: `Impulsionar por ${chosen.price}`, size: "lg", fullWidth: true, onClick: () => {
           job.boosted = true;
           job.urgent = true;
@@ -4386,6 +5258,22 @@
     if (AUTH_FLOW.has(path)) return true;
     return path.startsWith("/cadastro/") || path.startsWith("/completar-perfil/");
   }
+  var NARROW_SCREENS = /* @__PURE__ */ new Set([
+    "/criar-vaga",
+    "/perfil/editar",
+    "/empresa/editar",
+    "/configuracoes",
+    "/configuracoes/privacidade",
+    "/notificacoes",
+    "/confirmar/:id",
+    "/enviado/:id",
+    "/avaliar/:id",
+    "/selecionado/:id",
+    "/vaga-publicada/:id",
+    "/impulsionar/:id",
+    "/fechado/:id",
+    "/avaliacoes/:type/:id"
+  ]);
   var appEl = document.getElementById("app");
   function build(m, path) {
     const content = m.handler(m.params);
@@ -4395,16 +5283,38 @@
     const role = getRole();
     const badges = role === "trabalhador" ? { "minhas-candidaturas": inProgressCount() } : {};
     const activeId = tabIdForPath(path, role);
+    const isMural = path === "/mural";
     const showMobileNav = TAB_ROOTS[role] && TAB_ROOTS[role].has(path);
-    const nav = AppNav({ role, active: activeId, navigate, badges, showMobilePill: showMobileNav });
+    const nav = AppNav({
+      role,
+      active: activeId,
+      navigate,
+      badges,
+      showMobilePill: showMobileNav,
+      flush: isMural,
+      notifications: role === "recrutador" ? 3 : 2,
+      account: accountSummary(role)
+    });
     const shell2 = document.createElement("div");
-    shell2.className = "lg:flex lg:max-w-panel lg:mx-auto lg:px-8 lg:items-start";
+    shell2.className = "lg:flex lg:flex-col lg:min-h-screen";
     shell2.appendChild(nav);
-    const main = document.createElement("div");
-    main.className = cx("flex-1 min-w-0 lg:py-6", showMobileNav ? "pb-28 lg:pb-6" : "");
+    const main = document.createElement("main");
+    main.className = cx(
+      "flex-1 min-w-0",
+      showMobileNav ? "pb-28 lg:pb-0" : "",
+      isMural ? "" : cx("lg:w-full lg:mx-auto lg:px-8 lg:pt-8 lg:pb-16", NARROW_SCREENS.has(m.pattern) ? "lg:max-w-[40rem]" : "lg:max-w-panel")
+    );
     main.appendChild(content);
     shell2.appendChild(main);
     return shell2;
+  }
+  function accountSummary(role) {
+    if (role === "recrutador") {
+      const company = currentCompany();
+      return { name: company.name, photo: getUI("company-profile", { capa: null, logo: null, deleteId: null }).logo };
+    }
+    const worker = currentWorker();
+    return { name: worker.name, initials: worker.initials };
   }
   function tabIdForPath(path, role) {
     if (role === "trabalhador") {
@@ -4450,6 +5360,7 @@
   }
   onRouteChange((m, path) => {
     window.scrollTo(0, 0);
+    getUI("app-nav", { menuOpen: false }).menuOpen = false;
     render(m, path);
   });
   function captureFocus() {

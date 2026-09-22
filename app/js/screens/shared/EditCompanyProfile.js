@@ -19,7 +19,7 @@ export default function renderEditCompanyProfile(navigate) {
 
   return h('div', { class: 'min-h-screen flex flex-col bg-concrete-50 lg:bg-transparent lg:min-h-0' },
     BackBar({ title: 'Editar empresa', onBack: () => goBack('/empresa') }),
-    h('div', { class: 'flex-1 flex flex-col gap-5 px-4 sm:px-6 py-4' },
+    h('div', { class: 'flex-1 flex flex-col gap-5 px-4 sm:px-6 lg:px-0 py-4' },
       h('div', { class: 'flex flex-col gap-1.5' },
         h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Foto de capa'),
         PhotoSlot({ shape: 'rect', height: '9rem', placeholder: 'Capa da construtora', value: banner.capa, onChange: (v) => setUI(BANNER_KEY, { capa: v }) })
@@ -41,7 +41,7 @@ export default function renderEditCompanyProfile(navigate) {
       Input({ id: 'edit-company-whatsapp', label: 'WhatsApp de contato', icon: 'phone', value: ui.whatsapp, onInput: (v) => setUI(KEY, { whatsapp: v }) }),
       h('div', { class: 'pt-2 border-t border-concrete-200' }, Button({ label: 'Sair da conta', variant: 'danger', fullWidth: true, iconLeft: 'log-out', onClick: () => navigate('/login') }))
     ),
-    h('div', { class: 'px-4 sm:px-6 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none' },
+    h('div', { class: 'px-4 sm:px-6 lg:px-0 py-3 bg-white shadow-bar flex gap-3 lg:static lg:bg-transparent lg:shadow-none' },
       Button({ label: 'Cancelar', variant: 'secondary', className: 'flex-1', onClick: () => navigate('/empresa') }),
       Button({ label: 'Salvar alterações', className: 'flex-[1.4]', onClick: () => { Object.assign(company, ui); navigate('/empresa'); } })
     )

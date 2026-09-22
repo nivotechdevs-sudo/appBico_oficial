@@ -56,3 +56,44 @@ button { -webkit-tap-highlight-color: transparent; }
 /* thin scrollbars for chip rows, kept off the main page scroller */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---- Desktop / tablet (>= 770px) ---- */
+
+/* Page gutters shared by the top navbar and full-width pages, so their edges line up. */
+.page-x { padding-left: 1.5rem; padding-right: 1.5rem; }
+@media (min-width: 1128px) { .page-x { padding-left: 2.5rem; padding-right: 2.5rem; } }
+@media (min-width: 1440px) { .page-x { padding-left: 5rem; padding-right: 5rem; } }
+
+/* Job columns: 3 on a small tablet, up to 7 on a wide monitor. */
+.job-cols { --cols: 3; --gap: 1rem; }
+@media (min-width: 960px) { .job-cols { --cols: 4; } }
+@media (min-width: 1200px) { .job-cols { --cols: 5; } }
+@media (min-width: 1440px) { .job-cols { --cols: 6; --gap: 1.25rem; } }
+@media (min-width: 1680px) { .job-cols { --cols: 7; } }
+
+.job-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
+  column-gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+}
+.job-rail > * { scroll-snap-align: start; }
+
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: 2.25rem var(--gap);
+}
+
+/* Blueprint grid laid over the illustrated covers of jobs without a photo. */
+.job-cover-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 1.375rem 1.375rem;
+}
+
+.app-header.is-scrolled { box-shadow: 0 1px 0 var(--border), 0 6px 16px rgba(16, 20, 24, 0.06); }

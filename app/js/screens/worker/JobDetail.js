@@ -22,10 +22,39 @@ export default function renderJobDetail(navigate, params) {
   const canCancel = application && (application.status === 'enviada' || application.status === 'em_analise');
   const ui = store.getUI(KEY, { confirmCancel: false });
 
+  // Built fresh for each placement: the phone's sticky bottom bar and the desktop summary card.
+  const actions = () => role === 'trabalhador' ? [
+    application
+      ? (canCancel
+          ? Button({ label: 'Cancelar candidatura', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => store.setUI(KEY, { confirmCancel: true }) })
+          : Button({ label: 'Ver minhas candidaturas', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => navigate('/minhas-candidaturas') }))
+      : Button({ label: 'Quero esse bico', size: 'lg', fullWidth: true, onClick: () => navigate('/confirmar/' + job.id) }),
+    !application ? h('span', { class: 'text-center text-xs text-concrete-500' }, 'Você não paga nada para se candidatar') : null
+  ] : [];
+
+  const summary = h('aside', { class: 'hidden lg:block lg:sticky lg:top-28' },
+    h('div', { class: 'flex flex-col gap-5 p-6 bg-white rounded-2xl border border-concrete-200 shadow-float' },
+      h('div', { class: 'flex flex-col gap-1' },
+        h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-brand-600' }, 'Diária'),
+        h('div', { class: 'flex items-baseline gap-2' },
+          h('span', { class: 'font-mono font-bold text-3xl text-concrete-900' }, job.pay == null ? 'A combinar' : formatBRL(job.pay)),
+          job.pay == null ? null : h('span', { class: 'text-concrete-500' }, 'por dia')
+        )
+      ),
+      h('div', { class: 'flex flex-col rounded-xl border border-concrete-200 divide-y divide-concrete-200' },
+        summaryRow('calendar', 'Quando', job.dateLong || job.date),
+        summaryRow('clock', 'Duração', job.duration),
+        summaryRow('map-pin', 'Onde', `${job.location} · ${job.distance}`)
+      ),
+      ...actions(),
+      h('div', { class: 'flex items-start gap-2 text-sm text-concrete-500' }, Icon('hand-coins', { size: 18, color: 'var(--text-subtle)' }), h('span', {}, 'Pagamento em PIX no fim da diária, combinado direto com a construtora.'))
+    )
+  );
+
   return h('div', { class: 'flex flex-col' },
     BackBar({ title: 'Detalhe da vaga', onBack: () => goBack('/mural') }),
-    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[1fr_20rem] lg:items-start lg:gap-6' },
-      h('div', { class: 'flex flex-col gap-4' },
+    h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:gap-10' },
+      h('div', { class: 'flex flex-col gap-4 lg:gap-6' },
         Card({ padding: 'none' },
           h('div', { class: 'relative' },
             h('div', { class: 'h-[5.5rem] bg-concrete-200 rounded-t-card' }),
@@ -48,7 +77,7 @@ export default function renderJobDetail(navigate, params) {
           job.description ? h('p', { class: 'text-sm text-concrete-700 leading-relaxed' }, job.description) : null
         ),
 
-        Card({ tone: 'brand', padding: 'md' },
+        Card({ tone: 'brand', padding: 'md', className: 'lg:hidden' },
           h('div', { class: 'flex flex-col gap-4' },
             h('div', { class: 'flex items-end justify-between gap-3' },
               h('div', { class: 'flex flex-col gap-0.5' },
@@ -74,17 +103,10 @@ export default function renderJobDetail(navigate, params) {
         ))
       ),
 
-      h('div', {})
+      summary
     ),
 
-    role === 'trabalhador' ? h('div', { class: 'sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:static lg:bg-transparent lg:shadow-none lg:max-w-app' },
-      application
-        ? (canCancel
-            ? Button({ label: 'Cancelar candidatura', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => store.setUI(KEY, { confirmCancel: true }) })
-            : Button({ label: 'Ver minhas candidaturas', size: 'lg', fullWidth: true, variant: 'secondary', onClick: () => navigate('/minhas-candidaturas') }))
-        : Button({ label: 'Quero esse bico', size: 'lg', fullWidth: true, onClick: () => navigate('/confirmar/' + job.id) }),
-      !application ? h('span', { class: 'text-center text-xs text-concrete-500' }, 'Você não paga nada para se candidatar') : null
-    ) : null,
+    role === 'trabalhador' ? h('div', { class: 'sticky bottom-0 px-4 sm:px-0 py-3 bg-white shadow-bar flex flex-col gap-1.5 lg:hidden' }, ...actions()) : null,
 
     Dialog({
       open: ui.confirmCancel, tone: 'danger', title: 'Cancelar essa candidatura?',
@@ -92,6 +114,16 @@ export default function renderJobDetail(navigate, params) {
       confirmLabel: 'Cancelar candidatura', onConfirm: () => { store.cancelApplication(job.id, worker.id); store.setUI(KEY, { confirmCancel: false }); navigate('/minhas-candidaturas'); },
       cancelLabel: 'Voltar', onCancel: () => store.setUI(KEY, { confirmCancel: false })
     })
+  );
+}
+
+function summaryRow(icon, label, value) {
+  return h('div', { class: 'flex items-center gap-3 px-4 py-3' },
+    Icon(icon, { size: 18, color: 'var(--text-subtle)' }),
+    h('div', { class: 'flex flex-col min-w-0' },
+      h('span', { class: 'text-xs font-bold uppercase tracking-[0.06em] text-concrete-500' }, label),
+      h('span', { class: 'text-sm font-semibold text-concrete-900 truncate' }, value)
+    )
   );
 }
 

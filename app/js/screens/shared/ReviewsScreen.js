@@ -33,7 +33,7 @@ export default function renderReviews(navigate, params) {
 
   return h('div', { class: 'flex flex-col' },
     BackBar({ title: 'Avaliações', onBack: () => goBack(backTarget) }),
-    h('div', { class: 'flex flex-col gap-5 px-4 sm:px-6 py-4 lg:max-w-app' },
+    h('div', { class: 'flex flex-col gap-5 px-4 sm:px-6 lg:px-0 py-4' },
       h('div', { class: 'flex flex-col gap-1.5' },
         h('span', { class: 'font-display font-bold text-2xl text-concrete-900' }, subject.name),
         Rating({ value: subject.rating, count })

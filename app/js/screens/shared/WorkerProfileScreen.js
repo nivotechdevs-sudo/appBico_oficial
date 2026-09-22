@@ -76,14 +76,14 @@ export default function renderWorkerProfile(navigate, params) {
       !isOwn && jobId ? h('p', { class: 'text-sm text-concrete-500' }, 'O contato por WhatsApp abre depois que você aprovar esse trabalhador para a vaga.') : null
     ),
 
-    !isOwn && jobId ? h('div', { class: 'sticky bottom-0 px-4 sm:px-6 py-3 bg-white shadow-bar flex flex-col gap-2 lg:static lg:bg-transparent lg:shadow-none' },
-      !decidedForJob && !jobFull ? h('div', { class: 'flex flex-col gap-2' },
+    !isOwn && jobId ? h('div', { class: 'sticky bottom-0 px-4 sm:px-6 py-3 bg-white shadow-bar flex flex-col gap-2 lg:static lg:bg-transparent lg:shadow-none lg:pt-0 lg:pb-6' },
+      !decidedForJob && !jobFull ? h('div', { class: 'flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-3' },
         Button({
           label: `Aprovar para a vaga · ${store.approvedCount(jobId) + 1} de ${store.getJob(jobId).slots || 1}`,
-          size: 'lg', fullWidth: true, iconLeft: 'circle-check',
+          size: 'lg', fullWidth: true, iconLeft: 'circle-check', className: 'lg:w-auto lg:px-8',
           onClick: () => { store.decideApplication(jobId, worker.id, 'aprovado'); navigate(store.isJobClosed(store.getJob(jobId)) ? '/fechado/' + jobId : '/vaga-gerenciar/' + jobId); }
         }),
-        Button({ label: 'Recusar candidato', variant: 'ghost', fullWidth: true, onClick: () => { store.decideApplication(jobId, worker.id, 'recusado'); navigate('/vaga-gerenciar/' + jobId); } })
+        Button({ label: 'Recusar candidato', variant: 'ghost', fullWidth: true, className: 'lg:w-auto', onClick: () => { store.decideApplication(jobId, worker.id, 'recusado'); navigate('/vaga-gerenciar/' + jobId); } })
       ) : decidedForJob ? h('div', { class: 'flex items-center gap-2.5' },
         Badge({ label: decision === 'pre_selecionado' ? 'Aprovado' : 'Recusado', tone: decision === 'pre_selecionado' ? 'success' : 'danger', icon: decision === 'pre_selecionado' ? 'circle-check' : 'circle-x' }),
         h('span', { class: 'flex-1 text-sm text-concrete-500' }, decision === 'pre_selecionado' ? 'Contato por WhatsApp liberado para os dois lados.' : 'Avisamos que dessa vez não deu certo.'),
@@ -113,7 +113,7 @@ function postsSection(worker, isOwn) {
           actionLabel: isOwn ? 'Publicar primeiro post' : null,
           onAction: isOwn ? () => store.setUI(POSTS_KEY, { composing: true }) : null
         })
-      : h('div', { class: 'flex flex-col gap-4' }, ...posts.map((p) => postCard(p, isOwn))),
+      : h('div', { class: 'flex flex-col gap-4 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5' }, ...posts.map((p) => postCard(p, isOwn))),
     isOwn ? composer(worker, ui) : null,
     isOwn ? Dialog({
       open: Boolean(ui.deleteId), tone: 'danger', title: 'Excluir esse post?',
@@ -129,9 +129,9 @@ function postCard(post, isOwn) {
     h('div', { class: 'relative' },
       post.mediaUrl
         ? (post.mediaType === 'video'
-            ? h('video', { src: post.mediaUrl, controls: true, class: 'w-full h-72 object-cover bg-concrete-900' })
-            : h('img', { src: post.mediaUrl, alt: '', class: 'w-full h-72 object-cover' }))
-        : h('div', { class: 'w-full h-72 bg-concrete-200 flex items-center justify-center' }, Icon('camera', { size: 32, color: 'var(--text-subtle)' })),
+            ? h('video', { src: post.mediaUrl, controls: true, class: 'w-full h-72 lg:h-auto lg:aspect-square object-cover bg-concrete-900' })
+            : h('img', { src: post.mediaUrl, alt: '', class: 'w-full h-72 lg:h-auto lg:aspect-square object-cover' }))
+        : h('div', { class: 'w-full h-72 lg:h-auto lg:aspect-square bg-concrete-200 flex items-center justify-center' }, Icon('camera', { size: 32, color: 'var(--text-subtle)' })),
       post.mediaType === 'video' ? h('span', { class: 'absolute top-2.5 left-2.5' }, Badge({ label: 'Vídeo', tone: 'neutral' })) : null,
       isOwn ? h('span', { class: 'absolute top-2.5 right-2.5' }, IconButton({ icon: 'trash-2', label: 'Excluir post', variant: 'solid', size: 'sm', onClick: () => store.setUI(POSTS_KEY, { deleteId: post.id }) })) : null
     ),
