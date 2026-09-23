@@ -118,7 +118,7 @@ function build(m, path) {
   main.className = cx(
     'flex-1 min-w-0',
     showMobileNav ? 'pb-28 lg:pb-0' : '',
-    isMural ? '' : cx('lg:w-full lg:mx-auto lg:px-8 lg:pt-8 lg:pb-16', NARROW_SCREENS.has(m.pattern) ? 'lg:max-w-[40rem]' : 'lg:max-w-panel')
+    isMural ? 'bg-white min-h-screen' : cx('lg:w-full lg:mx-auto lg:px-8 lg:pt-8 lg:pb-16', NARROW_SCREENS.has(m.pattern) ? 'lg:max-w-[40rem]' : 'lg:max-w-panel')
   );
   main.appendChild(content);
   shell.appendChild(main);

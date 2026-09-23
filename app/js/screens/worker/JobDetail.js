@@ -56,12 +56,10 @@ export default function renderJobDetail(navigate, params) {
     BackBar({ title: 'Detalhe da vaga', onBack: () => goBack('/mural') }),
     h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:gap-10' },
       h('div', { class: 'flex flex-col gap-4 lg:gap-6' },
-        PhotoCarousel({ job }),
-
         Card({ padding: 'none' },
           h('div', { class: 'relative' },
-            h('div', { class: 'h-[5.5rem] bg-concrete-200 rounded-t-card' }),
-            h('div', { class: 'absolute left-4 -bottom-6 w-[3.75rem] h-[3.75rem] rounded-full bg-white p-0.5 shadow-raised' },
+            PhotoCarousel({ job, className: 'h-60 sm:h-80 lg:h-[26rem] rounded-t-card' }),
+            h('div', { class: 'absolute z-10 left-4 -bottom-6 w-[3.75rem] h-[3.75rem] rounded-full bg-white p-0.5 shadow-raised' },
               h('div', { class: 'w-full h-full rounded-full bg-brand-50 flex items-center justify-center' }, Icon('building-2', { size: 24, color: 'var(--brand)' }))
             )
           ),

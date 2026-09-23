@@ -36,13 +36,15 @@ the page is opened via `file://` (no server = no origin to satisfy the module lo
   screen-local UI state every render reads from. No backend.
 - `js/router.js` / `js/main.js` — hash router and the app shell (nav + screen content).
 - `js/components/` — the reusable component library (Button, Input, Card, Modal, Skeleton,
-  EmptyState, ErrorState, the JobCard/CandidateRow marketplace pieces, PhotoCarousel /
+  EmptyState, ErrorState, the JobTile/JobCard/CandidateRow marketplace pieces, PhotoCarousel /
   PhotoManager for a job's photos, and `AppNav`, the single navigation component that
   renders as a floating tab bar on phones and a full-width top navbar from `lg:` up).
 - Breakpoints: `lg` is 770px (see `tailwind.config.js`) — below it is the phone layout,
-  from it up the tablet/desktop layout. The desktop mural uses the same `JobCard` as the
-  phone in a vertical-only grid of 2 to 7 columns (`.card-grid` in `css/base.css`); the
-  only horizontal scrolling in the app is a job's photo carousel.
+  from it up the tablet/desktop layout. The mural (phone and desktop) is one vertical-only
+  grid of `JobTile`s — photo plus four single-line rows, so every tile is the same size —
+  with 2 columns on a phone and 3 to 7 as the window widens (`.card-grid` in
+  `css/base.css`). The only horizontal scrolling in the app is a job's photo carousel
+  (touch swipe, mouse drag, arrows or keyboard).
 - `js/screens/{shared,worker,recruiter}/` — one file per screen, composed out of the
   component library.
 - `icons/` — Lucide SVGs vendored locally (via `lucide-static`); `scripts/gen-icons.cjs`

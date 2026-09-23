@@ -5,40 +5,43 @@ import { JobCover, jobPhotos } from './JobCover.js';
 const shownPhoto = new Map();
 
 /**
- * A job's photos, swiped (or paged with the arrows) horizontally — the one place in the
- * app that scrolls sideways. Without photos it shows the same placeholder the job card
- * shows at that screen size.
+ * A job's photos, swiped (touch), dragged (mouse), paged with the arrows or the keyboard
+ * arrows — the one place in the app that scrolls sideways. Without photos it shows the
+ * job's illustrated cover. `className` sets the frame's height/rounding.
  */
-export function PhotoCarousel({ job }) {
+export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] rounded-card' }) {
   const photos = jobPhotos(job);
   const n = photos.length;
-  const frame = 'relative w-full h-56 sm:h-72 lg:h-[26rem] rounded-card overflow-hidden bg-concrete-200';
+  const frame = cx('relative w-full overflow-hidden bg-concrete-200', className);
 
-  if (!n) {
-    return h('div', { class: frame },
-      h('div', { class: 'lg:hidden w-full h-full flex flex-col items-center justify-center gap-1.5 text-concrete-400' },
-        Icon('camera', { size: 24 }), h('span', { class: 'text-xs' }, 'Foto do canteiro')
-      ),
-      h('div', { class: 'hidden lg:block absolute inset-0' }, JobCover({ job, large: true }))
-    );
-  }
+  if (!n) return h('div', { class: frame }, JobCover({ job, large: true }));
 
-  const track = h('div', { class: 'flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar', 'aria-label': 'Fotos do bico' },
-    ...photos.map((src, i) => h('div', { class: 'shrink-0 w-full h-full snap-center' },
-      h('img', { src, alt: `Foto ${i + 1} de ${n}`, draggable: 'false', class: 'w-full h-full object-cover select-none' })
+  const track = h('div', {
+    class: cx('flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar outline-none', n > 1 ? 'cursor-grab' : ''),
+    tabindex: n > 1 ? '0' : null, 'aria-label': 'Fotos do bico', 'aria-roledescription': 'carrossel'
+  },
+    ...photos.map((src, i) => h('div', { class: 'shrink-0 w-full h-full snap-center snap-always' },
+      h('img', { src, alt: `Foto ${i + 1} de ${n}`, draggable: 'false', class: 'w-full h-full object-cover select-none pointer-events-none' })
     ))
   );
   if (n === 1) return h('div', { class: frame }, track);
 
+  let width = 0;
+  const current = () => Math.min(n - 1, shownPhoto.get(job.id) || 0);
+  const goTo = (i) => {
+    const target = Math.max(0, Math.min(n - 1, i));
+    track.scrollTo({ left: target * (width || track.clientWidth), behavior: 'smooth' });
+  };
+
   const arrow = (icon, label, dir, side) => h('button', {
     type: 'button', 'aria-label': label, title: label,
-    class: cx('absolute top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:opacity-0 disabled:pointer-events-none', side),
-    onClick: () => track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' })
+    class: cx('absolute top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:opacity-0 disabled:pointer-events-none', side),
+    onClick: (e) => { e.stopPropagation(); goTo(current() + dir); }
   }, Icon(icon, { size: 18 }));
   const prev = arrow('chevron-left', 'Foto anterior', -1, 'left-3');
   const next = arrow('chevron-right', 'Próxima foto', 1, 'right-3');
   const dots = photos.map(() => h('span', { class: 'h-1.5 rounded-full transition-all duration-200' }));
-  const counter = h('span', { class: 'absolute bottom-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold' });
+  const counter = h('span', { class: 'absolute top-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold pointer-events-none' });
 
   const show = (i) => {
     counter.textContent = `${i + 1} / ${n}`;
@@ -46,22 +49,55 @@ export function PhotoCarousel({ job }) {
     prev.disabled = i === 0;
     next.disabled = i === n - 1;
   };
+
   // The whole screen re-renders on every store change; remember which photo was showing.
-  const start = Math.min(n - 1, shownPhoto.get(job.id) || 0);
-  let width = 0;
   track.addEventListener('scroll', () => {
     // A resize also scrolls the track; keep the same photo instead of re-deriving it.
-    if (track.clientWidth !== width) { width = track.clientWidth; track.scrollLeft = (shownPhoto.get(job.id) || 0) * width; return; }
+    if (track.clientWidth !== width) { width = track.clientWidth; track.scrollLeft = current() * width; return; }
     const i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / (width || 1))));
     shownPhoto.set(job.id, i);
     show(i);
   }, { passive: true });
+
+  // Mouse drag to swipe (touch and trackpads already scroll natively).
+  let drag = null;
+  track.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: track.scrollLeft, from: current() };
+    track.style.scrollSnapType = 'none';
+    track.classList.replace('cursor-grab', 'cursor-grabbing');
+    track.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  track.addEventListener('pointermove', (e) => {
+    if (drag) track.scrollLeft = drag.left - (e.clientX - drag.x);
+  });
+  const endDrag = (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    const threshold = Math.min(60, (width || track.clientWidth) * 0.15);
+    const target = drag.from + (dx < -threshold ? 1 : dx > threshold ? -1 : 0);
+    drag = null;
+    track.classList.replace('cursor-grabbing', 'cursor-grab');
+    goTo(target);
+    const restore = () => { track.style.scrollSnapType = ''; };
+    if ('onscrollend' in window) track.addEventListener('scrollend', restore, { once: true });
+    setTimeout(restore, 600);
+  };
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current() + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current() - 1); }
+  });
+
+  const start = current();
   show(start);
   requestAnimationFrame(() => { width = track.clientWidth; if (start) track.scrollLeft = start * width; });
 
   return h('div', { class: frame },
     track, prev, next,
-    h('div', { class: 'absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5' }, ...dots),
+    h('div', { class: 'absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-none' }, ...dots),
     counter
   );
 }

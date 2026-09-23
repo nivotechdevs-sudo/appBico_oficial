@@ -1146,6 +1146,7 @@
     "history": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-history%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M3%2012a9%209%200%201%200%209-9%209.75%209.75%200%200%200-6.74%202.74L3%208%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%203v5h5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%207v5l4%202%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "house": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-house%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M15%2021v-8a1%201%200%200%200-1-1h-4a1%201%200%200%200-1%201v8%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%2010a2%202%200%200%201%20.709-1.528l7-6a2%202%200%200%201%202.582%200l7%206A2%202%200%200%201%2021%2010v9a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2z%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "id-card": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-id-card%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M13%2019a4%204%200%2000-8%200%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2010h2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2014h2%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%229%22%20cy%3D%2212%22%20r%3D%223%22%20%2F%3E%0A%20%20%3Crect%20x%3D%222%22%20y%3D%225%22%20width%3D%2220%22%20height%3D%2214%22%20rx%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "images": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-images%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m22%2011-1.296-1.296a2.4%202.4%200%200%200-3.408%200L11%2016%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M4%208a2%202%200%200%200-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202-2%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2213%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22currentColor%22%20%2F%3E%0A%20%20%3Crect%20x%3D%228%22%20y%3D%222%22%20width%3D%2214%22%20height%3D%2214%22%20rx%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "layout-grid": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-layout-grid%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%223%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%2214%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%2214%22%20rx%3D%221%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "locate-fixed": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-locate-fixed%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cline%20x1%3D%222%22%20x2%3D%225%22%20y1%3D%2212%22%20y2%3D%2212%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2219%22%20x2%3D%2222%22%20y1%3D%2212%22%20y2%3D%2212%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%222%22%20y2%3D%225%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%2219%22%20y2%3D%2222%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%227%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "lock": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-lock%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%2218%22%20height%3D%2211%22%20x%3D%223%22%20y%3D%2211%22%20rx%3D%222%22%20ry%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M7%2011V7a5%205%200%200%201%2010%200v4%22%20%2F%3E%0A%3C%2Fsvg%3E",
@@ -3177,22 +3178,6 @@
     const card = Card({ padding: "none", onClick, className: "flex flex-col" }, photo, body, footer);
     return card;
   }
-  function UrgentOverlay({ mine = false }) {
-    return h(
-      "div",
-      { class: "absolute inset-0 pointer-events-none" },
-      h(
-        "span",
-        { class: "absolute top-2.5 left-2.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-danger-500 text-white text-[0.6875rem] font-bold tracking-wide" },
-        Icon("zap", { size: 14, color: "#fff" }),
-        "Urgente"
-      ),
-      mine ? h("span", { class: "absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-white text-xs font-semibold text-brand-600" }, "Sua vaga") : null
-    );
-  }
-  function MineOverlay() {
-    return h("span", { class: "absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-white text-xs font-semibold text-brand-600" }, "Sua vaga");
-  }
   function JobCardFooter({ badgeEl, hint, hintColor = "var(--text-brand)", extra }) {
     return h(
       "div",
@@ -3456,6 +3441,71 @@
     );
   }
 
+  // js/components/JobTile.js
+  function JobTile({ job, company, onClick, urgent = false, mine = false, saved = false, onToggleSave = null }) {
+    const cover = jobPhotos(job)[0];
+    const count = jobPhotos(job).length;
+    const bairro = String(job.location || "").split(",")[0];
+    const when = [bairro, job.date, job.hours].filter(Boolean).join(" \xB7 ");
+    const pill = (children, className = "") => h("span", {
+      class: cx("inline-flex items-center gap-1 h-6 sm:h-7 px-2 sm:px-2.5 rounded-full bg-white text-[0.6875rem] sm:text-xs font-semibold shadow-[0_1px_3px_rgba(16,20,24,0.18)] whitespace-nowrap", className || "text-concrete-900")
+    }, children);
+    const photo = h(
+      "div",
+      { class: "relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200" },
+      cover ? h("img", { src: cover, alt: "", loading: "lazy", draggable: "false", class: "absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" }) : JobCover({ job }),
+      h(
+        "div",
+        { class: "absolute top-2 left-2 sm:top-3 sm:left-3 right-12 flex flex-wrap gap-1.5 pointer-events-none" },
+        urgent ? pill([Icon("zap", { size: 12, color: "var(--text-danger)" }), "Urgente"]) : null,
+        mine ? pill("Sua vaga", "text-brand-600") : null
+      ),
+      count > 1 ? h(
+        "span",
+        { class: "absolute bottom-2 right-2 inline-flex items-center gap-1 h-6 px-2 rounded-full bg-black/55 text-white text-[0.6875rem] font-semibold pointer-events-none" },
+        Icon("images", { size: 12, color: "#fff" }),
+        String(count)
+      ) : null,
+      onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
+    );
+    const rating = company && company.rating != null ? h(
+      "span",
+      { class: "inline-flex items-center gap-0.5 shrink-0 text-concrete-900" },
+      Icon("star", { size: 12, color: "currentColor" }),
+      String(company.rating).replace(".", ",")
+    ) : null;
+    const text = h(
+      "div",
+      { class: "flex flex-col pt-2 sm:pt-2.5 text-[0.8125rem] sm:text-sm leading-[1.35]" },
+      h(
+        "div",
+        { class: "flex items-center gap-2" },
+        h("span", { class: "flex-1 min-w-0 truncate font-semibold text-concrete-900 sm:text-[0.9375rem]" }, job.role),
+        rating
+      ),
+      h("span", { class: "truncate text-concrete-500" }, company ? company.name : job.location),
+      h("span", { class: "truncate text-concrete-500" }, when),
+      h(
+        "span",
+        { class: "truncate text-concrete-900 pt-0.5" },
+        job.pay == null ? h("span", { class: "font-semibold" }, "A combinar") : [h("span", { class: "font-semibold" }, formatBRL(job.pay)), h("span", { class: "text-concrete-500" }, " por di\xE1ria")]
+      )
+    );
+    return h("div", {
+      role: "link",
+      tabindex: "0",
+      "aria-label": [job.role, company && company.name, when].filter(Boolean).join(", "),
+      class: "group min-w-0 cursor-pointer rounded-xl outline-none focus-visible:ring-4 focus-visible:ring-brand-100",
+      onClick,
+      onkeydown: (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }
+    }, photo, text);
+  }
+
   // js/screens/worker/Feed.js
   var KEY8 = "feed";
   function openJob(navigate2, role, job) {
@@ -3466,6 +3516,25 @@
   }
   function payNum(job) {
     return job.pay == null ? -1 : job.pay;
+  }
+  function orderJobs(jobs, role, sort = "perto") {
+    const rank = (j) => role === "recrutador" && isMine(j) ? 0 : j.urgent ? 1 : 2;
+    const by = sort === "valor" ? (a, b) => payNum(b) - payNum(a) : sort === "cedo" ? (a, b) => (a.date === "Hoje" ? 0 : 1) - (b.date === "Hoje" ? 0 : 1) || km(a.distance) - km(b.distance) : (a, b) => km(a.distance) - km(b.distance);
+    return jobs.slice().sort((a, b) => rank(a) - rank(b) || by(a, b));
+  }
+  function tileFor(navigate2, role, job) {
+    return JobTile({
+      job,
+      company: getCompany(job.companyId),
+      onClick: openJob(navigate2, role, job),
+      urgent: job.urgent,
+      mine: role === "recrutador" && isMine(job),
+      saved: isJobSaved(job.id),
+      onToggleSave: role === "trabalhador" ? () => toggleSavedJob(job.id) : null
+    });
+  }
+  function tileGrid(navigate2, role, jobs) {
+    return h("div", { class: "card-grid" }, ...jobs.map((j) => tileFor(navigate2, role, j)));
   }
   function renderFeed(navigate2) {
     const role = getRole();
@@ -3479,13 +3548,7 @@
     const matches = (j) => !q || (j.role + " " + getCompany(j.companyId).name + " " + j.location).toLowerCase().includes(q);
     const passesFilters = (j) => (!ui.tipo || j.role === ui.tipo) && (ui.dist === "Toda a cidade" || km(j.distance) <= parseInt(ui.dist)) && (!ui.quando || j.date === ui.quando);
     const filtered = openJobs.filter(matches).filter(passesFilters);
-    const destaques = searching ? [] : filtered.filter((j) => j.urgent).slice(0, 2);
-    const destaqueIds = new Set(destaques.map((j) => j.id));
-    const rest = filtered.filter((j) => !destaqueIds.has(j.id)).sort((a, b) => {
-      if (ui.sort === "valor") return payNum(b) - payNum(a);
-      if (ui.sort === "cedo") return (a.date === "Hoje" ? 0 : 1) - (b.date === "Hoje" ? 0 : 1);
-      return km(a.distance) - km(b.distance);
-    });
+    const ordered = orderJobs(filtered, role, ui.sort);
     const jobResults = searching ? openJobs.filter(matches) : [];
     const companyResults = searching ? allCompanies().filter((c) => (c.name + " " + c.location).toLowerCase().includes(q)) : [];
     const workerResults = searching ? allWorkers().filter((w) => (w.name + " " + w.role + " " + w.region).toLowerCase().includes(q)) : [];
@@ -3496,19 +3559,9 @@
       ui.quando ? { label: ui.quando, icon: "calendar", remove: () => setUI(KEY8, { quando: null }) } : null
     ].filter(Boolean);
     const activeCount = activeChips.length;
-    function jobCardEl(job, isDestaque) {
-      const company = getCompany(job.companyId);
-      const mine = role === "recrutador" && isMine(job);
-      return JobCard({
-        job,
-        companyName: company.name,
-        onClick: openJob(navigate2, role, job),
-        overlay: isDestaque ? UrgentOverlay({ mine }) : mine ? MineOverlay() : null
-      });
-    }
     const header = h(
       "div",
-      { class: "sticky top-0 z-20 flex flex-col gap-3 px-2.5 pt-2 pb-3 bg-white border-b border-concrete-200 lg:static lg:border-0 lg:px-0" },
+      { class: "sticky top-0 z-20 flex flex-col gap-2 px-4 pt-2 pb-3.5 bg-white border-b border-concrete-200" },
       h(
         "div",
         { class: "flex items-center justify-between gap-2" },
@@ -3516,7 +3569,7 @@
           "button",
           {
             type: "button",
-            class: "flex items-center gap-2 min-h-12 px-1.5 rounded-control",
+            class: "flex items-center gap-2 min-h-12 -ml-1.5 px-1.5 rounded-control",
             onClick: () => setUI(KEY8, { locationOpen: true })
           },
           Icon("map-pin", { size: 20, color: "var(--brand)" }),
@@ -3530,30 +3583,16 @@
         ),
         NotificationBell({ count: role === "recrutador" ? 3 : 2, onClick: () => navigate2("/notificacoes") })
       ),
-      Input({ id: "feed-search", placeholder: "Buscar vaga, construtora ou trabalhador", icon: "search", value: ui.search, onInput: (v) => setUI(KEY8, { search: v }) })
+      SearchPill({ id: "feed-search", role, ui, compact: true })
     );
     const searchResults = h(
       "div",
       { class: "flex flex-col gap-5" },
       jobResults.length ? h(
         "div",
-        { class: "flex flex-col gap-2" },
+        { class: "flex flex-col gap-3" },
         h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Vagas"),
-        ...jobResults.map((j) => Card(
-          { padding: "md", onClick: openJob(navigate2, role, j) },
-          h(
-            "div",
-            { class: "flex items-center gap-3" },
-            h("span", { class: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-50 shrink-0" }, Icon("hammer", { size: 20, color: "var(--brand)" })),
-            h(
-              "div",
-              { class: "flex-1 min-w-0 flex flex-col" },
-              h("span", { class: "font-semibold text-concrete-900 truncate" }, j.role),
-              h("span", { class: "text-sm text-concrete-500 truncate" }, `${getCompany(j.companyId).name} \xB7 ${j.location}`)
-            ),
-            h("span", { class: "font-mono font-bold text-concrete-900 shrink-0" }, j.pay == null ? "A combinar" : "R$ " + j.pay)
-          )
-        ))
+        tileGrid(navigate2, role, orderJobs(jobResults, role))
       ) : null,
       companyResults.length ? h(
         "div",
@@ -3599,36 +3638,29 @@
     );
     const browseResults = h(
       "div",
-      { class: "flex flex-col gap-5" },
+      { class: "flex flex-col gap-4" },
       h(
         "div",
         { class: "flex flex-wrap items-center gap-2" },
         Tag({ label: activeCount ? `Filtros \xB7 ${activeCount}` : "Filtros", icon: "sliders-horizontal", onClick: () => setUI(KEY8, { filtersOpen: true }) }),
         ...activeChips.map((c) => Tag({ label: c.label, icon: c.icon, selected: true, onRemove: c.remove }))
       ),
-      h("div", { class: "flex bg-concrete-100 rounded-full p-1 gap-1 lg:w-fit" }, ...[
+      h("div", { class: "flex bg-concrete-100 rounded-full p-1 gap-1" }, ...[
         { id: "perto", label: "Mais perto" },
         { id: "valor", label: "Maior valor" },
         { id: "cedo", label: "Mais cedo" }
       ].map((o) => h("button", {
         type: "button",
-        class: `flex-1 lg:flex-none lg:px-4 h-10 rounded-full text-sm font-bold transition-colors ${ui.sort === o.id ? "bg-white text-brand-600 shadow-card" : "text-concrete-500"}`,
+        class: `flex-1 h-10 rounded-full text-sm font-bold transition-colors ${ui.sort === o.id ? "bg-white text-brand-600 shadow-card" : "text-concrete-500"}`,
         onClick: () => setUI(KEY8, { sort: o.id })
       }, o.label))),
-      destaques.length ? h(
-        "div",
-        { class: "flex flex-col gap-3" },
-        h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Precisam de gente agora"),
-        h("div", { class: "flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...destaques.map((j) => jobCardEl(j, true)))
-      ) : null,
-      h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, rest.length === 1 ? "1 vaga aberta" : `${rest.length} vagas abertas`),
-      rest.length ? h("div", { class: "flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...rest.map((j) => jobCardEl(j, false))) : destaques.length === 0 ? EmptyState({ icon: "search-x", title: "Nenhuma vaga com esse filtro", description: "Tire um filtro ou aumente a dist\xE2ncia para ver mais bicos.", actionLabel: "Limpar filtros", onAction: () => setUI(KEY8, { tipo: null, dist: "Toda a cidade", quando: null }) }) : null
+      ordered.length ? tileGrid(navigate2, role, ordered) : EmptyState({ icon: "search-x", title: "Nenhuma vaga com esse filtro", description: "Tire um filtro ou aumente a dist\xE2ncia para ver mais bicos.", actionLabel: "Limpar filtros", onAction: () => setUI(KEY8, { tipo: null, dist: "Toda a cidade", quando: null }) })
     );
     return h(
       "div",
       { class: "flex flex-col lg:hidden" },
       header,
-      h("div", { class: "px-4 sm:px-0 py-4 flex flex-col gap-5" }, searching ? searchResults : browseResults),
+      h("div", { class: "px-4 pt-4 pb-6 flex flex-col gap-5" }, searching ? searchResults : browseResults),
       Sheet(
         { open: ui.locationOpen, title: "Onde voc\xEA quer trabalhar", onClose: () => setUI(KEY8, { locationOpen: false }) },
         Button({ label: "Usar minha localiza\xE7\xE3o agora", variant: "secondary", fullWidth: true, iconLeft: "locate-fixed", onClick: () => setUI(KEY8, { location: "Tatuap\xE9, SP", locationOpen: false }) }),
@@ -3672,65 +3704,55 @@
   function desktopFeed(navigate2, role, ui) {
     const open = activeJobs().filter((j) => !isJobClosed(j));
     const q = ui.search.trim().toLowerCase();
-    const cardFor = (job) => desktopCard(navigate2, role, job);
-    const rank = (j) => role === "recrutador" && isMine(j) ? 0 : j.urgent ? 1 : 2;
-    const ordered = open.slice().sort((a, b) => rank(a) - rank(b) || km(a.distance) - km(b.distance));
-    const body = q ? desktopSearchResults(navigate2, role, ui, open, cardFor) : h("div", { class: "card-grid" }, ...ordered.map(cardFor));
+    const body = q ? desktopSearchResults(navigate2, role, ui, open) : tileGrid(navigate2, role, orderJobs(open, role));
     return h(
       "div",
-      { class: "hidden lg:block min-h-[calc(100vh-5rem)]" },
+      { class: "hidden lg:block min-h-[calc(100vh-5rem)] bg-white" },
       h(
         "div",
-        { class: "page-x pt-1 pb-9 bg-white border-b border-concrete-200" },
-        h("div", { class: "max-w-[52rem] mx-auto" }, desktopSearch(role, ui))
+        { class: "page-x pt-1 pb-8 border-b border-concrete-200" },
+        h("div", { class: "max-w-[52rem] mx-auto" }, SearchPill({ id: "feed-search-desktop", role, ui }))
       ),
       h("div", { class: "page-x pt-8 pb-20" }, body)
     );
   }
-  function desktopCard(navigate2, role, job) {
-    const mine = role === "recrutador" && isMine(job);
-    return JobCard({
-      job,
-      companyName: getCompany(job.companyId).name,
-      onClick: openJob(navigate2, role, job),
-      overlay: job.urgent ? UrgentOverlay({ mine }) : mine ? MineOverlay() : null,
-      saved: isJobSaved(job.id),
-      onToggleSave: role === "trabalhador" ? () => toggleSavedJob(job.id) : null
-    });
-  }
-  function desktopSearch(role, ui) {
-    const inputId = "feed-search-desktop";
+  function SearchPill({ id, role, ui, compact = false }) {
     const input = h("input", {
-      id: inputId,
-      "data-focus-id": inputId,
-      type: "text",
+      id,
+      "data-focus-id": id,
+      type: "search",
       autocomplete: "off",
       spellcheck: "false",
+      enterkeyhint: "search",
       "aria-label": "Buscar bicos",
       placeholder: role === "recrutador" ? "Buscar vaga, construtora ou trabalhador" : "Buscar por servi\xE7o, bairro ou construtora",
       value: ui.search,
-      class: "w-full h-full bg-transparent outline-none text-base text-concrete-900 placeholder:text-concrete-500",
+      class: cx("w-full min-w-0 bg-transparent outline-none text-concrete-900 placeholder:text-concrete-500 [&::-webkit-search-cancel-button]:hidden", compact ? "text-[0.9375rem]" : "text-base"),
       oninput: (e) => setUI(KEY8, { search: e.target.value }),
       onkeydown: (e) => {
         if (e.key === "Escape") setUI(KEY8, { search: "" });
+        if (e.key === "Enter") e.target.blur();
       }
     });
     return h(
       "div",
       {
         role: "search",
-        class: "flex items-center gap-4 h-[4.25rem] pl-2 pr-3 rounded-full bg-white border border-concrete-200 shadow-float transition focus-within:border-brand-300 focus-within:ring-4 focus-within:ring-brand-100"
+        class: cx(
+          "flex items-center rounded-full bg-white border border-concrete-200 shadow-float transition focus-within:border-brand-300 focus-within:ring-4 focus-within:ring-brand-100",
+          compact ? "gap-3 h-14 pl-1.5 pr-2" : "gap-4 h-[4.25rem] pl-2 pr-3"
+        )
       },
       h("button", {
         type: "button",
         "aria-label": "Buscar",
         title: "Buscar",
-        class: "shrink-0 inline-flex items-center justify-center w-[3.25rem] h-[3.25rem] rounded-full bg-brand-500 shadow-raised transition hover:bg-brand-600 active:scale-95",
+        class: cx("shrink-0 inline-flex items-center justify-center rounded-full bg-brand-500 shadow-raised transition hover:bg-brand-600 active:scale-95", compact ? "w-11 h-11" : "w-[3.25rem] h-[3.25rem]"),
         onClick: () => {
-          const el = document.getElementById(inputId);
+          const el = document.getElementById(id);
           if (el) el.focus();
         }
-      }, Icon("search", { size: 22, color: "#fff" })),
+      }, Icon("search", { size: compact ? 20 : 22, color: "#fff" })),
       h("div", { class: "flex-1 min-w-0 flex items-center" }, input),
       ui.search ? h("button", {
         type: "button",
@@ -3741,7 +3763,7 @@
       }, Icon("x", { size: 18 })) : null
     );
   }
-  function desktopSearchResults(navigate2, role, ui, open, cardFor) {
+  function desktopSearchResults(navigate2, role, ui, open) {
     const q = ui.search.trim().toLowerCase();
     const jobs = open.filter((j) => (j.role + " " + getCompany(j.companyId).name + " " + j.location).toLowerCase().includes(q));
     const companies = allCompanies().filter((c) => (c.name + " " + c.location).toLowerCase().includes(q));
@@ -3787,7 +3809,7 @@
       "div",
       { class: "flex flex-col gap-12" },
       heading2,
-      jobs.length ? group("Vagas", h("div", { class: "card-grid" }, ...jobs.map(cardFor))) : null,
+      jobs.length ? group("Vagas", tileGrid(navigate2, role, orderJobs(jobs, role))) : null,
       companies.length ? group("Construtoras", personGrid(companies.map((c) => personCard({
         avatar: h("span", { class: "inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-50 shrink-0" }, Icon("building-2", { size: 22, color: "var(--brand)" })),
         name: c.name,
@@ -3815,44 +3837,46 @@
 
   // js/components/PhotoCarousel.js
   var shownPhoto = /* @__PURE__ */ new Map();
-  function PhotoCarousel({ job }) {
+  function PhotoCarousel({ job, className = "h-56 sm:h-72 lg:h-[26rem] rounded-card" }) {
     const photos = jobPhotos(job);
     const n = photos.length;
-    const frame = "relative w-full h-56 sm:h-72 lg:h-[26rem] rounded-card overflow-hidden bg-concrete-200";
-    if (!n) {
-      return h(
-        "div",
-        { class: frame },
-        h(
-          "div",
-          { class: "lg:hidden w-full h-full flex flex-col items-center justify-center gap-1.5 text-concrete-400" },
-          Icon("camera", { size: 24 }),
-          h("span", { class: "text-xs" }, "Foto do canteiro")
-        ),
-        h("div", { class: "hidden lg:block absolute inset-0" }, JobCover({ job, large: true }))
-      );
-    }
+    const frame = cx("relative w-full overflow-hidden bg-concrete-200", className);
+    if (!n) return h("div", { class: frame }, JobCover({ job, large: true }));
     const track = h(
       "div",
-      { class: "flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar", "aria-label": "Fotos do bico" },
+      {
+        class: cx("flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar outline-none", n > 1 ? "cursor-grab" : ""),
+        tabindex: n > 1 ? "0" : null,
+        "aria-label": "Fotos do bico",
+        "aria-roledescription": "carrossel"
+      },
       ...photos.map((src, i) => h(
         "div",
-        { class: "shrink-0 w-full h-full snap-center" },
-        h("img", { src, alt: `Foto ${i + 1} de ${n}`, draggable: "false", class: "w-full h-full object-cover select-none" })
+        { class: "shrink-0 w-full h-full snap-center snap-always" },
+        h("img", { src, alt: `Foto ${i + 1} de ${n}`, draggable: "false", class: "w-full h-full object-cover select-none pointer-events-none" })
       ))
     );
     if (n === 1) return h("div", { class: frame }, track);
+    let width = 0;
+    const current = () => Math.min(n - 1, shownPhoto.get(job.id) || 0);
+    const goTo = (i) => {
+      const target = Math.max(0, Math.min(n - 1, i));
+      track.scrollTo({ left: target * (width || track.clientWidth), behavior: "smooth" });
+    };
     const arrow = (icon, label, dir, side) => h("button", {
       type: "button",
       "aria-label": label,
       title: label,
-      class: cx("absolute top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:opacity-0 disabled:pointer-events-none", side),
-      onClick: () => track.scrollBy({ left: dir * track.clientWidth, behavior: "smooth" })
+      class: cx("absolute top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:opacity-0 disabled:pointer-events-none", side),
+      onClick: (e) => {
+        e.stopPropagation();
+        goTo(current() + dir);
+      }
     }, Icon(icon, { size: 18 }));
     const prev = arrow("chevron-left", "Foto anterior", -1, "left-3");
     const next = arrow("chevron-right", "Pr\xF3xima foto", 1, "right-3");
     const dots = photos.map(() => h("span", { class: "h-1.5 rounded-full transition-all duration-200" }));
-    const counter = h("span", { class: "absolute bottom-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold" });
+    const counter = h("span", { class: "absolute top-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold pointer-events-none" });
     const show = (i) => {
       counter.textContent = `${i + 1} / ${n}`;
       dots.forEach((d, k) => {
@@ -3861,18 +3885,55 @@
       prev.disabled = i === 0;
       next.disabled = i === n - 1;
     };
-    const start = Math.min(n - 1, shownPhoto.get(job.id) || 0);
-    let width = 0;
     track.addEventListener("scroll", () => {
       if (track.clientWidth !== width) {
         width = track.clientWidth;
-        track.scrollLeft = (shownPhoto.get(job.id) || 0) * width;
+        track.scrollLeft = current() * width;
         return;
       }
       const i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / (width || 1))));
       shownPhoto.set(job.id, i);
       show(i);
     }, { passive: true });
+    let drag = null;
+    track.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      drag = { x: e.clientX, left: track.scrollLeft, from: current() };
+      track.style.scrollSnapType = "none";
+      track.classList.replace("cursor-grab", "cursor-grabbing");
+      track.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    track.addEventListener("pointermove", (e) => {
+      if (drag) track.scrollLeft = drag.left - (e.clientX - drag.x);
+    });
+    const endDrag = (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      const threshold = Math.min(60, (width || track.clientWidth) * 0.15);
+      const target = drag.from + (dx < -threshold ? 1 : dx > threshold ? -1 : 0);
+      drag = null;
+      track.classList.replace("cursor-grabbing", "cursor-grab");
+      goTo(target);
+      const restore = () => {
+        track.style.scrollSnapType = "";
+      };
+      if ("onscrollend" in window) track.addEventListener("scrollend", restore, { once: true });
+      setTimeout(restore, 600);
+    };
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        goTo(current() + 1);
+      }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        goTo(current() - 1);
+      }
+    });
+    const start = current();
     show(start);
     requestAnimationFrame(() => {
       width = track.clientWidth;
@@ -3884,7 +3945,7 @@
       track,
       prev,
       next,
-      h("div", { class: "absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5" }, ...dots),
+      h("div", { class: "absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-none" }, ...dots),
       counter
     );
   }
@@ -3980,16 +4041,15 @@
         h(
           "div",
           { class: "flex flex-col gap-4 lg:gap-6" },
-          PhotoCarousel({ job }),
           Card(
             { padding: "none" },
             h(
               "div",
               { class: "relative" },
-              h("div", { class: "h-[5.5rem] bg-concrete-200 rounded-t-card" }),
+              PhotoCarousel({ job, className: "h-60 sm:h-80 lg:h-[26rem] rounded-t-card" }),
               h(
                 "div",
-                { class: "absolute left-4 -bottom-6 w-[3.75rem] h-[3.75rem] rounded-full bg-white p-0.5 shadow-raised" },
+                { class: "absolute z-10 left-4 -bottom-6 w-[3.75rem] h-[3.75rem] rounded-full bg-white p-0.5 shadow-raised" },
                 h("div", { class: "w-full h-full rounded-full bg-brand-50 flex items-center justify-center" }, Icon("building-2", { size: 24, color: "var(--brand)" }))
               )
             ),
@@ -5206,7 +5266,7 @@
     main.className = cx(
       "flex-1 min-w-0",
       showMobileNav ? "pb-28 lg:pb-0" : "",
-      isMural ? "" : cx("lg:w-full lg:mx-auto lg:px-8 lg:pt-8 lg:pb-16", NARROW_SCREENS.has(m.pattern) ? "lg:max-w-[40rem]" : "lg:max-w-panel")
+      isMural ? "bg-white min-h-screen" : cx("lg:w-full lg:mx-auto lg:px-8 lg:pt-8 lg:pb-16", NARROW_SCREENS.has(m.pattern) ? "lg:max-w-[40rem]" : "lg:max-w-panel")
     );
     main.appendChild(content);
     shell2.appendChild(main);
