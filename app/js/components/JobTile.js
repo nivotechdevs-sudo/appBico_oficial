@@ -12,9 +12,10 @@ const TONE_COLOR = { brand: 'var(--text-brand)', success: 'var(--green-500)', wa
  * compact single-line rows underneath (role; neighbourhood and days of the week; date and
  * hours; pay) — no card chrome. Every row truncates, so all tiles in a grid are exactly
  * the same size whatever their content. `badge` ({ label, icon, tone }) shows a status on
- * the photo (used on "Minhas candidaturas"); `muted` greys out a closed one.
+ * the photo (used on "Minhas candidaturas"); `muted` greys out a closed one; `footer` is
+ * an action under the text (e.g. the WhatsApp button).
  */
-export function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null }) {
+export function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, footer = null }) {
   const cover = jobPhotos(job)[0];
   const count = jobPhotos(job).length;
   const bairro = String(job.location || '').split(',')[0];
@@ -26,10 +27,13 @@ export function JobTile({ job, company, onClick, badge = null, mine = false, mut
     class: cx('inline-flex items-center gap-1 h-6 sm:h-7 px-2 sm:px-2.5 rounded-full bg-white text-[0.6875rem] sm:text-xs font-semibold shadow-[0_1px_3px_rgba(16,20,24,0.18)] whitespace-nowrap', className || 'text-concrete-900')
   }, children);
 
-  const photo = h('div', { class: cx('relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200', muted ? 'grayscale opacity-70' : '') },
-    cover
-      ? h('img', { src: cover, alt: '', loading: 'lazy', draggable: 'false', class: 'absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]' })
-      : JobCover({ job }),
+  const photo = h('div', { class: 'relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200' },
+    // Only the picture is greyed out when muted; badges and the save flag keep their colour.
+    h('div', { class: cx('absolute inset-0', muted ? 'grayscale opacity-60' : '') },
+      cover
+        ? h('img', { src: cover, alt: '', loading: 'lazy', draggable: 'false', class: 'absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]' })
+        : JobCover({ job })
+    ),
     h('div', { class: 'absolute top-2 left-2 sm:top-3 sm:left-3 right-12 flex flex-wrap gap-1.5 pointer-events-none' },
       badge ? pill([badge.icon ? Icon(badge.icon, { size: 12, color: TONE_COLOR[badge.tone] || TONE_COLOR.neutral }) : null, badge.label]) : null,
       mine ? pill('Sua vaga', 'text-brand-600') : null
@@ -55,5 +59,10 @@ export function JobTile({ job, company, onClick, badge = null, mine = false, mut
     class: 'group min-w-0 cursor-pointer rounded-xl outline-none focus-visible:ring-4 focus-visible:ring-brand-100',
     onClick,
     onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }
-  }, photo, text);
+  }, photo, text, footer ? h('div', { class: 'pt-2.5' }, footer) : null);
+}
+
+/** Tiles laid out to the width of their column (pages narrower than the mural). */
+export function TileGrid(tiles) {
+  return h('div', { class: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-6 lg:gap-y-8 items-start' }, ...tiles);
 }

@@ -18,16 +18,16 @@ export const COMPANIES = {
       { author: 'Edson B. · pedreiro', value: 5, text: 'Já trabalhei com eles três vezes. Sempre no horário certo.', date: '18 ago' }
     ]
   },
-  alvorada: { id: 'alvorada', name: 'Construtora Alvorada', location: 'Mooca, SP', rating: 4.5, reviewCount: 18, verified: true,
+  alvorada: { id: 'alvorada', name: 'Construtora Alvorada', location: 'Mooca, SP', whatsapp: '(11) 97731-4402', rating: 4.5, reviewCount: 18, verified: true,
     reviews: [{ author: 'Caio N. · pedreiro', value: 4, text: 'Bom acabamento, chegou 20 min atrasado.', date: '30 jul' }] },
-  'vila-formosa': { id: 'vila-formosa', name: 'Instalações Vila Formosa', location: 'Vila Formosa, SP', rating: 4.6, reviewCount: 9, verified: false, reviews: [] },
-  'serra-braganca': { id: 'serra-braganca', name: 'Reforma Serra de Bragança', location: 'Tatuapé, SP', rating: 4.8, reviewCount: 14, verified: true,
+  'vila-formosa': { id: 'vila-formosa', name: 'Instalações Vila Formosa', location: 'Vila Formosa, SP', whatsapp: '(11) 96614-2078', rating: 4.6, reviewCount: 9, verified: false, reviews: [] },
+  'serra-braganca': { id: 'serra-braganca', name: 'Reforma Serra de Bragança', location: 'Tatuapé, SP', whatsapp: '(11) 98127-5530', rating: 4.8, reviewCount: 14, verified: true,
     reviews: [{ author: 'Nelson A. · azulejista', value: 5, text: 'Assentamento impecável, obra organizada.', date: '22 ago' }] },
-  'vila-prudente': { id: 'vila-prudente', name: 'Obra Vila Prudente', location: 'Vila Prudente, SP', rating: 4.4, reviewCount: 7, verified: false,
+  'vila-prudente': { id: 'vila-prudente', name: 'Obra Vila Prudente', location: 'Vila Prudente, SP', whatsapp: '(11) 95548-9016', rating: 4.4, reviewCount: 7, verified: false,
     reviews: [{ author: 'Bruno T. · servente', value: 5, text: 'Trabalhador de confiança. Já chamei três vezes.', date: '27 ago' }] },
-  belem: { id: 'belem', name: 'Obra Belém', location: 'Belém, SP', rating: 4.3, reviewCount: 5, verified: false, reviews: [] },
-  aricanduva: { id: 'aricanduva', name: 'Obra Aricanduva', location: 'Aricanduva, SP', rating: 4.2, reviewCount: 4, verified: false, reviews: [] },
-  cangaiba: { id: 'cangaiba', name: 'Obra Cangaíba', location: 'Cangaíba, SP', rating: 4.3, reviewCount: 6, verified: false, reviews: [] }
+  belem: { id: 'belem', name: 'Obra Belém', location: 'Belém, SP', whatsapp: '(11) 97402-6621', rating: 4.3, reviewCount: 5, verified: false, reviews: [] },
+  aricanduva: { id: 'aricanduva', name: 'Obra Aricanduva', location: 'Aricanduva, SP', whatsapp: '(11) 96280-3147', rating: 4.2, reviewCount: 4, verified: false, reviews: [] },
+  cangaiba: { id: 'cangaiba', name: 'Obra Cangaíba', location: 'Cangaíba, SP', whatsapp: '(11) 98865-1204', rating: 4.3, reviewCount: 6, verified: false, reviews: [] }
 };
 
 export const WORKERS = {

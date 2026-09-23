@@ -1,15 +1,12 @@
 import { h } from '../../dom.js';
 import { Card } from '../../components/Card.js';
-import { JobTile } from '../../components/JobTile.js';
+import { JobTile, TileGrid } from '../../components/JobTile.js';
+import { WhatsAppButton } from '../../components/WhatsAppButton.js';
+import { workerToCompanyUrl } from '../../utils/whatsapp.js';
 import { EmptyState } from '../../components/EmptyState.js';
 import { Icon } from '../../utils/icons.js';
 import { statusInfo, IN_PROGRESS, CLOSED } from '../../utils/applicationStatus.js';
 import * as store from '../../store.js';
-
-// Same tiles as the mural, sized to this page's column instead of the whole window.
-function tileGrid(tiles) {
-  return h('div', { class: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-6 lg:gap-y-8' }, ...tiles);
-}
 
 export default function renderMyApplications(navigate) {
   const worker = store.currentWorker();
@@ -25,7 +22,11 @@ export default function renderMyApplications(navigate) {
     const info = statusInfo(app.status, job.id);
     return JobTile({
       job, company, muted, onClick: () => navigate(info.to),
-      badge: { label: info.label, icon: info.icon, tone: muted ? 'neutral' : info.tone }
+      badge: { label: info.label, icon: info.icon, tone: muted ? 'neutral' : info.tone },
+      // Picked for the job: the WhatsApp chat with the company is open.
+      footer: app.status === 'pre_selecionado' || app.status === 'contratado'
+        ? WhatsAppButton({ href: workerToCompanyUrl(company, job), fullWidth: true })
+        : null
     });
   }
 
@@ -49,11 +50,11 @@ export default function renderMyApplications(navigate) {
       apps.length === 0 ? EmptyState({ icon: 'file-check', title: 'Você ainda não se candidatou', description: 'Escolha um bico no mural e toque em quero esse bico. Fica tudo registrado aqui.', actionLabel: 'Ver o mural', onAction: () => navigate('/mural') }) : h('div', { class: 'flex flex-col gap-8 pt-2' },
         inProgress.length ? h('div', { class: 'flex flex-col gap-4' },
           h('div', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Em andamento'),
-          tileGrid(inProgress.map((a) => appCard(a, false)))
+          TileGrid(inProgress.map((a) => appCard(a, false)))
         ) : null,
         closed.length ? h('div', { class: 'flex flex-col gap-4' },
           h('div', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Encerradas'),
-          tileGrid(closed.map((a) => appCard(a, true)))
+          TileGrid(closed.map((a) => appCard(a, true)))
         ) : null
       )
     )

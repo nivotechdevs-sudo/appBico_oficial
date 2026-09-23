@@ -42,8 +42,37 @@ if (typeof window !== 'undefined') {
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && getUI(MENU_KEY, { menuOpen: false }).menuOpen) setUI(MENU_KEY, { menuOpen: false });
   });
-  window.addEventListener('resize', () => placeIndicator(false));
+  window.addEventListener('resize', () => { placeIndicator(false); placePillDot(false); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => placeIndicator(false));
+}
+
+const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const reducedMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Phone tab bar: where the blue circle last sat, so a rebuilt tab bar can roll it from
+// there to the newly active tab.
+let lastPillDot = null;
+
+function placePillDot(animate) {
+  const dot = document.querySelector('.nav-pill-dot');
+  if (!dot || !dot.parentElement.getClientRects().length) return; // tab bar hidden (desktop)
+  const tab = dot.parentElement.querySelector('[aria-current="page"]');
+  if (!tab) { dot.style.opacity = '0'; lastPillDot = null; return; }
+  const x = tab.offsetLeft + (tab.offsetWidth - dot.offsetWidth) / 2;
+  const icon = tab.querySelector('.icon');
+  const slide = animate && lastPillDot != null && lastPillDot !== x && !reducedMotion();
+  dot.style.transition = 'none';
+  if (slide) {
+    dot.style.transform = `translateX(${lastPillDot}px)`;
+    // The icon turns white as the circle arrives under it, not before.
+    if (icon) { icon.style.transition = 'none'; icon.style.color = 'var(--gray-500)'; }
+    void dot.offsetWidth;
+    dot.style.transition = `transform 420ms ${EASE}`;
+    if (icon) { icon.style.transition = 'color 200ms ease 180ms'; icon.style.color = '#fff'; }
+  }
+  dot.style.transform = `translateX(${x}px)`;
+  dot.style.opacity = '1';
+  lastPillDot = x;
 }
 
 // Where the active-tab underline was last drawn. The header is rebuilt on every render, so
@@ -56,14 +85,13 @@ function placeIndicator(animate) {
   const tab = bar.parentElement.querySelector('[aria-current="page"]');
   if (!tab) { bar.style.opacity = '0'; lastIndicator = null; return; }
   const target = { x: tab.offsetLeft, w: tab.offsetWidth };
-  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const slide = animate && lastIndicator && !reduce && (lastIndicator.x !== target.x || lastIndicator.w !== target.w);
+  const slide = animate && lastIndicator && !reducedMotion() && (lastIndicator.x !== target.x || lastIndicator.w !== target.w);
   bar.style.transition = 'none';
   if (slide) {
     bar.style.transform = `translateX(${lastIndicator.x}px)`;
     bar.style.width = `${lastIndicator.w}px`;
     void bar.offsetWidth; // commit the start position before transitioning
-    bar.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1), width 380ms cubic-bezier(0.22, 1, 0.36, 1)';
+    bar.style.transition = `transform 380ms ${EASE}, width 380ms ${EASE}`;
   }
   bar.style.transform = `translateX(${target.x}px)`;
   bar.style.width = `${target.w}px`;
@@ -83,7 +111,16 @@ export function AppNav({ role, active, navigate, showMobilePill = true, flush = 
     'aria-label': 'Navegação principal',
     class: 'lg:hidden fixed left-1/2 -translate-x-1/2 z-30 flex items-center gap-3.5 rounded-full px-5 py-2 shadow-raised border border-white/60',
     style: { bottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))', backgroundColor: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(16px) saturate(1.6)', WebkitBackdropFilter: 'blur(16px) saturate(1.6)' }
-  }, ...items.map((it) => navPill(it, active, navigate))) : null;
+  },
+    // One shared blue circle behind the icons; it rolls to the tab you open.
+    h('span', {
+      'aria-hidden': 'true',
+      class: 'nav-pill-dot pointer-events-none absolute left-0 top-1/2 -mt-5 w-10 h-10 rounded-full bg-brand-500 shadow-[0_4px_12px_rgba(29,75,237,0.35)]',
+      style: lastPillDot != null ? { transform: `translateX(${lastPillDot}px)` } : { opacity: '0' }
+    }),
+    ...items.map((it) => navPill(it, active, navigate))
+  ) : null;
+  if (mobile) requestAnimationFrame(() => placePillDot(true));
 
   return h('div', { class: 'contents' }, mobile, topBar({ role, items, active, navigate, flush, notifications, account }));
 }
@@ -92,12 +129,10 @@ function navPill(it, active, navigate) {
   const isActive = active === it.id;
   return h('button', {
     type: 'button', 'aria-label': it.label, 'aria-current': isActive ? 'page' : null,
-    class: 'inline-flex items-center justify-center w-11 h-11 shrink-0',
+    class: 'relative z-10 inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-full outline-none focus-visible:ring-4 focus-visible:ring-brand-100 active:scale-95 transition-transform',
     onClick: () => navigate(it.path)
   },
-    h('span', { class: cx('relative inline-flex items-center justify-center w-10 h-10 rounded-full transition-colors', isActive ? 'bg-brand-500' : '') },
-      Icon(it.icon, { size: 22, color: isActive ? '#fff' : 'var(--gray-500)' })
-    )
+    Icon(it.icon, { size: 22, color: isActive ? '#fff' : 'var(--gray-500)' })
   );
 }
 

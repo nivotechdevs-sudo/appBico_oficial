@@ -134,16 +134,18 @@
       id: "alvorada",
       name: "Construtora Alvorada",
       location: "Mooca, SP",
+      whatsapp: "(11) 97731-4402",
       rating: 4.5,
       reviewCount: 18,
       verified: true,
       reviews: [{ author: "Caio N. \xB7 pedreiro", value: 4, text: "Bom acabamento, chegou 20 min atrasado.", date: "30 jul" }]
     },
-    "vila-formosa": { id: "vila-formosa", name: "Instala\xE7\xF5es Vila Formosa", location: "Vila Formosa, SP", rating: 4.6, reviewCount: 9, verified: false, reviews: [] },
+    "vila-formosa": { id: "vila-formosa", name: "Instala\xE7\xF5es Vila Formosa", location: "Vila Formosa, SP", whatsapp: "(11) 96614-2078", rating: 4.6, reviewCount: 9, verified: false, reviews: [] },
     "serra-braganca": {
       id: "serra-braganca",
       name: "Reforma Serra de Bragan\xE7a",
       location: "Tatuap\xE9, SP",
+      whatsapp: "(11) 98127-5530",
       rating: 4.8,
       reviewCount: 14,
       verified: true,
@@ -153,14 +155,15 @@
       id: "vila-prudente",
       name: "Obra Vila Prudente",
       location: "Vila Prudente, SP",
+      whatsapp: "(11) 95548-9016",
       rating: 4.4,
       reviewCount: 7,
       verified: false,
       reviews: [{ author: "Bruno T. \xB7 servente", value: 5, text: "Trabalhador de confian\xE7a. J\xE1 chamei tr\xEAs vezes.", date: "27 ago" }]
     },
-    belem: { id: "belem", name: "Obra Bel\xE9m", location: "Bel\xE9m, SP", rating: 4.3, reviewCount: 5, verified: false, reviews: [] },
-    aricanduva: { id: "aricanduva", name: "Obra Aricanduva", location: "Aricanduva, SP", rating: 4.2, reviewCount: 4, verified: false, reviews: [] },
-    cangaiba: { id: "cangaiba", name: "Obra Canga\xEDba", location: "Canga\xEDba, SP", rating: 4.3, reviewCount: 6, verified: false, reviews: [] }
+    belem: { id: "belem", name: "Obra Bel\xE9m", location: "Bel\xE9m, SP", whatsapp: "(11) 97402-6621", rating: 4.3, reviewCount: 5, verified: false, reviews: [] },
+    aricanduva: { id: "aricanduva", name: "Obra Aricanduva", location: "Aricanduva, SP", whatsapp: "(11) 96280-3147", rating: 4.2, reviewCount: 4, verified: false, reviews: [] },
+    cangaiba: { id: "cangaiba", name: "Obra Canga\xEDba", location: "Canga\xEDba, SP", whatsapp: "(11) 98865-1204", rating: 4.3, reviewCount: 6, verified: false, reviews: [] }
   };
   var WORKERS = {
     jorge: {
@@ -1254,8 +1257,44 @@
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && getUI(MENU_KEY, { menuOpen: false }).menuOpen) setUI(MENU_KEY, { menuOpen: false });
     });
-    window.addEventListener("resize", () => placeIndicator(false));
+    window.addEventListener("resize", () => {
+      placeIndicator(false);
+      placePillDot(false);
+    });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => placeIndicator(false));
+  }
+  var EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+  var reducedMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var lastPillDot = null;
+  function placePillDot(animate) {
+    const dot = document.querySelector(".nav-pill-dot");
+    if (!dot || !dot.parentElement.getClientRects().length) return;
+    const tab = dot.parentElement.querySelector('[aria-current="page"]');
+    if (!tab) {
+      dot.style.opacity = "0";
+      lastPillDot = null;
+      return;
+    }
+    const x = tab.offsetLeft + (tab.offsetWidth - dot.offsetWidth) / 2;
+    const icon = tab.querySelector(".icon");
+    const slide = animate && lastPillDot != null && lastPillDot !== x && !reducedMotion();
+    dot.style.transition = "none";
+    if (slide) {
+      dot.style.transform = `translateX(${lastPillDot}px)`;
+      if (icon) {
+        icon.style.transition = "none";
+        icon.style.color = "var(--gray-500)";
+      }
+      void dot.offsetWidth;
+      dot.style.transition = `transform 420ms ${EASE}`;
+      if (icon) {
+        icon.style.transition = "color 200ms ease 180ms";
+        icon.style.color = "#fff";
+      }
+    }
+    dot.style.transform = `translateX(${x}px)`;
+    dot.style.opacity = "1";
+    lastPillDot = x;
   }
   var lastIndicator = null;
   function placeIndicator(animate) {
@@ -1268,14 +1307,13 @@
       return;
     }
     const target = { x: tab.offsetLeft, w: tab.offsetWidth };
-    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const slide = animate && lastIndicator && !reduce && (lastIndicator.x !== target.x || lastIndicator.w !== target.w);
+    const slide = animate && lastIndicator && !reducedMotion() && (lastIndicator.x !== target.x || lastIndicator.w !== target.w);
     bar.style.transition = "none";
     if (slide) {
       bar.style.transform = `translateX(${lastIndicator.x}px)`;
       bar.style.width = `${lastIndicator.w}px`;
       void bar.offsetWidth;
-      bar.style.transition = "transform 380ms cubic-bezier(0.22, 1, 0.36, 1), width 380ms cubic-bezier(0.22, 1, 0.36, 1)";
+      bar.style.transition = `transform 380ms ${EASE}, width 380ms ${EASE}`;
     }
     bar.style.transform = `translateX(${target.x}px)`;
     bar.style.width = `${target.w}px`;
@@ -1284,11 +1322,22 @@
   }
   function AppNav({ role, active, navigate: navigate2, showMobilePill = true, flush = false, notifications = 0, account = {} }) {
     const items = ITEMS[role] || ITEMS.trabalhador;
-    const mobile = showMobilePill ? h("nav", {
-      "aria-label": "Navega\xE7\xE3o principal",
-      class: "lg:hidden fixed left-1/2 -translate-x-1/2 z-30 flex items-center gap-3.5 rounded-full px-5 py-2 shadow-raised border border-white/60",
-      style: { bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))", backgroundColor: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px) saturate(1.6)", WebkitBackdropFilter: "blur(16px) saturate(1.6)" }
-    }, ...items.map((it) => navPill(it, active, navigate2))) : null;
+    const mobile = showMobilePill ? h(
+      "nav",
+      {
+        "aria-label": "Navega\xE7\xE3o principal",
+        class: "lg:hidden fixed left-1/2 -translate-x-1/2 z-30 flex items-center gap-3.5 rounded-full px-5 py-2 shadow-raised border border-white/60",
+        style: { bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))", backgroundColor: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px) saturate(1.6)", WebkitBackdropFilter: "blur(16px) saturate(1.6)" }
+      },
+      // One shared blue circle behind the icons; it rolls to the tab you open.
+      h("span", {
+        "aria-hidden": "true",
+        class: "nav-pill-dot pointer-events-none absolute left-0 top-1/2 -mt-5 w-10 h-10 rounded-full bg-brand-500 shadow-[0_4px_12px_rgba(29,75,237,0.35)]",
+        style: lastPillDot != null ? { transform: `translateX(${lastPillDot}px)` } : { opacity: "0" }
+      }),
+      ...items.map((it) => navPill(it, active, navigate2))
+    ) : null;
+    if (mobile) requestAnimationFrame(() => placePillDot(true));
     return h("div", { class: "contents" }, mobile, topBar({ role, items, active, navigate: navigate2, flush, notifications, account }));
   }
   function navPill(it, active, navigate2) {
@@ -1299,14 +1348,10 @@
         type: "button",
         "aria-label": it.label,
         "aria-current": isActive ? "page" : null,
-        class: "inline-flex items-center justify-center w-11 h-11 shrink-0",
+        class: "relative z-10 inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-full outline-none focus-visible:ring-4 focus-visible:ring-brand-100 active:scale-95 transition-transform",
         onClick: () => navigate2(it.path)
       },
-      h(
-        "span",
-        { class: cx("relative inline-flex items-center justify-center w-10 h-10 rounded-full transition-colors", isActive ? "bg-brand-500" : "") },
-        Icon(it.icon, { size: 22, color: isActive ? "#fff" : "var(--gray-500)" })
-      )
+      Icon(it.icon, { size: 22, color: isActive ? "#fff" : "var(--gray-500)" })
     );
   }
   function topBar({ role, items, active, navigate: navigate2, flush, notifications, account }) {
@@ -3473,7 +3518,7 @@
 
   // js/components/JobTile.js
   var TONE_COLOR = { brand: "var(--text-brand)", success: "var(--green-500)", warning: "var(--amber-500)", danger: "var(--red-500)", accent: "var(--text-brand)", neutral: "var(--gray-500)" };
-  function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null }) {
+  function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, footer = null }) {
     const cover = jobPhotos(job)[0];
     const count = jobPhotos(job).length;
     const bairro = String(job.location || "").split(",")[0];
@@ -3485,8 +3530,13 @@
     }, children);
     const photo = h(
       "div",
-      { class: cx("relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200", muted ? "grayscale opacity-70" : "") },
-      cover ? h("img", { src: cover, alt: "", loading: "lazy", draggable: "false", class: "absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" }) : JobCover({ job }),
+      { class: "relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200" },
+      // Only the picture is greyed out when muted; badges and the save flag keep their colour.
+      h(
+        "div",
+        { class: cx("absolute inset-0", muted ? "grayscale opacity-60" : "") },
+        cover ? h("img", { src: cover, alt: "", loading: "lazy", draggable: "false", class: "absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" }) : JobCover({ job })
+      ),
       h(
         "div",
         { class: "absolute top-2 left-2 sm:top-3 sm:left-3 right-12 flex flex-wrap gap-1.5 pointer-events-none" },
@@ -3525,7 +3575,10 @@
           onClick();
         }
       }
-    }, photo, text);
+    }, photo, text, footer ? h("div", { class: "pt-2.5" }, footer) : null);
+  }
+  function TileGrid(tiles) {
+    return h("div", { class: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-6 lg:gap-y-8 items-start" }, ...tiles);
   }
 
   // js/screens/worker/Feed.js
@@ -4292,6 +4345,46 @@
     );
   }
 
+  // js/components/WhatsAppButton.js
+  var SIZES3 = {
+    sm: "h-9 px-3.5 gap-1.5 text-sm",
+    lg: "h-14 px-5 gap-2 text-base"
+  };
+  function WhatsAppButton({ href, size = "sm", fullWidth = false, label = "Falar no WhatsApp", shortLabel = "WhatsApp" }) {
+    return h(
+      "a",
+      {
+        href: href || "#",
+        target: "_blank",
+        rel: "noopener noreferrer",
+        "aria-label": label,
+        class: cx(
+          "inline-flex items-center justify-center whitespace-nowrap rounded-full font-semibold text-white bg-[#128C4A] shadow-card transition-colors hover:bg-[#0E7A3F] active:scale-[0.98] outline-none focus-visible:ring-4 focus-visible:ring-[#128C4A]/25",
+          SIZES3[size] || SIZES3.sm,
+          fullWidth ? "w-full" : ""
+        ),
+        onClick: (e) => {
+          e.stopPropagation();
+          if (!href) e.preventDefault();
+        }
+      },
+      Icon("message-circle", { size: size === "lg" ? 20 : 16, color: "#fff" }),
+      // Small buttons sit in narrow phone tiles: the short label there, the full one from sm up.
+      size === "sm" ? [h("span", { class: "sm:hidden" }, shortLabel), h("span", { class: "hidden sm:inline" }, label)] : label
+    );
+  }
+
+  // js/utils/whatsapp.js
+  function whatsappUrl(phone, text) {
+    const digits2 = String(phone || "").replace(/\D/g, "");
+    if (!digits2) return null;
+    const number = digits2.startsWith("55") ? digits2 : "55" + digits2;
+    return `https://wa.me/${number}` + (text ? `?text=${encodeURIComponent(text)}` : "");
+  }
+  function workerToCompanyUrl(company, job) {
+    return whatsappUrl(company.whatsapp, `Ol\xE1, ${company.name}! Sou da Bicos e fui escolhido para a vaga de ${job.role} (${job.id}). Podemos combinar os detalhes?`);
+  }
+
   // js/utils/applicationStatus.js
   function statusInfo(status, jobId) {
     switch (status) {
@@ -4316,9 +4409,6 @@
   var CLOSED = /* @__PURE__ */ new Set(["concluida", "avaliada", "nao_selecionado"]);
 
   // js/screens/worker/MyApplications.js
-  function tileGrid2(tiles) {
-    return h("div", { class: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-6 lg:gap-y-8" }, ...tiles);
-  }
   function renderMyApplications(navigate2) {
     const worker = currentWorker();
     const apps = applicationsForWorker(worker.id);
@@ -4335,7 +4425,9 @@
         company,
         muted,
         onClick: () => navigate2(info.to),
-        badge: { label: info.label, icon: info.icon, tone: muted ? "neutral" : info.tone }
+        badge: { label: info.label, icon: info.icon, tone: muted ? "neutral" : info.tone },
+        // Picked for the job: the WhatsApp chat with the company is open.
+        footer: app.status === "pre_selecionado" || app.status === "contratado" ? WhatsAppButton({ href: workerToCompanyUrl(company, job), fullWidth: true }) : null
       });
     }
     return h(
@@ -4372,13 +4464,13 @@
             "div",
             { class: "flex flex-col gap-4" },
             h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Em andamento"),
-            tileGrid2(inProgress.map((a) => appCard(a, false)))
+            TileGrid(inProgress.map((a) => appCard(a, false)))
           ) : null,
           closed.length ? h(
             "div",
             { class: "flex flex-col gap-4" },
             h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Encerradas"),
-            tileGrid2(closed.map((a) => appCard(a, true)))
+            TileGrid(closed.map((a) => appCard(a, true)))
           ) : null
         )
       )
@@ -4395,26 +4487,16 @@
       h(
         "div",
         { class: "flex flex-col gap-3 px-4 sm:px-0 py-4" },
-        jobs.length === 0 ? EmptyState({ icon: "bookmark", title: "Voc\xEA ainda n\xE3o salvou nenhum bico", description: "No mural, toque no \xEDcone de salvar em um bico para guard\xE1-lo aqui e decidir depois.", actionLabel: "Ver o mural", onAction: () => navigate2("/mural") }) : h("div", { class: "flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...jobs.map((job) => {
-          const company = getCompany(job.companyId);
-          const available = !isJobClosed(job);
-          return JobCard({
+        jobs.length === 0 ? EmptyState({ icon: "bookmark", title: "Voc\xEA ainda n\xE3o salvou nenhum bico", description: "No mural, toque na bandeirinha de um bico para guard\xE1-lo aqui e decidir depois.", actionLabel: "Ver o mural", onAction: () => navigate2("/mural") }) : TileGrid(jobs.map((job) => {
+          const closed = isJobClosed(job);
+          return JobTile({
             job,
-            companyName: company.name,
+            company: getCompany(job.companyId),
             onClick: () => navigate2("/vaga/" + job.id),
-            overlay: h(
-              "div",
-              { class: "absolute top-2.5 right-2.5", onClick: (e) => e.stopPropagation() },
-              IconButton({ icon: "bookmark-x", label: "Remover dos salvos", variant: "solid", onClick: () => toggleSavedJob(job.id) })
-            ),
-            footer: JobCardFooter({
-              extra: h(
-                "span",
-                { class: `flex items-center gap-2 text-sm font-semibold ${available ? "text-success-500" : "text-concrete-500"}` },
-                Icon(available ? "circle-check" : "circle-x", { size: 16, color: available ? "var(--green-500)" : "var(--text-muted)" }),
-                available ? "Ainda dispon\xEDvel" : "N\xE3o est\xE1 mais dispon\xEDvel"
-              )
-            })
+            muted: closed,
+            badge: closed ? { label: "Vaga encerrada", icon: "circle-x", tone: "neutral" } : null,
+            saved: true,
+            onToggleSave: () => toggleSavedJob(job.id)
           });
         }))
       )
@@ -4453,8 +4535,7 @@
               h("span", { class: "inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-50 shrink-0" }, Icon("building-2", { size: 24, color: "var(--brand)" })),
               h("div", { class: "flex flex-col gap-0.5" }, h("span", { class: "font-semibold text-concrete-900" }, company.name), h("span", { class: "text-sm text-concrete-500" }, company.tipoObra || "Constru\xE7\xE3o civil"))
             ),
-            Button({ label: "Falar no WhatsApp", variant: "accent", size: "lg", fullWidth: true, iconLeft: "message-circle", onClick: () => {
-            } }),
+            WhatsAppButton({ href: workerToCompanyUrl(company, job), size: "lg", fullWidth: true }),
             h("span", { class: "text-sm text-concrete-700" }, "Combine ponto de encontro, hor\xE1rio e pagamento direto com a construtora. A Bicos n\xE3o cobra taxa e n\xE3o entra na negocia\xE7\xE3o.")
           )
         ),

@@ -8,6 +8,8 @@ import { formatBRL } from '../../utils/format.js';
 import { goBack } from '../../router.js';
 import * as store from '../../store.js';
 import { dateText } from '../../utils/jobInfo.js';
+import { WhatsAppButton } from '../../components/WhatsAppButton.js';
+import { workerToCompanyUrl } from '../../utils/whatsapp.js';
 
 export default function renderSelected(navigate, params) {
   const job = store.getJob(params.id);
@@ -30,7 +32,7 @@ export default function renderSelected(navigate, params) {
             h('span', { class: 'inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-50 shrink-0' }, Icon('building-2', { size: 24, color: 'var(--brand)' })),
             h('div', { class: 'flex flex-col gap-0.5' }, h('span', { class: 'font-semibold text-concrete-900' }, company.name), h('span', { class: 'text-sm text-concrete-500' }, company.tipoObra || 'Construção civil'))
           ),
-          Button({ label: 'Falar no WhatsApp', variant: 'accent', size: 'lg', fullWidth: true, iconLeft: 'message-circle', onClick: () => {} }),
+          WhatsAppButton({ href: workerToCompanyUrl(company, job), size: 'lg', fullWidth: true }),
           h('span', { class: 'text-sm text-concrete-700' }, 'Combine ponto de encontro, horário e pagamento direto com a construtora. A Bicos não cobra taxa e não entra na negociação.')
         )
       ),
