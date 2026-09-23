@@ -5,7 +5,7 @@ import { Tag } from '../../components/Tag.js';
 import { Switch } from '../../components/Radio.js';
 import { Card } from '../../components/Card.js';
 import { Button } from '../../components/Button.js';
-import { PhotoSlot } from '../../components/PhotoSlot.js';
+import { PhotoManager } from '../../components/PhotoCarousel.js';
 import { Icon } from '../../utils/icons.js';
 import { getUI, setUI, resetUI, currentCompanyId, createJob } from '../../store.js';
 import { goBack } from '../../router.js';
@@ -23,7 +23,7 @@ function digits(v, max) {
 
 export default function renderCreateJob(navigate) {
   const ui = getUI(KEY, {
-    step: 1, foto: null, tipo: '', local: '', data: '', periodoInicio: '7', periodoFim: '17', diarias: '1', vagas: '1',
+    step: 1, fotos: [], tipo: '', local: '', data: '', periodoInicio: '7', periodoFim: '17', diarias: '1', vagas: '1',
     valor: '', negociavel: false, requisitos: ['Botina e capacete próprios'], detalhe: '', urgente: false,
     errors: {}, publishing: false
   });
@@ -71,7 +71,7 @@ export default function renderCreateJob(navigate) {
         id, companyId: currentCompanyId(), role: ui.tipo.trim(), pay: ui.negociavel ? null : parseInt(ui.valor, 10),
         location: 'Tatuapé, SP', address: ui.local, distance: '0 km', date: ui.data, dateLong: `${ui.data} · ${hours}`,
         hours, duration: diariasNum === 1 ? '1 diária' : `${diariasNum} diárias`, urgent: ui.urgente, slots: Number(ui.vagas) || 1, requirements: ui.requisitos,
-        description: ui.detalhe.trim(), photo: ui.foto
+        description: ui.detalhe.trim(), photos: ui.fotos
       });
       setUI(KEY, { publishing: false });
       resetUI(KEY);
@@ -81,9 +81,9 @@ export default function renderCreateJob(navigate) {
 
   const step1 = h('div', { class: 'flex flex-col gap-6' },
     h('div', { class: 'flex flex-col gap-1.5' },
-      h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Foto da vaga (opcional)'),
-      PhotoSlot({ shape: 'rect', height: '9rem', placeholder: 'Toque para escolher uma foto do canteiro', value: ui.foto, onChange: (v) => setUI(KEY, { foto: v }) }),
-      h('span', { class: 'text-sm text-concrete-500' }, 'Aparece no card da vaga no mural. Você pode trocar depois em "Sua vaga".')
+      h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Fotos da vaga (opcional)'),
+      PhotoManager({ photos: ui.fotos, onChange: (fotos) => setUI(KEY, { fotos }) }),
+      h('span', { class: 'text-sm text-concrete-500' }, 'Até 6 fotos do canteiro. A primeira vira a capa do card no mural; você pode mudar depois em "Sua vaga".')
     ),
     Input({
       id: 'create-job-tipo', label: 'Tipo de serviço', placeholder: 'Ex.: Pedreiro de acabamento', icon: 'hammer',

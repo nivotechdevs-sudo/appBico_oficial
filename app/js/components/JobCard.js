@@ -1,7 +1,7 @@
 import { h, cx } from '../dom.js';
 import { Icon } from '../utils/icons.js';
 import { Card } from './Card.js';
-import { JobCover } from './JobTile.js';
+import { JobCover, SaveFlag, jobPhotos } from './JobCover.js';
 import { formatBRL } from '../utils/format.js';
 
 function PayBlock({ job, muted }) {
@@ -27,15 +27,17 @@ function PayBlock({ job, muted }) {
  * The one job card in the app: same component on the feed, applications, saved jobs
  * and company-profile posts — only `footer` and the overlay `badge` change per screen.
  */
-export function JobCard({ job, companyName, onClick, overlay = null, footer = null, photoLabel = 'Foto do canteiro', muted = false }) {
+export function JobCard({ job, companyName, onClick, overlay = null, footer = null, photoLabel = 'Foto do canteiro', muted = false, saved = false, onToggleSave = null }) {
+  const cover = jobPhotos(job)[0];
   const photo = h('div', { class: cx('relative h-[9.25rem] bg-concrete-200 overflow-hidden', muted ? 'grayscale' : '') },
-    job.photo
-      ? h('img', { src: job.photo, alt: '', class: 'w-full h-full object-cover' })
+    cover
+      ? h('img', { src: cover, alt: '', class: 'w-full h-full object-cover' })
       : [
           h('div', { class: 'lg:hidden w-full h-full flex items-center justify-center text-concrete-400 text-xs' }, photoLabel),
           h('div', { class: 'hidden lg:block absolute inset-0' }, JobCover({ job }))
         ],
-    overlay
+    overlay,
+    onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
   );
 
   const body = h('div', { class: 'flex flex-col gap-3 p-4' },

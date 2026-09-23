@@ -3,7 +3,8 @@ import { BackBar } from '../../components/TopBar.js';
 import { Card } from '../../components/Card.js';
 import { Badge } from '../../components/Badge.js';
 import { Button } from '../../components/Button.js';
-import { PhotoSlot } from '../../components/PhotoSlot.js';
+import { PhotoManager } from '../../components/PhotoCarousel.js';
+import { jobPhotos } from '../../components/JobCover.js';
 import { CandidateRow } from '../../components/CandidateRow.js';
 import { EmptyState } from '../../components/EmptyState.js';
 import { Dialog } from '../../components/Modal.js';
@@ -74,8 +75,9 @@ export default function renderJobManage(navigate, params) {
     h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4 pb-28 lg:pb-4 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-10' },
       h('div', { class: 'flex flex-col gap-4 lg:gap-6' },
         h('div', { class: 'flex flex-col gap-1.5' },
-          h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Foto da vaga'),
-          PhotoSlot({ shape: 'rect', height: '9rem', placeholder: 'Toque para escolher uma foto do canteiro', value: job.photo, onChange: (v) => store.updateJob(job.id, { photo: v }), className: 'lg:!h-56' })
+          h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Fotos da vaga'),
+          PhotoManager({ photos: jobPhotos(job), onChange: (photos) => store.updateJob(job.id, { photos }) }),
+          h('span', { class: 'text-xs text-concrete-500' }, 'Até 6 fotos. A primeira é a capa do bico no mural.')
         ),
         h('div', { class: 'flex flex-col gap-1.5' },
           h('div', { class: 'flex items-center gap-2' }, Badge(status), h('span', { class: 'font-mono text-xs text-concrete-500' }, job.id)),

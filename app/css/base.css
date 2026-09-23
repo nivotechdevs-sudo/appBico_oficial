@@ -64,29 +64,21 @@ button { -webkit-tap-highlight-color: transparent; }
 @media (min-width: 1128px) { .page-x { padding-left: 2.5rem; padding-right: 2.5rem; } }
 @media (min-width: 1440px) { .page-x { padding-left: 5rem; padding-right: 5rem; } }
 
-/* Job columns: 3 on a small tablet, up to 7 on a wide monitor. */
-.job-cols { --cols: 3; --gap: 1rem; }
-@media (min-width: 960px) { .job-cols { --cols: 4; } }
-@media (min-width: 1200px) { .job-cols { --cols: 5; } }
-@media (min-width: 1440px) { .job-cols { --cols: 6; --gap: 1.25rem; } }
-@media (min-width: 1680px) { .job-cols { --cols: 7; } }
-
-.job-rail {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
-  column-gap: var(--gap);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-x: contain;
-}
-.job-rail > * { scroll-snap-align: start; }
-
-.job-grid {
+/* Mural of job cards (the same card as on the phone): a vertical-only grid whose column
+   count grows with the window — 2 on a tablet, up to 7 on a very wide monitor — so each
+   card keeps roughly its phone width. */
+.card-grid {
+  --cols: 2;
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-  gap: 2.25rem var(--gap);
+  gap: 1.5rem 1.25rem;
+  align-items: start;
 }
+@media (min-width: 1100px) { .card-grid { --cols: 3; } }
+@media (min-width: 1500px) { .card-grid { --cols: 4; } }
+@media (min-width: 1850px) { .card-grid { --cols: 5; } }
+@media (min-width: 2200px) { .card-grid { --cols: 6; } }
+@media (min-width: 2560px) { .card-grid { --cols: 7; } }
 
 /* Blueprint grid laid over the illustrated covers of jobs without a photo. */
 .job-cover-grid {

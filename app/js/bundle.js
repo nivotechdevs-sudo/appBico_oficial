@@ -3050,7 +3050,11 @@
     );
   }
 
-  // js/components/JobTile.js
+  // js/components/JobCover.js
+  function jobPhotos(job) {
+    if (Array.isArray(job.photos)) return job.photos;
+    return job.photo ? [job.photo] : [];
+  }
   var COVERS = [
     { test: /eletric/i, icon: "plug-zap", from: "#2F4BB5", to: "#0A1A54" },
     { test: /pint/i, icon: "paint-roller", from: "#2AA096", to: "#08514A" },
@@ -3065,32 +3069,26 @@
     { test: /pedreiro|alvenaria|reboco|acabamento/i, icon: "brick-wall", from: "#D9774B", to: "#842F12" }
   ];
   var DEFAULT_COVER = { icon: "hard-hat", from: "#1D4BED", to: "#0A1A54" };
-  function coverFor(role) {
-    return COVERS.find((c) => c.test.test(role)) || DEFAULT_COVER;
-  }
-  function JobCover({ job, muted = false }) {
-    const c = coverFor(job.role || "");
+  function JobCover({ job, large = false }) {
+    const c = COVERS.find((x) => x.test.test(job.role || "")) || DEFAULT_COVER;
     return h(
       "div",
-      {
-        class: cx("absolute inset-0 transition-transform duration-300 ease-out group-hover:scale-[1.04]", muted ? "grayscale" : ""),
-        style: { background: `linear-gradient(145deg, ${c.from}, ${c.to})` }
-      },
+      { class: "absolute inset-0", style: { background: `linear-gradient(145deg, ${c.from}, ${c.to})` } },
       h("div", { class: "absolute inset-0 job-cover-grid" }),
       h("div", { class: "absolute inset-0", style: { background: "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.22), transparent 58%)" } }),
-      h("span", { class: "absolute -right-8 -bottom-8 opacity-[0.13] -rotate-12" }, Icon(c.icon, { size: 168, color: "#fff" })),
+      h("span", { class: "absolute -right-8 -bottom-8 opacity-[0.13] -rotate-12" }, Icon(c.icon, { size: large ? 280 : 168, color: "#fff" })),
       h(
         "div",
         { class: "absolute inset-0 flex items-center justify-center" },
-        h(
-          "span",
-          { class: "inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/15 ring-1 ring-white/30 shadow-raised", style: { backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" } },
-          Icon(c.icon, { size: 30, color: "#fff" })
-        )
+        h("span", {
+          class: cx("inline-flex items-center justify-center bg-white/15 ring-1 ring-white/30 shadow-raised", large ? "w-24 h-24 rounded-3xl" : "w-16 h-16 rounded-2xl"),
+          style: { backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }
+        }, Icon(c.icon, { size: large ? 44 : 30, color: "#fff" }))
       )
     );
   }
-  function SaveFlag({ saved, onToggle, label }) {
+  function SaveFlag({ saved, onToggle }) {
+    const label = saved ? "Remover dos salvos" : "Salvar vaga";
     return h(
       "button",
       {
@@ -3110,59 +3108,6 @@
         Icon("bookmark-solid", { size: 24, color: saved ? "var(--brand)" : "rgba(16,20,24,0.32)", className: "absolute inset-0" }),
         Icon("bookmark", { size: 24, color: "#fff", className: "absolute inset-0" })
       )
-    );
-  }
-  var PILL_TONES = {
-    neutral: "var(--gray-700)",
-    danger: "var(--red-500)",
-    brand: "var(--blue-600)",
-    success: "var(--green-500)",
-    warning: "var(--amber-500)",
-    accent: "var(--teal-600)"
-  };
-  function JobTile({ job, title, lines = [], onClick, pill = null, saved = false, onToggleSave = null, muted = false }) {
-    return h(
-      "div",
-      { class: "group relative flex flex-col gap-3 min-w-0" },
-      h(
-        "div",
-        { class: "relative w-full aspect-[20/19] rounded-2xl overflow-hidden bg-concrete-100" },
-        job.photo ? h("img", { src: job.photo, alt: "", class: cx("absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04]", muted ? "grayscale" : "") }) : JobCover({ job, muted }),
-        pill ? h(
-          "span",
-          { class: cx("absolute top-3 left-3 inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full bg-white/95 shadow-raised text-xs font-semibold text-concrete-900", onToggleSave ? "max-w-[calc(100%-4rem)]" : "max-w-[calc(100%-1.5rem)]") },
-          pill.icon ? Icon(pill.icon, { size: 13, color: PILL_TONES[pill.tone] || PILL_TONES.neutral }) : null,
-          h("span", { class: "truncate" }, pill.label)
-        ) : null,
-        onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave, label: saved ? "Remover dos salvos" : "Salvar vaga" }) : null
-      ),
-      h(
-        "div",
-        { class: "flex flex-col gap-0.5 min-w-0" },
-        h("button", {
-          type: "button",
-          class: "text-left font-semibold text-[0.9375rem] leading-snug text-concrete-900 truncate after:content-[''] after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-500 focus-visible:after:ring-offset-4",
-          onClick
-        }, title || job.role),
-        ...lines.map((line) => h("span", { class: "text-sm text-concrete-500 truncate" }, line))
-      )
-    );
-  }
-  function PublishTile({ onClick }) {
-    return h(
-      "button",
-      {
-        type: "button",
-        onClick,
-        class: "group flex flex-col gap-3 min-w-0 text-left"
-      },
-      h(
-        "span",
-        { class: "relative w-full aspect-[20/19] rounded-2xl border-2 border-dashed border-concrete-300 bg-concrete-25 flex flex-col items-center justify-center gap-3 transition-colors group-hover:border-brand-400 group-hover:bg-brand-50" },
-        h("span", { class: "inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-500 shadow-raised transition-transform group-hover:scale-105" }, Icon("plus", { size: 26, color: "#fff" })),
-        h("span", { class: "font-semibold text-concrete-900" }, "Publicar nova vaga")
-      ),
-      h("span", { class: "text-sm text-concrete-500" }, "Leva menos de dois minutos.")
     );
   }
 
@@ -3191,15 +3136,17 @@
       h("span", { class: "text-[0.5625rem] font-semibold tracking-wide uppercase text-white/85" }, "por di\xE1ria")
     );
   }
-  function JobCard({ job, companyName, onClick, overlay = null, footer = null, photoLabel = "Foto do canteiro", muted = false }) {
+  function JobCard({ job, companyName, onClick, overlay = null, footer = null, photoLabel = "Foto do canteiro", muted = false, saved = false, onToggleSave = null }) {
+    const cover = jobPhotos(job)[0];
     const photo = h(
       "div",
       { class: cx("relative h-[9.25rem] bg-concrete-200 overflow-hidden", muted ? "grayscale" : "") },
-      job.photo ? h("img", { src: job.photo, alt: "", class: "w-full h-full object-cover" }) : [
+      cover ? h("img", { src: cover, alt: "", class: "w-full h-full object-cover" }) : [
         h("div", { class: "lg:hidden w-full h-full flex items-center justify-center text-concrete-400 text-xs" }, photoLabel),
         h("div", { class: "hidden lg:block absolute inset-0" }, JobCover({ job }))
       ],
-      overlay
+      overlay,
+      onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
     );
     const body = h(
       "div",
@@ -3509,71 +3456,6 @@
     );
   }
 
-  // js/utils/scrollMemory.js
-  var offsets = /* @__PURE__ */ new Map();
-  function rememberScroll(key, left) {
-    offsets.set(key, left);
-  }
-  function recalledScroll(key) {
-    return offsets.get(key) || 0;
-  }
-
-  // js/components/JobRail.js
-  if (typeof window !== "undefined") {
-    window.addEventListener("resize", () => {
-      document.querySelectorAll("[data-rail]").forEach((el) => el.syncArrows && el.syncArrows());
-    });
-  }
-  function arrowButton(icon, label, onClick) {
-    return h("button", {
-      type: "button",
-      "aria-label": label,
-      title: label,
-      class: "inline-flex items-center justify-center w-8 h-8 rounded-full bg-white border border-concrete-200 text-concrete-900 shadow-card transition hover:shadow-raised hover:scale-105 disabled:opacity-40 disabled:shadow-none disabled:hover:scale-100 disabled:cursor-default",
-      onClick
-    }, Icon(icon, { size: 16 }));
-  }
-  function JobRail({ id, title, count, onSeeAll, items }) {
-    const rail = h("div", { class: "job-rail job-cols no-scrollbar pb-1", "data-rail": id }, ...items);
-    const prev = arrowButton("chevron-left", "Anteriores", () => rail.scrollBy({ left: -rail.clientWidth, behavior: "smooth" }));
-    const next = arrowButton("chevron-right", "Pr\xF3ximas", () => rail.scrollBy({ left: rail.clientWidth, behavior: "smooth" }));
-    rail.syncArrows = () => {
-      prev.disabled = rail.scrollLeft <= 2;
-      next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2;
-    };
-    rail.addEventListener("scroll", () => {
-      rememberScroll(id, rail.scrollLeft);
-      rail.syncArrows();
-    }, { passive: true });
-    requestAnimationFrame(() => {
-      const left = recalledScroll(id);
-      if (left) rail.scrollLeft = left;
-      rail.syncArrows();
-    });
-    return h(
-      "section",
-      { class: "flex flex-col gap-4 min-w-0", "aria-label": title },
-      h(
-        "div",
-        { class: "flex items-center justify-between gap-4" },
-        h(
-          "button",
-          {
-            type: "button",
-            class: "group inline-flex items-center gap-2.5 min-w-0 text-left",
-            onClick: onSeeAll,
-            title: "Ver todas"
-          },
-          h("h2", { class: "text-[1.375rem] font-semibold leading-tight text-concrete-900 truncate" }, title),
-          count != null ? h("span", { class: "hidden xl:inline text-sm text-concrete-500 whitespace-nowrap" }, count === 1 ? "1 vaga" : `${count} vagas`) : null,
-          h("span", { class: "shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-concrete-100 text-concrete-900 transition-colors group-hover:bg-concrete-200" }, Icon("arrow-right", { size: 15 }))
-        ),
-        h("div", { class: cx("flex items-center gap-2 shrink-0") }, prev, next)
-      ),
-      rail
-    );
-  }
-
   // js/screens/worker/Feed.js
   var KEY8 = "feed";
   function openJob(navigate2, role, job) {
@@ -3587,7 +3469,7 @@
   }
   function renderFeed(navigate2) {
     const role = getRole();
-    const ui = getUI(KEY8, { search: "", location: "Tatuap\xE9, SP", locationOpen: false, filtersOpen: false, tipo: null, dist: "Toda a cidade", quando: null, sort: "perto", notifyUrgent: true, expanded: null });
+    const ui = getUI(KEY8, { search: "", location: "Tatuap\xE9, SP", locationOpen: false, filtersOpen: false, tipo: null, dist: "Toda a cidade", quando: null, sort: "perto", notifyUrgent: true });
     return h("div", {}, mobileFeed(navigate2, role, ui), desktopFeed(navigate2, role, ui));
   }
   function mobileFeed(navigate2, role, ui) {
@@ -3752,8 +3634,8 @@
         Button({ label: "Usar minha localiza\xE7\xE3o agora", variant: "secondary", fullWidth: true, iconLeft: "locate-fixed", onClick: () => setUI(KEY8, { location: "Tatuap\xE9, SP", locationOpen: false }) }),
         h("div", { class: "flex flex-col" }, ...LOCAIS_BAIRRO.concat(["Toda S\xE3o Paulo"]).map((l) => {
           const active = ui.location === l;
-          const bairro2 = l.split(",")[0];
-          const count = l === "Toda S\xE3o Paulo" ? openJobs.length : openJobs.filter((j) => j.location.indexOf(bairro2) === 0).length;
+          const bairro = l.split(",")[0];
+          const count = l === "Toda S\xE3o Paulo" ? openJobs.length : openJobs.filter((j) => j.location.indexOf(bairro) === 0).length;
           return h(
             "button",
             {
@@ -3787,124 +3669,34 @@
       )
     );
   }
-  function bairro(job) {
-    return String(job.location || "").split(",")[0];
-  }
-  function companyRating(job) {
-    return getCompany(job.companyId).rating || 0;
-  }
-  function ratingText(company) {
-    return company.rating ? `\u2605 ${company.rating.toFixed(1).replace(".", ",")}` : "Nova na Bicos";
-  }
-  function priceLine(job, extra) {
-    return h(
-      "span",
-      {},
-      h("span", { class: "font-semibold text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay)),
-      job.pay == null ? "" : " a di\xE1ria",
-      extra ? ` \xB7 ${extra}` : ""
-    );
-  }
   function desktopFeed(navigate2, role, ui) {
     const open = activeJobs().filter((j) => !isJobClosed(j));
-    const byDistance = (a, b) => km(a.distance) - km(b.distance);
-    const byPay = (a, b) => payNum(b) - payNum(a);
-    function tileFor(job) {
-      const company = getCompany(job.companyId);
-      if (role === "recrutador" && isMine(job)) {
-        const slots = job.slots || 1;
-        const pending = pendingCount(job.id);
-        const total = applicationsForJob(job.id).length;
-        const pill2 = pending ? { label: `${pending} para analisar`, icon: "clock", tone: "warning" } : total ? { label: total === 1 ? "1 candidato" : `${total} candidatos`, icon: "users", tone: "brand" } : { label: "Sem candidatos", icon: "search-x", tone: "neutral" };
-        return JobTile({
-          job,
-          pill: pill2,
-          onClick: () => navigate2("/vaga-gerenciar/" + job.id),
-          lines: [
-            `${approvedCount(job.id)} de ${slots} ${slots === 1 ? "vaga preenchida" : "vagas preenchidas"}`,
-            `${job.date} \xB7 ${job.hours} \xB7 ${bairro(job)}`,
-            priceLine(job)
-          ]
-        });
-      }
-      const app = role === "trabalhador" ? applicationFor(job.id, currentWorkerId()) : null;
-      const info = app ? statusInfo(app.status, job.id) : null;
-      const pill = info ? { label: info.label, icon: info.icon, tone: info.tone } : job.urgent ? { label: "Urgente", icon: "zap", tone: "danger" } : company.verified ? { label: "Verificada", icon: "shield-check", tone: "success" } : null;
-      return JobTile({
-        job,
-        pill,
-        onClick: () => navigate2("/vaga/" + job.id),
-        saved: isJobSaved(job.id),
-        onToggleSave: role === "trabalhador" ? () => toggleSavedJob(job.id) : null,
-        lines: [company.name, `${job.date} \xB7 ${job.hours} \xB7 ${bairro(job)}`, priceLine(job, ratingText(company))]
-      });
-    }
-    const publishTile = () => PublishTile({ onClick: () => navigate2("/criar-vaga") });
-    const sections = role === "recrutador" ? (() => {
-      const mine = open.filter((j) => isMine(j));
-      const others = open.filter((j) => !isMine(j));
-      return [
-        { id: "minhas", title: "Suas vagas abertas", jobs: mine, lead: publishTile, keepEmpty: true },
-        { id: "regiao", title: "Outras vagas na sua regi\xE3o", jobs: others.slice().sort(byDistance) },
-        { id: "maiores-regiao", title: "Maiores di\xE1rias da regi\xE3o", jobs: others.filter((j) => j.pay != null).sort(byPay) }
-      ];
-    })() : [
-      { id: "urgentes", title: "Precisam de gente agora", jobs: open.filter((j) => j.urgent).sort(byDistance) },
-      { id: "perto", title: `Perto de voc\xEA \xB7 ${ui.location.split(",")[0]}`, jobs: open.slice().sort(byDistance) },
-      { id: "maiores", title: "Maiores di\xE1rias da semana", jobs: open.filter((j) => j.pay != null).sort(byPay) },
-      { id: "bem-avaliadas", title: "Das construtoras mais bem avaliadas", jobs: open.filter((j) => companyRating(j) >= 4.6).sort((a, b) => companyRating(b) - companyRating(a)) },
-      { id: "a-combinar", title: "Di\xE1ria a combinar", jobs: open.filter((j) => j.pay == null).sort(byDistance) }
-    ];
-    const visible = sections.filter((s) => s.keepEmpty || s.jobs.length);
     const q = ui.search.trim().toLowerCase();
-    const expanded = !q && ui.expanded ? visible.find((s) => s.id === ui.expanded) : null;
-    let body;
-    if (q) {
-      body = desktopSearchResults(navigate2, role, ui, open, tileFor);
-    } else if (expanded) {
-      body = h(
-        "div",
-        { class: "flex flex-col gap-7" },
-        h(
-          "div",
-          { class: "flex items-center gap-3" },
-          h("button", {
-            type: "button",
-            "aria-label": "Voltar para o in\xEDcio",
-            title: "Voltar",
-            class: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-concrete-100 text-concrete-900 transition-colors hover:bg-concrete-200",
-            onClick: () => {
-              setUI(KEY8, { expanded: null });
-              window.scrollTo(0, 0);
-            }
-          }, Icon("arrow-left", { size: 18 })),
-          h("h1", { class: "text-[1.75rem] font-semibold leading-tight text-concrete-900" }, expanded.title),
-          h("span", { class: "text-concrete-500" }, expanded.jobs.length === 1 ? "1 vaga" : `${expanded.jobs.length} vagas`)
-        ),
-        h("div", { class: "job-grid job-cols" }, expanded.lead ? expanded.lead() : null, ...expanded.jobs.map(tileFor))
-      );
-    } else {
-      body = h("div", { class: "flex flex-col gap-12" }, ...visible.map((s) => JobRail({
-        id: "mural-" + role + "-" + s.id,
-        title: s.title,
-        count: s.jobs.length,
-        onSeeAll: () => {
-          setUI(KEY8, { expanded: s.id });
-          window.scrollTo(0, 0);
-        },
-        items: (s.lead ? [s.lead()] : []).concat(s.jobs.map(tileFor))
-      })));
-    }
+    const cardFor = (job) => desktopCard(navigate2, role, job);
+    const rank = (j) => role === "recrutador" && isMine(j) ? 0 : j.urgent ? 1 : 2;
+    const ordered = open.slice().sort((a, b) => rank(a) - rank(b) || km(a.distance) - km(b.distance));
+    const body = q ? desktopSearchResults(navigate2, role, ui, open, cardFor) : h("div", { class: "card-grid" }, ...ordered.map(cardFor));
     return h(
       "div",
-      { class: "hidden lg:block bg-white min-h-[calc(100vh-5rem)]" },
+      { class: "hidden lg:block min-h-[calc(100vh-5rem)]" },
       h(
         "div",
-        { class: "page-x pt-1 pb-9 border-b border-concrete-200" },
+        { class: "page-x pt-1 pb-9 bg-white border-b border-concrete-200" },
         h("div", { class: "max-w-[52rem] mx-auto" }, desktopSearch(role, ui))
       ),
-      h("div", { class: "page-x pt-10 pb-20" }, body)
+      h("div", { class: "page-x pt-8 pb-20" }, body)
     );
+  }
+  function desktopCard(navigate2, role, job) {
+    const mine = role === "recrutador" && isMine(job);
+    return JobCard({
+      job,
+      companyName: getCompany(job.companyId).name,
+      onClick: openJob(navigate2, role, job),
+      overlay: job.urgent ? UrgentOverlay({ mine }) : mine ? MineOverlay() : null,
+      saved: isJobSaved(job.id),
+      onToggleSave: role === "trabalhador" ? () => toggleSavedJob(job.id) : null
+    });
   }
   function desktopSearch(role, ui) {
     const inputId = "feed-search-desktop";
@@ -3914,10 +3706,11 @@
       type: "text",
       autocomplete: "off",
       spellcheck: "false",
-      placeholder: role === "recrutador" ? "Vaga, construtora ou trabalhador" : "Servi\xE7o, bairro ou construtora",
+      "aria-label": "Buscar bicos",
+      placeholder: role === "recrutador" ? "Buscar vaga, construtora ou trabalhador" : "Buscar por servi\xE7o, bairro ou construtora",
       value: ui.search,
-      class: "w-full bg-transparent outline-none text-[0.9375rem] text-concrete-900 placeholder:text-concrete-500",
-      oninput: (e) => setUI(KEY8, { search: e.target.value, expanded: null }),
+      class: "w-full h-full bg-transparent outline-none text-base text-concrete-900 placeholder:text-concrete-500",
+      oninput: (e) => setUI(KEY8, { search: e.target.value }),
       onkeydown: (e) => {
         if (e.key === "Escape") setUI(KEY8, { search: "" });
       }
@@ -3938,12 +3731,7 @@
           if (el) el.focus();
         }
       }, Icon("search", { size: 22, color: "#fff" })),
-      h(
-        "label",
-        { for: inputId, class: "flex-1 min-w-0 flex flex-col justify-center gap-0.5 cursor-text" },
-        h("span", { class: "text-xs font-bold text-concrete-900" }, role === "recrutador" ? "Buscar na Bicos" : "Buscar bicos"),
-        input
-      ),
+      h("div", { class: "flex-1 min-w-0 flex items-center" }, input),
       ui.search ? h("button", {
         type: "button",
         "aria-label": "Limpar busca",
@@ -3953,7 +3741,7 @@
       }, Icon("x", { size: 18 })) : null
     );
   }
-  function desktopSearchResults(navigate2, role, ui, open, tileFor) {
+  function desktopSearchResults(navigate2, role, ui, open, cardFor) {
     const q = ui.search.trim().toLowerCase();
     const jobs = open.filter((j) => (j.role + " " + getCompany(j.companyId).name + " " + j.location).toLowerCase().includes(q));
     const companies = allCompanies().filter((c) => (c.name + " " + c.location).toLowerCase().includes(q));
@@ -3999,7 +3787,7 @@
       "div",
       { class: "flex flex-col gap-12" },
       heading2,
-      jobs.length ? group("Vagas", h("div", { class: "job-grid job-cols" }, ...jobs.map(tileFor))) : null,
+      jobs.length ? group("Vagas", h("div", { class: "card-grid" }, ...jobs.map(cardFor))) : null,
       companies.length ? group("Construtoras", personGrid(companies.map((c) => personCard({
         avatar: h("span", { class: "inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-50 shrink-0" }, Icon("building-2", { size: 22, color: "var(--brand)" })),
         name: c.name,
@@ -4022,6 +3810,120 @@
       { class: "flex flex-col gap-2.5" },
       h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, title),
       h("div", { class: "flex flex-wrap gap-2" }, ...options.map((o) => Tag({ label: o, selected: active === o, onClick: () => onSelect(o) })))
+    );
+  }
+
+  // js/components/PhotoCarousel.js
+  var shownPhoto = /* @__PURE__ */ new Map();
+  function PhotoCarousel({ job }) {
+    const photos = jobPhotos(job);
+    const n = photos.length;
+    const frame = "relative w-full h-56 sm:h-72 lg:h-[26rem] rounded-card overflow-hidden bg-concrete-200";
+    if (!n) {
+      return h(
+        "div",
+        { class: frame },
+        h(
+          "div",
+          { class: "lg:hidden w-full h-full flex flex-col items-center justify-center gap-1.5 text-concrete-400" },
+          Icon("camera", { size: 24 }),
+          h("span", { class: "text-xs" }, "Foto do canteiro")
+        ),
+        h("div", { class: "hidden lg:block absolute inset-0" }, JobCover({ job, large: true }))
+      );
+    }
+    const track = h(
+      "div",
+      { class: "flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar", "aria-label": "Fotos do bico" },
+      ...photos.map((src, i) => h(
+        "div",
+        { class: "shrink-0 w-full h-full snap-center" },
+        h("img", { src, alt: `Foto ${i + 1} de ${n}`, draggable: "false", class: "w-full h-full object-cover select-none" })
+      ))
+    );
+    if (n === 1) return h("div", { class: frame }, track);
+    const arrow = (icon, label, dir, side) => h("button", {
+      type: "button",
+      "aria-label": label,
+      title: label,
+      class: cx("absolute top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:opacity-0 disabled:pointer-events-none", side),
+      onClick: () => track.scrollBy({ left: dir * track.clientWidth, behavior: "smooth" })
+    }, Icon(icon, { size: 18 }));
+    const prev = arrow("chevron-left", "Foto anterior", -1, "left-3");
+    const next = arrow("chevron-right", "Pr\xF3xima foto", 1, "right-3");
+    const dots = photos.map(() => h("span", { class: "h-1.5 rounded-full transition-all duration-200" }));
+    const counter = h("span", { class: "absolute bottom-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold" });
+    const show = (i) => {
+      counter.textContent = `${i + 1} / ${n}`;
+      dots.forEach((d, k) => {
+        d.className = cx("h-1.5 rounded-full transition-all duration-200", k === i ? "w-4 bg-white" : "w-1.5 bg-white/60");
+      });
+      prev.disabled = i === 0;
+      next.disabled = i === n - 1;
+    };
+    const start = Math.min(n - 1, shownPhoto.get(job.id) || 0);
+    let width = 0;
+    track.addEventListener("scroll", () => {
+      if (track.clientWidth !== width) {
+        width = track.clientWidth;
+        track.scrollLeft = (shownPhoto.get(job.id) || 0) * width;
+        return;
+      }
+      const i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / (width || 1))));
+      shownPhoto.set(job.id, i);
+      show(i);
+    }, { passive: true });
+    show(start);
+    requestAnimationFrame(() => {
+      width = track.clientWidth;
+      if (start) track.scrollLeft = start * width;
+    });
+    return h(
+      "div",
+      { class: frame },
+      track,
+      prev,
+      next,
+      h("div", { class: "absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5" }, ...dots),
+      counter
+    );
+  }
+  function PhotoManager({ photos, onChange: onChange2, max = 6 }) {
+    const add = h(
+      "label",
+      {
+        class: "relative aspect-square flex flex-col items-center justify-center gap-1.5 rounded-control border-2 border-dashed border-concrete-300 bg-concrete-25 text-concrete-500 cursor-pointer transition-colors hover:border-brand-400 hover:text-brand-600"
+      },
+      h("input", {
+        type: "file",
+        accept: "image/*",
+        multiple: true,
+        class: "sr-only",
+        onchange: (e) => {
+          const files = Array.from(e.target.files || []);
+          if (files.length) onChange2(photos.concat(files.map((f) => URL.createObjectURL(f))).slice(0, max));
+        }
+      }),
+      Icon("camera", { size: 22 }),
+      h("span", { class: "text-xs font-semibold text-center px-2" }, photos.length ? "Adicionar foto" : "Escolher fotos")
+    );
+    return h(
+      "div",
+      { class: "grid grid-cols-3 sm:grid-cols-4 gap-2" },
+      ...photos.map((src, i) => h(
+        "div",
+        { class: "relative aspect-square rounded-control overflow-hidden bg-concrete-200" },
+        h("img", { src, alt: `Foto ${i + 1}`, class: "w-full h-full object-cover" }),
+        i === 0 ? h("span", { class: "absolute bottom-1.5 left-1.5 px-2 h-5 inline-flex items-center rounded-full bg-black/60 text-white text-[0.625rem] font-bold uppercase tracking-wide" }, "Capa") : null,
+        h("button", {
+          type: "button",
+          "aria-label": `Remover foto ${i + 1}`,
+          title: "Remover foto",
+          class: "absolute top-1.5 right-1.5 inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/90 text-concrete-900 shadow-raised hover:bg-white",
+          onClick: () => onChange2(photos.filter((_, k) => k !== i))
+        }, Icon("x", { size: 14 }))
+      )),
+      photos.length < max ? add : null
     );
   }
 
@@ -4078,6 +3980,7 @@
         h(
           "div",
           { class: "flex flex-col gap-4 lg:gap-6" },
+          PhotoCarousel({ job }),
           Card(
             { padding: "none" },
             h(
@@ -4534,7 +4437,7 @@
   function renderCreateJob(navigate2) {
     const ui = getUI(KEY12, {
       step: 1,
-      foto: null,
+      fotos: [],
       tipo: "",
       local: "",
       data: "",
@@ -4609,7 +4512,7 @@
           slots: Number(ui.vagas) || 1,
           requirements: ui.requisitos,
           description: ui.detalhe.trim(),
-          photo: ui.foto
+          photos: ui.fotos
         });
         setUI(KEY12, { publishing: false });
         resetUI(KEY12);
@@ -4622,9 +4525,9 @@
       h(
         "div",
         { class: "flex flex-col gap-1.5" },
-        h("span", { class: "text-sm font-semibold text-concrete-900" }, "Foto da vaga (opcional)"),
-        PhotoSlot({ shape: "rect", height: "9rem", placeholder: "Toque para escolher uma foto do canteiro", value: ui.foto, onChange: (v) => setUI(KEY12, { foto: v }) }),
-        h("span", { class: "text-sm text-concrete-500" }, 'Aparece no card da vaga no mural. Voc\xEA pode trocar depois em "Sua vaga".')
+        h("span", { class: "text-sm font-semibold text-concrete-900" }, "Fotos da vaga (opcional)"),
+        PhotoManager({ photos: ui.fotos, onChange: (fotos) => setUI(KEY12, { fotos }) }),
+        h("span", { class: "text-sm text-concrete-500" }, 'At\xE9 6 fotos do canteiro. A primeira vira a capa do card no mural; voc\xEA pode mudar depois em "Sua vaga".')
       ),
       Input({
         id: "create-job-tipo",
@@ -4932,8 +4835,9 @@
           h(
             "div",
             { class: "flex flex-col gap-1.5" },
-            h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Foto da vaga"),
-            PhotoSlot({ shape: "rect", height: "9rem", placeholder: "Toque para escolher uma foto do canteiro", value: job.photo, onChange: (v) => updateJob(job.id, { photo: v }), className: "lg:!h-56" })
+            h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Fotos da vaga"),
+            PhotoManager({ photos: jobPhotos(job), onChange: (photos) => updateJob(job.id, { photos }) }),
+            h("span", { class: "text-xs text-concrete-500" }, "At\xE9 6 fotos. A primeira \xE9 a capa do bico no mural.")
           ),
           h(
             "div",
