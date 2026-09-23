@@ -41,10 +41,13 @@ the page is opened via `file://` (no server = no origin to satisfy the module lo
   renders as a floating tab bar on phones and a full-width top navbar from `lg:` up).
 - Breakpoints: `lg` is 770px (see `tailwind.config.js`) — below it is the phone layout,
   from it up the tablet/desktop layout. The mural (phone and desktop) is one vertical-only
-  grid of `JobTile`s — photo plus three single-line rows (role, neighborhood · date · hours, pay), so every tile is the same size —
+  grid of `JobTile`s — photo plus four single-line rows (role; neighborhood · days of the week;
+  date · hours; pay), so every tile is the same size —
   with 2 columns on a phone and 3 to 7 as the window widens (`.card-grid` in
   `css/base.css`). The only horizontal scrolling in the app is a job's photo carousel
   (touch swipe, mouse drag, arrows or keyboard).
+- `js/utils/jobInfo.js` — how a job's schedule reads everywhere: date and hours are
+  optional ("a combinar"), and `dias` is one of weekdays / weekend / any day.
 - `js/screens/{shared,worker,recruiter}/` — one file per screen, composed out of the
   component library.
 - `icons/` — Lucide SVGs vendored locally (via `lucide-static`); `scripts/gen-icons.cjs`

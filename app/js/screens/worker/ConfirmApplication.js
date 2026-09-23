@@ -5,6 +5,7 @@ import { Button } from '../../components/Button.js';
 import { formatBRL } from '../../utils/format.js';
 import { getUI, setUI, getJob, getCompany, currentWorker, applyToJob } from '../../store.js';
 import { goBack } from '../../router.js';
+import { dateText } from '../../utils/jobInfo.js';
 
 const KEY = 'confirm-application';
 
@@ -27,7 +28,7 @@ export default function renderConfirmApplication(navigate, params) {
           ),
           h('div', { class: 'flex gap-3' },
             h('div', { class: 'flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5' }, h('span', { class: 'text-xs text-concrete-500' }, 'Diária'), h('span', { class: 'font-mono font-bold text-2xl text-concrete-900' }, job.pay == null ? 'A combinar' : formatBRL(job.pay))),
-            h('div', { class: 'flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5' }, h('span', { class: 'text-xs text-concrete-500' }, 'Data'), h('span', { class: 'font-semibold text-concrete-900' }, job.date))
+            h('div', { class: 'flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5' }, h('span', { class: 'text-xs text-concrete-500' }, 'Data'), h('span', { class: 'font-semibold text-concrete-900' }, dateText(job)))
           ),
           h('div', { class: 'flex items-center gap-2.5 pt-4 border-t border-concrete-200' },
             h('span', { class: 'inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent-50 text-accent-600 font-bold text-sm shrink-0' }, worker.initials),

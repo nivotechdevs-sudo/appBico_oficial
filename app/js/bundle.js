@@ -334,9 +334,9 @@
       address: "Rua Serra de Bragan\xE7a, 1240",
       distance: "3,2 km",
       date: "Hoje",
-      dateLong: "Hoje \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "1 di\xE1ria, com 1h de almo\xE7o",
+      dias: "semana",
       urgent: true,
       boosted: true,
       slots: 4,
@@ -352,9 +352,9 @@
       address: "Rua da Mooca, 3180",
       distance: "4,4 km",
       date: "Hoje",
-      dateLong: "Hoje \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "qualquer",
       urgent: true,
       slots: 1,
       description: "Pintura interna em parede lisa de apartamento rec\xE9m-reformado, duas dem\xE3os de tinta acr\xEDlica branca.",
@@ -369,9 +369,9 @@
       address: "Rua Vila Formosa, 210",
       distance: "5,6 km",
       date: "Seg, 14 set",
-      dateLong: "Seg, 14 set \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       description: "Instala\xE7\xE3o el\xE9trica residencial em casa em reforma: troca de disjuntores, tomadas e pontos de luz em tr\xEAs c\xF4modos.",
       requirements: ["Instala\xE7\xE3o el\xE9trica residencial", "Ferramentas pr\xF3prias", "Combine o valor direto com a construtora"]
@@ -385,9 +385,9 @@
       address: "Av. Vila Ema, 2790",
       distance: "6,8 km",
       date: "Qua, 9 set",
-      dateLong: "Qua, 9 set \xB7 7h\u201316h",
       hours: "7h\u201316h",
       duration: "2 di\xE1rias seguidas",
+      dias: "semana",
       slots: 1,
       description: "Carga e descarga de material de constru\xE7\xE3o e limpeza do piso ao fim do expediente, em obra residencial de dois pavimentos.",
       requirements: ["Carregar material e limpar o piso", "Botina pr\xF3pria", "Capacete fornecido pela obra"]
@@ -401,9 +401,9 @@
       address: "Rua Serra de Bragan\xE7a, 640",
       distance: "4,1 km",
       date: "Qui, 10 set",
-      dateLong: "Qui, 10 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       description: "Assentamento de porcelanato 60x60 em sala e cozinha, com nivelamento e rejunte inclu\xEDdos.",
       requirements: ["Assentamento de porcelanato 60x60", "Desempenadeira e n\xEDvel pr\xF3prios", "Argamassa fornecida pela obra"]
@@ -417,9 +417,9 @@
       address: "Rua Cantagalo, 890",
       distance: "5,0 km",
       date: "Sex, 11 set",
-      dateLong: "Sex, 11 set \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "3 di\xE1rias",
+      dias: "semana",
       slots: 1,
       description: "Montagem da ferragem de laje de um pavimento, seguindo projeto estrutural fornecido pela construtora.",
       requirements: ["Montagem de ferragem de laje", "Botina, capacete e luva pr\xF3prios", "Experi\xEAncia com vergalh\xE3o"]
@@ -433,9 +433,9 @@
       address: "Rua Padre Adelino, 410",
       distance: "7,2 km",
       date: "S\xE1b, 12 set",
-      dateLong: "S\xE1b, 12 set \xB7 8h\u201314h",
       hours: "8h\u201314h",
       duration: "Meia di\xE1ria",
+      dias: "fimdesemana",
       slots: 1,
       description: "Descarregar um caminh\xE3o de material de constru\xE7\xE3o e organizar no canteiro. Servi\xE7o de meio per\xEDodo.",
       requirements: ["Descarregar caminh\xE3o de material", "Botina pr\xF3pria", "Sem experi\xEAncia exigida"]
@@ -449,9 +449,9 @@
       address: "Av. Vila Ema, 2790",
       distance: "6,8 km",
       date: "Qua, 9 set",
-      dateLong: "Qua, 9 set \xB7 7h\u201316h",
       hours: "7h\u201316h",
       duration: "2 di\xE1rias seguidas",
+      dias: "semana",
       slots: 2,
       description: "Carga e descarga de material de constru\xE7\xE3o e limpeza do piso ao fim do expediente, em obra residencial de dois pavimentos.",
       requirements: ["Carregar material e limpar o piso", "Botina pr\xF3pria"]
@@ -465,9 +465,9 @@
       address: "Rua Serra de Bragan\xE7a, 640",
       distance: "4,1 km",
       date: "Qui, 10 set",
-      dateLong: "Qui, 10 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       description: "Assentamento de porcelanato 60x60 em sala e cozinha, com nivelamento e rejunte inclu\xEDdos.",
       requirements: ["Assentamento de porcelanato 60x60", "Desempenadeira e n\xEDvel pr\xF3prios"]
@@ -481,9 +481,9 @@
       address: "Rua Taquari, 1180",
       distance: "4,4 km",
       date: "Amanh\xE3",
-      dateLong: "Amanh\xE3 \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       urgent: true,
       slots: 1,
       description: "Troca da fia\xE7\xE3o de um apartamento de dois quartos e instala\xE7\xE3o de quadro de distribui\xE7\xE3o novo.",
@@ -498,9 +498,9 @@
       address: "Rua Tuiuti, 2210",
       distance: "2,6 km",
       date: "Sex, 25 set",
-      dateLong: "Sex, 25 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "2 di\xE1rias",
+      dias: "semana",
       slots: 2,
       description: "Pintura de fachada de sobrado, com andaime j\xE1 montado pela obra.",
       requirements: ["Experi\xEAncia com pintura externa", "Rolo, pincel e trincha pr\xF3prios", "EPI fornecido pela obra"]
@@ -514,9 +514,9 @@
       address: "Rua Ibitirama, 845",
       distance: "5,9 km",
       date: "Hoje",
-      dateLong: "Hoje \xB7 9h\u201318h",
       hours: "9h\u201318h",
       duration: "1 di\xE1ria",
+      dias: "qualquer",
       urgent: true,
       slots: 1,
       description: "Vazamento na prumada do banheiro. Trocar a tubula\xE7\xE3o de \xE1gua fria e testar a press\xE3o.",
@@ -531,9 +531,9 @@
       address: "Rua Siqueira Bueno, 1320",
       distance: "6,5 km",
       date: "S\xE1b, 26 set",
-      dateLong: "S\xE1b, 26 set \xB7 7h\u201316h",
       hours: "7h\u201316h",
       duration: "1 di\xE1ria",
+      dias: "fimdesemana",
       slots: 2,
       description: "Apoio ao pedreiro no preparo de massa e transporte de blocos para o segundo andar.",
       requirements: ["Botina pr\xF3pria", "Capacete e luvas fornecidos pela obra"]
@@ -546,10 +546,10 @@
       location: "Mooca, SP",
       address: "Rua Javari, 540",
       distance: "4,8 km",
-      date: "Seg, 28 set",
-      dateLong: "Seg, 28 set \xB7 8h\u201317h",
-      hours: "8h\u201317h",
+      date: null,
+      hours: null,
       duration: "2 di\xE1rias",
+      dias: "semana",
       slots: 1,
       description: "Revestimento de banheiro inteiro com porcelanato 60x120, incluindo recortes para nichos.",
       requirements: ["Experi\xEAncia com pe\xE7a grande", "Cortador e n\xEDvel a laser pr\xF3prios"]
@@ -563,9 +563,9 @@
       address: "Av. Renata, 910",
       distance: "5,2 km",
       date: "Ter, 29 set",
-      dateLong: "Ter, 29 set \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "3 di\xE1rias",
+      dias: "semana",
       slots: 2,
       description: "Montagem de f\xF4rmas de madeira para a laje do t\xE9rreo.",
       requirements: ["Experi\xEAncia com f\xF4rma de laje", "Serrote, martelo e trena pr\xF3prios"]
@@ -579,9 +579,9 @@
       address: "Rua Pedro \xC1lvares, 77",
       distance: "8,1 km",
       date: "Amanh\xE3",
-      dateLong: "Amanh\xE3 \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "2 di\xE1rias",
+      dias: "qualquer",
       slots: 1,
       description: "Levantamento de muro de divisa com bloco de concreto, cerca de 20 metros.",
       requirements: ["Experi\xEAncia com alvenaria", "Colher e prumo pr\xF3prios"]
@@ -595,9 +595,9 @@
       address: "Rua Olga Fadel Abarca, 300",
       distance: "9,0 km",
       date: "Hoje",
-      dateLong: "Hoje \xB7 8h\u201314h",
       hours: "8h\u201314h",
       duration: "Meia di\xE1ria",
+      dias: "fimdesemana",
       urgent: true,
       slots: 1,
       description: "Limpeza p\xF3s-obra de uma casa t\xE9rrea: retirada de entulho e varri\xE7\xE3o.",
@@ -612,9 +612,9 @@
       address: "Rua Apucarana, 1450",
       distance: "3,0 km",
       date: "Qua, 30 set",
-      dateLong: "Qua, 30 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "2 di\xE1rias",
+      dias: "semana",
       slots: 1,
       description: "Instala\xE7\xE3o de forro de gesso em sala e dois quartos, com sanca aberta na sala.",
       requirements: ["Experi\xEAncia com forro e sanca", "Ferramentas pr\xF3prias"]
@@ -627,10 +627,10 @@
       location: "Vila Prudente, SP",
       address: "Av. Paes de Barros, 3100",
       distance: "6,1 km",
-      date: "Sex, 25 set",
-      dateLong: "Sex, 25 set \xB7 8h\u201317h",
-      hours: "8h\u201317h",
+      date: null,
+      hours: null,
       duration: "1 di\xE1ria",
+      dias: "qualquer",
       slots: 1,
       description: "Pintura interna de apartamento de 60 m\xB2, com massa corrida nos pontos danificados.",
       requirements: ["Rolo e pincel pr\xF3prios", "Tinta fornecida pela obra"]
@@ -644,9 +644,9 @@
       address: "Av. \xC1lvaro Ramos, 890",
       distance: "6,9 km",
       date: "Seg, 28 set",
-      dateLong: "Seg, 28 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       description: "Instala\xE7\xE3o de ilumina\xE7\xE3o em LED e tomadas numa loja de 80 m\xB2.",
       requirements: ["NR-10 em dia", "Ferramentas pr\xF3prias"]
@@ -659,10 +659,10 @@
       location: "Mooca, SP",
       address: "Rua dos Trilhos, 1600",
       distance: "4,4 km",
-      date: "Qui, 1 out",
-      dateLong: "Qui, 1 out \xB7 7h\u201317h",
+      date: null,
       hours: "7h\u201317h",
       duration: "5 di\xE1rias",
+      dias: "semana",
       slots: 1,
       description: "Coordenar uma equipe de quatro pessoas na reforma completa de um apartamento.",
       requirements: ["Experi\xEAncia comprovada como mestre", "Leitura de projeto"]
@@ -676,9 +676,9 @@
       address: "Rua Dr. Assis Ribeiro, 2200",
       distance: "7,7 km",
       date: "Hoje",
-      dateLong: "Hoje \xB7 7h\u201316h",
       hours: "7h\u201316h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       urgent: true,
       slots: 2,
       description: "Carga e descarga de sacos de cimento e areia para a concretagem de s\xE1bado.",
@@ -693,9 +693,9 @@
       address: "Rua Itapeti, 60",
       distance: "5,4 km",
       date: "S\xE1b, 26 set",
-      dateLong: "S\xE1b, 26 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "fimdesemana",
       slots: 1,
       description: "Instala\xE7\xE3o de aquecedor a g\xE1s e liga\xE7\xE3o das tubula\xE7\xF5es de \xE1gua quente.",
       requirements: ["Experi\xEAncia com aquecedor a g\xE1s", "Ferramentas pr\xF3prias"]
@@ -709,9 +709,9 @@
       address: "Rua Cantagalo, 1220",
       distance: "2,2 km",
       date: "Ter, 29 set",
-      dateLong: "Ter, 29 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       description: "Assentamento de rodap\xE9 e soleiras de granito, com acabamento em rejunte ep\xF3xi.",
       requirements: ["Experi\xEAncia com granito", "N\xEDvel e esquadro pr\xF3prios"]
@@ -725,9 +725,9 @@
       address: "Rua Padre Jo\xE3o, 480",
       distance: "5,0 km",
       date: "Qua, 30 set",
-      dateLong: "Qua, 30 set \xB7 7h\u201316h",
       hours: "7h\u201316h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 2,
       description: "Troca de telhas quebradas e revis\xE3o das calhas de um galp\xE3o.",
       requirements: ["Experi\xEAncia em altura", "Cinto de seguran\xE7a fornecido pela obra"]
@@ -741,9 +741,9 @@
       address: "Rua Itapura, 900",
       distance: "3,4 km",
       date: "Sex, 25 set",
-      dateLong: "Sex, 25 set \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "2 di\xE1rias",
+      dias: "semana",
       slots: 3,
       description: "Pintura das \xE1reas comuns de um condom\xEDnio: escadas e corredores de quatro andares.",
       requirements: ["Rolo e pincel pr\xF3prios", "Tinta fornecida pela obra"]
@@ -758,9 +758,9 @@
       address: "Av. Aricanduva, 5200",
       distance: "9,4 km",
       date: "Ter, 26 ago",
-      dateLong: "Ter, 26 ago \xB7 8h\u201314h",
       hours: "8h\u201314h",
       duration: "Meia di\xE1ria",
+      dias: "semana",
       slots: 1,
       closed: true,
       description: "Descarregar material de constru\xE7\xE3o na entrada da obra e organizar no canteiro.",
@@ -775,9 +775,9 @@
       address: "Rua Cachoeira Tijuco Preto, 75",
       distance: "8,5 km",
       date: "S\xE1b, 30 ago",
-      dateLong: "S\xE1b, 30 ago \xB7 8h\u201314h",
       hours: "8h\u201314h",
       duration: "1 di\xE1ria",
+      dias: "fimdesemana",
       slots: 1,
       closed: true,
       description: "Limpeza geral do piso e carga de material de constru\xE7\xE3o durante a di\xE1ria.",
@@ -792,9 +792,9 @@
       address: "Rua da Mooca, 3180",
       distance: "4,4 km",
       date: "Qui, 21 ago",
-      dateLong: "Qui, 21 ago \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       closed: true,
       description: "Pintura interna em parede lisa, duas dem\xE3os de tinta acr\xEDlica.",
@@ -809,9 +809,9 @@
       address: "Rua da Mooca, 3180",
       distance: "4,4 km",
       date: "Qui, 21 ago",
-      dateLong: "Qui, 21 ago \xB7 8h\u201317h",
       hours: "8h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       closed: true,
       description: "Pintura interna em parede lisa, duas dem\xE3os de tinta acr\xEDlica.",
@@ -826,9 +826,9 @@
       address: "Rua Cantagalo, 890",
       distance: "5,0 km",
       date: "Sex, 15 ago",
-      dateLong: "Sex, 15 ago \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "3 di\xE1rias",
+      dias: "semana",
       slots: 2,
       closed: true,
       semContratacao: true,
@@ -844,9 +844,9 @@
       address: "Rua Serra de Bragan\xE7a, 1240",
       distance: "3,2 km",
       date: "18 ago",
-      dateLong: "18 ago \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       closed: true,
       description: "Reboco e regulariza\xE7\xE3o de parede externa numa reforma residencial.",
@@ -861,9 +861,9 @@
       address: "Rua Serra de Bragan\xE7a, 1240",
       distance: "3,2 km",
       date: "14 ago",
-      dateLong: "14 ago \xB7 7h\u201317h",
       hours: "7h\u201317h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       closed: true,
       description: "Acabamento em massa corrida antes da pintura, numa reforma residencial.",
@@ -878,9 +878,9 @@
       address: "Av. Vila Ema, 2790",
       distance: "6,8 km",
       date: "9 ago",
-      dateLong: "9 ago \xB7 7h\u201316h",
       hours: "7h\u201316h",
       duration: "1 di\xE1ria",
+      dias: "semana",
       slots: 1,
       closed: true,
       description: "Carga de material de constru\xE7\xE3o e limpeza do piso ao fim do expediente.",
@@ -1123,6 +1123,7 @@
     "bookmark": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-bookmark%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M17%203a2%202%200%200%201%202%202v15a1%201%200%200%201-1.496.868l-4.512-2.578a2%202%200%200%200-1.984%200l-4.512%202.578A1%201%200%200%201%205%2020V5a2%202%200%200%201%202-2z%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "brick-wall": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-brick-wall%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%209v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2015v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%203v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%2015h18%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2015v6%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%203v6%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "building-2": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-building-2%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M10%2012h4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M10%208h4%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M14%2021v-3a2%202%200%200%200-4%200v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M6%2010H4a2%202%200%200%200-2%202v7a2%202%200%200%200%202%202h16a2%202%200%200%200%202-2V9a2%202%200%200%200-2-2h-2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M6%2021V5a2%202%200%200%201%202-2h8a2%202%200%200%201%202%202v16%22%20%2F%3E%0A%3C%2Fsvg%3E",
+    "calendar-days": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-calendar-days%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M8%202v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%202v3%22%20%2F%3E%0A%20%20%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2013h.01%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%2013h.01%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2013h.01%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M8%2017h.01%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%2017h.01%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2017h.01%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "calendar": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-calendar%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M8%202v3%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%202v3%22%20%2F%3E%0A%20%20%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "camera": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-camera%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M13.997%204a2%202%200%200%201%201.76%201.05l.486.9A2%202%200%200%200%2018.003%207H20a2%202%200%200%201%202%202v9a2%202%200%200%201-2%202H4a2%202%200%200%201-2-2V9a2%202%200%200%201%202-2h1.997a2%202%200%200%200%201.759-1.048l.489-.904A2%202%200%200%201%2010.004%204z%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2213%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "check": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-check%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M20%206%209%2017l-5-5%22%20%2F%3E%0A%3C%2Fsvg%3E",
@@ -1281,16 +1282,16 @@
     bar.style.opacity = "1";
     lastIndicator = target;
   }
-  function AppNav({ role, active, navigate: navigate2, badges = {}, showMobilePill = true, flush = false, notifications = 0, account = {} }) {
+  function AppNav({ role, active, navigate: navigate2, showMobilePill = true, flush = false, notifications = 0, account = {} }) {
     const items = ITEMS[role] || ITEMS.trabalhador;
     const mobile = showMobilePill ? h("nav", {
       "aria-label": "Navega\xE7\xE3o principal",
       class: "lg:hidden fixed left-1/2 -translate-x-1/2 z-30 flex items-center gap-3.5 rounded-full px-5 py-2 shadow-raised border border-white/60",
       style: { bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))", backgroundColor: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px) saturate(1.6)", WebkitBackdropFilter: "blur(16px) saturate(1.6)" }
-    }, ...items.map((it) => navPill(it, active, navigate2, badges))) : null;
-    return h("div", { class: "contents" }, mobile, topBar({ role, items, active, navigate: navigate2, badges, flush, notifications, account }));
+    }, ...items.map((it) => navPill(it, active, navigate2))) : null;
+    return h("div", { class: "contents" }, mobile, topBar({ role, items, active, navigate: navigate2, flush, notifications, account }));
   }
-  function navPill(it, active, navigate2, badges) {
+  function navPill(it, active, navigate2) {
     const isActive = active === it.id;
     return h(
       "button",
@@ -1304,12 +1305,11 @@
       h(
         "span",
         { class: cx("relative inline-flex items-center justify-center w-10 h-10 rounded-full transition-colors", isActive ? "bg-brand-500" : "") },
-        Icon(it.icon, { size: 22, color: isActive ? "#fff" : "var(--gray-500)" }),
-        badges[it.id] ? h("span", { class: "absolute -top-1 -right-1 min-w-[1rem] h-4 px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-4 text-center" }, String(badges[it.id])) : null
+        Icon(it.icon, { size: 22, color: isActive ? "#fff" : "var(--gray-500)" })
       )
     );
   }
-  function topBar({ role, items, active, navigate: navigate2, badges, flush, notifications, account }) {
+  function topBar({ role, items, active, navigate: navigate2, flush, notifications, account }) {
     const menu = getUI(MENU_KEY, { menuOpen: false });
     const go = (path) => {
       setUI(MENU_KEY, { menuOpen: false });
@@ -1329,7 +1329,7 @@
     const tabs = h(
       "nav",
       { "aria-label": "Navega\xE7\xE3o principal", class: "relative flex items-center gap-7 xl:gap-9" },
-      ...items.map((it) => topTab(it, active, go, badges)),
+      ...items.map((it) => topTab(it, active, go)),
       indicator
     );
     requestAnimationFrame(() => placeIndicator(true));
@@ -1401,7 +1401,7 @@
       )
     );
   }
-  function topTab(it, active, go, badges) {
+  function topTab(it, active, go) {
     const isActive = active === it.id;
     return h(
       "button",
@@ -1419,8 +1419,7 @@
             isActive ? "bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-raised" : "bg-concrete-100 text-concrete-600 group-hover:bg-concrete-200 group-hover:scale-105"
           )
         },
-        Icon(it.icon, { size: 19 }),
-        badges[it.id] ? h("span", { class: "absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-[1.125rem] text-center ring-2 ring-white" }, String(badges[it.id])) : null
+        Icon(it.icon, { size: 19 })
       ),
       it.desktopLabel || it.label
     );
@@ -1433,29 +1432,6 @@
       onClick
     }, Icon(m.icon, { size: 18, color: m.danger ? "var(--red-500)" : "var(--gray-500)" }), m.label);
   }
-
-  // js/utils/applicationStatus.js
-  function statusInfo(status, jobId) {
-    switch (status) {
-      case "enviada":
-      case "em_analise":
-        return { label: "Em an\xE1lise", tone: "warning", icon: "clock", hint: "Ver a vaga", to: "/vaga/" + jobId };
-      case "pre_selecionado":
-        return { label: "Pr\xE9-selecionado", tone: "brand", icon: "message-circle", hint: "Falar no WhatsApp", to: "/selecionado/" + jobId };
-      case "contratado":
-        return { label: "Contratado", tone: "success", icon: "circle-check", hint: "Falar no WhatsApp", to: "/selecionado/" + jobId };
-      case "concluida":
-        return { label: "Di\xE1ria conclu\xEDda", tone: "accent", icon: "star", hint: "Avaliar a obra", to: "/avaliar/" + jobId };
-      case "avaliada":
-        return { label: "Avalia\xE7\xE3o enviada", tone: "neutral", icon: "circle-check", hint: "Ver o bico", to: "/vaga/" + jobId };
-      case "nao_selecionado":
-        return { label: "N\xE3o foi essa vez", tone: "danger", icon: "circle-x", hint: "Ver a vaga", to: "/vaga/" + jobId };
-      default:
-        return { label: status, tone: "neutral", icon: "circle", hint: "Ver a vaga", to: "/vaga/" + jobId };
-    }
-  }
-  var IN_PROGRESS = /* @__PURE__ */ new Set(["enviada", "em_analise", "pre_selecionado", "contratado"]);
-  var CLOSED = /* @__PURE__ */ new Set(["concluida", "avaliada", "nao_selecionado"]);
 
   // js/components/Button.js
   var VARIANTS = {
@@ -3145,6 +3121,27 @@
     );
   }
 
+  // js/utils/jobInfo.js
+  var DIAS = {
+    semana: { label: "Durante a semana", short: "Seg a sex", hint: "De segunda a sexta" },
+    fimdesemana: { label: "No fim de semana", short: "S\xE1b e dom", hint: "S\xE1bado e domingo" },
+    qualquer: { label: "Qualquer dia", short: "Qualquer dia", hint: "Semana ou fim de semana" }
+  };
+  var DIAS_ORDEM = ["semana", "fimdesemana", "qualquer"];
+  function diasInfo(job) {
+    return DIAS[job.dias] || null;
+  }
+  function dateText(job) {
+    return job.date || "Data a combinar";
+  }
+  function whenText(job) {
+    if (job.date) return job.hours ? `${job.date} \xB7 ${job.hours}` : job.date;
+    return job.hours ? `Data a combinar \xB7 ${job.hours}` : "Data e hor\xE1rio a combinar";
+  }
+  function hoursText(job) {
+    return job.hours || "Hor\xE1rio a combinar";
+  }
+
   // js/components/JobCard.js
   function PayBlock({ job, muted }) {
     if (muted) {
@@ -3198,7 +3195,7 @@
           "span",
           { class: "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-concrete-100 text-sm font-semibold text-concrete-900" },
           Icon("calendar", { size: 14 }),
-          job.date
+          dateText(job)
         ),
         h(
           "span",
@@ -3475,22 +3472,25 @@
   }
 
   // js/components/JobTile.js
-  function JobTile({ job, company, onClick, urgent = false, mine = false, saved = false, onToggleSave = null }) {
+  var TONE_COLOR = { brand: "var(--text-brand)", success: "var(--green-500)", warning: "var(--amber-500)", danger: "var(--red-500)", accent: "var(--text-brand)", neutral: "var(--gray-500)" };
+  function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null }) {
     const cover = jobPhotos(job)[0];
     const count = jobPhotos(job).length;
     const bairro = String(job.location || "").split(",")[0];
-    const when = [bairro, job.date, job.hours].filter(Boolean).join(" \xB7 ");
+    const dias = diasInfo(job);
+    const where = [bairro, dias && dias.short].filter(Boolean).join(" \xB7 ");
+    const when = whenText(job);
     const pill = (children, className = "") => h("span", {
       class: cx("inline-flex items-center gap-1 h-6 sm:h-7 px-2 sm:px-2.5 rounded-full bg-white text-[0.6875rem] sm:text-xs font-semibold shadow-[0_1px_3px_rgba(16,20,24,0.18)] whitespace-nowrap", className || "text-concrete-900")
     }, children);
     const photo = h(
       "div",
-      { class: "relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200" },
+      { class: cx("relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200", muted ? "grayscale opacity-70" : "") },
       cover ? h("img", { src: cover, alt: "", loading: "lazy", draggable: "false", class: "absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" }) : JobCover({ job }),
       h(
         "div",
         { class: "absolute top-2 left-2 sm:top-3 sm:left-3 right-12 flex flex-wrap gap-1.5 pointer-events-none" },
-        urgent ? pill([Icon("zap", { size: 12, color: "var(--text-danger)" }), "Urgente"]) : null,
+        badge ? pill([badge.icon ? Icon(badge.icon, { size: 12, color: TONE_COLOR[badge.tone] || TONE_COLOR.neutral }) : null, badge.label]) : null,
         mine ? pill("Sua vaga", "text-brand-600") : null
       ),
       count > 1 ? h(
@@ -3504,18 +3504,19 @@
     const text = h(
       "div",
       { class: "flex flex-col pt-2 sm:pt-2.5 text-[0.8125rem] sm:text-sm leading-[1.35]" },
-      h("span", { class: "truncate font-semibold text-concrete-900 sm:text-[0.9375rem]" }, job.role),
+      h("span", { class: cx("truncate font-semibold sm:text-[0.9375rem]", muted ? "text-concrete-500" : "text-concrete-900") }, job.role),
+      h("span", { class: "truncate text-concrete-500" }, where),
       h("span", { class: "truncate text-concrete-500" }, when),
       h(
         "span",
-        { class: "truncate text-concrete-900 pt-0.5" },
+        { class: cx("truncate pt-0.5", muted ? "text-concrete-500" : "text-concrete-900") },
         job.pay == null ? h("span", { class: "font-semibold" }, "A combinar") : [h("span", { class: "font-semibold" }, formatBRL(job.pay)), h("span", { class: "text-concrete-500" }, " por di\xE1ria")]
       )
     );
     return h("div", {
       role: "link",
       tabindex: "0",
-      "aria-label": [job.role, company && company.name, when].filter(Boolean).join(", "),
+      "aria-label": [job.role, badge && badge.label, company && company.name, where, when].filter(Boolean).join(", "),
       class: "group min-w-0 cursor-pointer rounded-xl outline-none focus-visible:ring-4 focus-visible:ring-brand-100",
       onClick,
       onkeydown: (e) => {
@@ -3538,9 +3539,18 @@
   function payNum(job) {
     return job.pay == null ? -1 : job.pay;
   }
+  function soon(job) {
+    return job.date === "Hoje" ? 0 : job.date === "Amanh\xE3" ? 1 : job.date ? 2 : 3;
+  }
+  function matchesQuando(job, quando) {
+    if (!quando) return true;
+    if (quando === "Durante a semana") return job.dias === "semana" || job.dias === "qualquer";
+    if (quando === "Fim de semana") return job.dias === "fimdesemana" || job.dias === "qualquer";
+    return job.date === quando;
+  }
   function orderJobs(jobs, role, sort = "perto") {
     const rank = (j) => role === "recrutador" && isMine(j) ? 0 : j.urgent ? 1 : 2;
-    const by = sort === "valor" ? (a, b) => payNum(b) - payNum(a) : sort === "cedo" ? (a, b) => (a.date === "Hoje" ? 0 : 1) - (b.date === "Hoje" ? 0 : 1) || km(a.distance) - km(b.distance) : (a, b) => km(a.distance) - km(b.distance);
+    const by = sort === "valor" ? (a, b) => payNum(b) - payNum(a) : sort === "cedo" ? (a, b) => soon(a) - soon(b) || km(a.distance) - km(b.distance) : (a, b) => km(a.distance) - km(b.distance);
     return jobs.slice().sort((a, b) => rank(a) - rank(b) || by(a, b));
   }
   function tileFor(navigate2, role, job) {
@@ -3548,7 +3558,6 @@
       job,
       company: getCompany(job.companyId),
       onClick: openJob(navigate2, role, job),
-      urgent: job.urgent,
       mine: role === "recrutador" && isMine(job),
       saved: isJobSaved(job.id),
       onToggleSave: role === "trabalhador" ? () => toggleSavedJob(job.id) : null
@@ -3567,7 +3576,7 @@
     const searching = q.length > 0;
     const openJobs = activeJobs().filter((j) => !isJobClosed(j));
     const matches = (j) => !q || (j.role + " " + getCompany(j.companyId).name + " " + j.location).toLowerCase().includes(q);
-    const passesFilters = (j) => (!ui.tipo || j.role === ui.tipo) && (ui.dist === "Toda a cidade" || km(j.distance) <= parseInt(ui.dist)) && (!ui.quando || j.date === ui.quando);
+    const passesFilters = (j) => (!ui.tipo || j.role === ui.tipo) && (ui.dist === "Toda a cidade" || km(j.distance) <= parseInt(ui.dist)) && matchesQuando(j, ui.quando);
     const filtered = openJobs.filter(matches).filter(passesFilters);
     const ordered = orderJobs(filtered, role, ui.sort);
     const jobResults = searching ? openJobs.filter(matches) : [];
@@ -3707,7 +3716,7 @@
         { open: ui.filtersOpen, title: "Filtros", onClose: () => setUI(KEY8, { filtersOpen: false }) },
         filterGroup("Tipo de servi\xE7o", TIPOS_SERVICO, ui.tipo, (v) => setUI(KEY8, { tipo: ui.tipo === v ? null : v })),
         filterGroup("Dist\xE2ncia de casa", ["5", "10", "20", "Toda a cidade"].map((d) => d === "Toda a cidade" ? d : `At\xE9 ${d} km`), ui.dist, (v) => setUI(KEY8, { dist: v })),
-        filterGroup("Quando", ["Hoje", "Amanh\xE3", "Esta semana", "Fim de semana"], ui.quando, (v) => setUI(KEY8, { quando: ui.quando === v ? null : v })),
+        filterGroup("Quando", ["Hoje", "Amanh\xE3", "Durante a semana", "Fim de semana"], ui.quando, (v) => setUI(KEY8, { quando: ui.quando === v ? null : v })),
         h(
           "div",
           { class: "flex flex-col gap-1 pt-1 border-t border-concrete-200" },
@@ -4044,7 +4053,8 @@
         h(
           "div",
           { class: "flex flex-col rounded-xl border border-concrete-200 divide-y divide-concrete-200" },
-          summaryRow("calendar", "Quando", job.dateLong || job.date),
+          summaryRow("calendar", "Quando", whenText(job)),
+          diasInfo(job) ? summaryRow("calendar-days", "Dias", diasInfo(job).label) : null,
           summaryRow("clock", "Dura\xE7\xE3o", job.duration),
           summaryRow("map-pin", "Onde", `${job.location} \xB7 ${job.distance}`)
         ),
@@ -4089,7 +4099,6 @@
           h(
             "div",
             { class: "flex flex-col gap-1.5" },
-            job.urgent ? h("div", { class: "flex items-center gap-2" }, Badge({ label: "Urgente", tone: "danger", icon: "zap" }), h("span", { class: "text-xs text-brand-600" }, "Vaga em destaque")) : null,
             h("h1", { class: "font-display font-bold text-2xl text-concrete-900" }, job.role),
             job.description ? h("p", { class: "text-sm text-concrete-700 leading-relaxed" }, job.description) : null
           ),
@@ -4109,7 +4118,7 @@
                 ),
                 h("span", { class: "text-sm text-concrete-700 text-right" }, "Pago no fim", h("br"), "da di\xE1ria")
               ),
-              h("div", { class: "flex items-center gap-2 pt-4 border-t border-brand-200" }, Icon("calendar", { size: 20, color: "var(--text-brand)" }), h("span", { class: "font-display font-semibold text-lg text-concrete-900" }, job.dateLong))
+              h("div", { class: "flex items-center gap-2 pt-4 border-t border-brand-200" }, Icon("calendar", { size: 20, color: "var(--text-brand)" }), h("span", { class: "font-display font-semibold text-lg text-concrete-900" }, whenText(job)))
             )
           ),
           section("Onde e como", Card(
@@ -4118,7 +4127,8 @@
               "div",
               { class: "flex flex-col gap-3.5" },
               infoRow("map-pin", job.address, `${job.location} \xB7 ${job.distance} de voc\xEA`),
-              infoRow("clock", job.hours, job.duration),
+              diasInfo(job) ? infoRow("calendar-days", diasInfo(job).label, diasInfo(job).hint) : null,
+              infoRow("clock", hoursText(job), job.duration),
               infoRow("hand-coins", "Pagamento em PIX no fim da di\xE1ria", "Combinado direto com a construtora")
             )
           )),
@@ -4210,7 +4220,7 @@
               "div",
               { class: "flex gap-3" },
               h("div", { class: "flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5" }, h("span", { class: "text-xs text-concrete-500" }, "Di\xE1ria"), h("span", { class: "font-mono font-bold text-2xl text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay))),
-              h("div", { class: "flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5" }, h("span", { class: "text-xs text-concrete-500" }, "Data"), h("span", { class: "font-semibold text-concrete-900" }, job.date))
+              h("div", { class: "flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5" }, h("span", { class: "text-xs text-concrete-500" }, "Data"), h("span", { class: "font-semibold text-concrete-900" }, dateText(job)))
             ),
             h(
               "div",
@@ -4268,7 +4278,7 @@
           h(
             "div",
             { class: "flex items-center justify-between gap-3" },
-            h("div", { class: "flex flex-col gap-0.5 min-w-0" }, h("span", { class: "font-semibold text-concrete-900" }, job.role), h("span", { class: "text-sm text-concrete-500" }, `${company.name} \xB7 ${job.date}`)),
+            h("div", { class: "flex flex-col gap-0.5 min-w-0" }, h("span", { class: "font-semibold text-concrete-900" }, job.role), h("span", { class: "text-sm text-concrete-500" }, `${company.name} \xB7 ${dateText(job)}`)),
             h("span", { class: "font-mono font-bold text-xl text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay))
           )
         ),
@@ -4282,7 +4292,33 @@
     );
   }
 
+  // js/utils/applicationStatus.js
+  function statusInfo(status, jobId) {
+    switch (status) {
+      case "enviada":
+      case "em_analise":
+        return { label: "Em an\xE1lise", tone: "warning", icon: "clock", hint: "Ver a vaga", to: "/vaga/" + jobId };
+      case "pre_selecionado":
+        return { label: "Pr\xE9-selecionado", tone: "brand", icon: "message-circle", hint: "Falar no WhatsApp", to: "/selecionado/" + jobId };
+      case "contratado":
+        return { label: "Contratado", tone: "success", icon: "circle-check", hint: "Falar no WhatsApp", to: "/selecionado/" + jobId };
+      case "concluida":
+        return { label: "Di\xE1ria conclu\xEDda", tone: "accent", icon: "star", hint: "Avaliar a obra", to: "/avaliar/" + jobId };
+      case "avaliada":
+        return { label: "Avalia\xE7\xE3o enviada", tone: "neutral", icon: "circle-check", hint: "Ver o bico", to: "/vaga/" + jobId };
+      case "nao_selecionado":
+        return { label: "N\xE3o foi essa vez", tone: "danger", icon: "circle-x", hint: "Ver a vaga", to: "/vaga/" + jobId };
+      default:
+        return { label: status, tone: "neutral", icon: "circle", hint: "Ver a vaga", to: "/vaga/" + jobId };
+    }
+  }
+  var IN_PROGRESS = /* @__PURE__ */ new Set(["enviada", "em_analise", "pre_selecionado", "contratado"]);
+  var CLOSED = /* @__PURE__ */ new Set(["concluida", "avaliada", "nao_selecionado"]);
+
   // js/screens/worker/MyApplications.js
+  function tileGrid2(tiles) {
+    return h("div", { class: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-6 lg:gap-y-8" }, ...tiles);
+  }
   function renderMyApplications(navigate2) {
     const worker = currentWorker();
     const apps = applicationsForWorker(worker.id);
@@ -4294,12 +4330,12 @@
       if (!job) return null;
       const company = getCompany(job.companyId);
       const info = statusInfo(app.status, job.id);
-      return JobCard({
+      return JobTile({
         job,
-        companyName: company.name,
+        company,
         muted,
         onClick: () => navigate2(info.to),
-        footer: JobCardFooter({ badgeEl: Badge({ label: info.label, tone: muted ? "neutral" : info.tone, icon: info.icon }), hint: info.hint, hintColor: muted ? "var(--text-muted)" : "var(--text-brand)" })
+        badge: { label: info.label, icon: info.icon, tone: muted ? "neutral" : info.tone }
       });
     }
     return h(
@@ -4331,18 +4367,18 @@
         ),
         apps.length === 0 ? EmptyState({ icon: "file-check", title: "Voc\xEA ainda n\xE3o se candidatou", description: "Escolha um bico no mural e toque em quero esse bico. Fica tudo registrado aqui.", actionLabel: "Ver o mural", onAction: () => navigate2("/mural") }) : h(
           "div",
-          { class: "flex flex-col gap-5" },
+          { class: "flex flex-col gap-8 pt-2" },
           inProgress.length ? h(
             "div",
-            { class: "flex flex-col gap-3" },
+            { class: "flex flex-col gap-4" },
             h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Em andamento"),
-            h("div", { class: "flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...inProgress.map((a) => appCard(a, false)))
+            tileGrid2(inProgress.map((a) => appCard(a, false)))
           ) : null,
           closed.length ? h(
             "div",
-            { class: "flex flex-col gap-3" },
+            { class: "flex flex-col gap-4" },
             h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Encerradas"),
-            h("div", { class: "flex flex-col gap-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-5" }, ...closed.map((a) => appCard(a, true)))
+            tileGrid2(closed.map((a) => appCard(a, true)))
           ) : null
         )
       )
@@ -4401,7 +4437,7 @@
         { class: "bg-brand-500 text-white px-4 sm:px-6 py-7 flex flex-col gap-3 lg:rounded-card" },
         Badge({ label: hired && hired.status === "contratado" ? "Contratado" : "Pr\xE9-selecionado", tone: "inverse", icon: "circle-check" }),
         h("h1", { class: "font-display font-bold text-3xl leading-tight text-white" }, title),
-        h("p", { class: "text-white/85" }, `${job.role} \xB7 ${job.date}`)
+        h("p", { class: "text-white/85" }, `${job.role} \xB7 ${dateText(job)}`)
       ),
       h(
         "div",
@@ -4464,7 +4500,7 @@
           "div",
           { class: "flex flex-col gap-1" },
           h("h1", { class: "font-display font-bold text-2xl text-concrete-900" }, "Como foi a di\xE1ria?"),
-          h("span", { class: "text-sm text-concrete-500" }, `${job.role} \xB7 ${company.name} \xB7 ${job.date}`)
+          h("span", { class: "text-sm text-concrete-500" }, `${job.role} \xB7 ${company.name} \xB7 ${dateText(job)}`)
         ),
         Card(
           { padding: "md" },
@@ -4521,28 +4557,27 @@
       fotos: [],
       tipo: "",
       local: "",
+      dias: null,
       data: "",
-      periodoInicio: "7",
-      periodoFim: "17",
+      periodoInicio: "",
+      periodoFim: "",
       diarias: "1",
       vagas: "1",
       valor: "",
       negociavel: false,
       requisitos: ["Botina e capacete pr\xF3prios"],
       detalhe: "",
-      urgente: false,
       errors: {},
       publishing: false
     });
-    const previaRole = ui.tipo.trim() || "Vaga sem tipo";
-    const previaPay = ui.negociavel ? "A combinar" : ui.valor ? "R$ " + ui.valor : "R$ \u2014";
-    const previaMeta = `${ui.local || "Endere\xE7o da obra"} \xB7 ${ui.data || "data a definir"}`;
+    const clearError = (field) => Object.assign({}, ui.errors, { [field]: null });
+    const hasHours = Boolean(ui.periodoInicio && ui.periodoFim);
     function validateStep1() {
       const errors = {};
       if (!ui.tipo.trim()) errors.tipo = "Escreva o tipo de servi\xE7o da vaga.";
       if (!ui.local.trim()) errors.local = "Informe o endere\xE7o da obra.";
-      if (!ui.data.trim()) errors.data = "Informe a data da di\xE1ria.";
-      if (!ui.periodoInicio || !ui.periodoFim) errors.periodo = "Informe o hor\xE1rio de in\xEDcio e fim.";
+      if (!ui.dias) errors.dias = "Escolha em que dias o bico pode acontecer.";
+      if (Boolean(ui.periodoInicio) !== Boolean(ui.periodoFim)) errors.periodo = "Preencha o in\xEDcio e o fim, ou deixe os dois em branco.";
       if (!ui.diarias || Number(ui.diarias) < 1) errors.diarias = "Informe quantas di\xE1rias.";
       if (!ui.vagas || Number(ui.vagas) < 1) errors.vagas = "Informe quantas pessoas a vaga precisa.";
       return errors;
@@ -4575,7 +4610,8 @@
       setUI(KEY12, { publishing: true });
       setTimeout(() => {
         const id = nextJobId();
-        const hours = `${ui.periodoInicio}h\u2013${ui.periodoFim}h`;
+        const hours = hasHours ? `${ui.periodoInicio}h\u2013${ui.periodoFim}h` : null;
+        const date = ui.data.trim() || null;
         const diariasNum = Number(ui.diarias) || 1;
         createJob({
           id,
@@ -4585,11 +4621,10 @@
           location: "Tatuap\xE9, SP",
           address: ui.local,
           distance: "0 km",
-          date: ui.data,
-          dateLong: `${ui.data} \xB7 ${hours}`,
+          date,
           hours,
+          dias: ui.dias,
           duration: diariasNum === 1 ? "1 di\xE1ria" : `${diariasNum} di\xE1rias`,
-          urgent: ui.urgente,
           slots: Number(ui.vagas) || 1,
           requirements: ui.requisitos,
           description: ui.detalhe.trim(),
@@ -4620,18 +4655,33 @@
         onInput: (v) => setUI(KEY12, { tipo: v, errors: Object.assign({}, ui.errors, { tipo: null }) })
       }),
       Input({ id: "create-job-local", label: "Endere\xE7o da obra", placeholder: "Rua, n\xFAmero e bairro", icon: "map-pin", value: ui.local, error: ui.errors.local, onInput: (v) => setUI(KEY12, { local: v, errors: Object.assign({}, ui.errors, { local: null }) }) }),
-      Input({ id: "create-job-data", label: "Data da di\xE1ria", placeholder: "Ex.: 12 set", icon: "calendar", value: ui.data, error: ui.errors.data, onInput: (v) => setUI(KEY12, { data: v, errors: Object.assign({}, ui.errors, { data: null }) }) }),
+      h(
+        "div",
+        { class: "flex flex-col gap-2", role: "radiogroup", "aria-labelledby": "create-job-dias-label" },
+        h("span", { id: "create-job-dias-label", class: "text-sm font-semibold text-concrete-900" }, "Em que dias pode ser?"),
+        h("div", { class: "flex flex-col gap-2" }, ...DIAS_ORDEM.map((id) => diasOption(id, ui.dias === id, () => setUI(KEY12, { dias: id, errors: clearError("dias") })))),
+        ui.errors.dias ? h("span", { class: "flex items-center gap-1.5 text-sm text-danger-500" }, Icon("circle-alert", { size: 14 }), ui.errors.dias) : null
+      ),
+      Input({
+        id: "create-job-data",
+        label: "Data (opcional)",
+        placeholder: "Ex.: 12 set",
+        icon: "calendar",
+        value: ui.data,
+        hint: "Sem data definida? Deixe em branco e combine com o trabalhador.",
+        onInput: (v) => setUI(KEY12, { data: v })
+      }),
       h(
         "div",
         { class: "flex flex-col gap-1.5" },
-        h("span", { class: "text-sm font-semibold text-concrete-900" }, "Per\xEDodo de trabalho"),
+        h("span", { class: "text-sm font-semibold text-concrete-900" }, "Hor\xE1rio (opcional)"),
         h(
           "div",
           { class: "flex items-end gap-3" },
-          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-inicio", label: "Das", placeholder: "7", suffix: "h", inputMode: "numeric", value: ui.periodoInicio, onInput: (v) => setUI(KEY12, { periodoInicio: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) })),
-          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-fim", label: "At\xE9", placeholder: "17", suffix: "h", inputMode: "numeric", value: ui.periodoFim, onInput: (v) => setUI(KEY12, { periodoFim: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) }))
+          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-inicio", label: "Das", placeholder: "Ex.: 7", suffix: "h", inputMode: "numeric", value: ui.periodoInicio, onInput: (v) => setUI(KEY12, { periodoInicio: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) })),
+          h("div", { class: "flex-1 min-w-0" }, Input({ id: "create-job-periodo-fim", label: "At\xE9", placeholder: "Ex.: 17", suffix: "h", inputMode: "numeric", value: ui.periodoFim, onInput: (v) => setUI(KEY12, { periodoFim: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) }))
         ),
-        ui.errors.periodo ? h("span", { class: "text-sm text-danger-500" }, ui.errors.periodo) : null
+        ui.errors.periodo ? h("span", { class: "text-sm text-danger-500" }, ui.errors.periodo) : h("span", { class: "text-sm text-concrete-500" }, 'Em branco, aparece "hor\xE1rio a combinar".')
       ),
       Input({
         id: "create-job-diarias",
@@ -4705,29 +4755,28 @@
         }),
         ui.errors.detalhe ? h("span", { class: "flex items-center gap-1.5 text-sm text-danger-500" }, Icon("circle-alert", { size: 14 }), ui.errors.detalhe) : h("span", { class: "text-sm text-concrete-500" }, "Quanto mais claro, menos desencontro no canteiro. Essa descri\xE7\xE3o aparece para quem ver o bico.")
       ),
-      h("div", { class: "pt-1 border-t border-concrete-200" }, Switch({ label: "Marcar como urgente", description: "A vaga aparece no topo do mural com selo de urgente.", checked: ui.urgente, onChange: (v) => setUI(KEY12, { urgente: v }) })),
-      Card(
-        { tone: "sunken", padding: "md" },
+      h(
+        "div",
+        { class: "flex flex-col gap-3 pt-5 border-t border-concrete-200" },
+        h("span", { class: "font-semibold text-concrete-900" }, "Como vai aparecer no mural"),
         h(
           "div",
-          { class: "flex flex-col gap-2.5" },
-          h("span", { class: "font-semibold text-concrete-900" }, "Como vai aparecer no mural"),
-          h(
-            "div",
-            { class: "flex items-center gap-3" },
-            h("div", { class: "flex-1 min-w-0 flex flex-col gap-0.5" }, h("span", { class: "font-display font-semibold text-lg text-concrete-900 truncate" }, previaRole), h("span", { class: "text-sm text-concrete-500" }, previaMeta)),
-            ui.negociavel ? h(
-              "div",
-              { class: "shrink-0 w-24 h-16 rounded-card bg-white border-[1.5px] border-brand-200 flex flex-col items-center justify-center gap-1" },
-              Icon("handshake", { size: 16, color: "var(--text-brand)" }),
-              h("span", { class: "text-xs font-semibold text-brand-600" }, "A combinar")
-            ) : h(
-              "div",
-              { class: "shrink-0 w-24 h-16 rounded-card bg-brand-500 shadow-card flex flex-col items-center justify-center gap-0.5" },
-              h("span", { class: "font-mono font-bold text-lg text-white" }, previaPay),
-              h("span", { class: "text-[0.5625rem] font-semibold tracking-wide uppercase text-white/85" }, "por di\xE1ria")
-            )
-          )
+          { class: "w-[12.5rem] max-w-full", "aria-hidden": "true" },
+          JobTile({
+            job: {
+              id: "previa",
+              role: ui.tipo.trim() || "Tipo de servi\xE7o",
+              location: "Tatuap\xE9, SP",
+              dias: ui.dias,
+              date: ui.data.trim() || null,
+              hours: hasHours ? `${ui.periodoInicio}h\u2013${ui.periodoFim}h` : null,
+              pay: ui.negociavel || !ui.valor ? null : parseInt(ui.valor, 10),
+              photos: ui.fotos
+            },
+            company: getCompany(currentCompanyId()),
+            onClick: () => {
+            }
+          })
         )
       )
     );
@@ -4739,7 +4788,7 @@
         "div",
         { class: "flex items-center gap-2 px-4 sm:px-0 pt-3" },
         stepDot(1, ui.step >= 1),
-        h("span", { class: "text-sm text-concrete-500" }, "Servi\xE7o, local e data"),
+        h("span", { class: "text-sm text-concrete-500" }, "Servi\xE7o, local e dias"),
         h("span", { class: "flex-1 h-px bg-concrete-200" }),
         stepDot(2, ui.step >= 2),
         h("span", { class: "text-sm text-concrete-500" }, "Valor e requisitos")
@@ -4750,6 +4799,33 @@
         { class: "px-4 sm:px-0 py-3 flex flex-col gap-1.5" },
         Button({ label: ui.step === 1 ? "Continuar" : "Publicar vaga", size: "lg", fullWidth: true, loading: ui.publishing, onClick: advance }),
         h("span", { class: "text-center text-xs text-concrete-500" }, "Publicar \xE9 gr\xE1tis. Voc\xEA paga s\xF3 se impulsionar.")
+      )
+    );
+  }
+  function diasOption(id, checked, onSelect) {
+    const d = DIAS[id];
+    return h(
+      "button",
+      {
+        type: "button",
+        role: "radio",
+        "aria-checked": checked ? "true" : "false",
+        class: cx(
+          "flex items-center gap-3 min-h-14 px-4 py-2.5 rounded-control border text-left transition-colors",
+          checked ? "bg-brand-50 border-brand-500" : "bg-white border-concrete-300 hover:bg-concrete-50"
+        ),
+        onClick: onSelect
+      },
+      h(
+        "span",
+        { class: cx("inline-flex items-center justify-center w-5 h-5 rounded-full border-2 shrink-0", checked ? "border-brand-500" : "border-concrete-300") },
+        checked ? h("span", { class: "w-2.5 h-2.5 rounded-full bg-brand-500" }) : null
+      ),
+      h(
+        "span",
+        { class: "flex flex-col min-w-0" },
+        h("span", { class: cx("font-semibold", checked ? "text-brand-600" : "text-concrete-900") }, d.label),
+        h("span", { class: "text-sm text-concrete-500" }, d.hint)
       )
     );
   }
@@ -4780,7 +4856,7 @@
           h(
             "div",
             { class: "flex items-center justify-between gap-3" },
-            h("div", { class: "flex flex-col gap-0.5 min-w-0" }, h("span", { class: "font-semibold text-concrete-900" }, job.role), h("span", { class: "text-sm text-concrete-500" }, `${job.address} \xB7 ${job.date}`)),
+            h("div", { class: "flex flex-col gap-0.5 min-w-0" }, h("span", { class: "font-semibold text-concrete-900" }, job.role), h("span", { class: "text-sm text-concrete-500" }, `${job.address} \xB7 ${dateText(job)}`)),
             h("span", { class: "font-mono font-bold text-xl text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay))
           )
         ),
@@ -4873,7 +4949,7 @@
           h("div", { class: "flex flex-col gap-0.5" }, h("span", { class: "text-xs font-bold tracking-[0.08em] uppercase text-brand-600" }, "Di\xE1ria que voc\xEA ofereceu"), h("span", { class: "font-mono font-bold text-4xl text-concrete-900" }, job.pay == null ? "A combinar" : formatBRL(job.pay))),
           h("span", { class: "text-sm text-concrete-700 text-right" }, "Pago no fim", h("br"), "da di\xE1ria")
         ),
-        h("div", { class: "flex items-center gap-2 pt-4 border-t border-brand-200" }, Icon("calendar", { size: 20, color: "var(--text-brand)" }), h("span", { class: "font-display font-semibold text-lg text-concrete-900" }, job.dateLong || job.date))
+        h("div", { class: "flex items-center gap-2 pt-4 border-t border-brand-200" }, Icon("calendar", { size: 20, color: "var(--text-brand)" }), h("span", { class: "font-display font-semibold text-lg text-concrete-900" }, whenText(job)))
       )
     );
     const slotsCard = (className) => Card(
@@ -4939,7 +5015,8 @@
                 "div",
                 { class: "flex flex-col gap-3.5" },
                 infoRow2("map-pin", job.address, job.location),
-                infoRow2("clock", job.hours, job.duration),
+                diasInfo(job) ? infoRow2("calendar-days", diasInfo(job).label, diasInfo(job).hint) : null,
+                infoRow2("clock", hoursText(job), job.duration),
                 infoRow2("hand-coins", "Pagamento em PIX no fim da di\xE1ria", "Combinado direto com o trabalhador")
               )
             )
@@ -5035,7 +5112,7 @@
         { class: "bg-brand-500 text-white px-4 sm:px-6 py-7 flex flex-col gap-3 lg:rounded-card" },
         Badge({ label: "Bico fechado", tone: "inverse", icon: "circle-check" }),
         h("h1", { class: "font-display font-bold text-3xl leading-tight text-white" }, title),
-        h("p", { class: "text-white/85" }, `${job.role} \xB7 ${job.date}`)
+        h("p", { class: "text-white/85" }, `${job.role} \xB7 ${dateText(job)}`)
       ),
       h(
         "div",
@@ -5187,7 +5264,7 @@
                 "div",
                 { class: "flex items-center gap-3" },
                 h("span", { class: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent-50 text-accent-600 font-bold text-sm shrink-0" }, worker.initials),
-                h("div", { class: "flex-1 min-w-0 flex flex-col" }, h("span", { class: "font-semibold text-concrete-900 truncate" }, worker.name), h("span", { class: "text-sm text-concrete-500 truncate" }, `${job.role} \xB7 ${job.date}`)),
+                h("div", { class: "flex-1 min-w-0 flex flex-col" }, h("span", { class: "font-semibold text-concrete-900 truncate" }, worker.name), h("span", { class: "text-sm text-concrete-500 truncate" }, `${job.role} \xB7 ${dateText(job)}`)),
                 h("span", { class: "font-mono font-bold text-lg text-concrete-900 shrink-0" }, job.pay == null ? "A combinar" : formatBRL(job.pay))
               ),
               h(
@@ -5266,7 +5343,6 @@
       return content;
     }
     const role = getRole();
-    const badges = role === "trabalhador" ? { "minhas-candidaturas": inProgressCount() } : {};
     const activeId = tabIdForPath(path, role);
     const isMural = path === "/mural";
     const showMobileNav = TAB_ROOTS[role] && TAB_ROOTS[role].has(path);
@@ -5274,7 +5350,6 @@
       role,
       active: activeId,
       navigate,
-      badges,
       showMobilePill: showMobileNav,
       flush: isMural,
       notifications: role === "recrutador" ? 3 : 2,
@@ -5312,10 +5387,6 @@
       if (path === "/empresa") return "empresa";
     }
     return null;
-  }
-  function inProgressCount() {
-    const apps = applicationsForWorker(currentWorkerId());
-    return apps.filter((a) => IN_PROGRESS.has(a.status)).length;
   }
   function notFoundScreen() {
     const div = document.createElement("div");

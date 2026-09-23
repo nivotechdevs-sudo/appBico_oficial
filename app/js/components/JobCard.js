@@ -3,6 +3,7 @@ import { Icon } from '../utils/icons.js';
 import { Card } from './Card.js';
 import { JobCover, SaveFlag, jobPhotos } from './JobCover.js';
 import { formatBRL } from '../utils/format.js';
+import { dateText } from '../utils/jobInfo.js';
 
 function PayBlock({ job, muted }) {
   if (muted) {
@@ -47,7 +48,7 @@ export function JobCard({ job, companyName, onClick, overlay = null, footer = nu
     ),
     h('div', { class: 'flex items-center flex-wrap gap-2' },
       h('span', { class: 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-concrete-100 text-sm font-semibold text-concrete-900' },
-        Icon('calendar', { size: 14 }), job.date
+        Icon('calendar', { size: 14 }), dateText(job)
       ),
       h('span', { class: 'inline-flex items-center gap-1.5 text-sm text-concrete-500' },
         Icon('map-pin', { size: 14, color: 'var(--text-subtle)' }), companyName ? `${companyName} · ${job.location}` : job.location
@@ -57,19 +58,6 @@ export function JobCard({ job, companyName, onClick, overlay = null, footer = nu
 
   const card = Card({ padding: 'none', onClick, className: 'flex flex-col' }, photo, body, footer);
   return card;
-}
-
-export function UrgentOverlay({ mine = false }) {
-  return h('div', { class: 'absolute inset-0 pointer-events-none' },
-    h('span', { class: 'absolute top-2.5 left-2.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-danger-500 text-white text-[0.6875rem] font-bold tracking-wide' },
-      Icon('zap', { size: 14, color: '#fff' }), 'Urgente'
-    ),
-    mine ? h('span', { class: 'absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-white text-xs font-semibold text-brand-600' }, 'Sua vaga') : null
-  );
-}
-
-export function MineOverlay() {
-  return h('span', { class: 'absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-white text-xs font-semibold text-brand-600' }, 'Sua vaga');
 }
 
 export function JobCardFooter({ badgeEl, hint, hintColor = 'var(--text-brand)', extra }) {

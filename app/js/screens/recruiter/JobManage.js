@@ -12,6 +12,7 @@ import { Icon } from '../../utils/icons.js';
 import { formatBRL } from '../../utils/format.js';
 import { goBack } from '../../router.js';
 import * as store from '../../store.js';
+import { whenText, hoursText, diasInfo } from '../../utils/jobInfo.js';
 
 const KEY = 'job-manage';
 
@@ -46,7 +47,7 @@ export default function renderJobManage(navigate, params) {
         h('div', { class: 'flex flex-col gap-0.5' }, h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-brand-600' }, 'Diária que você ofereceu'), h('span', { class: 'font-mono font-bold text-4xl text-concrete-900' }, job.pay == null ? 'A combinar' : formatBRL(job.pay))),
         h('span', { class: 'text-sm text-concrete-700 text-right' }, 'Pago no fim', h('br'), 'da diária')
       ),
-      h('div', { class: 'flex items-center gap-2 pt-4 border-t border-brand-200' }, Icon('calendar', { size: 20, color: 'var(--text-brand)' }), h('span', { class: 'font-display font-semibold text-lg text-concrete-900' }, job.dateLong || job.date))
+      h('div', { class: 'flex items-center gap-2 pt-4 border-t border-brand-200' }, Icon('calendar', { size: 20, color: 'var(--text-brand)' }), h('span', { class: 'font-display font-semibold text-lg text-concrete-900' }, whenText(job)))
     )
   );
   const slotsCard = (className) => Card({ padding: 'md', className },
@@ -93,7 +94,8 @@ export default function renderJobManage(navigate, params) {
           Card({ padding: 'md' },
             h('div', { class: 'flex flex-col gap-3.5' },
               infoRow('map-pin', job.address, job.location),
-              infoRow('clock', job.hours, job.duration),
+              diasInfo(job) ? infoRow('calendar-days', diasInfo(job).label, diasInfo(job).hint) : null,
+              infoRow('clock', hoursText(job), job.duration),
               infoRow('hand-coins', 'Pagamento em PIX no fim da diária', 'Combinado direto com o trabalhador')
             )
           )

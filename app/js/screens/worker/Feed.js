@@ -20,12 +20,23 @@ function openJob(navigate, role, job) {
 
 function km(distance) { return parseFloat(String(distance || '0').replace(',', '.')) || 0; }
 function payNum(job) { return job.pay == null ? -1 : job.pay; }
+// Earliest first: today, tomorrow, any other date, then jobs whose date is still open.
+function soon(job) { return job.date === 'Hoje' ? 0 : job.date === 'Amanhã' ? 1 : job.date ? 2 : 3; }
 
-// Recruiters see their own jobs first, then urgent jobs, then the rest in the chosen order.
+// The "Quando" filter: a specific day matches the date; a part of the week matches the
+// days the job can happen on.
+function matchesQuando(job, quando) {
+  if (!quando) return true;
+  if (quando === 'Durante a semana') return job.dias === 'semana' || job.dias === 'qualquer';
+  if (quando === 'Fim de semana') return job.dias === 'fimdesemana' || job.dias === 'qualquer';
+  return job.date === quando;
+}
+
+// Recruiters see their own jobs first, then boosted jobs, then the rest in the chosen order.
 function orderJobs(jobs, role, sort = 'perto') {
   const rank = (j) => (role === 'recrutador' && store.isMine(j) ? 0 : j.urgent ? 1 : 2);
   const by = sort === 'valor' ? (a, b) => payNum(b) - payNum(a)
-    : sort === 'cedo' ? (a, b) => (a.date === 'Hoje' ? 0 : 1) - (b.date === 'Hoje' ? 0 : 1) || km(a.distance) - km(b.distance)
+    : sort === 'cedo' ? (a, b) => soon(a) - soon(b) || km(a.distance) - km(b.distance)
     : (a, b) => km(a.distance) - km(b.distance);
   return jobs.slice().sort((a, b) => rank(a) - rank(b) || by(a, b));
 }
@@ -33,7 +44,7 @@ function orderJobs(jobs, role, sort = 'perto') {
 function tileFor(navigate, role, job) {
   return JobTile({
     job, company: store.getCompany(job.companyId), onClick: openJob(navigate, role, job),
-    urgent: job.urgent, mine: role === 'recrutador' && store.isMine(job),
+    mine: role === 'recrutador' && store.isMine(job),
     saved: store.isJobSaved(job.id),
     onToggleSave: role === 'trabalhador' ? () => store.toggleSavedJob(job.id) : null
   });
@@ -57,7 +68,7 @@ function mobileFeed(navigate, role, ui) {
 
   const openJobs = store.activeJobs().filter((j) => !store.isJobClosed(j));
   const matches = (j) => !q || (j.role + ' ' + store.getCompany(j.companyId).name + ' ' + j.location).toLowerCase().includes(q);
-  const passesFilters = (j) => (!ui.tipo || j.role === ui.tipo) && (ui.dist === 'Toda a cidade' || km(j.distance) <= parseInt(ui.dist)) && (!ui.quando || j.date === ui.quando);
+  const passesFilters = (j) => (!ui.tipo || j.role === ui.tipo) && (ui.dist === 'Toda a cidade' || km(j.distance) <= parseInt(ui.dist)) && matchesQuando(j, ui.quando);
 
   const filtered = openJobs.filter(matches).filter(passesFilters);
   const ordered = orderJobs(filtered, role, ui.sort);
@@ -168,7 +179,7 @@ function mobileFeed(navigate, role, ui) {
     Sheet({ open: ui.filtersOpen, title: 'Filtros', onClose: () => store.setUI(KEY, { filtersOpen: false }) },
       filterGroup('Tipo de serviço', TIPOS_SERVICO, ui.tipo, (v) => store.setUI(KEY, { tipo: ui.tipo === v ? null : v })),
       filterGroup('Distância de casa', ['5', '10', '20', 'Toda a cidade'].map((d) => d === 'Toda a cidade' ? d : `Até ${d} km`), ui.dist, (v) => store.setUI(KEY, { dist: v })),
-      filterGroup('Quando', ['Hoje', 'Amanhã', 'Esta semana', 'Fim de semana'], ui.quando, (v) => store.setUI(KEY, { quando: ui.quando === v ? null : v })),
+      filterGroup('Quando', ['Hoje', 'Amanhã', 'Durante a semana', 'Fim de semana'], ui.quando, (v) => store.setUI(KEY, { quando: ui.quando === v ? null : v })),
       h('div', { class: 'flex flex-col gap-1 pt-1 border-t border-concrete-200' },
         Switch({ label: 'Avisar quando aparecer bico urgente', description: 'Chega uma notificação quando surgir vaga com esses filtros perto de você.', checked: ui.notifyUrgent, onChange: (v) => store.setUI(KEY, { notifyUrgent: v }) })
       ),

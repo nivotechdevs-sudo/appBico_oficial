@@ -1,7 +1,6 @@
 import { h } from '../../dom.js';
 import { BackBar } from '../../components/TopBar.js';
 import { Card } from '../../components/Card.js';
-import { Badge } from '../../components/Badge.js';
 import { Rating } from '../../components/Rating.js';
 import { Button } from '../../components/Button.js';
 import { Dialog } from '../../components/Modal.js';
@@ -10,6 +9,7 @@ import { Icon } from '../../utils/icons.js';
 import { formatBRL } from '../../utils/format.js';
 import { goBack } from '../../router.js';
 import * as store from '../../store.js';
+import { whenText, hoursText, diasInfo } from '../../utils/jobInfo.js';
 
 const KEY = 'job-detail';
 
@@ -43,7 +43,8 @@ export default function renderJobDetail(navigate, params) {
         )
       ),
       h('div', { class: 'flex flex-col rounded-xl border border-concrete-200 divide-y divide-concrete-200' },
-        summaryRow('calendar', 'Quando', job.dateLong || job.date),
+        summaryRow('calendar', 'Quando', whenText(job)),
+        diasInfo(job) ? summaryRow('calendar-days', 'Dias', diasInfo(job).label) : null,
         summaryRow('clock', 'Duração', job.duration),
         summaryRow('map-pin', 'Onde', `${job.location} · ${job.distance}`)
       ),
@@ -73,7 +74,6 @@ export default function renderJobDetail(navigate, params) {
         ),
 
         h('div', { class: 'flex flex-col gap-1.5' },
-          job.urgent ? h('div', { class: 'flex items-center gap-2' }, Badge({ label: 'Urgente', tone: 'danger', icon: 'zap' }), h('span', { class: 'text-xs text-brand-600' }, 'Vaga em destaque')) : null,
           h('h1', { class: 'font-display font-bold text-2xl text-concrete-900' }, job.role),
           job.description ? h('p', { class: 'text-sm text-concrete-700 leading-relaxed' }, job.description) : null
         ),
@@ -87,14 +87,15 @@ export default function renderJobDetail(navigate, params) {
               ),
               h('span', { class: 'text-sm text-concrete-700 text-right' }, 'Pago no fim', h('br'), 'da diária')
             ),
-            h('div', { class: 'flex items-center gap-2 pt-4 border-t border-brand-200' }, Icon('calendar', { size: 20, color: 'var(--text-brand)' }), h('span', { class: 'font-display font-semibold text-lg text-concrete-900' }, job.dateLong))
+            h('div', { class: 'flex items-center gap-2 pt-4 border-t border-brand-200' }, Icon('calendar', { size: 20, color: 'var(--text-brand)' }), h('span', { class: 'font-display font-semibold text-lg text-concrete-900' }, whenText(job)))
           )
         ),
 
         section('Onde e como', Card({ padding: 'md' },
           h('div', { class: 'flex flex-col gap-3.5' },
             infoRow('map-pin', job.address, `${job.location} · ${job.distance} de você`),
-            infoRow('clock', job.hours, job.duration),
+            diasInfo(job) ? infoRow('calendar-days', diasInfo(job).label, diasInfo(job).hint) : null,
+            infoRow('clock', hoursText(job), job.duration),
             infoRow('hand-coins', 'Pagamento em PIX no fim da diária', 'Combinado direto com a construtora')
           )
         )),

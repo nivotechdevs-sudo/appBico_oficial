@@ -7,6 +7,7 @@ import { Icon } from '../../utils/icons.js';
 import { formatBRL } from '../../utils/format.js';
 import { goBack } from '../../router.js';
 import * as store from '../../store.js';
+import { dateText } from '../../utils/jobInfo.js';
 
 export default function renderSelected(navigate, params) {
   const job = store.getJob(params.id);
@@ -20,7 +21,7 @@ export default function renderSelected(navigate, params) {
     h('div', { class: 'bg-brand-500 text-white px-4 sm:px-6 py-7 flex flex-col gap-3 lg:rounded-card' },
       Badge({ label: hired && hired.status === 'contratado' ? 'Contratado' : 'Pré-selecionado', tone: 'inverse', icon: 'circle-check' }),
       h('h1', { class: 'font-display font-bold text-3xl leading-tight text-white' }, title),
-      h('p', { class: 'text-white/85' }, `${job.role} · ${job.date}`)
+      h('p', { class: 'text-white/85' }, `${job.role} · ${dateText(job)}`)
     ),
     h('div', { class: 'flex flex-col gap-4 px-4 sm:px-0 py-4' },
       Card({ padding: 'md' },

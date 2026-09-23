@@ -2,7 +2,6 @@ import { mount, cx } from './dom.js';
 import { route, onRouteChange, startRouter, navigate, currentPath } from './router.js';
 import * as store from './store.js';
 import { AppNav } from './components/AppNav.js';
-import { IN_PROGRESS } from './utils/applicationStatus.js';
 
 import renderSplash from './screens/shared/Splash.js';
 import renderChooseProfile from './screens/shared/ChooseProfile.js';
@@ -101,13 +100,12 @@ function build(m, path) {
   }
 
   const role = store.getRole();
-  const badges = role === 'trabalhador' ? { 'minhas-candidaturas': inProgressCount() } : {};
   const activeId = tabIdForPath(path, role);
   const isMural = path === '/mural';
 
   const showMobileNav = TAB_ROOTS[role] && TAB_ROOTS[role].has(path);
   const nav = AppNav({
-    role, active: activeId, navigate, badges, showMobilePill: showMobileNav, flush: isMural,
+    role, active: activeId, navigate, showMobilePill: showMobileNav, flush: isMural,
     notifications: role === 'recrutador' ? 3 : 2, account: accountSummary(role)
   });
 
@@ -145,11 +143,6 @@ function tabIdForPath(path, role) {
     if (path === '/empresa') return 'empresa';
   }
   return null;
-}
-
-function inProgressCount() {
-  const apps = store.applicationsForWorker(store.currentWorkerId());
-  return apps.filter((a) => IN_PROGRESS.has(a.status)).length;
 }
 
 function notFoundScreen() {

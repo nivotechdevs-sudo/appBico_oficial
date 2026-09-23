@@ -7,6 +7,7 @@ import { Button } from '../../components/Button.js';
 import { BackBar } from '../../components/TopBar.js';
 import { getUI, setUI, getJob, getCompany, currentWorkerId, markReviewed } from '../../store.js';
 import { goBack } from '../../router.js';
+import { dateText } from '../../utils/jobInfo.js';
 
 const KEY = 'rate-job';
 const OPTIONS = [
@@ -27,7 +28,7 @@ export default function renderRateJob(navigate, params) {
     h('div', { class: 'flex flex-col gap-5 px-4 sm:px-0 py-4' },
       h('div', { class: 'flex flex-col gap-1' },
         h('h1', { class: 'font-display font-bold text-2xl text-concrete-900' }, 'Como foi a diária?'),
-        h('span', { class: 'text-sm text-concrete-500' }, `${job.role} · ${company.name} · ${job.date}`)
+        h('span', { class: 'text-sm text-concrete-500' }, `${job.role} · ${company.name} · ${dateText(job)}`)
       ),
       Card({ padding: 'md' },
         h('div', { class: 'flex flex-col items-center gap-3' },
