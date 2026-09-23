@@ -42,6 +42,33 @@ if (typeof window !== 'undefined') {
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && getUI(MENU_KEY, { menuOpen: false }).menuOpen) setUI(MENU_KEY, { menuOpen: false });
   });
+  window.addEventListener('resize', () => placeIndicator(false));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => placeIndicator(false));
+}
+
+// Where the active-tab underline was last drawn. The header is rebuilt on every render, so
+// a new underline starts from here and slides to the newly active tab.
+let lastIndicator = null;
+
+function placeIndicator(animate) {
+  const bar = document.querySelector('.app-header .nav-indicator');
+  if (!bar || !bar.parentElement.offsetParent) return; // header hidden on phones
+  const tab = bar.parentElement.querySelector('[aria-current="page"]');
+  if (!tab) { bar.style.opacity = '0'; lastIndicator = null; return; }
+  const target = { x: tab.offsetLeft, w: tab.offsetWidth };
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slide = animate && lastIndicator && !reduce && (lastIndicator.x !== target.x || lastIndicator.w !== target.w);
+  bar.style.transition = 'none';
+  if (slide) {
+    bar.style.transform = `translateX(${lastIndicator.x}px)`;
+    bar.style.width = `${lastIndicator.w}px`;
+    void bar.offsetWidth; // commit the start position before transitioning
+    bar.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1), width 380ms cubic-bezier(0.22, 1, 0.36, 1)';
+  }
+  bar.style.transform = `translateX(${target.x}px)`;
+  bar.style.width = `${target.w}px`;
+  bar.style.opacity = '1';
+  lastIndicator = target;
 }
 
 /**
@@ -84,9 +111,17 @@ function topBar({ role, items, active, navigate, badges, flush, notifications, a
     h('span', { class: 'font-display font-bold text-[1.625rem] leading-none tracking-tight text-brand-500' }, 'Bicos')
   );
 
-  const tabs = h('nav', { 'aria-label': 'Navegação principal', class: 'flex items-stretch self-stretch gap-1 xl:gap-3' },
-    ...items.map((it) => topTab(it, active, go, badges))
+  // One shared underline for the tabs, just under the icons; it slides between tabs.
+  const indicator = h('span', {
+    'aria-hidden': 'true',
+    class: 'nav-indicator pointer-events-none absolute left-0 top-[calc(100%+0.375rem)] h-[2px] rounded-full bg-brand-500',
+    style: lastIndicator ? { transform: `translateX(${lastIndicator.x}px)`, width: `${lastIndicator.w}px` } : { opacity: '0' }
+  });
+  const tabs = h('nav', { 'aria-label': 'Navegação principal', class: 'relative flex items-center gap-7 xl:gap-9' },
+    ...items.map((it) => topTab(it, active, go, badges)),
+    indicator
   );
+  requestAnimationFrame(() => placeIndicator(true));
 
   const bell = h('button', {
     type: 'button', 'aria-label': notifications ? `Notificações, ${notifications} novas` : 'Notificações', title: 'Notificações',
@@ -144,18 +179,17 @@ function topTab(it, active, go, badges) {
   const isActive = active === it.id;
   return h('button', {
     type: 'button', 'aria-current': isActive ? 'page' : null,
-    class: cx('group relative inline-flex items-center gap-2.5 px-3 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors', isActive ? 'text-concrete-900' : 'text-concrete-500 hover:text-concrete-900'),
+    class: cx('group relative inline-flex items-center gap-2.5 rounded-xl text-[0.9375rem] font-semibold whitespace-nowrap transition-colors duration-200 outline-none focus-visible:ring-4 focus-visible:ring-brand-100', isActive ? 'text-concrete-900' : 'text-concrete-500 hover:text-concrete-900'),
     onClick: () => go(it.path)
   },
     h('span', {
-      class: cx('relative inline-flex items-center justify-center w-9 h-9 rounded-xl transition-all',
-        isActive ? 'bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-raised' : 'bg-concrete-100 text-concrete-600 group-hover:bg-concrete-200')
+      class: cx('relative inline-flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-200',
+        isActive ? 'bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-raised' : 'bg-concrete-100 text-concrete-600 group-hover:bg-concrete-200 group-hover:scale-105')
     },
       Icon(it.icon, { size: 19 }),
       badges[it.id] ? h('span', { class: 'absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-[1.125rem] text-center ring-2 ring-white' }, String(badges[it.id])) : null
     ),
-    it.desktopLabel || it.label,
-    h('span', { class: cx('absolute left-3 right-3 bottom-0 h-[3px] rounded-t-full transition-colors', isActive ? 'bg-brand-500' : 'bg-transparent group-hover:bg-concrete-200') })
+    it.desktopLabel || it.label
   );
 }
 

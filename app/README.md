@@ -41,7 +41,7 @@ the page is opened via `file://` (no server = no origin to satisfy the module lo
   renders as a floating tab bar on phones and a full-width top navbar from `lg:` up).
 - Breakpoints: `lg` is 770px (see `tailwind.config.js`) — below it is the phone layout,
   from it up the tablet/desktop layout. The mural (phone and desktop) is one vertical-only
-  grid of `JobTile`s — photo plus four single-line rows, so every tile is the same size —
+  grid of `JobTile`s — photo plus three single-line rows (role, neighborhood · date · hours, pay), so every tile is the same size —
   with 2 columns on a phone and 3 to 7 as the window widens (`.card-grid` in
   `css/base.css`). The only horizontal scrolling in the app is a job's photo carousel
   (touch swipe, mouse drag, arrows or keyboard).

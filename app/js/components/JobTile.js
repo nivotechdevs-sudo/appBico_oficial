@@ -5,7 +5,7 @@ import { formatBRL } from '../utils/format.js';
 
 /**
  * Mural tile, listing-style: a rounded photo with the badges and save flag on top, and
- * four compact single-line rows of text underneath — no card chrome. Every row truncates,
+ * three compact single-line rows of text underneath — no card chrome. Every row truncates,
  * so all tiles in a grid are exactly the same size whatever their content.
  */
 export function JobTile({ job, company, onClick, urgent = false, mine = false, saved = false, onToggleSave = null }) {
@@ -31,17 +31,8 @@ export function JobTile({ job, company, onClick, urgent = false, mine = false, s
     onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
   );
 
-  const rating = company && company.rating != null
-    ? h('span', { class: 'inline-flex items-center gap-0.5 shrink-0 text-concrete-900' },
-        Icon('star', { size: 12, color: 'currentColor' }), String(company.rating).replace('.', ','))
-    : null;
-
   const text = h('div', { class: 'flex flex-col pt-2 sm:pt-2.5 text-[0.8125rem] sm:text-sm leading-[1.35]' },
-    h('div', { class: 'flex items-center gap-2' },
-      h('span', { class: 'flex-1 min-w-0 truncate font-semibold text-concrete-900 sm:text-[0.9375rem]' }, job.role),
-      rating
-    ),
-    h('span', { class: 'truncate text-concrete-500' }, company ? company.name : job.location),
+    h('span', { class: 'truncate font-semibold text-concrete-900 sm:text-[0.9375rem]' }, job.role),
     h('span', { class: 'truncate text-concrete-500' }, when),
     h('span', { class: 'truncate text-concrete-900 pt-0.5' },
       job.pay == null

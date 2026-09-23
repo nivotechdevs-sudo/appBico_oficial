@@ -1253,6 +1253,33 @@
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && getUI(MENU_KEY, { menuOpen: false }).menuOpen) setUI(MENU_KEY, { menuOpen: false });
     });
+    window.addEventListener("resize", () => placeIndicator(false));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => placeIndicator(false));
+  }
+  var lastIndicator = null;
+  function placeIndicator(animate) {
+    const bar = document.querySelector(".app-header .nav-indicator");
+    if (!bar || !bar.parentElement.offsetParent) return;
+    const tab = bar.parentElement.querySelector('[aria-current="page"]');
+    if (!tab) {
+      bar.style.opacity = "0";
+      lastIndicator = null;
+      return;
+    }
+    const target = { x: tab.offsetLeft, w: tab.offsetWidth };
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const slide = animate && lastIndicator && !reduce && (lastIndicator.x !== target.x || lastIndicator.w !== target.w);
+    bar.style.transition = "none";
+    if (slide) {
+      bar.style.transform = `translateX(${lastIndicator.x}px)`;
+      bar.style.width = `${lastIndicator.w}px`;
+      void bar.offsetWidth;
+      bar.style.transition = "transform 380ms cubic-bezier(0.22, 1, 0.36, 1), width 380ms cubic-bezier(0.22, 1, 0.36, 1)";
+    }
+    bar.style.transform = `translateX(${target.x}px)`;
+    bar.style.width = `${target.w}px`;
+    bar.style.opacity = "1";
+    lastIndicator = target;
   }
   function AppNav({ role, active, navigate: navigate2, badges = {}, showMobilePill = true, flush = false, notifications = 0, account = {} }) {
     const items = ITEMS[role] || ITEMS.trabalhador;
@@ -1294,11 +1321,18 @@
       h("span", { class: "inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand-500 shadow-raised" }, Icon("hammer", { size: 21, color: "#fff" })),
       h("span", { class: "font-display font-bold text-[1.625rem] leading-none tracking-tight text-brand-500" }, "Bicos")
     );
+    const indicator = h("span", {
+      "aria-hidden": "true",
+      class: "nav-indicator pointer-events-none absolute left-0 top-[calc(100%+0.375rem)] h-[2px] rounded-full bg-brand-500",
+      style: lastIndicator ? { transform: `translateX(${lastIndicator.x}px)`, width: `${lastIndicator.w}px` } : { opacity: "0" }
+    });
     const tabs = h(
       "nav",
-      { "aria-label": "Navega\xE7\xE3o principal", class: "flex items-stretch self-stretch gap-1 xl:gap-3" },
-      ...items.map((it) => topTab(it, active, go, badges))
+      { "aria-label": "Navega\xE7\xE3o principal", class: "relative flex items-center gap-7 xl:gap-9" },
+      ...items.map((it) => topTab(it, active, go, badges)),
+      indicator
     );
+    requestAnimationFrame(() => placeIndicator(true));
     const bell = h(
       "button",
       {
@@ -1374,22 +1408,21 @@
       {
         type: "button",
         "aria-current": isActive ? "page" : null,
-        class: cx("group relative inline-flex items-center gap-2.5 px-3 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors", isActive ? "text-concrete-900" : "text-concrete-500 hover:text-concrete-900"),
+        class: cx("group relative inline-flex items-center gap-2.5 rounded-xl text-[0.9375rem] font-semibold whitespace-nowrap transition-colors duration-200 outline-none focus-visible:ring-4 focus-visible:ring-brand-100", isActive ? "text-concrete-900" : "text-concrete-500 hover:text-concrete-900"),
         onClick: () => go(it.path)
       },
       h(
         "span",
         {
           class: cx(
-            "relative inline-flex items-center justify-center w-9 h-9 rounded-xl transition-all",
-            isActive ? "bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-raised" : "bg-concrete-100 text-concrete-600 group-hover:bg-concrete-200"
+            "relative inline-flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-200",
+            isActive ? "bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-raised" : "bg-concrete-100 text-concrete-600 group-hover:bg-concrete-200 group-hover:scale-105"
           )
         },
         Icon(it.icon, { size: 19 }),
         badges[it.id] ? h("span", { class: "absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-[1.125rem] text-center ring-2 ring-white" }, String(badges[it.id])) : null
       ),
-      it.desktopLabel || it.label,
-      h("span", { class: cx("absolute left-3 right-3 bottom-0 h-[3px] rounded-t-full transition-colors", isActive ? "bg-brand-500" : "bg-transparent group-hover:bg-concrete-200") })
+      it.desktopLabel || it.label
     );
   }
   function menuItem(m, onClick) {
@@ -3468,22 +3501,10 @@
       ) : null,
       onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
     );
-    const rating = company && company.rating != null ? h(
-      "span",
-      { class: "inline-flex items-center gap-0.5 shrink-0 text-concrete-900" },
-      Icon("star", { size: 12, color: "currentColor" }),
-      String(company.rating).replace(".", ",")
-    ) : null;
     const text = h(
       "div",
       { class: "flex flex-col pt-2 sm:pt-2.5 text-[0.8125rem] sm:text-sm leading-[1.35]" },
-      h(
-        "div",
-        { class: "flex items-center gap-2" },
-        h("span", { class: "flex-1 min-w-0 truncate font-semibold text-concrete-900 sm:text-[0.9375rem]" }, job.role),
-        rating
-      ),
-      h("span", { class: "truncate text-concrete-500" }, company ? company.name : job.location),
+      h("span", { class: "truncate font-semibold text-concrete-900 sm:text-[0.9375rem]" }, job.role),
       h("span", { class: "truncate text-concrete-500" }, when),
       h(
         "span",
