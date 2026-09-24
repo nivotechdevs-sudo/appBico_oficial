@@ -6,22 +6,26 @@ const shownPhoto = new Map();
 
 /**
  * A job's photos, swiped (touch), dragged (mouse), paged with the arrows or the keyboard
- * arrows — the one place in the app that scrolls sideways. Without photos it shows the
- * job's illustrated cover. `className` sets the frame's height/rounding.
+ * arrows — the only sideways scrolling in the app. Without photos it shows the job's
+ * illustrated cover. `className` sets the frame's size/rounding. `compact` is the version
+ * inside a mural tile: small dots, arrows only on hover (desktop), no counter, and a drag
+ * never counts as a click on the tile. The photo being shown is remembered per job, so
+ * the tile and the job page open on the same photo.
  */
-export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] rounded-card' }) {
+export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] rounded-card', compact = false }) {
   const photos = jobPhotos(job);
   const n = photos.length;
   const frame = cx('relative w-full overflow-hidden bg-concrete-200', className);
 
-  if (!n) return h('div', { class: frame }, JobCover({ job, large: true }));
+  if (!n) return h('div', { class: frame }, JobCover({ job, large: !compact }));
 
+  const imgClass = cx('w-full h-full object-cover select-none pointer-events-none', compact ? 'transition-transform duration-300 group-hover:scale-[1.03]' : '');
   const track = h('div', {
     class: cx('flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar outline-none', n > 1 ? 'cursor-grab' : ''),
-    tabindex: n > 1 ? '0' : null, 'aria-label': 'Fotos do bico', 'aria-roledescription': 'carrossel'
+    tabindex: n > 1 && !compact ? '0' : null, 'aria-label': 'Fotos do bico', 'aria-roledescription': 'carrossel'
   },
-    ...photos.map((src, i) => h('div', { class: 'shrink-0 w-full h-full snap-center snap-always' },
-      h('img', { src, alt: `Foto ${i + 1} de ${n}`, draggable: 'false', class: 'w-full h-full object-cover select-none pointer-events-none' })
+    ...photos.map((src, i) => h('div', { class: 'shrink-0 w-full h-full snap-center snap-always overflow-hidden' },
+      h('img', { src, alt: `Foto ${i + 1} de ${n}`, draggable: 'false', loading: i === 0 ? 'eager' : 'lazy', class: imgClass })
     ))
   );
   if (n === 1) return h('div', { class: frame }, track);
@@ -35,17 +39,19 @@ export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] roun
 
   const arrow = (icon, label, dir, side) => h('button', {
     type: 'button', 'aria-label': label, title: label,
-    class: cx('absolute top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:opacity-0 disabled:pointer-events-none', side),
+    class: cx('absolute top-1/2 -translate-y-1/2 z-10 items-center justify-center rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:!opacity-0 disabled:pointer-events-none',
+      compact ? 'hidden lg:inline-flex w-8 h-8 opacity-0 group-hover:opacity-100 focus-visible:opacity-100' : 'inline-flex w-9 h-9', side),
     onClick: (e) => { e.stopPropagation(); goTo(current() + dir); }
-  }, Icon(icon, { size: 18 }));
-  const prev = arrow('chevron-left', 'Foto anterior', -1, 'left-3');
-  const next = arrow('chevron-right', 'Próxima foto', 1, 'right-3');
-  const dots = photos.map(() => h('span', { class: 'h-1.5 rounded-full transition-all duration-200' }));
-  const counter = h('span', { class: 'absolute top-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold pointer-events-none' });
+  }, Icon(icon, { size: compact ? 16 : 18 }));
+  const prev = arrow('chevron-left', 'Foto anterior', -1, compact ? 'left-2' : 'left-3');
+  const next = arrow('chevron-right', 'Próxima foto', 1, compact ? 'right-2' : 'right-3');
+  const dotSize = compact ? 'h-1.5' : 'h-1.5';
+  const dots = photos.map(() => h('span', { class: dotSize }));
+  const counter = compact ? null : h('span', { class: 'absolute top-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold pointer-events-none' });
 
   const show = (i) => {
-    counter.textContent = `${i + 1} / ${n}`;
-    dots.forEach((d, k) => { d.className = cx('h-1.5 rounded-full transition-all duration-200', k === i ? 'w-4 bg-white' : 'w-1.5 bg-white/60'); });
+    if (counter) counter.textContent = `${i + 1} / ${n}`;
+    dots.forEach((d, k) => { d.className = cx(dotSize, 'rounded-full transition-all duration-200 shadow-[0_0_2px_rgba(0,0,0,0.4)]', k === i ? (compact ? 'w-1.5 bg-white' : 'w-4 bg-white') : 'w-1.5 bg-white/55'); });
     prev.disabled = i === 0;
     next.disabled = i === n - 1;
   };
@@ -61,16 +67,21 @@ export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] roun
 
   // Mouse drag to swipe (touch and trackpads already scroll natively).
   let drag = null;
+  let dragged = false;
   track.addEventListener('pointerdown', (e) => {
     if (e.pointerType !== 'mouse' || e.button !== 0) return;
     drag = { x: e.clientX, left: track.scrollLeft, from: current() };
+    dragged = false;
     track.style.scrollSnapType = 'none';
     track.classList.replace('cursor-grab', 'cursor-grabbing');
     track.setPointerCapture(e.pointerId);
     e.preventDefault();
   });
   track.addEventListener('pointermove', (e) => {
-    if (drag) track.scrollLeft = drag.left - (e.clientX - drag.x);
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (Math.abs(dx) > 4) dragged = true;
+    track.scrollLeft = drag.left - dx;
   });
   const endDrag = (e) => {
     if (!drag) return;
@@ -86,6 +97,10 @@ export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] roun
   };
   track.addEventListener('pointerup', endDrag);
   track.addEventListener('pointercancel', endDrag);
+  // A drag that ends over the photo would otherwise also "click" it (and open the job).
+  track.addEventListener('click', (e) => {
+    if (dragged) { e.stopPropagation(); e.preventDefault(); dragged = false; }
+  }, true);
   track.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current() + 1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current() - 1); }
@@ -97,7 +112,7 @@ export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] roun
 
   return h('div', { class: frame },
     track, prev, next,
-    h('div', { class: 'absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-none' }, ...dots),
+    h('div', { class: cx('absolute left-1/2 -translate-x-1/2 flex items-center pointer-events-none', compact ? 'bottom-2.5 gap-1' : 'bottom-3.5 gap-1.5') }, ...dots),
     counter
   );
 }

@@ -45,9 +45,12 @@ the page is opened via `file://` (no server = no origin to satisfy the module lo
   date · hours; pay), so every tile is the same size —
   with 2 columns on a phone and 3 to 7 as the window widens (`.card-grid` in
   `css/base.css`). The only horizontal scrolling in the app is a job's photo carousel
-  (touch swipe, mouse drag, arrows or keyboard).
+  (touch swipe, mouse drag, arrows or keyboard) — on the mural tiles themselves and on the
+  job page, which opens on the photo last shown on the tile.
 - `js/utils/jobInfo.js` — how a job's schedule reads everywhere: date and hours are
   optional ("a combinar"), and `dias` is one of weekdays / weekend / any day.
+- `img/jobs/` — sample job photos used by a few seed jobs, rendered by
+  `scripts/gen-job-photos.cjs` (illustrated scenes, so no third-party image licences).
 - `js/screens/{shared,worker,recruiter}/` — one file per screen, composed out of the
   component library.
 - `icons/` — Lucide SVGs vendored locally (via `lucide-static`); `scripts/gen-icons.cjs`

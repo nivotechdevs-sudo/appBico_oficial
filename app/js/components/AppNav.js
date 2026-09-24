@@ -1,6 +1,7 @@
 import { h, cx } from '../dom.js';
 import { Icon } from '../utils/icons.js';
 import { getUI, setUI } from '../store.js';
+import { Logo } from './Logo.js';
 
 const ITEMS = {
   trabalhador: [
@@ -140,10 +141,7 @@ function topBar({ role, items, active, navigate, flush, notifications, account }
   const menu = getUI(MENU_KEY, { menuOpen: false });
   const go = (path) => { setUI(MENU_KEY, { menuOpen: false }); navigate(path); };
 
-  const logo = h('button', { type: 'button', class: 'inline-flex items-center gap-2.5 rounded-control', 'aria-label': 'Bicos, ir para o início', onClick: () => go('/mural') },
-    h('span', { class: 'inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand-500 shadow-raised' }, Icon('hammer', { size: 21, color: '#fff' })),
-    h('span', { class: 'font-display font-bold text-[1.625rem] leading-none tracking-tight text-brand-500' }, 'Bicos')
-  );
+  const logo = h('button', { type: 'button', class: 'inline-flex items-center rounded-control', 'aria-label': 'Bicos, ir para o início', onClick: () => go('/mural') }, Logo());
 
   // One shared underline for the tabs, just under the icons; it slides between tabs.
   const indicator = h('span', {

@@ -6,6 +6,7 @@ import { Button } from '../../components/Button.js';
 import { Card } from '../../components/Card.js';
 import { Rating } from '../../components/Rating.js';
 import { EmptyState } from '../../components/EmptyState.js';
+import { Logo } from '../../components/Logo.js';
 import { Sheet } from '../../components/Modal.js';
 import { JobTile } from '../../components/JobTile.js';
 import { Icon } from '../../utils/icons.js';
@@ -55,22 +56,67 @@ function tileGrid(navigate, role, jobs) {
   return h('div', { class: 'card-grid' }, ...jobs.map((j) => tileFor(navigate, role, j)));
 }
 
+const NO_FILTERS = { tipo: null, dist: 'Toda a cidade', quando: null };
+const SORTS = [{ id: 'perto', label: 'Mais perto' }, { id: 'valor', label: 'Maior valor' }, { id: 'cedo', label: 'Mais cedo' }];
+
 export default function renderFeed(navigate) {
   const role = store.getRole();
-  const ui = store.getUI(KEY, { search: '', location: 'Tatuapé, SP', locationOpen: false, filtersOpen: false, tipo: null, dist: 'Toda a cidade', quando: null, sort: 'perto', notifyUrgent: true });
-  return h('div', {}, mobileFeed(navigate, role, ui), desktopFeed(navigate, role, ui));
+  const ui = store.getUI(KEY, { search: '', location: 'Tatuapé, SP', filtersOpen: false, tipo: null, dist: 'Toda a cidade', quando: null, sort: 'perto', notifyUrgent: true });
+  const open = store.activeJobs().filter((j) => !store.isJobClosed(j));
+  const filtered = open.filter((j) => passesFilters(j, ui));
+  return h('div', {},
+    mobileFeed(navigate, role, ui, open, filtered),
+    desktopFeed(navigate, role, ui, open, filtered),
+    // One filter panel for both layouts: a bottom sheet on phones, a dialog on desktop.
+    filtersSheet(ui, open, filtered.length)
+  );
 }
 
-function mobileFeed(navigate, role, ui) {
+function passesFilters(j, ui) {
+  return (!ui.tipo || j.role === ui.tipo) && (ui.dist === 'Toda a cidade' || km(j.distance) <= parseInt(ui.dist.replace(/\D/g, ''), 10)) && matchesQuando(j, ui.quando);
+}
 
+function activeFilters(ui) {
+  return [
+    ui.tipo ? { label: ui.tipo, icon: 'hard-hat', remove: () => store.setUI(KEY, { tipo: null }) } : null,
+    ui.dist !== 'Toda a cidade' ? { label: ui.dist, icon: 'map-pin', remove: () => store.setUI(KEY, { dist: 'Toda a cidade' }) } : null,
+    ui.quando ? { label: ui.quando, icon: 'calendar', remove: () => store.setUI(KEY, { quando: null }) } : null
+  ].filter(Boolean);
+}
+
+function filtersSheet(ui, open, count) {
+  const set = (patch) => store.setUI(KEY, patch);
+  return Sheet({ open: ui.filtersOpen, title: 'Filtros', onClose: () => set({ filtersOpen: false }) },
+    h('div', { class: 'flex flex-col gap-2.5' },
+      h('div', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Onde você quer trabalhar'),
+      h('div', { class: 'flex flex-wrap gap-2' },
+        Tag({ label: 'Usar minha localização', icon: 'locate-fixed', onClick: () => set({ location: 'Tatuapé, SP' }) }),
+        ...LOCAIS_BAIRRO.concat(['Toda São Paulo']).map((l) => Tag({ label: l, selected: ui.location === l, onClick: () => set({ location: l }) }))
+      ),
+      h('span', { class: 'text-xs text-concrete-500' }, 'A distância de cada bico é contada a partir daqui.')
+    ),
+    // The phone has these as a segmented control on the mural itself.
+    h('div', { class: 'hidden lg:flex flex-col gap-2.5' },
+      h('div', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Ordenar por'),
+      h('div', { class: 'flex flex-wrap gap-2' }, ...SORTS.map((o) => Tag({ label: o.label, selected: ui.sort === o.id, onClick: () => set({ sort: o.id }) })))
+    ),
+    filterGroup('Tipo de serviço', TIPOS_SERVICO, ui.tipo, (v) => set({ tipo: ui.tipo === v ? null : v })),
+    filterGroup('Distância de ' + ui.location.split(',')[0], ['5', '10', '20', 'Toda a cidade'].map((d) => d === 'Toda a cidade' ? d : `Até ${d} km`), ui.dist, (v) => set({ dist: v })),
+    filterGroup('Quando', ['Hoje', 'Amanhã', 'Durante a semana', 'Fim de semana'], ui.quando, (v) => set({ quando: ui.quando === v ? null : v })),
+    h('div', { class: 'flex flex-col gap-1 pt-1 border-t border-concrete-200' },
+      Switch({ label: 'Avisar quando aparecer bico novo', description: 'Chega uma notificação quando surgir vaga com esses filtros perto de você.', checked: ui.notifyUrgent, onChange: (v) => set({ notifyUrgent: v }) })
+    ),
+    h('div', { class: 'flex gap-3 pt-1' },
+      Button({ label: 'Limpar', variant: 'secondary', className: 'flex-1', onClick: () => set(NO_FILTERS) }),
+      Button({ label: `Ver ${count === 1 ? '1 vaga' : count + ' vagas'}`, className: 'flex-[1.4]', onClick: () => set({ filtersOpen: false }) })
+    )
+  );
+}
+
+function mobileFeed(navigate, role, ui, openJobs, filtered) {
   const q = ui.search.trim().toLowerCase();
   const searching = q.length > 0;
-
-  const openJobs = store.activeJobs().filter((j) => !store.isJobClosed(j));
   const matches = (j) => !q || (j.role + ' ' + store.getCompany(j.companyId).name + ' ' + j.location).toLowerCase().includes(q);
-  const passesFilters = (j) => (!ui.tipo || j.role === ui.tipo) && (ui.dist === 'Toda a cidade' || km(j.distance) <= parseInt(ui.dist)) && matchesQuando(j, ui.quando);
-
-  const filtered = openJobs.filter(matches).filter(passesFilters);
   const ordered = orderJobs(filtered, role, ui.sort);
 
   const jobResults = searching ? openJobs.filter(matches) : [];
@@ -78,26 +124,12 @@ function mobileFeed(navigate, role, ui) {
   const workerResults = searching ? store.allWorkers().filter((w) => (w.name + ' ' + w.role + ' ' + w.region).toLowerCase().includes(q)) : [];
   const noResults = searching && jobResults.length === 0 && companyResults.length === 0 && workerResults.length === 0;
 
-  const activeChips = [
-    ui.tipo ? { label: ui.tipo, icon: 'hard-hat', remove: () => store.setUI(KEY, { tipo: null }) } : null,
-    ui.dist !== 'Toda a cidade' ? { label: ui.dist, icon: 'map-pin', remove: () => store.setUI(KEY, { dist: 'Toda a cidade' }) } : null,
-    ui.quando ? { label: ui.quando, icon: 'calendar', remove: () => store.setUI(KEY, { quando: null }) } : null
-  ].filter(Boolean);
+  const activeChips = activeFilters(ui);
   const activeCount = activeChips.length;
 
   const header = h('div', { class: 'sticky top-0 z-20 flex flex-col gap-2 px-4 pt-2 pb-3.5 bg-white border-b border-concrete-200' },
-    h('div', { class: 'flex items-center justify-between gap-2' },
-      h('button', {
-        type: 'button', class: 'flex items-center gap-2 min-h-12 -ml-1.5 px-1.5 rounded-control',
-        onClick: () => store.setUI(KEY, { locationOpen: true })
-      },
-        Icon('map-pin', { size: 20, color: 'var(--brand)' }),
-        h('span', { class: 'flex flex-col items-start' },
-          h('span', { class: 'text-xs text-concrete-500' }, 'Bicos perto de'),
-          h('span', { class: 'font-semibold text-concrete-900 max-w-[9.5rem] truncate' }, ui.location)
-        ),
-        Icon('chevron-down', { size: 16, color: 'var(--text-muted)' })
-      ),
+    h('div', { class: 'flex items-center justify-between gap-2 min-h-12' },
+      h('h1', { class: 'inline-flex', 'aria-label': 'Bicos' }, Logo({ compact: true })),
       NotificationBell({ count: role === 'recrutador' ? 3 : 2, onClick: () => navigate('/notificacoes') })
     ),
     SearchPill({ id: 'feed-search', role, ui, compact: true })
@@ -142,65 +174,56 @@ function mobileFeed(navigate, role, ui) {
       Tag({ label: activeCount ? `Filtros · ${activeCount}` : 'Filtros', icon: 'sliders-horizontal', onClick: () => store.setUI(KEY, { filtersOpen: true }) }),
       ...activeChips.map((c) => Tag({ label: c.label, icon: c.icon, selected: true, onRemove: c.remove }))
     ),
-    h('div', { class: 'flex bg-concrete-100 rounded-full p-1 gap-1' }, ...[
-      { id: 'perto', label: 'Mais perto' }, { id: 'valor', label: 'Maior valor' }, { id: 'cedo', label: 'Mais cedo' }
-    ].map((o) => h('button', {
+    h('div', { class: 'flex bg-concrete-100 rounded-full p-1 gap-1' }, ...SORTS.map((o) => h('button', {
       type: 'button',
       class: `flex-1 h-10 rounded-full text-sm font-bold transition-colors ${ui.sort === o.id ? 'bg-white text-brand-600 shadow-card' : 'text-concrete-500'}`,
       onClick: () => store.setUI(KEY, { sort: o.id })
     }, o.label))),
     ordered.length
       ? tileGrid(navigate, role, ordered)
-      : EmptyState({ icon: 'search-x', title: 'Nenhuma vaga com esse filtro', description: 'Tire um filtro ou aumente a distância para ver mais bicos.', actionLabel: 'Limpar filtros', onAction: () => store.setUI(KEY, { tipo: null, dist: 'Toda a cidade', quando: null }) })
+      : EmptyState({ icon: 'search-x', title: 'Nenhuma vaga com esse filtro', description: 'Tire um filtro ou aumente a distância para ver mais bicos.', actionLabel: 'Limpar filtros', onAction: () => store.setUI(KEY, NO_FILTERS) })
   );
 
   return h('div', { class: 'flex flex-col lg:hidden' },
     header,
     h('div', { class: 'px-4 pt-4 pb-6 flex flex-col gap-5' }, searching ? searchResults : browseResults),
 
-    Sheet({ open: ui.locationOpen, title: 'Onde você quer trabalhar', onClose: () => store.setUI(KEY, { locationOpen: false }) },
-      Button({ label: 'Usar minha localização agora', variant: 'secondary', fullWidth: true, iconLeft: 'locate-fixed', onClick: () => store.setUI(KEY, { location: 'Tatuapé, SP', locationOpen: false }) }),
-      h('div', { class: 'flex flex-col' }, ...LOCAIS_BAIRRO.concat(['Toda São Paulo']).map((l) => {
-        const active = ui.location === l;
-        const bairro = l.split(',')[0];
-        const count = l === 'Toda São Paulo' ? openJobs.length : openJobs.filter((j) => j.location.indexOf(bairro) === 0).length;
-        return h('button', {
-          type: 'button', class: 'flex items-center gap-3 min-h-12 py-1 border-b border-concrete-200 last:border-0 text-left',
-          onClick: () => store.setUI(KEY, { location: l, locationOpen: false })
-        },
-          Icon('map-pin', { size: 20, color: active ? 'var(--brand)' : 'var(--text-subtle)' }),
-          h('span', { class: `flex-1 ${active ? 'font-bold text-brand-600' : 'text-concrete-900'}` }, l),
-          h('span', { class: 'text-sm text-concrete-500' }, count === 1 ? '1 bico' : `${count} bicos`)
-        );
-      })),
-      h('span', { class: 'text-xs text-concrete-500' }, 'A distância de cada bico é contada a partir daqui.')
-    ),
-
-    Sheet({ open: ui.filtersOpen, title: 'Filtros', onClose: () => store.setUI(KEY, { filtersOpen: false }) },
-      filterGroup('Tipo de serviço', TIPOS_SERVICO, ui.tipo, (v) => store.setUI(KEY, { tipo: ui.tipo === v ? null : v })),
-      filterGroup('Distância de casa', ['5', '10', '20', 'Toda a cidade'].map((d) => d === 'Toda a cidade' ? d : `Até ${d} km`), ui.dist, (v) => store.setUI(KEY, { dist: v })),
-      filterGroup('Quando', ['Hoje', 'Amanhã', 'Durante a semana', 'Fim de semana'], ui.quando, (v) => store.setUI(KEY, { quando: ui.quando === v ? null : v })),
-      h('div', { class: 'flex flex-col gap-1 pt-1 border-t border-concrete-200' },
-        Switch({ label: 'Avisar quando aparecer bico urgente', description: 'Chega uma notificação quando surgir vaga com esses filtros perto de você.', checked: ui.notifyUrgent, onChange: (v) => store.setUI(KEY, { notifyUrgent: v }) })
-      ),
-      h('div', { class: 'flex gap-3 pt-1' },
-        Button({ label: 'Limpar', variant: 'secondary', className: 'flex-1', onClick: () => store.setUI(KEY, { tipo: null, dist: 'Toda a cidade', quando: null }) }),
-        Button({ label: `Ver ${filtered.length === 1 ? '1 vaga' : filtered.length + ' vagas'}`, className: 'flex-[1.4]', onClick: () => store.setUI(KEY, { filtersOpen: false }) })
-      )
-    )
   );
 }
 
 // ---------- Desktop / tablet (>= 770px) ----------
 
-function desktopFeed(navigate, role, ui) {
-  const open = store.activeJobs().filter((j) => !store.isJobClosed(j));
+function desktopFeed(navigate, role, ui, open, filtered) {
   const q = ui.search.trim().toLowerCase();
-  const body = q ? desktopSearchResults(navigate, role, ui, open) : tileGrid(navigate, role, orderJobs(open, role));
+  const chips = activeFilters(ui);
+  const browse = h('div', { class: 'flex flex-col gap-6' },
+    chips.length ? h('div', { class: 'flex flex-wrap items-center gap-2' },
+      h('span', { class: 'mr-1 text-concrete-500' }, filtered.length === 1 ? '1 vaga com' : `${filtered.length} vagas com`),
+      ...chips.map((c) => Tag({ label: c.label, icon: c.icon, selected: true, onRemove: c.remove })),
+      Button({ label: 'Limpar filtros', variant: 'ghost', size: 'sm', onClick: () => store.setUI(KEY, NO_FILTERS) })
+    ) : null,
+    filtered.length
+      ? tileGrid(navigate, role, orderJobs(filtered, role, ui.sort))
+      : EmptyState({ icon: 'search-x', title: 'Nenhuma vaga com esse filtro', description: 'Tire um filtro ou aumente a distância para ver mais bicos.', actionLabel: 'Limpar filtros', onAction: () => store.setUI(KEY, NO_FILTERS) })
+  );
+  const body = q ? desktopSearchResults(navigate, role, ui, open) : browse;
+  const count = chips.length;
+  const filterButton = h('button', {
+    type: 'button', 'aria-haspopup': 'dialog',
+    class: cx('relative shrink-0 inline-flex items-center gap-2.5 h-[4.25rem] px-6 rounded-full bg-white border shadow-float font-semibold text-concrete-900 transition hover:border-concrete-300 hover:shadow-raised',
+      count ? 'border-brand-500' : 'border-concrete-200'),
+    onClick: () => store.setUI(KEY, { filtersOpen: true })
+  },
+    Icon('sliders-horizontal', { size: 20 }), 'Filtros',
+    count ? h('span', { class: 'inline-flex items-center justify-center min-w-[1.375rem] h-[1.375rem] px-1.5 rounded-full bg-brand-500 text-white text-xs font-bold' }, String(count)) : null
+  );
 
   return h('div', { class: 'hidden lg:block min-h-[calc(100vh-5rem)] bg-white' },
     h('div', { class: 'page-x pt-1 pb-8 border-b border-concrete-200' },
-      h('div', { class: 'max-w-[52rem] mx-auto' }, SearchPill({ id: 'feed-search-desktop', role, ui }))
+      h('div', { class: 'max-w-[60rem] mx-auto flex items-center gap-3' },
+        h('div', { class: 'flex-1 min-w-0' }, SearchPill({ id: 'feed-search-desktop', role, ui })),
+        filterButton
+      )
     ),
     h('div', { class: 'page-x pt-8 pb-20' }, body)
   );

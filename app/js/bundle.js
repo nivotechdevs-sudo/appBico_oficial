@@ -342,6 +342,7 @@
       dias: "semana",
       urgent: true,
       boosted: true,
+      photos: ["img/jobs/pedreiro-2.jpg", "img/jobs/pedreiro-1.jpg", "img/jobs/pedreiro-3.jpg"],
       slots: 4,
       description: "Reboco e regulariza\xE7\xE3o de duas paredes externas e acabamento em massa corrida numa reforma residencial. Material j\xE1 est\xE1 no canteiro.",
       requirements: ["Experi\xEAncia com reboco e massa corrida", "Botina e capacete pr\xF3prios", "Chegar 10 minutos antes"]
@@ -359,6 +360,7 @@
       duration: "1 di\xE1ria",
       dias: "qualquer",
       urgent: true,
+      photos: ["img/jobs/pintor-1.jpg", "img/jobs/pintor-2.jpg"],
       slots: 1,
       description: "Pintura interna em parede lisa de apartamento rec\xE9m-reformado, duas dem\xE3os de tinta acr\xEDlica branca.",
       requirements: ["Pintura interna, parede lisa", "Rolo e pincel pr\xF3prios", "Tinta e lixa fornecidas pela obra"]
@@ -488,6 +490,7 @@
       duration: "1 di\xE1ria",
       dias: "semana",
       urgent: true,
+      photos: ["img/jobs/eletricista-1.jpg", "img/jobs/eletricista-2.jpg"],
       slots: 1,
       description: "Troca da fia\xE7\xE3o de um apartamento de dois quartos e instala\xE7\xE3o de quadro de distribui\xE7\xE3o novo.",
       requirements: ["NR-10 em dia", "Ferramentas pr\xF3prias", "Material fornecido pela obra"]
@@ -553,6 +556,7 @@
       hours: null,
       duration: "2 di\xE1rias",
       dias: "semana",
+      photos: ["img/jobs/azulejista-1.jpg", "img/jobs/azulejista-2.jpg"],
       slots: 1,
       description: "Revestimento de banheiro inteiro com porcelanato 60x120, incluindo recortes para nichos.",
       requirements: ["Experi\xEAncia com pe\xE7a grande", "Cortador e n\xEDvel a laser pr\xF3prios"]
@@ -585,6 +589,7 @@
       hours: "7h\u201317h",
       duration: "2 di\xE1rias",
       dias: "qualquer",
+      photos: ["img/jobs/pedreiro-1.jpg", "img/jobs/pedreiro-3.jpg", "img/jobs/pedreiro-2.jpg"],
       slots: 1,
       description: "Levantamento de muro de divisa com bloco de concreto, cerca de 20 metros.",
       requirements: ["Experi\xEAncia com alvenaria", "Colher e prumo pr\xF3prios"]
@@ -1150,7 +1155,6 @@
     "history": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-history%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M3%2012a9%209%200%201%200%209-9%209.75%209.75%200%200%200-6.74%202.74L3%208%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%203v5h5%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M12%207v5l4%202%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "house": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-house%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M15%2021v-8a1%201%200%200%200-1-1h-4a1%201%200%200%200-1%201v8%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M3%2010a2%202%200%200%201%20.709-1.528l7-6a2%202%200%200%201%202.582%200l7%206A2%202%200%200%201%2021%2010v9a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2z%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "id-card": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-id-card%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22M13%2019a4%204%200%2000-8%200%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2010h2%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%2014h2%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%229%22%20cy%3D%2212%22%20r%3D%223%22%20%2F%3E%0A%20%20%3Crect%20x%3D%222%22%20y%3D%225%22%20width%3D%2220%22%20height%3D%2214%22%20rx%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E",
-    "images": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-images%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cpath%20d%3D%22m22%2011-1.296-1.296a2.4%202.4%200%200%200-3.408%200L11%2016%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M4%208a2%202%200%200%200-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202-2%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2213%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22currentColor%22%20%2F%3E%0A%20%20%3Crect%20x%3D%228%22%20y%3D%222%22%20width%3D%2214%22%20height%3D%2214%22%20rx%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "layout-grid": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-layout-grid%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%223%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%2214%22%20y%3D%2214%22%20rx%3D%221%22%20%2F%3E%0A%20%20%3Crect%20width%3D%227%22%20height%3D%227%22%20x%3D%223%22%20y%3D%2214%22%20rx%3D%221%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "locate-fixed": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-locate-fixed%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Cline%20x1%3D%222%22%20x2%3D%225%22%20y1%3D%2212%22%20y2%3D%2212%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2219%22%20x2%3D%2222%22%20y1%3D%2212%22%20y2%3D%2212%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%222%22%20y2%3D%225%22%20%2F%3E%0A%20%20%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%2219%22%20y2%3D%2222%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%227%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E",
     "lock": "data:image/svg+xml,%3C!--%20%40license%20lucide-static%20v1.46.0%20-%20ISC%20--%3E%0A%3Csvg%0A%20%20class%3D%22lucide%20lucide-lock%22%0A%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20width%3D%2224%22%0A%20%20height%3D%2224%22%0A%20%20viewBox%3D%220%200%2024%2024%22%0A%20%20fill%3D%22none%22%0A%20%20stroke%3D%22currentColor%22%0A%20%20stroke-width%3D%222%22%0A%20%20stroke-linecap%3D%22round%22%0A%20%20stroke-linejoin%3D%22round%22%0A%3E%0A%20%20%3Crect%20width%3D%2218%22%20height%3D%2211%22%20x%3D%223%22%20y%3D%2211%22%20rx%3D%222%22%20ry%3D%222%22%20%2F%3E%0A%20%20%3Cpath%20d%3D%22M7%2011V7a5%205%200%200%201%2010%200v4%22%20%2F%3E%0A%3C%2Fsvg%3E",
@@ -1219,6 +1223,20 @@
       el.setAttribute("aria-hidden", "true");
     }
     return el;
+  }
+
+  // js/components/Logo.js
+  function Logo({ compact = false } = {}) {
+    return h(
+      "span",
+      { class: cx("inline-flex items-center", compact ? "gap-2" : "gap-2.5") },
+      h(
+        "span",
+        { class: cx("inline-flex items-center justify-center bg-brand-500 shadow-raised", compact ? "w-9 h-9 rounded-[0.625rem]" : "w-10 h-10 rounded-xl") },
+        Icon("hammer", { size: compact ? 19 : 21, color: "#fff" })
+      ),
+      h("span", { class: cx("font-display font-bold leading-none tracking-tight text-brand-500", compact ? "text-[1.5rem]" : "text-[1.625rem]") }, "Bicos")
+    );
   }
 
   // js/components/AppNav.js
@@ -1360,12 +1378,7 @@
       setUI(MENU_KEY, { menuOpen: false });
       navigate2(path);
     };
-    const logo = h(
-      "button",
-      { type: "button", class: "inline-flex items-center gap-2.5 rounded-control", "aria-label": "Bicos, ir para o in\xEDcio", onClick: () => go("/mural") },
-      h("span", { class: "inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand-500 shadow-raised" }, Icon("hammer", { size: 21, color: "#fff" })),
-      h("span", { class: "font-display font-bold text-[1.625rem] leading-none tracking-tight text-brand-500" }, "Bicos")
-    );
+    const logo = h("button", { type: "button", class: "inline-flex items-center rounded-control", "aria-label": "Bicos, ir para o in\xEDcio", onClick: () => go("/mural") }, Logo());
     const indicator = h("span", {
       "aria-hidden": "true",
       class: "nav-indicator pointer-events-none absolute left-0 top-[calc(100%+0.375rem)] h-[2px] rounded-full bg-brand-500",
@@ -2166,6 +2179,7 @@
   function Tag({ label, icon, selected = false, onClick, onRemove, className = "" }) {
     const tag = h("button", {
       type: "button",
+      "aria-pressed": onRemove ? null : selected ? "true" : "false",
       class: cx(
         "inline-flex items-center gap-1.5 h-9 px-3 rounded-full text-sm font-semibold whitespace-nowrap shrink-0 transition-colors duration-150",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500",
@@ -2702,14 +2716,15 @@
     return h(
       "div",
       {
-        class: "fixed inset-0 z-40 flex items-end justify-center",
+        class: "fixed inset-0 z-40 flex items-end justify-center lg:items-center lg:p-6",
         style: { background: "var(--scrim)" },
         onClick: onClose
       },
       h(
         "div",
         {
-          class: "w-full sm:max-w-app bg-white rounded-t-sheet shadow-sheet p-4 flex flex-col gap-4 overflow-y-auto animate-slide-up",
+          // A bottom sheet on phones; a centred dialog on tablet/desktop.
+          class: "w-full sm:max-w-app lg:max-w-[34rem] bg-white rounded-t-sheet lg:rounded-sheet shadow-sheet p-4 lg:p-6 flex flex-col gap-4 overflow-y-auto animate-slide-up",
           style: { maxHeight },
           onClick: (e) => e.stopPropagation()
         },
@@ -3516,11 +3531,180 @@
     );
   }
 
+  // js/components/PhotoCarousel.js
+  var shownPhoto = /* @__PURE__ */ new Map();
+  function PhotoCarousel({ job, className = "h-56 sm:h-72 lg:h-[26rem] rounded-card", compact = false }) {
+    const photos = jobPhotos(job);
+    const n = photos.length;
+    const frame = cx("relative w-full overflow-hidden bg-concrete-200", className);
+    if (!n) return h("div", { class: frame }, JobCover({ job, large: !compact }));
+    const imgClass = cx("w-full h-full object-cover select-none pointer-events-none", compact ? "transition-transform duration-300 group-hover:scale-[1.03]" : "");
+    const track = h(
+      "div",
+      {
+        class: cx("flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar outline-none", n > 1 ? "cursor-grab" : ""),
+        tabindex: n > 1 && !compact ? "0" : null,
+        "aria-label": "Fotos do bico",
+        "aria-roledescription": "carrossel"
+      },
+      ...photos.map((src, i) => h(
+        "div",
+        { class: "shrink-0 w-full h-full snap-center snap-always overflow-hidden" },
+        h("img", { src, alt: `Foto ${i + 1} de ${n}`, draggable: "false", loading: i === 0 ? "eager" : "lazy", class: imgClass })
+      ))
+    );
+    if (n === 1) return h("div", { class: frame }, track);
+    let width = 0;
+    const current = () => Math.min(n - 1, shownPhoto.get(job.id) || 0);
+    const goTo = (i) => {
+      const target = Math.max(0, Math.min(n - 1, i));
+      track.scrollTo({ left: target * (width || track.clientWidth), behavior: "smooth" });
+    };
+    const arrow = (icon, label, dir, side) => h("button", {
+      type: "button",
+      "aria-label": label,
+      title: label,
+      class: cx(
+        "absolute top-1/2 -translate-y-1/2 z-10 items-center justify-center rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:!opacity-0 disabled:pointer-events-none",
+        compact ? "hidden lg:inline-flex w-8 h-8 opacity-0 group-hover:opacity-100 focus-visible:opacity-100" : "inline-flex w-9 h-9",
+        side
+      ),
+      onClick: (e) => {
+        e.stopPropagation();
+        goTo(current() + dir);
+      }
+    }, Icon(icon, { size: compact ? 16 : 18 }));
+    const prev = arrow("chevron-left", "Foto anterior", -1, compact ? "left-2" : "left-3");
+    const next = arrow("chevron-right", "Pr\xF3xima foto", 1, compact ? "right-2" : "right-3");
+    const dotSize = compact ? "h-1.5" : "h-1.5";
+    const dots = photos.map(() => h("span", { class: dotSize }));
+    const counter = compact ? null : h("span", { class: "absolute top-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold pointer-events-none" });
+    const show = (i) => {
+      if (counter) counter.textContent = `${i + 1} / ${n}`;
+      dots.forEach((d, k) => {
+        d.className = cx(dotSize, "rounded-full transition-all duration-200 shadow-[0_0_2px_rgba(0,0,0,0.4)]", k === i ? compact ? "w-1.5 bg-white" : "w-4 bg-white" : "w-1.5 bg-white/55");
+      });
+      prev.disabled = i === 0;
+      next.disabled = i === n - 1;
+    };
+    track.addEventListener("scroll", () => {
+      if (track.clientWidth !== width) {
+        width = track.clientWidth;
+        track.scrollLeft = current() * width;
+        return;
+      }
+      const i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / (width || 1))));
+      shownPhoto.set(job.id, i);
+      show(i);
+    }, { passive: true });
+    let drag = null;
+    let dragged = false;
+    track.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      drag = { x: e.clientX, left: track.scrollLeft, from: current() };
+      dragged = false;
+      track.style.scrollSnapType = "none";
+      track.classList.replace("cursor-grab", "cursor-grabbing");
+      track.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    track.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (Math.abs(dx) > 4) dragged = true;
+      track.scrollLeft = drag.left - dx;
+    });
+    const endDrag = (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      const threshold = Math.min(60, (width || track.clientWidth) * 0.15);
+      const target = drag.from + (dx < -threshold ? 1 : dx > threshold ? -1 : 0);
+      drag = null;
+      track.classList.replace("cursor-grabbing", "cursor-grab");
+      goTo(target);
+      const restore = () => {
+        track.style.scrollSnapType = "";
+      };
+      if ("onscrollend" in window) track.addEventListener("scrollend", restore, { once: true });
+      setTimeout(restore, 600);
+    };
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("click", (e) => {
+      if (dragged) {
+        e.stopPropagation();
+        e.preventDefault();
+        dragged = false;
+      }
+    }, true);
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        goTo(current() + 1);
+      }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        goTo(current() - 1);
+      }
+    });
+    const start = current();
+    show(start);
+    requestAnimationFrame(() => {
+      width = track.clientWidth;
+      if (start) track.scrollLeft = start * width;
+    });
+    return h(
+      "div",
+      { class: frame },
+      track,
+      prev,
+      next,
+      h("div", { class: cx("absolute left-1/2 -translate-x-1/2 flex items-center pointer-events-none", compact ? "bottom-2.5 gap-1" : "bottom-3.5 gap-1.5") }, ...dots),
+      counter
+    );
+  }
+  function PhotoManager({ photos, onChange: onChange2, max = 6 }) {
+    const add = h(
+      "label",
+      {
+        class: "relative aspect-square flex flex-col items-center justify-center gap-1.5 rounded-control border-2 border-dashed border-concrete-300 bg-concrete-25 text-concrete-500 cursor-pointer transition-colors hover:border-brand-400 hover:text-brand-600"
+      },
+      h("input", {
+        type: "file",
+        accept: "image/*",
+        multiple: true,
+        class: "sr-only",
+        onchange: (e) => {
+          const files = Array.from(e.target.files || []);
+          if (files.length) onChange2(photos.concat(files.map((f) => URL.createObjectURL(f))).slice(0, max));
+        }
+      }),
+      Icon("camera", { size: 22 }),
+      h("span", { class: "text-xs font-semibold text-center px-2" }, photos.length ? "Adicionar foto" : "Escolher fotos")
+    );
+    return h(
+      "div",
+      { class: "grid grid-cols-3 sm:grid-cols-4 gap-2" },
+      ...photos.map((src, i) => h(
+        "div",
+        { class: "relative aspect-square rounded-control overflow-hidden bg-concrete-200" },
+        h("img", { src, alt: `Foto ${i + 1}`, class: "w-full h-full object-cover" }),
+        i === 0 ? h("span", { class: "absolute bottom-1.5 left-1.5 px-2 h-5 inline-flex items-center rounded-full bg-black/60 text-white text-[0.625rem] font-bold uppercase tracking-wide" }, "Capa") : null,
+        h("button", {
+          type: "button",
+          "aria-label": `Remover foto ${i + 1}`,
+          title: "Remover foto",
+          class: "absolute top-1.5 right-1.5 inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/90 text-concrete-900 shadow-raised hover:bg-white",
+          onClick: () => onChange2(photos.filter((_, k) => k !== i))
+        }, Icon("x", { size: 14 }))
+      )),
+      photos.length < max ? add : null
+    );
+  }
+
   // js/components/JobTile.js
   var TONE_COLOR = { brand: "var(--text-brand)", success: "var(--green-500)", warning: "var(--amber-500)", danger: "var(--red-500)", accent: "var(--text-brand)", neutral: "var(--gray-500)" };
   function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, footer = null }) {
-    const cover = jobPhotos(job)[0];
-    const count = jobPhotos(job).length;
     const bairro = String(job.location || "").split(",")[0];
     const dias = diasInfo(job);
     const where = [bairro, dias && dias.short].filter(Boolean).join(" \xB7 ");
@@ -3532,10 +3716,11 @@
       "div",
       { class: "relative aspect-[20/19] rounded-xl sm:rounded-2xl overflow-hidden bg-concrete-200" },
       // Only the picture is greyed out when muted; badges and the save flag keep their colour.
+      // The photos swipe right here on the tile, without opening the job.
       h(
         "div",
         { class: cx("absolute inset-0", muted ? "grayscale opacity-60" : "") },
-        cover ? h("img", { src: cover, alt: "", loading: "lazy", draggable: "false", class: "absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" }) : JobCover({ job })
+        PhotoCarousel({ job, compact: true, className: "h-full" })
       ),
       h(
         "div",
@@ -3543,12 +3728,6 @@
         badge ? pill([badge.icon ? Icon(badge.icon, { size: 12, color: TONE_COLOR[badge.tone] || TONE_COLOR.neutral }) : null, badge.label]) : null,
         mine ? pill("Sua vaga", "text-brand-600") : null
       ),
-      count > 1 ? h(
-        "span",
-        { class: "absolute bottom-2 right-2 inline-flex items-center gap-1 h-6 px-2 rounded-full bg-black/55 text-white text-[0.6875rem] font-semibold pointer-events-none" },
-        Icon("images", { size: 12, color: "#fff" }),
-        String(count)
-      ) : null,
       onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
     );
     const text = h(
@@ -3619,51 +3798,89 @@
   function tileGrid(navigate2, role, jobs) {
     return h("div", { class: "card-grid" }, ...jobs.map((j) => tileFor(navigate2, role, j)));
   }
+  var NO_FILTERS = { tipo: null, dist: "Toda a cidade", quando: null };
+  var SORTS = [{ id: "perto", label: "Mais perto" }, { id: "valor", label: "Maior valor" }, { id: "cedo", label: "Mais cedo" }];
   function renderFeed(navigate2) {
     const role = getRole();
-    const ui = getUI(KEY8, { search: "", location: "Tatuap\xE9, SP", locationOpen: false, filtersOpen: false, tipo: null, dist: "Toda a cidade", quando: null, sort: "perto", notifyUrgent: true });
-    return h("div", {}, mobileFeed(navigate2, role, ui), desktopFeed(navigate2, role, ui));
+    const ui = getUI(KEY8, { search: "", location: "Tatuap\xE9, SP", filtersOpen: false, tipo: null, dist: "Toda a cidade", quando: null, sort: "perto", notifyUrgent: true });
+    const open = activeJobs().filter((j) => !isJobClosed(j));
+    const filtered = open.filter((j) => passesFilters(j, ui));
+    return h(
+      "div",
+      {},
+      mobileFeed(navigate2, role, ui, open, filtered),
+      desktopFeed(navigate2, role, ui, open, filtered),
+      // One filter panel for both layouts: a bottom sheet on phones, a dialog on desktop.
+      filtersSheet(ui, open, filtered.length)
+    );
   }
-  function mobileFeed(navigate2, role, ui) {
+  function passesFilters(j, ui) {
+    return (!ui.tipo || j.role === ui.tipo) && (ui.dist === "Toda a cidade" || km(j.distance) <= parseInt(ui.dist.replace(/\D/g, ""), 10)) && matchesQuando(j, ui.quando);
+  }
+  function activeFilters(ui) {
+    return [
+      ui.tipo ? { label: ui.tipo, icon: "hard-hat", remove: () => setUI(KEY8, { tipo: null }) } : null,
+      ui.dist !== "Toda a cidade" ? { label: ui.dist, icon: "map-pin", remove: () => setUI(KEY8, { dist: "Toda a cidade" }) } : null,
+      ui.quando ? { label: ui.quando, icon: "calendar", remove: () => setUI(KEY8, { quando: null }) } : null
+    ].filter(Boolean);
+  }
+  function filtersSheet(ui, open, count) {
+    const set = (patch) => setUI(KEY8, patch);
+    return Sheet(
+      { open: ui.filtersOpen, title: "Filtros", onClose: () => set({ filtersOpen: false }) },
+      h(
+        "div",
+        { class: "flex flex-col gap-2.5" },
+        h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Onde voc\xEA quer trabalhar"),
+        h(
+          "div",
+          { class: "flex flex-wrap gap-2" },
+          Tag({ label: "Usar minha localiza\xE7\xE3o", icon: "locate-fixed", onClick: () => set({ location: "Tatuap\xE9, SP" }) }),
+          ...LOCAIS_BAIRRO.concat(["Toda S\xE3o Paulo"]).map((l) => Tag({ label: l, selected: ui.location === l, onClick: () => set({ location: l }) }))
+        ),
+        h("span", { class: "text-xs text-concrete-500" }, "A dist\xE2ncia de cada bico \xE9 contada a partir daqui.")
+      ),
+      // The phone has these as a segmented control on the mural itself.
+      h(
+        "div",
+        { class: "hidden lg:flex flex-col gap-2.5" },
+        h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, "Ordenar por"),
+        h("div", { class: "flex flex-wrap gap-2" }, ...SORTS.map((o) => Tag({ label: o.label, selected: ui.sort === o.id, onClick: () => set({ sort: o.id }) })))
+      ),
+      filterGroup("Tipo de servi\xE7o", TIPOS_SERVICO, ui.tipo, (v) => set({ tipo: ui.tipo === v ? null : v })),
+      filterGroup("Dist\xE2ncia de " + ui.location.split(",")[0], ["5", "10", "20", "Toda a cidade"].map((d) => d === "Toda a cidade" ? d : `At\xE9 ${d} km`), ui.dist, (v) => set({ dist: v })),
+      filterGroup("Quando", ["Hoje", "Amanh\xE3", "Durante a semana", "Fim de semana"], ui.quando, (v) => set({ quando: ui.quando === v ? null : v })),
+      h(
+        "div",
+        { class: "flex flex-col gap-1 pt-1 border-t border-concrete-200" },
+        Switch({ label: "Avisar quando aparecer bico novo", description: "Chega uma notifica\xE7\xE3o quando surgir vaga com esses filtros perto de voc\xEA.", checked: ui.notifyUrgent, onChange: (v) => set({ notifyUrgent: v }) })
+      ),
+      h(
+        "div",
+        { class: "flex gap-3 pt-1" },
+        Button({ label: "Limpar", variant: "secondary", className: "flex-1", onClick: () => set(NO_FILTERS) }),
+        Button({ label: `Ver ${count === 1 ? "1 vaga" : count + " vagas"}`, className: "flex-[1.4]", onClick: () => set({ filtersOpen: false }) })
+      )
+    );
+  }
+  function mobileFeed(navigate2, role, ui, openJobs, filtered) {
     const q = ui.search.trim().toLowerCase();
     const searching = q.length > 0;
-    const openJobs = activeJobs().filter((j) => !isJobClosed(j));
     const matches = (j) => !q || (j.role + " " + getCompany(j.companyId).name + " " + j.location).toLowerCase().includes(q);
-    const passesFilters = (j) => (!ui.tipo || j.role === ui.tipo) && (ui.dist === "Toda a cidade" || km(j.distance) <= parseInt(ui.dist)) && matchesQuando(j, ui.quando);
-    const filtered = openJobs.filter(matches).filter(passesFilters);
     const ordered = orderJobs(filtered, role, ui.sort);
     const jobResults = searching ? openJobs.filter(matches) : [];
     const companyResults = searching ? allCompanies().filter((c) => (c.name + " " + c.location).toLowerCase().includes(q)) : [];
     const workerResults = searching ? allWorkers().filter((w) => (w.name + " " + w.role + " " + w.region).toLowerCase().includes(q)) : [];
     const noResults = searching && jobResults.length === 0 && companyResults.length === 0 && workerResults.length === 0;
-    const activeChips = [
-      ui.tipo ? { label: ui.tipo, icon: "hard-hat", remove: () => setUI(KEY8, { tipo: null }) } : null,
-      ui.dist !== "Toda a cidade" ? { label: ui.dist, icon: "map-pin", remove: () => setUI(KEY8, { dist: "Toda a cidade" }) } : null,
-      ui.quando ? { label: ui.quando, icon: "calendar", remove: () => setUI(KEY8, { quando: null }) } : null
-    ].filter(Boolean);
+    const activeChips = activeFilters(ui);
     const activeCount = activeChips.length;
     const header = h(
       "div",
       { class: "sticky top-0 z-20 flex flex-col gap-2 px-4 pt-2 pb-3.5 bg-white border-b border-concrete-200" },
       h(
         "div",
-        { class: "flex items-center justify-between gap-2" },
-        h(
-          "button",
-          {
-            type: "button",
-            class: "flex items-center gap-2 min-h-12 -ml-1.5 px-1.5 rounded-control",
-            onClick: () => setUI(KEY8, { locationOpen: true })
-          },
-          Icon("map-pin", { size: 20, color: "var(--brand)" }),
-          h(
-            "span",
-            { class: "flex flex-col items-start" },
-            h("span", { class: "text-xs text-concrete-500" }, "Bicos perto de"),
-            h("span", { class: "font-semibold text-concrete-900 max-w-[9.5rem] truncate" }, ui.location)
-          ),
-          Icon("chevron-down", { size: 16, color: "var(--text-muted)" })
-        ),
+        { class: "flex items-center justify-between gap-2 min-h-12" },
+        h("h1", { class: "inline-flex", "aria-label": "Bicos" }, Logo({ compact: true })),
         NotificationBell({ count: role === "recrutador" ? 3 : 2, onClick: () => navigate2("/notificacoes") })
       ),
       SearchPill({ id: "feed-search", role, ui, compact: true })
@@ -3728,73 +3945,64 @@
         Tag({ label: activeCount ? `Filtros \xB7 ${activeCount}` : "Filtros", icon: "sliders-horizontal", onClick: () => setUI(KEY8, { filtersOpen: true }) }),
         ...activeChips.map((c) => Tag({ label: c.label, icon: c.icon, selected: true, onRemove: c.remove }))
       ),
-      h("div", { class: "flex bg-concrete-100 rounded-full p-1 gap-1" }, ...[
-        { id: "perto", label: "Mais perto" },
-        { id: "valor", label: "Maior valor" },
-        { id: "cedo", label: "Mais cedo" }
-      ].map((o) => h("button", {
+      h("div", { class: "flex bg-concrete-100 rounded-full p-1 gap-1" }, ...SORTS.map((o) => h("button", {
         type: "button",
         class: `flex-1 h-10 rounded-full text-sm font-bold transition-colors ${ui.sort === o.id ? "bg-white text-brand-600 shadow-card" : "text-concrete-500"}`,
         onClick: () => setUI(KEY8, { sort: o.id })
       }, o.label))),
-      ordered.length ? tileGrid(navigate2, role, ordered) : EmptyState({ icon: "search-x", title: "Nenhuma vaga com esse filtro", description: "Tire um filtro ou aumente a dist\xE2ncia para ver mais bicos.", actionLabel: "Limpar filtros", onAction: () => setUI(KEY8, { tipo: null, dist: "Toda a cidade", quando: null }) })
+      ordered.length ? tileGrid(navigate2, role, ordered) : EmptyState({ icon: "search-x", title: "Nenhuma vaga com esse filtro", description: "Tire um filtro ou aumente a dist\xE2ncia para ver mais bicos.", actionLabel: "Limpar filtros", onAction: () => setUI(KEY8, NO_FILTERS) })
     );
     return h(
       "div",
       { class: "flex flex-col lg:hidden" },
       header,
-      h("div", { class: "px-4 pt-4 pb-6 flex flex-col gap-5" }, searching ? searchResults : browseResults),
-      Sheet(
-        { open: ui.locationOpen, title: "Onde voc\xEA quer trabalhar", onClose: () => setUI(KEY8, { locationOpen: false }) },
-        Button({ label: "Usar minha localiza\xE7\xE3o agora", variant: "secondary", fullWidth: true, iconLeft: "locate-fixed", onClick: () => setUI(KEY8, { location: "Tatuap\xE9, SP", locationOpen: false }) }),
-        h("div", { class: "flex flex-col" }, ...LOCAIS_BAIRRO.concat(["Toda S\xE3o Paulo"]).map((l) => {
-          const active = ui.location === l;
-          const bairro = l.split(",")[0];
-          const count = l === "Toda S\xE3o Paulo" ? openJobs.length : openJobs.filter((j) => j.location.indexOf(bairro) === 0).length;
-          return h(
-            "button",
-            {
-              type: "button",
-              class: "flex items-center gap-3 min-h-12 py-1 border-b border-concrete-200 last:border-0 text-left",
-              onClick: () => setUI(KEY8, { location: l, locationOpen: false })
-            },
-            Icon("map-pin", { size: 20, color: active ? "var(--brand)" : "var(--text-subtle)" }),
-            h("span", { class: `flex-1 ${active ? "font-bold text-brand-600" : "text-concrete-900"}` }, l),
-            h("span", { class: "text-sm text-concrete-500" }, count === 1 ? "1 bico" : `${count} bicos`)
-          );
-        })),
-        h("span", { class: "text-xs text-concrete-500" }, "A dist\xE2ncia de cada bico \xE9 contada a partir daqui.")
-      ),
-      Sheet(
-        { open: ui.filtersOpen, title: "Filtros", onClose: () => setUI(KEY8, { filtersOpen: false }) },
-        filterGroup("Tipo de servi\xE7o", TIPOS_SERVICO, ui.tipo, (v) => setUI(KEY8, { tipo: ui.tipo === v ? null : v })),
-        filterGroup("Dist\xE2ncia de casa", ["5", "10", "20", "Toda a cidade"].map((d) => d === "Toda a cidade" ? d : `At\xE9 ${d} km`), ui.dist, (v) => setUI(KEY8, { dist: v })),
-        filterGroup("Quando", ["Hoje", "Amanh\xE3", "Durante a semana", "Fim de semana"], ui.quando, (v) => setUI(KEY8, { quando: ui.quando === v ? null : v })),
-        h(
-          "div",
-          { class: "flex flex-col gap-1 pt-1 border-t border-concrete-200" },
-          Switch({ label: "Avisar quando aparecer bico urgente", description: "Chega uma notifica\xE7\xE3o quando surgir vaga com esses filtros perto de voc\xEA.", checked: ui.notifyUrgent, onChange: (v) => setUI(KEY8, { notifyUrgent: v }) })
-        ),
-        h(
-          "div",
-          { class: "flex gap-3 pt-1" },
-          Button({ label: "Limpar", variant: "secondary", className: "flex-1", onClick: () => setUI(KEY8, { tipo: null, dist: "Toda a cidade", quando: null }) }),
-          Button({ label: `Ver ${filtered.length === 1 ? "1 vaga" : filtered.length + " vagas"}`, className: "flex-[1.4]", onClick: () => setUI(KEY8, { filtersOpen: false }) })
-        )
-      )
+      h("div", { class: "px-4 pt-4 pb-6 flex flex-col gap-5" }, searching ? searchResults : browseResults)
     );
   }
-  function desktopFeed(navigate2, role, ui) {
-    const open = activeJobs().filter((j) => !isJobClosed(j));
+  function desktopFeed(navigate2, role, ui, open, filtered) {
     const q = ui.search.trim().toLowerCase();
-    const body = q ? desktopSearchResults(navigate2, role, ui, open) : tileGrid(navigate2, role, orderJobs(open, role));
+    const chips = activeFilters(ui);
+    const browse = h(
+      "div",
+      { class: "flex flex-col gap-6" },
+      chips.length ? h(
+        "div",
+        { class: "flex flex-wrap items-center gap-2" },
+        h("span", { class: "mr-1 text-concrete-500" }, filtered.length === 1 ? "1 vaga com" : `${filtered.length} vagas com`),
+        ...chips.map((c) => Tag({ label: c.label, icon: c.icon, selected: true, onRemove: c.remove })),
+        Button({ label: "Limpar filtros", variant: "ghost", size: "sm", onClick: () => setUI(KEY8, NO_FILTERS) })
+      ) : null,
+      filtered.length ? tileGrid(navigate2, role, orderJobs(filtered, role, ui.sort)) : EmptyState({ icon: "search-x", title: "Nenhuma vaga com esse filtro", description: "Tire um filtro ou aumente a dist\xE2ncia para ver mais bicos.", actionLabel: "Limpar filtros", onAction: () => setUI(KEY8, NO_FILTERS) })
+    );
+    const body = q ? desktopSearchResults(navigate2, role, ui, open) : browse;
+    const count = chips.length;
+    const filterButton = h(
+      "button",
+      {
+        type: "button",
+        "aria-haspopup": "dialog",
+        class: cx(
+          "relative shrink-0 inline-flex items-center gap-2.5 h-[4.25rem] px-6 rounded-full bg-white border shadow-float font-semibold text-concrete-900 transition hover:border-concrete-300 hover:shadow-raised",
+          count ? "border-brand-500" : "border-concrete-200"
+        ),
+        onClick: () => setUI(KEY8, { filtersOpen: true })
+      },
+      Icon("sliders-horizontal", { size: 20 }),
+      "Filtros",
+      count ? h("span", { class: "inline-flex items-center justify-center min-w-[1.375rem] h-[1.375rem] px-1.5 rounded-full bg-brand-500 text-white text-xs font-bold" }, String(count)) : null
+    );
     return h(
       "div",
       { class: "hidden lg:block min-h-[calc(100vh-5rem)] bg-white" },
       h(
         "div",
         { class: "page-x pt-1 pb-8 border-b border-concrete-200" },
-        h("div", { class: "max-w-[52rem] mx-auto" }, SearchPill({ id: "feed-search-desktop", role, ui }))
+        h(
+          "div",
+          { class: "max-w-[60rem] mx-auto flex items-center gap-3" },
+          h("div", { class: "flex-1 min-w-0" }, SearchPill({ id: "feed-search-desktop", role, ui })),
+          filterButton
+        )
       ),
       h("div", { class: "page-x pt-8 pb-20" }, body)
     );
@@ -3915,159 +4123,6 @@
       { class: "flex flex-col gap-2.5" },
       h("div", { class: "text-xs font-bold tracking-[0.08em] uppercase text-concrete-500" }, title),
       h("div", { class: "flex flex-wrap gap-2" }, ...options.map((o) => Tag({ label: o, selected: active === o, onClick: () => onSelect(o) })))
-    );
-  }
-
-  // js/components/PhotoCarousel.js
-  var shownPhoto = /* @__PURE__ */ new Map();
-  function PhotoCarousel({ job, className = "h-56 sm:h-72 lg:h-[26rem] rounded-card" }) {
-    const photos = jobPhotos(job);
-    const n = photos.length;
-    const frame = cx("relative w-full overflow-hidden bg-concrete-200", className);
-    if (!n) return h("div", { class: frame }, JobCover({ job, large: true }));
-    const track = h(
-      "div",
-      {
-        class: cx("flex h-full overflow-x-auto snap-x snap-mandatory overscroll-x-contain no-scrollbar outline-none", n > 1 ? "cursor-grab" : ""),
-        tabindex: n > 1 ? "0" : null,
-        "aria-label": "Fotos do bico",
-        "aria-roledescription": "carrossel"
-      },
-      ...photos.map((src, i) => h(
-        "div",
-        { class: "shrink-0 w-full h-full snap-center snap-always" },
-        h("img", { src, alt: `Foto ${i + 1} de ${n}`, draggable: "false", class: "w-full h-full object-cover select-none pointer-events-none" })
-      ))
-    );
-    if (n === 1) return h("div", { class: frame }, track);
-    let width = 0;
-    const current = () => Math.min(n - 1, shownPhoto.get(job.id) || 0);
-    const goTo = (i) => {
-      const target = Math.max(0, Math.min(n - 1, i));
-      track.scrollTo({ left: target * (width || track.clientWidth), behavior: "smooth" });
-    };
-    const arrow = (icon, label, dir, side) => h("button", {
-      type: "button",
-      "aria-label": label,
-      title: label,
-      class: cx("absolute top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-concrete-900 shadow-raised transition hover:bg-white hover:scale-105 disabled:opacity-0 disabled:pointer-events-none", side),
-      onClick: (e) => {
-        e.stopPropagation();
-        goTo(current() + dir);
-      }
-    }, Icon(icon, { size: 18 }));
-    const prev = arrow("chevron-left", "Foto anterior", -1, "left-3");
-    const next = arrow("chevron-right", "Pr\xF3xima foto", 1, "right-3");
-    const dots = photos.map(() => h("span", { class: "h-1.5 rounded-full transition-all duration-200" }));
-    const counter = h("span", { class: "absolute top-3 right-3 inline-flex items-center h-6 px-2.5 rounded-full bg-black/60 text-white text-xs font-semibold pointer-events-none" });
-    const show = (i) => {
-      counter.textContent = `${i + 1} / ${n}`;
-      dots.forEach((d, k) => {
-        d.className = cx("h-1.5 rounded-full transition-all duration-200", k === i ? "w-4 bg-white" : "w-1.5 bg-white/60");
-      });
-      prev.disabled = i === 0;
-      next.disabled = i === n - 1;
-    };
-    track.addEventListener("scroll", () => {
-      if (track.clientWidth !== width) {
-        width = track.clientWidth;
-        track.scrollLeft = current() * width;
-        return;
-      }
-      const i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / (width || 1))));
-      shownPhoto.set(job.id, i);
-      show(i);
-    }, { passive: true });
-    let drag = null;
-    track.addEventListener("pointerdown", (e) => {
-      if (e.pointerType !== "mouse" || e.button !== 0) return;
-      drag = { x: e.clientX, left: track.scrollLeft, from: current() };
-      track.style.scrollSnapType = "none";
-      track.classList.replace("cursor-grab", "cursor-grabbing");
-      track.setPointerCapture(e.pointerId);
-      e.preventDefault();
-    });
-    track.addEventListener("pointermove", (e) => {
-      if (drag) track.scrollLeft = drag.left - (e.clientX - drag.x);
-    });
-    const endDrag = (e) => {
-      if (!drag) return;
-      const dx = e.clientX - drag.x;
-      const threshold = Math.min(60, (width || track.clientWidth) * 0.15);
-      const target = drag.from + (dx < -threshold ? 1 : dx > threshold ? -1 : 0);
-      drag = null;
-      track.classList.replace("cursor-grabbing", "cursor-grab");
-      goTo(target);
-      const restore = () => {
-        track.style.scrollSnapType = "";
-      };
-      if ("onscrollend" in window) track.addEventListener("scrollend", restore, { once: true });
-      setTimeout(restore, 600);
-    };
-    track.addEventListener("pointerup", endDrag);
-    track.addEventListener("pointercancel", endDrag);
-    track.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-        goTo(current() + 1);
-      }
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        goTo(current() - 1);
-      }
-    });
-    const start = current();
-    show(start);
-    requestAnimationFrame(() => {
-      width = track.clientWidth;
-      if (start) track.scrollLeft = start * width;
-    });
-    return h(
-      "div",
-      { class: frame },
-      track,
-      prev,
-      next,
-      h("div", { class: "absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-none" }, ...dots),
-      counter
-    );
-  }
-  function PhotoManager({ photos, onChange: onChange2, max = 6 }) {
-    const add = h(
-      "label",
-      {
-        class: "relative aspect-square flex flex-col items-center justify-center gap-1.5 rounded-control border-2 border-dashed border-concrete-300 bg-concrete-25 text-concrete-500 cursor-pointer transition-colors hover:border-brand-400 hover:text-brand-600"
-      },
-      h("input", {
-        type: "file",
-        accept: "image/*",
-        multiple: true,
-        class: "sr-only",
-        onchange: (e) => {
-          const files = Array.from(e.target.files || []);
-          if (files.length) onChange2(photos.concat(files.map((f) => URL.createObjectURL(f))).slice(0, max));
-        }
-      }),
-      Icon("camera", { size: 22 }),
-      h("span", { class: "text-xs font-semibold text-center px-2" }, photos.length ? "Adicionar foto" : "Escolher fotos")
-    );
-    return h(
-      "div",
-      { class: "grid grid-cols-3 sm:grid-cols-4 gap-2" },
-      ...photos.map((src, i) => h(
-        "div",
-        { class: "relative aspect-square rounded-control overflow-hidden bg-concrete-200" },
-        h("img", { src, alt: `Foto ${i + 1}`, class: "w-full h-full object-cover" }),
-        i === 0 ? h("span", { class: "absolute bottom-1.5 left-1.5 px-2 h-5 inline-flex items-center rounded-full bg-black/60 text-white text-[0.625rem] font-bold uppercase tracking-wide" }, "Capa") : null,
-        h("button", {
-          type: "button",
-          "aria-label": `Remover foto ${i + 1}`,
-          title: "Remover foto",
-          class: "absolute top-1.5 right-1.5 inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/90 text-concrete-900 shadow-raised hover:bg-white",
-          onClick: () => onChange2(photos.filter((_, k) => k !== i))
-        }, Icon("x", { size: 14 }))
-      )),
-      photos.length < max ? add : null
     );
   }
 

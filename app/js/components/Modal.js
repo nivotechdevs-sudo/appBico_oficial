@@ -30,12 +30,13 @@ export function Dialog({ open, tone = 'default', title, description, confirmLabe
 export function Sheet({ open, title, onClose, maxHeight = '85vh' }, ...children) {
   if (!open) return null;
   return h('div', {
-    class: 'fixed inset-0 z-40 flex items-end justify-center',
+    class: 'fixed inset-0 z-40 flex items-end justify-center lg:items-center lg:p-6',
     style: { background: 'var(--scrim)' },
     onClick: onClose
   },
     h('div', {
-      class: 'w-full sm:max-w-app bg-white rounded-t-sheet shadow-sheet p-4 flex flex-col gap-4 overflow-y-auto animate-slide-up',
+      // A bottom sheet on phones; a centred dialog on tablet/desktop.
+      class: 'w-full sm:max-w-app lg:max-w-[34rem] bg-white rounded-t-sheet lg:rounded-sheet shadow-sheet p-4 lg:p-6 flex flex-col gap-4 overflow-y-auto animate-slide-up',
       style: { maxHeight },
       onClick: (e) => e.stopPropagation()
     },
