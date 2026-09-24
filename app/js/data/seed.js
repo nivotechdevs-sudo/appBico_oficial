@@ -208,7 +208,6 @@ export const TIPOS_OBRA = ['Residencial', 'Comercial', 'Reforma', 'Residencial e
 export const REGIOES_RECRUTADOR = ['Zona Leste, SP', 'Zona Norte, SP', 'Zona Sul, SP', 'Zona Oeste, SP', 'Centro, SP'];
 export const TIPOS_SERVICO = ['Pedreiro', 'Servente', 'Azulejista', 'Pintor', 'Armador', 'Ajudante geral'];
 export const REQUISITOS_OPCOES = ['Botina e capacete próprios', 'Ferramenta própria', 'Experiência comprovada', 'Chegar 10 min antes', 'EPI fornecido pela obra'];
-export const LOCAIS_BAIRRO = ['Tatuapé, SP', 'Mooca, SP', 'Penha, SP', 'Vila Prudente, SP', 'Belém, SP'];
 
 // Portfolio posts (photo/video of finished work) a worker publishes on their own profile.
 // mediaUrl: null renders the same neutral placeholder job photos use elsewhere in the app —

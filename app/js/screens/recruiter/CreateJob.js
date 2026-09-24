@@ -82,10 +82,10 @@ export default function renderCreateJob(navigate) {
   }
 
   const step1 = h('div', { class: 'flex flex-col gap-6' },
-    h('div', { class: 'flex flex-col gap-1.5' },
+    h('div', { class: 'flex flex-col items-center gap-2.5 text-center' },
       h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Fotos da vaga (opcional)'),
       PhotoManager({ photos: ui.fotos, onChange: (fotos) => setUI(KEY, { fotos }) }),
-      h('span', { class: 'text-sm text-concrete-500' }, 'Até 6 fotos do canteiro. A primeira vira a capa do card no mural; você pode mudar depois em "Sua vaga".')
+      h('span', { class: 'max-w-[22rem] text-sm text-concrete-500' }, 'Até 6 fotos do canteiro. A primeira vira a capa do bico no mural.')
     ),
     Input({
       id: 'create-job-tipo', label: 'Tipo de serviço', placeholder: 'Ex.: Pedreiro de acabamento', icon: 'hammer',
@@ -94,45 +94,56 @@ export default function renderCreateJob(navigate) {
     Input({ id: 'create-job-local', label: 'Endereço da obra', placeholder: 'Rua, número e bairro', icon: 'map-pin', value: ui.local, error: ui.errors.local, onInput: (v) => setUI(KEY, { local: v, errors: Object.assign({}, ui.errors, { local: null }) }) }),
     h('div', { class: 'flex flex-col gap-2', role: 'radiogroup', 'aria-labelledby': 'create-job-dias-label' },
       h('span', { id: 'create-job-dias-label', class: 'text-sm font-semibold text-concrete-900' }, 'Em que dias pode ser?'),
-      h('div', { class: 'flex flex-col gap-2' }, ...DIAS_ORDEM.map((id) => diasOption(id, ui.dias === id, () => setUI(KEY, { dias: id, errors: clearError('dias') })))),
+      h('div', { class: 'grid grid-cols-3 gap-2 max-w-[27rem]' }, ...DIAS_ORDEM.map((id) => diasOption(id, ui.dias === id, () => setUI(KEY, { dias: id, errors: clearError('dias') })))),
       ui.errors.dias ? h('span', { class: 'flex items-center gap-1.5 text-sm text-danger-500' }, Icon('circle-alert', { size: 14 }), ui.errors.dias) : null
     ),
-    Input({
-      id: 'create-job-data', label: 'Data (opcional)', placeholder: 'Ex.: 12 set', icon: 'calendar', value: ui.data,
-      hint: 'Sem data definida? Deixe em branco e combine com o trabalhador.',
-      onInput: (v) => setUI(KEY, { data: v })
-    }),
-    h('div', { class: 'flex flex-col gap-1.5' },
-      h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Horário (opcional)'),
-      h('div', { class: 'flex items-end gap-3' },
-        h('div', { class: 'flex-1 min-w-0' }, Input({ id: 'create-job-periodo-inicio', label: 'Das', placeholder: 'Ex.: 7', suffix: 'h', inputMode: 'numeric', value: ui.periodoInicio, onInput: (v) => setUI(KEY, { periodoInicio: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) })),
-        h('div', { class: 'flex-1 min-w-0' }, Input({ id: 'create-job-periodo-fim', label: 'Até', placeholder: 'Ex.: 17', suffix: 'h', inputMode: 'numeric', value: ui.periodoFim, onInput: (v) => setUI(KEY, { periodoFim: digits(v, 2), errors: Object.assign({}, ui.errors, { periodo: null }) }) }))
-      ),
-      ui.errors.periodo
-        ? h('span', { class: 'text-sm text-danger-500' }, ui.errors.periodo)
-        : h('span', { class: 'text-sm text-concrete-500' }, 'Em branco, aparece "horário a combinar".')
+    // Short answers get short fields, side by side where they fit.
+    h('div', { class: 'flex flex-wrap items-start gap-x-6 gap-y-6' },
+      h('div', { class: 'w-[12.5rem]' }, Input({
+        id: 'create-job-data', label: 'Data (opcional)', placeholder: 'Ex.: 12 set', icon: 'calendar', value: ui.data,
+        hint: 'Em branco: data a combinar.',
+        onInput: (v) => setUI(KEY, { data: v })
+      })),
+      h('div', { class: 'flex flex-col gap-1.5' },
+        h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Horário (opcional)'),
+        h('div', { class: 'flex items-center gap-2' },
+          h('div', { class: 'w-[6.5rem]' }, Input({ id: 'create-job-periodo-inicio', placeholder: '7', suffix: 'h', inputMode: 'numeric', value: ui.periodoInicio, invalid: Boolean(ui.errors.periodo), onInput: (v) => setUI(KEY, { periodoInicio: digits(v, 2), errors: clearError('periodo') }) })),
+          h('span', { class: 'text-sm text-concrete-500' }, 'às'),
+          h('div', { class: 'w-[6.5rem]' }, Input({ id: 'create-job-periodo-fim', placeholder: '17', suffix: 'h', inputMode: 'numeric', value: ui.periodoFim, invalid: Boolean(ui.errors.periodo), onInput: (v) => setUI(KEY, { periodoFim: digits(v, 2), errors: clearError('periodo') }) }))
+        ),
+        ui.errors.periodo
+          ? h('span', { class: 'max-w-[15rem] text-sm text-danger-500' }, ui.errors.periodo)
+          : h('span', { class: 'text-sm text-concrete-500' }, 'Em branco: horário a combinar.')
+      )
     ),
-    Input({
-      id: 'create-job-diarias', label: 'Quantidade de diárias', placeholder: '1', suffix: 'diária(s)', inputMode: 'numeric',
-      value: ui.diarias, error: ui.errors.diarias, onInput: (v) => setUI(KEY, { diarias: digits(v, 2), errors: Object.assign({}, ui.errors, { diarias: null }) })
-    }),
-    Input({
-      id: 'create-job-vagas', label: 'Quantidade de pessoas para a vaga', placeholder: '1', suffix: 'pessoa(s)', inputMode: 'numeric',
-      hint: 'Quantos trabalhadores você precisa contratar para esse bico.', error: ui.errors.vagas,
-      value: ui.vagas, onInput: (v) => setUI(KEY, { vagas: digits(v, 2), errors: Object.assign({}, ui.errors, { vagas: null }) })
-    })
+    h('div', { class: 'flex flex-col gap-1.5' },
+      h('div', { class: 'grid grid-cols-2 gap-3 max-w-[20rem]' },
+        Input({
+          id: 'create-job-diarias', label: 'Diárias', placeholder: '1', suffix: 'diária(s)', inputMode: 'numeric',
+          value: ui.diarias, invalid: Boolean(ui.errors.diarias), onInput: (v) => setUI(KEY, { diarias: digits(v, 2), errors: clearError('diarias') })
+        }),
+        Input({
+          id: 'create-job-vagas', label: 'Pessoas', placeholder: '1', suffix: 'pessoa(s)', inputMode: 'numeric',
+          value: ui.vagas, invalid: Boolean(ui.errors.vagas), onInput: (v) => setUI(KEY, { vagas: digits(v, 2), errors: clearError('vagas') })
+        })
+      ),
+      ui.errors.diarias || ui.errors.vagas
+        ? h('span', { class: 'flex items-center gap-1.5 text-sm text-danger-500' }, Icon('circle-alert', { size: 14 }), ui.errors.diarias || ui.errors.vagas)
+        : h('span', { class: 'text-sm text-concrete-500' }, 'Quantos dias o bico dura e quantos trabalhadores você precisa.')
+    )
   );
 
   const step2 = h('div', { class: 'flex flex-col gap-6' },
-    h('div', { class: 'flex flex-col gap-2' },
-      Input({
+    h('div', { class: 'flex flex-col items-start gap-2' },
+      ui.negociavel ? null : h('div', { class: 'w-full max-w-[15rem]' }, Input({
         id: 'create-job-valor', label: 'Valor da diária', placeholder: '220', suffix: 'reais', inputMode: 'numeric',
         value: ui.negociavel ? '' : ui.valor, error: ui.errors.valor,
         hint: ui.errors.valor || ui.negociavel ? null : 'O trabalhador vê esse valor no mural. Mínimo de R$ 80.',
         onInput: (v) => setUI(KEY, { valor: digits(v, 5), errors: Object.assign({}, ui.errors, { valor: null }) })
-      }),
+      })),
       ui.negociavel ? null : Button({ label: 'Deixar valor a combinar', variant: 'ghost', size: 'sm', iconLeft: 'handshake', onClick: () => setUI(KEY, { negociavel: true, valor: '', errors: Object.assign({}, ui.errors, { valor: null }) }) }),
-      ui.negociavel ? h('div', { class: 'flex items-center gap-2 p-3 rounded-control bg-brand-50 border border-brand-200' },
+      ui.negociavel ? h('span', { class: 'text-sm font-semibold text-concrete-900' }, 'Valor da diária') : null,
+      ui.negociavel ? h('div', { class: 'w-full flex items-center gap-2 p-3 rounded-control bg-brand-50 border border-brand-200' },
         Icon('handshake', { size: 18, color: 'var(--text-brand)' }),
         h('span', { class: 'flex-1 text-sm text-brand-600' }, 'O trabalhador vê "A combinar" no lugar do valor, e negocia direto com você.'),
         Button({ label: 'Definir um valor', variant: 'ghost', size: 'sm', onClick: () => setUI(KEY, { negociavel: false }) })
@@ -158,9 +169,9 @@ export default function renderCreateJob(navigate) {
         ? h('span', { class: 'flex items-center gap-1.5 text-sm text-danger-500' }, Icon('circle-alert', { size: 14 }), ui.errors.detalhe)
         : h('span', { class: 'text-sm text-concrete-500' }, 'Quanto mais claro, menos desencontro no canteiro. Essa descrição aparece para quem ver o bico.')
     ),
-    h('div', { class: 'flex flex-col gap-3 pt-5 border-t border-concrete-200' },
+    h('div', { class: 'flex flex-col items-center gap-3 pt-5 border-t border-concrete-200 text-center' },
       h('span', { class: 'font-semibold text-concrete-900' }, 'Como vai aparecer no mural'),
-      h('div', { class: 'w-[12.5rem] max-w-full', 'aria-hidden': 'true' },
+      h('div', { class: 'w-[13rem] max-w-full text-left', 'aria-hidden': 'true' },
         JobTile({
           job: {
             id: 'previa', role: ui.tipo.trim() || 'Tipo de serviço', location: 'Tatuapé, SP', dias: ui.dias,
@@ -191,18 +202,14 @@ export default function renderCreateJob(navigate) {
 function diasOption(id, checked, onSelect) {
   const d = DIAS[id];
   return h('button', {
-    type: 'button', role: 'radio', 'aria-checked': checked ? 'true' : 'false',
-    class: cx('flex items-center gap-3 min-h-14 px-4 py-2.5 rounded-control border text-left transition-colors',
-      checked ? 'bg-brand-50 border-brand-500' : 'bg-white border-concrete-300 hover:bg-concrete-50'),
+    type: 'button', role: 'radio', 'aria-checked': checked ? 'true' : 'false', 'aria-label': `${d.label}: ${d.hint}`,
+    class: cx('relative flex flex-col items-center justify-center gap-0.5 min-h-[4.5rem] px-2 py-2.5 rounded-card border text-center transition-colors',
+      checked ? 'bg-brand-50 border-brand-500 ring-1 ring-brand-500' : 'bg-white border-concrete-300 hover:bg-concrete-50'),
     onClick: onSelect
   },
-    h('span', { class: cx('inline-flex items-center justify-center w-5 h-5 rounded-full border-2 shrink-0', checked ? 'border-brand-500' : 'border-concrete-300') },
-      checked ? h('span', { class: 'w-2.5 h-2.5 rounded-full bg-brand-500' }) : null
-    ),
-    h('span', { class: 'flex flex-col min-w-0' },
-      h('span', { class: cx('font-semibold', checked ? 'text-brand-600' : 'text-concrete-900') }, d.label),
-      h('span', { class: 'text-sm text-concrete-500' }, d.hint)
-    )
+    checked ? h('span', { class: 'absolute top-1.5 right-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-brand-500' }, Icon('check', { size: 11, color: '#fff' })) : null,
+    h('span', { class: cx('text-sm font-bold leading-tight', checked ? 'text-brand-600' : 'text-concrete-900') }, d.pick),
+    h('span', { class: 'text-xs text-concrete-500' }, d.pickSub)
   );
 }
 

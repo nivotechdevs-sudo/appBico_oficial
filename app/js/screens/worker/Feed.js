@@ -11,7 +11,9 @@ import { Sheet } from '../../components/Modal.js';
 import { JobTile } from '../../components/JobTile.js';
 import { Icon } from '../../utils/icons.js';
 import * as store from '../../store.js';
-import { LOCAIS_BAIRRO, TIPOS_SERVICO } from '../../data/seed.js';
+import { TIPOS_SERVICO } from '../../data/seed.js';
+import { Input } from '../../components/Input.js';
+import { searchCities, nearestCity } from '../../utils/cidades.js';
 
 const KEY = 'feed';
 
@@ -56,28 +58,33 @@ function tileGrid(navigate, role, jobs) {
   return h('div', { class: 'card-grid' }, ...jobs.map((j) => tileFor(navigate, role, j)));
 }
 
-const NO_FILTERS = { tipo: null, dist: 'Toda a cidade', quando: null };
+// Every seed job is in the city of São Paulo; a job may name another city in `city`.
+const DEFAULT_CITY = 'São Paulo, SP';
+const jobCity = (job) => job.city || DEFAULT_CITY;
+const NO_FILTERS = { tipo: null, dist: 'Toda a cidade', quando: null, location: DEFAULT_CITY };
 const SORTS = [{ id: 'perto', label: 'Mais perto' }, { id: 'valor', label: 'Maior valor' }, { id: 'cedo', label: 'Mais cedo' }];
 
 export default function renderFeed(navigate) {
   const role = store.getRole();
-  const ui = store.getUI(KEY, { search: '', location: 'Tatuapé, SP', filtersOpen: false, tipo: null, dist: 'Toda a cidade', quando: null, sort: 'perto', notifyUrgent: true });
+  const ui = store.getUI(KEY, { search: '', location: DEFAULT_CITY, filtersOpen: false, pickerOpen: false, cityQuery: '', geo: null, tipo: null, dist: 'Toda a cidade', quando: null, sort: 'perto', notifyUrgent: true });
   const open = store.activeJobs().filter((j) => !store.isJobClosed(j));
   const filtered = open.filter((j) => passesFilters(j, ui));
   return h('div', {},
     mobileFeed(navigate, role, ui, open, filtered),
     desktopFeed(navigate, role, ui, open, filtered),
     // One filter panel for both layouts: a bottom sheet on phones, a dialog on desktop.
-    filtersSheet(ui, open, filtered.length)
+    filtersSheet(ui, open, filtered.length),
+    cityPicker(ui)
   );
 }
 
 function passesFilters(j, ui) {
-  return (!ui.tipo || j.role === ui.tipo) && (ui.dist === 'Toda a cidade' || km(j.distance) <= parseInt(ui.dist.replace(/\D/g, ''), 10)) && matchesQuando(j, ui.quando);
+  return jobCity(j) === ui.location && (!ui.tipo || j.role === ui.tipo) && (ui.dist === 'Toda a cidade' || km(j.distance) <= parseInt(ui.dist.replace(/\D/g, ''), 10)) && matchesQuando(j, ui.quando);
 }
 
 function activeFilters(ui) {
   return [
+    ui.location !== DEFAULT_CITY ? { label: ui.location, icon: 'map-pin', remove: () => store.setUI(KEY, { location: DEFAULT_CITY }) } : null,
     ui.tipo ? { label: ui.tipo, icon: 'hard-hat', remove: () => store.setUI(KEY, { tipo: null }) } : null,
     ui.dist !== 'Toda a cidade' ? { label: ui.dist, icon: 'map-pin', remove: () => store.setUI(KEY, { dist: 'Toda a cidade' }) } : null,
     ui.quando ? { label: ui.quando, icon: 'calendar', remove: () => store.setUI(KEY, { quando: null }) } : null
@@ -89,11 +96,18 @@ function filtersSheet(ui, open, count) {
   return Sheet({ open: ui.filtersOpen, title: 'Filtros', onClose: () => set({ filtersOpen: false }) },
     h('div', { class: 'flex flex-col gap-2.5' },
       h('div', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500' }, 'Onde você quer trabalhar'),
-      h('div', { class: 'flex flex-wrap gap-2' },
-        Tag({ label: 'Usar minha localização', icon: 'locate-fixed', onClick: () => set({ location: 'Tatuapé, SP' }) }),
-        ...LOCAIS_BAIRRO.concat(['Toda São Paulo']).map((l) => Tag({ label: l, selected: ui.location === l, onClick: () => set({ location: l }) }))
-      ),
-      h('span', { class: 'text-xs text-concrete-500' }, 'A distância de cada bico é contada a partir daqui.')
+      h('button', {
+        type: 'button', 'aria-haspopup': 'dialog',
+        class: 'flex items-center gap-3 w-full p-3 rounded-card border border-concrete-300 bg-white text-left transition-colors hover:bg-concrete-50 hover:border-concrete-400',
+        onClick: () => set({ pickerOpen: true, cityQuery: '', geo: null })
+      },
+        h('span', { class: 'inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-50 shrink-0' }, Icon('map-pin', { size: 20, color: 'var(--brand)' })),
+        h('span', { class: 'flex-1 min-w-0 flex flex-col' },
+          h('span', { class: 'text-xs text-concrete-500' }, 'Cidade'),
+          h('span', { class: 'font-semibold text-concrete-900 truncate' }, ui.location)
+        ),
+        h('span', { class: 'inline-flex items-center gap-0.5 text-sm font-semibold text-brand-600 shrink-0' }, 'Escolher', Icon('chevron-right', { size: 16, color: 'var(--text-brand)' }))
+      )
     ),
     // The phone has these as a segmented control on the mural itself.
     h('div', { class: 'hidden lg:flex flex-col gap-2.5' },
@@ -101,7 +115,7 @@ function filtersSheet(ui, open, count) {
       h('div', { class: 'flex flex-wrap gap-2' }, ...SORTS.map((o) => Tag({ label: o.label, selected: ui.sort === o.id, onClick: () => set({ sort: o.id }) })))
     ),
     filterGroup('Tipo de serviço', TIPOS_SERVICO, ui.tipo, (v) => set({ tipo: ui.tipo === v ? null : v })),
-    filterGroup('Distância de ' + ui.location.split(',')[0], ['5', '10', '20', 'Toda a cidade'].map((d) => d === 'Toda a cidade' ? d : `Até ${d} km`), ui.dist, (v) => set({ dist: v })),
+    filterGroup('Distância do centro de ' + ui.location.split(',')[0], ['5', '10', '20', 'Toda a cidade'].map((d) => d === 'Toda a cidade' ? d : `Até ${d} km`), ui.dist, (v) => set({ dist: v })),
     filterGroup('Quando', ['Hoje', 'Amanhã', 'Durante a semana', 'Fim de semana'], ui.quando, (v) => set({ quando: ui.quando === v ? null : v })),
     h('div', { class: 'flex flex-col gap-1 pt-1 border-t border-concrete-200' },
       Switch({ label: 'Avisar quando aparecer bico novo', description: 'Chega uma notificação quando surgir vaga com esses filtros perto de você.', checked: ui.notifyUrgent, onChange: (v) => set({ notifyUrgent: v }) })
@@ -109,6 +123,51 @@ function filtersSheet(ui, open, count) {
     h('div', { class: 'flex gap-3 pt-1' },
       Button({ label: 'Limpar', variant: 'secondary', className: 'flex-1', onClick: () => set(NO_FILTERS) }),
       Button({ label: `Ver ${count === 1 ? '1 vaga' : count + ' vagas'}`, className: 'flex-[1.4]', onClick: () => set({ filtersOpen: false }) })
+    )
+  );
+}
+
+// "Onde você quer trabalhar": GPS or typing any Brazilian city. Opens over the filters.
+function cityPicker(ui) {
+  const set = (patch) => store.setUI(KEY, patch);
+  const choose = (label) => set({ location: label, pickerOpen: false, cityQuery: '', geo: null });
+  const useMyLocation = () => {
+    if (!navigator.geolocation) { set({ geo: 'error' }); return; }
+    set({ geo: 'loading' });
+    navigator.geolocation.getCurrentPosition(
+      (pos) => { const c = nearestCity(pos.coords.latitude, pos.coords.longitude); if (c) choose(c.label); else set({ geo: 'error' }); },
+      (err) => set({ geo: err && err.code === 1 ? 'denied' : 'error' }),
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
+    );
+  };
+  const q = ui.cityQuery.trim();
+  const results = ui.pickerOpen ? searchCities(q, 8) : [];
+  const geoMsg = ui.geo === 'denied' ? 'Seu navegador não liberou a localização. Digite a cidade abaixo.'
+    : ui.geo === 'error' ? 'Não conseguimos achar sua localização agora. Digite a cidade abaixo.' : null;
+
+  return Sheet({ open: ui.pickerOpen, title: 'Onde você quer trabalhar', onClose: () => set({ pickerOpen: false, geo: null }) },
+    Button({ label: ui.geo === 'loading' ? 'Buscando sua localização…' : 'Usar minha localização', variant: 'secondary', fullWidth: true, iconLeft: 'locate-fixed', loading: ui.geo === 'loading', onClick: useMyLocation }),
+    geoMsg ? h('span', { class: 'flex items-start gap-2 text-sm text-concrete-700 -mt-1' }, Icon('circle-alert', { size: 16, color: 'var(--amber-500)' }), geoMsg) : null,
+    h('div', { class: 'flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.08em] text-concrete-400' },
+      h('span', { class: 'flex-1 h-px bg-concrete-200' }), 'ou', h('span', { class: 'flex-1 h-px bg-concrete-200' })
+    ),
+    Input({ id: 'city-search', placeholder: 'Digite o nome da cidade', icon: 'search', value: ui.cityQuery, autoFocus: true, onInput: (v) => set({ cityQuery: v }) }),
+    h('div', { class: 'flex flex-col gap-1' },
+      h('span', { class: 'text-xs font-bold tracking-[0.08em] uppercase text-concrete-500 pb-1' }, q ? 'Cidades encontradas' : 'Cidades mais procuradas'),
+      results.length
+        ? h('div', { class: 'flex flex-col', role: 'listbox', 'aria-label': 'Cidades' }, ...results.map((c) => {
+            const active = c.label === ui.location;
+            return h('button', {
+              type: 'button', role: 'option', 'aria-selected': active ? 'true' : 'false',
+              class: cx('flex items-center gap-3 min-h-12 px-2 -mx-2 rounded-control text-left transition-colors hover:bg-concrete-50', active ? 'text-brand-600' : 'text-concrete-900'),
+              onClick: () => choose(c.label)
+            },
+              Icon('map-pin', { size: 18, color: active ? 'var(--brand)' : 'var(--text-subtle)' }),
+              h('span', { class: 'flex-1 min-w-0 truncate' }, h('span', { class: 'font-semibold' }, c.name), h('span', { class: 'text-concrete-500' }, ' · ' + c.uf)),
+              active ? Icon('check', { size: 18, color: 'var(--brand)' }) : null
+            );
+          }))
+        : h('span', { class: 'py-3 text-sm text-concrete-500' }, `Nenhuma cidade com “${q}”. Confira a grafia.`)
     )
   );
 }
@@ -181,7 +240,7 @@ function mobileFeed(navigate, role, ui, openJobs, filtered) {
     }, o.label))),
     ordered.length
       ? tileGrid(navigate, role, ordered)
-      : EmptyState({ icon: 'search-x', title: 'Nenhuma vaga com esse filtro', description: 'Tire um filtro ou aumente a distância para ver mais bicos.', actionLabel: 'Limpar filtros', onAction: () => store.setUI(KEY, NO_FILTERS) })
+      : noJobsState(ui)
   );
 
   return h('div', { class: 'flex flex-col lg:hidden' },
@@ -204,7 +263,7 @@ function desktopFeed(navigate, role, ui, open, filtered) {
     ) : null,
     filtered.length
       ? tileGrid(navigate, role, orderJobs(filtered, role, ui.sort))
-      : EmptyState({ icon: 'search-x', title: 'Nenhuma vaga com esse filtro', description: 'Tire um filtro ou aumente a distância para ver mais bicos.', actionLabel: 'Limpar filtros', onAction: () => store.setUI(KEY, NO_FILTERS) })
+      : noJobsState(ui)
   );
   const body = q ? desktopSearchResults(navigate, role, ui, open) : browse;
   const count = chips.length;
@@ -310,6 +369,13 @@ function desktopSearchResults(navigate, role, ui, open) {
       onClick: role === 'recrutador' ? () => navigate('/trabalhador/' + w.id) : null
     })))) : null
   );
+}
+
+function noJobsState(ui) {
+  if (ui.location !== DEFAULT_CITY) {
+    return EmptyState({ icon: 'map-pin', title: `Ainda não tem bico em ${ui.location.split(',')[0]}`, description: 'Assim que uma construtora publicar uma vaga nessa cidade, ela aparece aqui.', actionLabel: `Ver bicos em ${DEFAULT_CITY.split(',')[0]}`, onAction: () => store.setUI(KEY, { location: DEFAULT_CITY }) });
+  }
+  return EmptyState({ icon: 'search-x', title: 'Nenhuma vaga com esse filtro', description: 'Tire um filtro ou aumente a distância para ver mais bicos.', actionLabel: 'Limpar filtros', onAction: () => store.setUI(KEY, NO_FILTERS) });
 }
 
 function filterGroup(title, options, active, onSelect) {

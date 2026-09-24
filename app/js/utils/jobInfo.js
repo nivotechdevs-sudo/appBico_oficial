@@ -3,9 +3,10 @@
 // the job can happen on.
 
 export const DIAS = {
-  semana: { label: 'Durante a semana', short: 'Seg a sex', hint: 'De segunda a sexta' },
-  fimdesemana: { label: 'No fim de semana', short: 'Sáb e dom', hint: 'Sábado e domingo' },
-  qualquer: { label: 'Qualquer dia', short: 'Qualquer dia', hint: 'Semana ou fim de semana' }
+  // label/hint: job page; short: tiles; pick/pickSub: the three cards in the publish form.
+  semana: { label: 'Durante a semana', short: 'Seg a sex', hint: 'De segunda a sexta', pick: 'Semana', pickSub: 'Seg a sex' },
+  fimdesemana: { label: 'No fim de semana', short: 'Sáb e dom', hint: 'Sábado e domingo', pick: 'Fim de semana', pickSub: 'Sáb e dom' },
+  qualquer: { label: 'Qualquer dia', short: 'Qualquer dia', hint: 'Semana ou fim de semana', pick: 'Qualquer dia', pickSub: 'Seg a dom' }
 };
 export const DIAS_ORDEM = ['semana', 'fimdesemana', 'qualquer'];
 

@@ -14,9 +14,10 @@ const TONE_COLOR = { brand: 'var(--text-brand)', success: 'var(--green-500)', wa
  * hours; pay) — no card chrome. Every row truncates, so all tiles in a grid are exactly
  * the same size whatever their content. `badge` ({ label, icon, tone }) shows a status on
  * the photo (used on "Minhas candidaturas"); `muted` greys out a closed one; `footer` is
- * an action under the text (e.g. the WhatsApp button).
+ * an action under the text (e.g. the WhatsApp button); `corner` replaces the save flag in
+ * the photo's top-right corner with another action (e.g. delete, on the company's own posts).
  */
-export function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, footer = null }) {
+export function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, footer = null, corner = null }) {
   const bairro = String(job.location || '').split(',')[0];
   const dias = diasInfo(job);
   const where = [bairro, dias && dias.short].filter(Boolean).join(' · ');
@@ -36,7 +37,8 @@ export function JobTile({ job, company, onClick, badge = null, mine = false, mut
       badge ? pill([badge.icon ? Icon(badge.icon, { size: 12, color: TONE_COLOR[badge.tone] || TONE_COLOR.neutral }) : null, badge.label]) : null,
       mine ? pill('Sua vaga', 'text-brand-600') : null
     ),
-    onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
+    corner ? h('div', { class: 'absolute top-2 right-2 z-10', onClick: (e) => e.stopPropagation() }, corner)
+      : onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
   );
 
   const text = h('div', { class: 'flex flex-col pt-2 sm:pt-2.5 text-[0.8125rem] sm:text-sm leading-[1.35]' },

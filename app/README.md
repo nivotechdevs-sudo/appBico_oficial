@@ -49,6 +49,9 @@ the page is opened via `file://` (no server = no origin to satisfy the module lo
   job page, which opens on the photo last shown on the tile.
 - `js/utils/jobInfo.js` — how a job's schedule reads everywhere: date and hours are
   optional ("a combinar"), and `dias` is one of weekdays / weekend / any day.
+- `js/data/cidades.js` + `js/utils/cidades.js` — every Brazilian municipality (IBGE data
+  via the MIT-licensed `municipios-br` package) for the "Onde você quer trabalhar" picker:
+  accent-insensitive search, and nearest city from the browser's GPS position, offline.
 - `img/jobs/` — sample job photos used by a few seed jobs, rendered by
   `scripts/gen-job-photos.cjs` (illustrated scenes, so no third-party image licences).
 - `js/screens/{shared,worker,recruiter}/` — one file per screen, composed out of the

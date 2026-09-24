@@ -117,10 +117,10 @@ export function PhotoCarousel({ job, className = 'h-56 sm:h-72 lg:h-[26rem] roun
   );
 }
 
-/** Editable grid of a job's photos (first one is the cover), with an "add" tile. */
+/** Editable row of a job's photos (first one is the cover) plus an "add" tile, centred. */
 export function PhotoManager({ photos, onChange, max = 6 }) {
   const add = h('label', {
-    class: 'relative aspect-square flex flex-col items-center justify-center gap-1.5 rounded-control border-2 border-dashed border-concrete-300 bg-concrete-25 text-concrete-500 cursor-pointer transition-colors hover:border-brand-400 hover:text-brand-600'
+    class: 'relative w-[6.75rem] sm:w-32 aspect-square flex flex-col items-center justify-center gap-1.5 rounded-card border-2 border-dashed border-concrete-300 bg-concrete-25 text-concrete-500 cursor-pointer transition-colors hover:border-brand-400 hover:text-brand-600'
   },
     h('input', {
       type: 'file', accept: 'image/*', multiple: true, class: 'sr-only',
@@ -133,8 +133,8 @@ export function PhotoManager({ photos, onChange, max = 6 }) {
     h('span', { class: 'text-xs font-semibold text-center px-2' }, photos.length ? 'Adicionar foto' : 'Escolher fotos')
   );
 
-  return h('div', { class: 'grid grid-cols-3 sm:grid-cols-4 gap-2' },
-    ...photos.map((src, i) => h('div', { class: 'relative aspect-square rounded-control overflow-hidden bg-concrete-200' },
+  return h('div', { class: 'flex flex-wrap justify-center gap-2.5' },
+    ...photos.map((src, i) => h('div', { class: 'relative w-[6.75rem] sm:w-32 aspect-square rounded-card overflow-hidden bg-concrete-200 shadow-card' },
       h('img', { src, alt: `Foto ${i + 1}`, class: 'w-full h-full object-cover' }),
       i === 0 ? h('span', { class: 'absolute bottom-1.5 left-1.5 px-2 h-5 inline-flex items-center rounded-full bg-black/60 text-white text-[0.625rem] font-bold uppercase tracking-wide' }, 'Capa') : null,
       h('button', {
