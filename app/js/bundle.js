@@ -1446,13 +1446,12 @@
       { class: cx("app-header hidden lg:block sticky top-0 z-30 page-x pt-3 pb-2 pointer-events-none", window.scrollY > 8 ? "is-scrolled" : "") },
       h(
         "div",
-        { class: "app-island pointer-events-auto h-[4.25rem] flex items-center gap-5 xl:gap-7 pl-3 pr-2.5 rounded-full" },
-        logo,
-        h("span", { class: "w-px h-7 bg-concrete-900/10", "aria-hidden": "true" }),
+        { class: "app-island pointer-events-auto h-[4.25rem] grid grid-cols-[1fr_auto_1fr] items-center gap-6 pl-3 pr-2.5 rounded-full" },
+        h("div", { class: "flex items-center min-w-0" }, logo),
         tabs,
         h(
           "div",
-          { class: "flex-1 flex items-center justify-end gap-2" },
+          { class: "flex items-center justify-end gap-2" },
           bell,
           h("div", { class: "relative" }, menuButton, ...dropdown)
         )

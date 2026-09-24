@@ -195,14 +195,14 @@ function topBar({ role, items, active, navigate, notifications, account }) {
     )
   ] : [];
 
-  // A floating frosted island (the desktop sibling of the phone's tab bar): logo and tabs
-  // on the left, notifications and account on the right. Content scrolls underneath it.
+  // Logo on the left, tabs centred, notifications and account on the right. At the top of
+  // the page it sits flat on the page; once you scroll it lifts into a floating frosted
+  // island (the desktop sibling of the phone's tab bar), and settles back at the top.
   return h('header', { class: cx('app-header hidden lg:block sticky top-0 z-30 page-x pt-3 pb-2 pointer-events-none', window.scrollY > 8 ? 'is-scrolled' : '') },
-    h('div', { class: 'app-island pointer-events-auto h-[4.25rem] flex items-center gap-5 xl:gap-7 pl-3 pr-2.5 rounded-full' },
-      logo,
-      h('span', { class: 'w-px h-7 bg-concrete-900/10', 'aria-hidden': 'true' }),
+    h('div', { class: 'app-island pointer-events-auto h-[4.25rem] grid grid-cols-[1fr_auto_1fr] items-center gap-6 pl-3 pr-2.5 rounded-full' },
+      h('div', { class: 'flex items-center min-w-0' }, logo),
       tabs,
-      h('div', { class: 'flex-1 flex items-center justify-end gap-2' },
+      h('div', { class: 'flex items-center justify-end gap-2' },
         bell,
         h('div', { class: 'relative' }, menuButton, ...dropdown)
       )

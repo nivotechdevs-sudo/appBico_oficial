@@ -88,14 +88,21 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 
 .app-island {
-  background: rgba(255, 255, 255, 0.72);
-  -webkit-backdrop-filter: blur(18px) saturate(1.8);
-  backdrop-filter: blur(18px) saturate(1.8);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 0 1px rgba(16, 20, 24, 0.06), 0 8px 28px rgba(16, 20, 24, 0.08);
-  transition: box-shadow 200ms ease, background-color 200ms ease;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0);
+  -webkit-backdrop-filter: blur(0) saturate(1);
+  backdrop-filter: blur(0) saturate(1);
+  box-shadow: 0 0 0 0 rgba(16, 20, 24, 0), 0 0 0 rgba(16, 20, 24, 0);
+  transform: translateY(0);
+  transition: background-color 320ms ease, border-color 320ms ease, box-shadow 320ms ease,
+    backdrop-filter 320ms ease, -webkit-backdrop-filter 320ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .app-header.is-scrolled .app-island {
-  background: rgba(255, 255, 255, 0.66);
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(18px) saturate(1.8);
+  backdrop-filter: blur(18px) saturate(1.8);
   box-shadow: 0 0 0 1px rgba(16, 20, 24, 0.07), 0 12px 36px rgba(16, 20, 24, 0.14);
+  transform: translateY(2px);
 }
+@media (prefers-reduced-motion: reduce) { .app-island { transition: none; } }
