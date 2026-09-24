@@ -105,12 +105,12 @@ function build(m, path) {
 
   const showMobileNav = TAB_ROOTS[role] && TAB_ROOTS[role].has(path);
   const nav = AppNav({
-    role, active: activeId, navigate, showMobilePill: showMobileNav, flush: isMural,
+    role, active: activeId, navigate, showMobilePill: showMobileNav,
     notifications: role === 'recrutador' ? 3 : 2, account: accountSummary(role)
   });
 
   const shell = document.createElement('div');
-  shell.className = 'lg:flex lg:flex-col lg:min-h-screen';
+  shell.className = cx('lg:flex lg:flex-col lg:min-h-screen', isMural ? 'bg-white' : '');
   shell.appendChild(nav);
   const main = document.createElement('main');
   main.className = cx(

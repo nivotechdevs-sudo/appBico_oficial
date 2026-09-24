@@ -105,7 +105,7 @@ function placeIndicator(animate) {
  * desktop (>= 770px) a full-width top bar with the logo, the same tabs centered, and
  * notifications + account menu on the right.
  */
-export function AppNav({ role, active, navigate, showMobilePill = true, flush = false, notifications = 0, account = {} }) {
+export function AppNav({ role, active, navigate, showMobilePill = true, notifications = 0, account = {} }) {
   const items = ITEMS[role] || ITEMS.trabalhador;
 
   const mobile = showMobilePill ? h('nav', {
@@ -123,7 +123,7 @@ export function AppNav({ role, active, navigate, showMobilePill = true, flush = 
   ) : null;
   if (mobile) requestAnimationFrame(() => placePillDot(true));
 
-  return h('div', { class: 'contents' }, mobile, topBar({ role, items, active, navigate, flush, notifications, account }));
+  return h('div', { class: 'contents' }, mobile, topBar({ role, items, active, navigate, notifications, account }));
 }
 
 function navPill(it, active, navigate) {
@@ -137,11 +137,11 @@ function navPill(it, active, navigate) {
   );
 }
 
-function topBar({ role, items, active, navigate, flush, notifications, account }) {
+function topBar({ role, items, active, navigate, notifications, account }) {
   const menu = getUI(MENU_KEY, { menuOpen: false });
   const go = (path) => { setUI(MENU_KEY, { menuOpen: false }); navigate(path); };
 
-  const logo = h('button', { type: 'button', class: 'inline-flex items-center rounded-control', 'aria-label': 'Bicos, ir para o início', onClick: () => go('/mural') }, Logo());
+  const logo = h('button', { type: 'button', class: 'inline-flex items-center pl-1 rounded-full outline-none focus-visible:ring-4 focus-visible:ring-brand-100', 'aria-label': 'Bicos, ir para o início', onClick: () => go('/mural') }, Logo());
 
   // One shared underline for the tabs, just under the icons; it slides between tabs.
   const indicator = h('span', {
@@ -157,7 +157,7 @@ function topBar({ role, items, active, navigate, flush, notifications, account }
 
   const bell = h('button', {
     type: 'button', 'aria-label': notifications ? `Notificações, ${notifications} novas` : 'Notificações', title: 'Notificações',
-    class: 'relative inline-flex items-center justify-center w-10 h-10 rounded-full bg-concrete-100 text-concrete-900 transition-colors hover:bg-concrete-200',
+    class: 'relative inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/70 text-concrete-900 ring-1 ring-concrete-900/5 transition-colors hover:bg-white',
     onClick: () => go('/notificacoes')
   },
     Icon('bell', { size: 18 }),
@@ -171,7 +171,7 @@ function topBar({ role, items, active, navigate, flush, notifications, account }
 
   const menuButton = h('button', {
     type: 'button', 'aria-label': 'Menu da conta', 'aria-haspopup': 'menu', 'aria-expanded': menu.menuOpen ? 'true' : 'false',
-    class: cx('inline-flex items-center gap-2.5 h-11 pl-3.5 pr-1.5 rounded-full border bg-white transition-shadow hover:shadow-raised', menu.menuOpen ? 'border-concrete-300 shadow-raised' : 'border-concrete-200'),
+    class: cx('inline-flex items-center gap-2.5 h-11 pl-3.5 pr-1.5 rounded-full border bg-white/80 transition-shadow hover:bg-white hover:shadow-raised', menu.menuOpen ? 'border-concrete-300 shadow-raised' : 'border-concrete-200'),
     onClick: () => setUI(MENU_KEY, { menuOpen: !menu.menuOpen })
   }, Icon('menu', { size: 18, color: 'var(--gray-700)' }), avatar);
 
@@ -195,11 +195,14 @@ function topBar({ role, items, active, navigate, flush, notifications, account }
     )
   ] : [];
 
-  return h('header', { class: cx('app-header hidden lg:block sticky top-0 z-30 bg-white transition-shadow', flush ? '' : 'border-b border-concrete-200', window.scrollY > 8 ? 'is-scrolled' : '') },
-    h('div', { class: 'page-x h-20 flex items-center gap-6' },
-      h('div', { class: 'flex-1 min-w-0 flex items-center' }, logo),
+  // A floating frosted island (the desktop sibling of the phone's tab bar): logo and tabs
+  // on the left, notifications and account on the right. Content scrolls underneath it.
+  return h('header', { class: cx('app-header hidden lg:block sticky top-0 z-30 page-x pt-3 pb-2 pointer-events-none', window.scrollY > 8 ? 'is-scrolled' : '') },
+    h('div', { class: 'app-island pointer-events-auto h-[4.25rem] flex items-center gap-5 xl:gap-7 pl-3 pr-2.5 rounded-full' },
+      logo,
+      h('span', { class: 'w-px h-7 bg-concrete-900/10', 'aria-hidden': 'true' }),
       tabs,
-      h('div', { class: 'flex-1 flex items-center justify-end gap-2.5' },
+      h('div', { class: 'flex-1 flex items-center justify-end gap-2' },
         bell,
         h('div', { class: 'relative' }, menuButton, ...dropdown)
       )

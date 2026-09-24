@@ -1337,7 +1337,7 @@
     bar.style.opacity = "1";
     lastIndicator = target;
   }
-  function AppNav({ role, active, navigate: navigate2, showMobilePill = true, flush = false, notifications = 0, account = {} }) {
+  function AppNav({ role, active, navigate: navigate2, showMobilePill = true, notifications = 0, account = {} }) {
     const items = ITEMS[role] || ITEMS.trabalhador;
     const mobile = showMobilePill ? h(
       "nav",
@@ -1355,7 +1355,7 @@
       ...items.map((it) => navPill(it, active, navigate2))
     ) : null;
     if (mobile) requestAnimationFrame(() => placePillDot(true));
-    return h("div", { class: "contents" }, mobile, topBar({ role, items, active, navigate: navigate2, flush, notifications, account }));
+    return h("div", { class: "contents" }, mobile, topBar({ role, items, active, navigate: navigate2, notifications, account }));
   }
   function navPill(it, active, navigate2) {
     const isActive = active === it.id;
@@ -1371,13 +1371,13 @@
       Icon(it.icon, { size: 22, color: isActive ? "#fff" : "var(--gray-500)" })
     );
   }
-  function topBar({ role, items, active, navigate: navigate2, flush, notifications, account }) {
+  function topBar({ role, items, active, navigate: navigate2, notifications, account }) {
     const menu = getUI(MENU_KEY, { menuOpen: false });
     const go = (path) => {
       setUI(MENU_KEY, { menuOpen: false });
       navigate2(path);
     };
-    const logo = h("button", { type: "button", class: "inline-flex items-center rounded-control", "aria-label": "Bicos, ir para o in\xEDcio", onClick: () => go("/mural") }, Logo());
+    const logo = h("button", { type: "button", class: "inline-flex items-center pl-1 rounded-full outline-none focus-visible:ring-4 focus-visible:ring-brand-100", "aria-label": "Bicos, ir para o in\xEDcio", onClick: () => go("/mural") }, Logo());
     const indicator = h("span", {
       "aria-hidden": "true",
       class: "nav-indicator pointer-events-none absolute left-0 top-[calc(100%+0.375rem)] h-[2px] rounded-full bg-brand-500",
@@ -1396,7 +1396,7 @@
         type: "button",
         "aria-label": notifications ? `Notifica\xE7\xF5es, ${notifications} novas` : "Notifica\xE7\xF5es",
         title: "Notifica\xE7\xF5es",
-        class: "relative inline-flex items-center justify-center w-10 h-10 rounded-full bg-concrete-100 text-concrete-900 transition-colors hover:bg-concrete-200",
+        class: "relative inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/70 text-concrete-900 ring-1 ring-concrete-900/5 transition-colors hover:bg-white",
         onClick: () => go("/notificacoes")
       },
       Icon("bell", { size: 18 }),
@@ -1412,7 +1412,7 @@
       "aria-label": "Menu da conta",
       "aria-haspopup": "menu",
       "aria-expanded": menu.menuOpen ? "true" : "false",
-      class: cx("inline-flex items-center gap-2.5 h-11 pl-3.5 pr-1.5 rounded-full border bg-white transition-shadow hover:shadow-raised", menu.menuOpen ? "border-concrete-300 shadow-raised" : "border-concrete-200"),
+      class: cx("inline-flex items-center gap-2.5 h-11 pl-3.5 pr-1.5 rounded-full border bg-white/80 transition-shadow hover:bg-white hover:shadow-raised", menu.menuOpen ? "border-concrete-300 shadow-raised" : "border-concrete-200"),
       onClick: () => setUI(MENU_KEY, { menuOpen: !menu.menuOpen })
     }, Icon("menu", { size: 18, color: "var(--gray-700)" }), avatar);
     const dropdown = menu.menuOpen ? [
@@ -1443,15 +1443,16 @@
     ] : [];
     return h(
       "header",
-      { class: cx("app-header hidden lg:block sticky top-0 z-30 bg-white transition-shadow", flush ? "" : "border-b border-concrete-200", window.scrollY > 8 ? "is-scrolled" : "") },
+      { class: cx("app-header hidden lg:block sticky top-0 z-30 page-x pt-3 pb-2 pointer-events-none", window.scrollY > 8 ? "is-scrolled" : "") },
       h(
         "div",
-        { class: "page-x h-20 flex items-center gap-6" },
-        h("div", { class: "flex-1 min-w-0 flex items-center" }, logo),
+        { class: "app-island pointer-events-auto h-[4.25rem] flex items-center gap-5 xl:gap-7 pl-3 pr-2.5 rounded-full" },
+        logo,
+        h("span", { class: "w-px h-7 bg-concrete-900/10", "aria-hidden": "true" }),
         tabs,
         h(
           "div",
-          { class: "flex-1 flex items-center justify-end gap-2.5" },
+          { class: "flex-1 flex items-center justify-end gap-2" },
           bell,
           h("div", { class: "relative" }, menuButton, ...dropdown)
         )
@@ -5541,12 +5542,11 @@
       active: activeId,
       navigate,
       showMobilePill: showMobileNav,
-      flush: isMural,
       notifications: role === "recrutador" ? 3 : 2,
       account: accountSummary(role)
     });
     const shell2 = document.createElement("div");
-    shell2.className = "lg:flex lg:flex-col lg:min-h-screen";
+    shell2.className = cx("lg:flex lg:flex-col lg:min-h-screen", isMural ? "bg-white" : "");
     shell2.appendChild(nav);
     const main = document.createElement("main");
     main.className = cx(
