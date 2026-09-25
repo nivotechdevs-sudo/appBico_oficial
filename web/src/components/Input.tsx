@@ -3,7 +3,7 @@ import { useTextField } from '../hooks/useTextField';
 import { cx } from '../utils/cx';
 import { Icon } from './icons/Icon';
 
-export interface InputProps {
+interface InputProps {
   id?: string;
   label?: string;
   placeholder?: string;
@@ -16,7 +16,6 @@ export interface InputProps {
   inputMode?: HTMLAttributes<HTMLInputElement>['inputMode'];
   mono?: boolean;
   suffix?: string;
-  disabled?: boolean;
   autoFocus?: boolean;
   /** Red border only, for fields that share one message with a neighbour. */
   invalid?: boolean;
@@ -36,7 +35,6 @@ export function Input({
   inputMode,
   mono = false,
   suffix,
-  disabled = false,
   autoFocus = false,
   invalid = false
 }: InputProps) {
@@ -67,7 +65,6 @@ export function Input({
           type={type}
           placeholder={placeholder}
           inputMode={inputMode || undefined}
-          disabled={disabled}
           className={cx(
             'flex-1 min-w-0 h-11 bg-transparent outline-none text-base text-concrete-900 placeholder:text-concrete-400',
             mono ? 'font-mono' : ''
@@ -89,7 +86,7 @@ export function Input({
   );
 }
 
-export interface PasswordInputProps {
+interface PasswordInputProps {
   id?: string;
   label?: string;
   placeholder?: string;

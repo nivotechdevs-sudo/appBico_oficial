@@ -25,7 +25,7 @@ export function isValidEmail(v: string | null | undefined): boolean {
 }
 
 /** 0 = empty, 1 = weak, 2 = medium, 3 = strong. */
-export type PasswordStrength = 0 | 1 | 2 | 3;
+type PasswordStrength = 0 | 1 | 2 | 3;
 
 export function passwordStrength(v: string | null | undefined): PasswordStrength {
   const s = String(v || '');

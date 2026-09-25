@@ -4,7 +4,7 @@ import { cx } from '../utils/cx';
 import { IconButton } from './IconButton';
 import { Rating } from './Rating';
 
-export interface CandidateRowProps {
+interface CandidateRowProps {
   worker: Worker;
   summary: string;
   distance: string;

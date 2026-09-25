@@ -159,7 +159,7 @@ export interface AccountSummary {
   photo?: string | null;
 }
 
-export interface AppNavProps {
+interface AppNavProps {
   role: Role;
   active: string | null;
   showMobilePill?: boolean;

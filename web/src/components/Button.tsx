@@ -17,10 +17,10 @@ const SIZES = {
   lg: 'h-14 px-5 text-base gap-2'
 };
 
-export type ButtonVariant = keyof typeof VARIANTS;
-export type ButtonSize = keyof typeof SIZES;
+type ButtonVariant = keyof typeof VARIANTS;
+type ButtonSize = keyof typeof SIZES;
 
-export interface ButtonProps {
+interface ButtonProps {
   label: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -32,7 +32,6 @@ export interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  type?: 'button' | 'submit' | 'reset';
   className?: string;
 }
 
@@ -47,12 +46,11 @@ export function Button({
   disabled = false,
   loading = false,
   onClick,
-  type = 'button',
   className = ''
 }: ButtonProps) {
   return (
     <button
-      type={type}
+      type="button"
       disabled={disabled || loading}
       aria-busy={loading ? 'true' : undefined}
       className={cx(

@@ -54,24 +54,9 @@ button {
   display: none !important;
 }
 
-.font-display {
-  font-family: var(--font-display);
-}
-.font-mono {
-  font-family: var(--font-mono);
-}
-
 @keyframes bicos-spin {
   to {
     transform: rotate(360deg);
-  }
-}
-@keyframes bicos-shine {
-  0% {
-    background-position: -180% 0;
-  }
-  100% {
-    background-position: 180% 0;
   }
 }
 @keyframes bicos-slide-up {
@@ -101,12 +86,6 @@ button {
 }
 .animate-fade-in {
   animation: bicos-fade-in var(--dur-normal) var(--ease-standard);
-}
-
-.skeleton {
-  background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 37%, var(--skeleton-base) 63%);
-  background-size: 400% 100%;
-  animation: bicos-shine 1.4s ease infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

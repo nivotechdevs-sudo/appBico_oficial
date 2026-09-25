@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Button } from './Button';
 import { Icon } from './icons/Icon';
 
-export interface DialogProps {
+interface DialogProps {
   open: boolean;
   tone?: 'default' | 'danger';
   title: string;
@@ -53,16 +53,15 @@ export function Dialog({
   );
 }
 
-export interface SheetProps {
+interface SheetProps {
   open: boolean;
   title: string;
   onClose: () => void;
-  maxHeight?: string;
   children?: ReactNode;
 }
 
 /** Bottom sheet on phones, centred dialog on tablet/desktop: filters, location picker, composer. */
-export function Sheet({ open, title, onClose, maxHeight = '85vh', children }: SheetProps) {
+export function Sheet({ open, title, onClose, children }: SheetProps) {
   if (!open) return null;
   return (
     <div
@@ -72,7 +71,7 @@ export function Sheet({ open, title, onClose, maxHeight = '85vh', children }: Sh
     >
       <div
         className="w-full sm:max-w-app lg:max-w-[34rem] bg-white rounded-t-sheet lg:rounded-sheet shadow-sheet p-4 lg:p-6 flex flex-col gap-4 overflow-y-auto animate-slide-up"
-        style={{ maxHeight }}
+        style={{ maxHeight: '85vh' }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">

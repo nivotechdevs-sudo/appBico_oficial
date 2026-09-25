@@ -112,7 +112,6 @@ describe('store business rules (legacy vs React)', () => {
       s.toggleSavedJob('BC-4841');
       s.toggleSavedJob('BC-5010');
       s.deleteJobPost('BC-5025');
-      s.markConcluded('BC-4712', 'jorge');
       s.markReviewed('BC-4703', 'jorge');
       s.createJob(JSON.parse(JSON.stringify(job)));
       s.updateJob('BC-5500', { boosted: true, urgent: true });

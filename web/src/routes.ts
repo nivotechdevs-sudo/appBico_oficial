@@ -5,7 +5,7 @@ import type { ScreenProps } from './types/screen';
 type ScreenModule = { default: ComponentType<ScreenProps> };
 type Loader = () => Promise<ScreenModule>;
 
-export interface Screen {
+interface Screen {
   Component: ComponentType<ScreenProps>;
   /** Starts (or reuses) the download of the screen's chunk. */
   preload: () => Promise<ScreenModule>;

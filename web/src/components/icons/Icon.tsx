@@ -7,17 +7,15 @@ import { ICON_DATA } from './iconData';
 // inline SVG markup. The SVGs are inlined as data: URIs (not referenced by path) because
 // `mask-image` triggers a CORS check even for same-directory files under file://.
 
-export interface IconProps {
+interface IconProps {
   name: string;
   size?: number;
   color?: string;
   className?: string;
-  /** Accessible name; without it the icon is decorative (aria-hidden). */
-  label?: string;
   onClick?: MouseEventHandler<HTMLSpanElement>;
 }
 
-export function Icon({ name, size = 20, color, className = '', label, onClick }: IconProps) {
+export function Icon({ name, size = 20, color, className = '', onClick }: IconProps) {
   const url = ICON_DATA[name];
   const style: CSSProperties = {
     width: rem(size),
@@ -29,16 +27,7 @@ export function Icon({ name, size = 20, color, className = '', label, onClick }:
   // Unknown icon names (e.g. the password field's eye/eye-off, which were never vendored) render as
   // an empty, transparent box — same as the legacy app.
   if (!url) style.backgroundColor = 'transparent';
-  return (
-    <span
-      className={`icon shrink-0 ${className}`}
-      style={style}
-      role={label ? 'img' : undefined}
-      aria-label={label}
-      aria-hidden={label ? undefined : 'true'}
-      onClick={onClick}
-    />
-  );
+  return <span className={`icon shrink-0 ${className}`} style={style} aria-hidden="true" onClick={onClick} />;
 }
 
 /**

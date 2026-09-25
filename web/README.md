@@ -45,7 +45,7 @@ src/
   data/                 seed (dados de demonstração), cidades (IBGE)
   types/                modelos do domínio (Job, Company, Worker, Application, …)
   utils/                formatação/máscaras, textos de agenda, cidades, WhatsApp, status de candidatura
-  styles/               tokens.css, base.css e tailwind.css (idênticos ao legado)
+  styles/               tokens.css, base.css e tailwind.css (os do legado, só com os tokens e regras que o app usa)
 public/img/jobs/        fotos de exemplo das vagas
 scripts/parity/         harness de paridade legado × React
 docs/                   MAPEAMENTO.md (levantamento do legado) e VALIDACAO.md (checklist e resultados)
@@ -54,9 +54,10 @@ docs/                   MAPEAMENTO.md (levantamento do legado) e VALIDACAO.md (c
 ## Decisões
 
 - **Estilo**: Tailwind CSS 3.4.19 com o _mesmo_ `tailwind.config` do legado, `tokens.css` e `base.css`
-  copiados sem alteração, e as mesmas classes em cada elemento. O CSS gerado tem as mesmas regras
-  do legado (o autoprefixer é o mesmo que o CLI do Tailwind usava). Isso garante identidade visual
-  sem reescrever valores em CSS Modules/styled-components.
+  copiados do legado (sem os tokens e regras que nenhum elemento usa — o conjunto completo de tokens
+  continua em `../app/css/tokens.css`), e as mesmas classes em cada elemento. O CSS gerado tem as
+  mesmas regras do legado (o autoprefixer é o mesmo que o CLI do Tailwind usava). Isso garante
+  identidade visual sem reescrever valores em CSS Modules/styled-components.
 - **Estado**: `services/store.ts` reproduz o store em memória do legado — dados (`db`), papel logado
   (`role`) e o "saco" de estado de UI por tela (`ui`), que sobrevive à navegação como antes. As
   atualizações são imutáveis e os componentes assinam só a fatia que leem (`useSyncExternalStore`),

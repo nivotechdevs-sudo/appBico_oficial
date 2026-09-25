@@ -1,6 +1,6 @@
 import { Icon } from './icons/Icon';
 
-export interface RatingProps {
+interface RatingProps {
   value?: number;
   count?: number | null;
   showValue?: boolean;

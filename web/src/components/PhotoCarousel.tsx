@@ -9,9 +9,9 @@ import { JobCover } from './JobCover';
 /** Photo being shown, per job — so the mural tile and the job page open on the same photo. */
 const shownPhoto = new Map<string, number>();
 
-type CarouselJob = Pick<Job, 'id' | 'role' | 'photos' | 'photo'>;
+type CarouselJob = Pick<Job, 'id' | 'role' | 'photos'>;
 
-export interface PhotoCarouselProps {
+interface PhotoCarouselProps {
   job: CarouselJob;
   /** The frame's size/rounding. */
   className?: string;
@@ -249,7 +249,7 @@ function Slides({ job, photos, frame, compact }: SlidesProps) {
   );
 }
 
-export interface PhotoManagerProps {
+interface PhotoManagerProps {
   photos: string[];
   onChange: (photos: string[]) => void;
   max?: number;

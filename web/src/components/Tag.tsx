@@ -2,17 +2,16 @@ import type { MouseEvent, MouseEventHandler } from 'react';
 import { cx } from '../utils/cx';
 import { Icon } from './icons/Icon';
 
-export interface TagProps {
+interface TagProps {
   label: string;
   icon?: string;
   selected?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   onRemove?: (e: MouseEvent) => void;
-  className?: string;
 }
 
 /** A clickable chip: filter option, specialty selector, requirement toggle. */
-export function Tag({ label, icon, selected = false, onClick, onRemove, className = '' }: TagProps) {
+export function Tag({ label, icon, selected = false, onClick, onRemove }: TagProps) {
   return (
     <button
       type="button"
@@ -22,8 +21,7 @@ export function Tag({ label, icon, selected = false, onClick, onRemove, classNam
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500',
         selected
           ? 'bg-brand-50 border border-brand-500 text-brand-600'
-          : 'bg-white border border-concrete-300 text-concrete-700 hover:bg-concrete-50',
-        className
+          : 'bg-white border border-concrete-300 text-concrete-700 hover:bg-concrete-50'
       )}
       onClick={onClick}
     >

@@ -18,10 +18,9 @@ const TONE_COLOR: Record<string, string> = {
 };
 
 /** The fields a tile reads (the publish form's preview passes a partial job). */
-export type TileJob = Pick<Job, 'id' | 'role' | 'location' | 'date' | 'hours' | 'pay' | 'photos'> &
-  Partial<Pick<Job, 'dias' | 'photo'>>;
+type TileJob = Pick<Job, 'id' | 'role' | 'location' | 'date' | 'hours' | 'pay' | 'photos'> & Partial<Pick<Job, 'dias'>>;
 
-export interface JobTileProps {
+interface JobTileProps {
   job: TileJob;
   company?: Company;
   onClick: () => void;

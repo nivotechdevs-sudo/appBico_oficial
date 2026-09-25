@@ -12,20 +12,18 @@ const TONES: Record<Tone, string> = {
   inverse: 'bg-white/15 text-white'
 };
 
-export interface BadgeProps {
+interface BadgeProps {
   label: string;
   tone?: Tone;
   icon?: string;
-  className?: string;
 }
 
-export function Badge({ label, tone = 'neutral', icon, className = '' }: BadgeProps) {
+export function Badge({ label, tone = 'neutral', icon }: BadgeProps) {
   return (
     <span
       className={cx(
         'inline-flex items-center gap-1.5 rounded-full px-2.5 h-6 text-xs font-bold whitespace-nowrap',
-        TONES[tone] || TONES.neutral,
-        className
+        TONES[tone] || TONES.neutral
       )}
     >
       {icon ? <Icon name={icon} size={14} /> : null}

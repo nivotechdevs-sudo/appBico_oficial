@@ -2,7 +2,7 @@
 // next action, reused by MyApplications, SavedJobs and any other screen showing it.
 import type { ApplicationStatus, StatusBadge } from '../types/models';
 
-export interface StatusInfo extends StatusBadge {
+interface StatusInfo extends StatusBadge {
   hint: string;
   /** Route the application's tile opens. */
   to: string;

@@ -2,8 +2,7 @@ import { useId } from 'react';
 import { cx } from '../utils/cx';
 import { Icon } from './icons/Icon';
 
-export interface RadioCardProps {
-  id?: string;
+interface RadioCardProps {
   name: string;
   icon: string;
   label: string;
@@ -13,9 +12,8 @@ export interface RadioCardProps {
 }
 
 /** Card-style radio: used for the "Trabalhador vs Recrutador" account-type choice. */
-export function RadioCard({ id, name, icon, label, description, checked = false, onChange }: RadioCardProps) {
-  const autoId = useId();
-  const fieldId = id || autoId;
+export function RadioCard({ name, icon, label, description, checked = false, onChange }: RadioCardProps) {
+  const fieldId = useId();
   return (
     <label
       htmlFor={fieldId}
@@ -48,17 +46,15 @@ export function RadioCard({ id, name, icon, label, description, checked = false,
   );
 }
 
-export interface SwitchProps {
-  id?: string;
+interface SwitchProps {
   label: string;
   description?: string;
   checked?: boolean;
   onChange?: (checked: boolean) => void;
 }
 
-export function Switch({ id, label, description, checked = false, onChange }: SwitchProps) {
-  const autoId = useId();
-  const fieldId = id || autoId;
+export function Switch({ label, description, checked = false, onChange }: SwitchProps) {
+  const fieldId = useId();
   return (
     <label htmlFor={fieldId} className="flex items-center gap-3 min-h-12 py-2 cursor-pointer select-none">
       <span className="flex-1 min-w-0 flex flex-col gap-0.5">

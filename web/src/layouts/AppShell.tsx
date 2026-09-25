@@ -44,7 +44,7 @@ function tabIdForPath(path: string, role: Role): string | null {
   return null;
 }
 
-export interface AppShellProps {
+interface AppShellProps {
   path: string;
   /** The matched route pattern (e.g. "/vaga/:id"). */
   pattern: string;

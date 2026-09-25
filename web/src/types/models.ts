@@ -68,8 +68,6 @@ export interface Job {
   urgent?: boolean;
   boosted?: boolean;
   photos?: string[];
-  /** Legacy single-photo field (still read by jobPhotos()). */
-  photo?: string;
   /** Headcount; defaults to 1. */
   slots?: number;
   closed?: boolean;

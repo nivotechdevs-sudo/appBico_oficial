@@ -176,18 +176,14 @@ export function decideApplication(jobId: string, workerId: string, decision: Dec
   updateDb(() => db);
 }
 
-export function markConcluded(jobId: string, workerId: string): void {
-  const app = applicationFor(state.db, jobId, workerId);
-  if (app && app.status === 'contratado') setApplicationStatus(app, 'concluida');
-}
-
 export function markReviewed(jobId: string, workerId: string): void {
   const app = applicationFor(state.db, jobId, workerId);
-  if (app) setApplicationStatus(app, 'avaliada');
-}
-
-function setApplicationStatus(app: Application, status: Application['status']): void {
-  updateDb((db) => ({ ...db, applications: db.applications.map((a) => (a === app ? { ...a, status } : a)) }));
+  if (app) {
+    updateDb((db) => ({
+      ...db,
+      applications: db.applications.map((a) => (a === app ? { ...a, status: 'avaliada' } : a))
+    }));
+  }
 }
 
 export function toggleSavedJob(jobId: string): void {

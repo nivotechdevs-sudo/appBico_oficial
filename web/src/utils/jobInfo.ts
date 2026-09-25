@@ -3,7 +3,7 @@
 // the job can happen on.
 import type { DiasKey, Job } from '../types/models';
 
-export interface DiasInfo {
+interface DiasInfo {
   /** Job page. */
   label: string;
   /** Tiles. */

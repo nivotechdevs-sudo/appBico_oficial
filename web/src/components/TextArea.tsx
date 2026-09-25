@@ -1,6 +1,6 @@
 import { useTextField } from '../hooks/useTextField';
 
-export interface TextAreaProps {
+interface TextAreaProps {
   id: string;
   rows?: number;
   placeholder?: string;

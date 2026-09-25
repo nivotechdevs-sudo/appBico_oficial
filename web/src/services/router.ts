@@ -5,7 +5,7 @@
 
 export type Params = Record<string, string>;
 
-export interface Location {
+interface Location {
   path: string;
   /** Increments on every route dispatch, even one that lands on the same path. */
   seq: number;

@@ -9,7 +9,7 @@ const TONES = {
 
 const PADDING = { none: '', sm: 'p-3', md: 'p-4', lg: 'p-5' };
 
-export interface CardProps {
+interface CardProps {
   tone?: keyof typeof TONES;
   padding?: keyof typeof PADDING;
   onClick?: MouseEventHandler<HTMLElement>;

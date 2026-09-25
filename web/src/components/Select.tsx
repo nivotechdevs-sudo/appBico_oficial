@@ -2,8 +2,7 @@ import { useId } from 'react';
 import { cx } from '../utils/cx';
 import { Icon } from './icons/Icon';
 
-export interface SelectProps {
-  id?: string;
+interface SelectProps {
   label?: string;
   placeholder?: string;
   options?: string[];
@@ -12,17 +11,8 @@ export interface SelectProps {
   error?: string | null;
 }
 
-export function Select({
-  id,
-  label,
-  placeholder = 'Selecione',
-  options = [],
-  value = '',
-  onChange,
-  error
-}: SelectProps) {
-  const autoId = useId();
-  const fieldId = id || autoId;
+export function Select({ label, placeholder = 'Selecione', options = [], value = '', onChange, error }: SelectProps) {
+  const fieldId = useId();
   return (
     <div className="flex flex-col gap-1.5 w-full">
       {label ? (

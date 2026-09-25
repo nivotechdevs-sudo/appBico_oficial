@@ -2,7 +2,7 @@ import { cx } from '../utils/cx';
 import { Icon } from './icons/Icon';
 import { resetFileInput } from '../utils/jobPhotos';
 
-export interface PhotoSlotProps {
+interface PhotoSlotProps {
   shape?: 'rect' | 'circle';
   value?: string | null;
   onChange?: (url: string) => void;
