@@ -17,6 +17,7 @@
     "parity": "node scripts/parity/run.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },

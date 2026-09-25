@@ -36,20 +36,36 @@ src/
   layouts/              AppShell (nav + <main>) e AppNav (pílula no celular, barra "ilha" ≥ 770px, menu da conta)
   pages/
     shared/             splash, login, cadastro, verificação, completar perfil, senha, perfis, avaliações, configurações
-    worker/             mural, vaga, candidatura, minhas candidaturas, salvas, selecionado, avaliar
+    worker/             mural (feed/), vaga, candidatura, minhas candidaturas, salvas, selecionado, avaliar
     recruiter/          publicar vaga, publicada, gerenciar, fechado, impulsionar, histórico
   components/           biblioteca de UI (Button, Input, Card, Modal/Sheet, JobTile, PhotoCarousel, …)
-    icons/              ícones Lucide como mask-image (data URIs) + "G" do Google
+    icons/              ícones Lucide como mask-image (data URIs, nomes tipados em IconName) + "G" do Google
   hooks/                useStore (useDb/useRole/useUI), useTextField (cursor/autofoco dos campos)
-  services/             store (dados mock em memória, imutável), selectors (consultas), router (hash router)
-  data/                 seed (dados de demonstração), cidades (IBGE)
-  types/                modelos do domínio (Job, Company, Worker, Application, …)
-  utils/                formatação/máscaras, textos de agenda, cidades, WhatsApp, status de candidatura
-  styles/               tokens.css, base.css e tailwind.css (os do legado, só com os tokens e regras que o app usa)
+  services/             única porta de acesso a dados (ver abaixo)
+  data/                 seed (dados de demonstração), cidades (IBGE) — lidos só por services/
+  types/                models (domínio), ui (tons e badges), supabase (tabelas do banco futuro)
+  utils/                formatação/máscaras, textos de agenda, WhatsApp, status de candidatura
+  styles/               tokens.css, base.css (os do legado, só com os tokens e regras que o app usa) e tailwind.css
 public/img/jobs/        fotos de exemplo das vagas
 scripts/parity/         harness de paridade legado × React
-docs/                   MAPEAMENTO.md (levantamento do legado) e VALIDACAO.md (checklist e resultados)
+supabase/migrations/    esquema SQL sugerido para o Supabase (não aplicado)
+docs/                   MAPEAMENTO.md, VALIDACAO.md, RELATORIO_PARIDADE.md e SUPABASE.md
 ```
+
+`services/`:
+
+| Módulo                               | Responsabilidade                                                                       |
+| ------------------------------------ | -------------------------------------------------------------------------------------- |
+| `store.ts` · `selectors.ts`          | estado em memória (dados, lado logado, estado de tela) e as consultas puras sobre ele  |
+| `auth.ts` · `account.ts`             | login, cadastro, senha e privacidade — simulados, com os mesmos atrasos do legado      |
+| `marketplace.ts`                     | publicar vaga e enviar candidatura (as duas ações que "vão ao servidor")               |
+| `catalog.ts` · `cities.ts`           | listas de opções, planos de impulsionamento e busca de cidades                         |
+| `notifications.ts` · `media.ts`      | notificações e contador do sino · URL das fotos/vídeos escolhidos                      |
+| `router.ts` · `sharedUI.ts`          | hash router · estados de tela lidos por mais de uma tela                               |
+| `supabase.ts` · `supabaseMappers.ts` | cliente Supabase (desligado sem `.env`) e conversão tabela ↔ modelo — ainda não usados |
+
+Telas, componentes e hooks não importam `src/data/` (regra do ESLint): trocar o mock por um backend
+real mexe só em `services/`.
 
 ## Decisões
 
@@ -70,6 +86,8 @@ docs/                   MAPEAMENTO.md (levantamento do legado) e VALIDACAO.md (c
   reproduz esses efeitos depois de cada atualização; removê-lo de `App.tsx` dá o comportamento mais
   suave do React. Detalhes em `docs/VALIDACAO.md` → Observações.
 - **Firebase**: o repositório **não usa Firebase** (nem Auth, nem Realtime Database). Login,
-  cadastro e verificação de e-mail são simulados, como no legado. A camada `services/` isola o acesso a
-  dados para que um backend real possa entrar depois sem tocar nas telas. Detalhes em
-  `docs/MAPEAMENTO.md`.
+  cadastro e verificação de e-mail são simulados, como no legado. Detalhes em `docs/MAPEAMENTO.md`.
+- **Supabase (preparado, não conectado)**: `services/supabase.ts` cria o cliente a partir de
+  `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` (ver `.env.example`; copie para `.env.local`, nunca
+  versionado). Sem essas variáveis — o caso atual — o app roda no modo mock e a biblioteca nem entra no
+  bundle. Tabelas sugeridas, pontos de troca e passo a passo em `docs/SUPABASE.md`.

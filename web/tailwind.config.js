@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 // Same theme as the legacy app (app/tailwind.config.js) — only `content` changed, to scan the React sources.
+// Data, types and tests hold no class names: leaving them out keeps words in their code and comments
+// ("table", "block"…) from turning into CSS rules nothing uses.
 export default {
-  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  content: ['./index.html', './src/**/*.{ts,tsx}', '!./src/services/**', '!./src/types/**', '!./src/__tests__/**'],
   theme: {
     // `lg` is the desktop/tablet layout (top navbar, rails); below it is the phone layout.
     screens: { sm: '640px', lg: '770px', xl: '1280px', '2xl': '1536px' },

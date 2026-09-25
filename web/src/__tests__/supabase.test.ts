@@ -1,0 +1,199 @@
+// Supabase preparation: the client stays off without the environment variables, the table types work
+// with supabase-js, and the demo data survives a round trip through the table shapes unchanged.
+import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
+import * as seed from '../data/seed';
+import { getSupabase, isSupabaseConfigured, supabaseConfig, type BicosSupabase } from '../services/supabase';
+import {
+  databaseFromRows,
+  databaseToInserts,
+  notificationFromRow,
+  relativeTime,
+  type DatabaseRows
+} from '../services/supabaseMappers';
+import type { Database, DiasKey } from '../types/models';
+import type { TableInsert, TableRow } from '../types/supabase';
+
+const seedDatabase = (): Database =>
+  structuredClone({
+    companies: seed.COMPANIES,
+    workers: seed.WORKERS,
+    jobs: seed.JOBS,
+    applications: seed.APPLICATIONS,
+    savedJobIds: seed.SAVED_JOB_IDS,
+    deletedJobIds: [],
+    workerPosts: seed.WORKER_POSTS
+  });
+
+const CREATED = '2026-09-25T12:00:00.000Z';
+
+/** What Postgres returns for an insert: the row plus the column defaults. */
+function stored(inserts: ReturnType<typeof databaseToInserts>): DatabaseRows {
+  return {
+    companies: inserts.companies.map((r): TableRow<'companies'> => ({
+      owner_id: null,
+      cnpj: null,
+      tipo_obra: null,
+      rating: 0,
+      review_count: 0,
+      verified: false,
+      verified_since: null,
+      since_label: null,
+      respond_time: null,
+      paid_count: null,
+      logo_url: null,
+      cover_url: null,
+      created_at: CREATED,
+      ...r,
+      id: r.id ?? ''
+    })),
+    workers: inserts.workers.map((r): TableRow<'workers'> => ({
+      user_id: null,
+      distance: '',
+      rating: 0,
+      jobs_done: 0,
+      novo: false,
+      verified: false,
+      specialties: [],
+      facts: [],
+      cpf: null,
+      photo_url: null,
+      created_at: CREATED,
+      ...r,
+      id: r.id ?? ''
+    })),
+    jobs: inserts.jobs.map((r): TableRow<'jobs'> => ({
+      pay: null,
+      distance: '',
+      date_label: null,
+      hours: null,
+      dias: null,
+      urgent: false,
+      boosted: false,
+      photos: null,
+      slots: 1,
+      closed: false,
+      sem_contratacao: false,
+      city: null,
+      requirements: [],
+      created_at: CREATED,
+      deleted_at: null,
+      ...r,
+      id: r.id ?? ''
+    })),
+    applications: inserts.applications.map((r): TableRow<'applications'> => ({
+      status: 'enviada',
+      created_at: CREATED,
+      updated_at: CREATED,
+      ...r,
+      id: r.id ?? ''
+    })),
+    savedJobs: inserts.saved_jobs,
+    reviews: inserts.reviews.map((r: TableInsert<'reviews'>) => ({
+      company_id: null,
+      worker_id: null,
+      text: '',
+      ...r
+    })),
+    workerPosts: inserts.worker_posts.map((r): TableRow<'worker_posts'> => ({
+      media_url: null,
+      media_type: 'image',
+      caption: '',
+      created_at: CREATED,
+      ...r,
+      id: r.id ?? ''
+    }))
+  };
+}
+
+describe('Supabase client (not connected)', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it('stays off without the environment variables, so the app keeps its mock data', async () => {
+    expect(supabaseConfig({ VITE_SUPABASE_URL: '', VITE_SUPABASE_ANON_KEY: '' } as ImportMetaEnv)).toBeNull();
+    expect(supabaseConfig({ VITE_SUPABASE_URL: 'https://x.supabase.co' } as ImportMetaEnv)).toBeNull();
+    expect(isSupabaseConfigured()).toBe(false);
+    expect(await getSupabase()).toBeNull();
+  });
+
+  it('reads the project URL and anon key when both are set', async () => {
+    const env = { VITE_SUPABASE_URL: ' https://x.supabase.co ', VITE_SUPABASE_ANON_KEY: 'anon-key' } as ImportMetaEnv;
+    expect(supabaseConfig(env)).toEqual({ url: 'https://x.supabase.co', anonKey: 'anon-key' });
+  });
+
+  it('creates the client lazily from the environment, without any request', async () => {
+    vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co');
+    vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'anon-key');
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+    const mod = await import('../services/supabase');
+    const client = await mod.getSupabase();
+    expect(client).not.toBeNull();
+    expect(typeof client?.from).toBe('function');
+    expect(await mod.getSupabase()).toBe(client);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('types queries from the table definitions', () => {
+    // Type-level only (never called): checked by `npm run typecheck`.
+    const typed = async (supabase: BicosSupabase) => {
+      const jobs = await supabase.from('jobs').select('id, pay, dias').eq('company_id', 'meridiano');
+      expectTypeOf(jobs.data).toEqualTypeOf<{ id: string; pay: number | null; dias: DiasKey | null }[] | null>();
+      const apps = await supabase.from('applications').select('*').eq('worker_id', 'jorge');
+      expectTypeOf(apps.data).toEqualTypeOf<TableRow<'applications'>[] | null>();
+    };
+    expect(typeof typed).toBe('function');
+  });
+});
+
+describe('table <-> domain mappers', () => {
+  it('round-trips the whole demo database unchanged', () => {
+    const db = seedDatabase();
+    const back = databaseFromRows(stored(databaseToInserts(db, seed.CURRENT_WORKER_ID)));
+    expect(back).toStrictEqual(db);
+  });
+
+  it('keeps deleted posts, in the order they were deleted', () => {
+    const db = { ...seedDatabase(), deletedJobIds: ['BC-5025', 'BC-4821'] };
+    const back = databaseFromRows(stored(databaseToInserts(db, seed.CURRENT_WORKER_ID)));
+    expect(back.deletedJobIds).toEqual(['BC-5025', 'BC-4821']);
+    expect(back.jobs['BC-5025']).toStrictEqual(db.jobs['BC-5025']);
+  });
+
+  it('writes each review to its side and reads it back with the right label', () => {
+    const inserts = databaseToInserts(seedDatabase(), seed.CURRENT_WORKER_ID);
+    const toCompanies = inserts.reviews.filter((r) => r.direction === 'para_construtora');
+    const toWorkers = inserts.reviews.filter((r) => r.direction === 'para_trabalhador');
+    expect(toCompanies.every((r) => r.company_id && !r.worker_id)).toBe(true);
+    expect(toWorkers.every((r) => r.worker_id && !r.company_id)).toBe(true);
+    const total = (list: { reviews: unknown[] }[]) => list.reduce((n, x) => n + x.reviews.length, 0);
+    expect(toCompanies).toHaveLength(total(Object.values(seed.COMPANIES)));
+    expect(toWorkers).toHaveLength(total(Object.values(seed.WORKERS)));
+  });
+
+  it('shows notification times the way the app writes them', () => {
+    const now = new Date('2026-09-25T12:00:00Z');
+    expect(relativeTime('2026-09-25T11:48:00Z', now)).toBe('Há 12 min');
+    expect(relativeTime('2026-09-25T11:59:50Z', now)).toBe('Há 1 min');
+    expect(relativeTime('2026-09-25T10:00:00Z', now)).toBe('Há 2h');
+    expect(relativeTime('2026-09-24T09:00:00Z', now)).toBe('Ontem');
+    expect(relativeTime('2026-09-23T09:00:00Z', now)).toBe('2 dias atrás');
+    const row: TableRow<'notifications'> = {
+      id: 1,
+      user_id: '00000000-0000-0000-0000-000000000001',
+      kind: 'bico_fechado',
+      title: 'Bico fechado',
+      body: 'Todas as vagas de Servente de obra foram preenchidas.',
+      created_at: '2026-09-25T09:00:00Z',
+      read_at: null
+    };
+    expect(notificationFromRow(row, now)).toEqual({
+      kind: 'bico_fechado',
+      title: 'Bico fechado',
+      text: 'Todas as vagas de Servente de obra foram preenchidas.',
+      time: 'Há 3h',
+      read: false
+    });
+  });
+});
