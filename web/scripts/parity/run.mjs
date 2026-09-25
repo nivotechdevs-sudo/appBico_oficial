@@ -5,7 +5,7 @@
 //   - the rendered DOM of #app (tags, class tokens, attributes, inline styles, text, form state);
 //   - the computed style and box of every element (catches any CSS difference);
 //   - focus (document.activeElement), scroll position and URL;
-//   - a full-page screenshot, pixel by pixel.
+//   - a screenshot of the whole page (scrolled and stitched), pixel by pixel.
 //
 // Usage: npm run build && npm run parity   (optional: PARITY_ONLY=<scenario substring>)
 import { execFileSync } from 'node:child_process';
@@ -300,6 +300,54 @@ async function settle(page) {
   await page.waitForTimeout(60);
 }
 
+// The whole page, captured by scrolling the viewport down and stitching the frames. (Playwright's and
+// Chrome's own full-page capture briefly resize the window to 1×1, which both apps' photo carousels —
+// by design — treat as a resize and reset; that would make the harness itself change the state.)
+async function capture(page, { full, animations }) {
+  const shoot = async () => PNG.sync.read(await page.screenshot({ animations, caret: 'hide' }));
+  if (!full) return shoot();
+  const { y0, height, vh } = await page.evaluate(() => ({
+    y0: window.scrollY,
+    height: document.documentElement.scrollHeight,
+    vh: window.innerHeight
+  }));
+  if (height <= vh) return shoot();
+  let out = null;
+  for (let y = 0; y < height; y += vh) {
+    const top = await page.evaluate((to) => {
+      window.scrollTo(0, to);
+      return window.scrollY;
+    }, y);
+    await page.evaluate(async () => {
+      const inView = Array.from(document.images).filter((i) => {
+        const r = i.getBoundingClientRect();
+        return !i.complete && r.bottom > 0 && r.top < window.innerHeight;
+      });
+      await Promise.race([
+        Promise.all(
+          inView.map(
+            (i) =>
+              new Promise((r) => {
+                i.onload = i.onerror = r;
+              })
+          )
+        ),
+        new Promise((r) => setTimeout(r, 2000))
+      ]);
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    });
+    const frame = await shoot();
+    if (!out) out = new PNG({ width: frame.width, height });
+    const skip = y - top; // the last frame can't scroll a full viewport further
+    for (let row = skip; row < frame.height && top + row < height; row++) {
+      frame.data.copy(out.data, (top + row) * out.width * 4, row * frame.width * 4, (row + 1) * frame.width * 4);
+    }
+  }
+  await page.evaluate((to) => window.scrollTo(0, to), y0);
+  await page.waitForTimeout(60);
+  return out;
+}
+
 async function runStep(page, step) {
   const loc = (s) => (typeof s === 'function' ? s(page) : page.locator(s).first());
   switch (step.do) {
@@ -443,13 +491,10 @@ async function main() {
         for (const which of ['legacy', 'react']) {
           await settle(pages[which]);
           data[which] = await pages[which].evaluate(snapshotInPage, STYLE_PROPS);
-          shots[which] = PNG.sync.read(
-            await pages[which].screenshot({
-              fullPage: !step.viewportOnly,
-              animations: scenario.motion ? 'allow' : 'disabled',
-              caret: 'hide'
-            })
-          );
+          shots[which] = await capture(pages[which], {
+            full: !step.viewportOnly,
+            animations: scenario.motion ? 'allow' : 'disabled'
+          });
         }
         const L = data.legacy;
         const R = data.react;
