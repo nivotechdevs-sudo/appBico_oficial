@@ -7,7 +7,9 @@
 //   - focus (document.activeElement), scroll position and URL;
 //   - a screenshot of the whole page (scrolled and stitched), pixel by pixel.
 //
-// Usage: npm run build && npm run parity   (optional: PARITY_ONLY=<scenario substring>)
+// Usage: npm run build && npm run parity
+// Options (environment): PARITY_ONLY=<scenario substring> · PARITY_VIEWPORTS=phone,tablet,desktop ·
+// PARITY_CONCURRENCY=<journeys at once, default 1> · PARITY_REFERENCE=<dir of the app to compare with>
 import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -21,8 +23,13 @@ import { SCENARIOS } from './scenarios.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const webRoot = path.resolve(here, '../..');
-const LEGACY_DIR = path.resolve(webRoot, '../app');
 const REACT_DIR = path.resolve(webRoot, 'dist');
+// The app everything is compared against: the legacy app by default; PARITY_REFERENCE=<dir> points
+// at another build instead (e.g. the React build before a refactor, for a zero-difference check).
+const REFERENCE_DIR = process.env.PARITY_REFERENCE
+  ? path.resolve(process.env.PARITY_REFERENCE)
+  : path.resolve(webRoot, '../app');
+const REFERENCE_LABEL = process.env.PARITY_REFERENCE ? 'referência' : 'legado';
 const OUT = path.resolve(here, 'output');
 // pixelmatch's YIQ threshold: 0.01 ignores only ±1-level rasterisation noise in a colour channel.
 const PIXEL_THRESHOLD = 0.01;
@@ -350,7 +357,11 @@ async function capture(page, { full, animations }) {
 
 async function runStep(page, step) {
   const loc = (s) => (typeof s === 'function' ? s(page) : page.locator(s).first());
+  if (step.hold) await page.evaluate(() => (window.__parity.hold = true));
   switch (step.do) {
+    case 'release':
+      await page.evaluate(() => window.__parity.release());
+      break;
     case 'hash':
       await page.evaluate((h) => {
         location.hash = h;
@@ -410,12 +421,185 @@ function diffTree(a, b, p = 'app', out = []) {
   return out;
 }
 
+// One scripted journey at one viewport: both apps side by side, compared after every `snap` step.
+async function runScenario(browser, base, vp, scenario) {
+  const results = [];
+  const pages = {};
+  const errors = { legacy: [], react: [] };
+  for (const which of ['legacy', 'react']) {
+    const context = await browser.newContext({
+      viewport: { width: vp.width, height: vp.height },
+      reducedMotion: scenario.motion ? 'no-preference' : 'reduce',
+      ignoreHTTPSErrors: true,
+      locale: 'pt-BR',
+      permissions: scenario.geolocation ? ['geolocation'] : [],
+      geolocation: scenario.geolocation
+    });
+    await routeFonts(context);
+    context.setDefaultTimeout(5000);
+    const page = await context.newPage();
+    page.on('pageerror', (e) => errors[which].push(String(e)));
+    await page.addInitScript(() => {
+      // Steps with `hold: true` capture a transient "loading" state: while held, the apps' simulated
+      // server delays (setTimeout ≥ 300 ms) wait for a `release` step instead of firing on their own,
+      // so the capture can't miss the state however loaded the machine is.
+      const realSetTimeout = window.setTimeout.bind(window);
+      const held = [];
+      const parity = {
+        hold: false,
+        release() {
+          parity.hold = false;
+          held.splice(0).forEach(([cb, args]) => realSetTimeout(cb, 0, ...args));
+        }
+      };
+      Object.defineProperty(window, '__parity', { value: parity });
+      window.setTimeout = (cb, ms, ...args) => {
+        if (parity.hold && typeof cb === 'function' && ms >= 300) {
+          held.push([cb, args]);
+          return 0;
+        }
+        return realSetTimeout(cb, ms, ...args);
+      };
+      let seed = 0.5;
+      Math.random = () => seed;
+      const fixed = new Date('2026-09-25T12:00:00Z').getTime();
+      const RealDate = Date;
+      // Fixed "today" (post dates) without touching timers.
+      globalThis.Date = class extends RealDate {
+        constructor(...args) {
+          super(...(args.length ? args : [fixed]));
+        }
+        static now() {
+          return fixed;
+        }
+      };
+    });
+    await page.goto(base[which] + (scenario.start || '#/splash'));
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(250);
+    pages[which] = page;
+  }
+
+  let snapIndex = 0;
+  const steps = scenario.steps.some((s) => s.do === 'snap')
+    ? scenario.steps
+    : [...scenario.steps, { do: 'snap', name: 'end' }];
+  for (const [stepIndex, step] of steps.entries()) {
+    if (step.only && !step.only.includes(vp.name)) continue;
+    if (step.do !== 'snap') {
+      for (const which of ['legacy', 'react']) {
+        try {
+          await runStep(pages[which], step);
+        } catch (e) {
+          errors[which].push(
+            `step #${stepIndex} ${step.do} ${step.desc || String(step.target ?? step.to ?? '').slice(0, 60)}: ${String(e).split('\n')[0]}`
+          );
+        }
+      }
+      continue;
+    }
+    snapIndex++;
+    const id = `${vp.name}__${scenario.name}__${String(snapIndex).padStart(2, '0')}-${step.name.replace(/[^a-zA-Z0-9-]+/g, '_')}`;
+    const shots = {};
+    const data = {};
+    for (const which of ['legacy', 'react']) {
+      await settle(pages[which]);
+      data[which] = await pages[which].evaluate(snapshotInPage, STYLE_PROPS);
+      shots[which] = await capture(pages[which], {
+        full: !step.viewportOnly,
+        animations: scenario.motion ? 'allow' : 'disabled'
+      });
+    }
+    const L = data.legacy;
+    const R = data.react;
+    const domDiff = diffTree(L.dom, R.dom);
+    const boxDiff = [];
+    const len = Math.max(L.boxes.length, R.boxes.length);
+    for (let i = 0; i < len && boxDiff.length < 8; i++) {
+      const a = L.boxes[i];
+      const b = R.boxes[i];
+      if (!a || !b) {
+        boxDiff.push(`element count ${L.boxes.length} ≠ ${R.boxes.length}`);
+        break;
+      }
+      if (a.box !== b.box) boxDiff.push(`${a.path} box ${a.box} ≠ ${b.box}`);
+      if (a.style !== b.style) {
+        const sa = a.style.split('|');
+        const sb = b.style.split('|');
+        const props = STYLE_PROPS.filter((_, k) => sa[k] !== sb[k]).map(
+          (p) => `${p}: ${sa[STYLE_PROPS.indexOf(p)]} ≠ ${sb[STYLE_PROPS.indexOf(p)]}`
+        );
+        boxDiff.push(`${a.path} style ${props.join('; ')}`);
+      }
+    }
+    let pixels = -1;
+    let maxDelta = 0;
+    const { width, height } = shots.legacy;
+    if (width === shots.react.width && height === shots.react.height) {
+      const diff = new PNG({ width, height });
+      pixels = pixelmatch(shots.legacy.data, shots.react.data, diff.data, width, height, {
+        threshold: PIXEL_THRESHOLD
+      });
+      maxDelta = maxChannelDelta(shots.legacy, shots.react, diff);
+      if (pixels) {
+        fs.writeFileSync(path.join(OUT, id + '.diff.png'), PNG.sync.write(diff));
+        fs.writeFileSync(path.join(OUT, id + '.legacy.png'), PNG.sync.write(shots.legacy));
+        fs.writeFileSync(path.join(OUT, id + '.react.png'), PNG.sync.write(shots.react));
+      }
+    } else {
+      fs.writeFileSync(path.join(OUT, id + '.legacy.png'), PNG.sync.write(shots.legacy));
+      fs.writeFileSync(path.join(OUT, id + '.react.png'), PNG.sync.write(shots.react));
+    }
+    const meta = [];
+    for (const k of ['focus', 'scrollY', 'hash', 'title', 'bodyClass'])
+      if (L[k] !== R[k]) meta.push(`${k}: ${JSON.stringify(L[k])} ≠ ${JSON.stringify(R[k])}`);
+    const structural = domDiff.length === 0 && boxDiff.length === 0 && meta.length === 0;
+    // A handful of pixels differing by a few levels, with DOM, styles and boxes identical, is
+    // antialiasing noise from the rasteriser (seen on the edges of masked icons), not a difference.
+    const antialias = structural && pixels > 0 && pixels <= AA_MAX_PIXELS && maxDelta <= AA_MAX_DELTA;
+    const ok = structural && (pixels === 0 || antialias);
+    results.push({
+      id,
+      viewport: vp.name,
+      scenario: scenario.name,
+      step: step.name,
+      hash: L.hash,
+      ok,
+      pixels,
+      antialias,
+      size: `${width}x${height}`,
+      domDiff,
+      boxDiff,
+      meta,
+      elements: L.boxes.length
+    });
+    process.stdout.write(
+      `${ok ? '✔' : '✘'} ${id} ${ok ? '' : JSON.stringify({ pixels, dom: domDiff.slice(0, 3), box: boxDiff.slice(0, 3), meta })}\n`
+    );
+  }
+  for (const which of ['legacy', 'react']) {
+    if (errors[which].length) {
+      results.push({
+        id: `${vp.name}__${scenario.name}__errors-${which}`,
+        viewport: vp.name,
+        scenario: scenario.name,
+        ok: false,
+        errors: errors[which]
+      });
+      process.stdout.write(`✘ ${vp.name} ${scenario.name} ${which} errors: ${errors[which].join(' | ')}\n`);
+    }
+    await pages[which].context().close();
+  }
+  return results;
+}
+
 async function main() {
   if (!fs.existsSync(path.join(REACT_DIR, 'index.html'))) throw new Error('Build first: npm run build');
+  if (!fs.existsSync(path.join(REFERENCE_DIR, 'index.html'))) throw new Error('No reference app at ' + REFERENCE_DIR);
   fs.rmSync(OUT, { recursive: true, force: true });
   fs.mkdirSync(OUT, { recursive: true });
   prepareFonts();
-  const legacyServer = await serve(LEGACY_DIR);
+  const legacyServer = await serve(REFERENCE_DIR);
   const reactServer = await serve(REACT_DIR);
   const base = {
     legacy: `http://127.0.0.1:${legacyServer.address().port}/index.html`,
@@ -423,162 +607,29 @@ async function main() {
   };
   const browser = await chromium.launch();
   const only = process.env.PARITY_ONLY;
-  const results = [];
+  const viewports = VIEWPORTS.filter(
+    (v) => !process.env.PARITY_VIEWPORTS || process.env.PARITY_VIEWPORTS.split(',').includes(v.name)
+  );
+  const jobs = viewports.flatMap((vp) =>
+    SCENARIOS.filter((s) => (!only || s.name.includes(only)) && (!s.viewports || s.viewports.includes(vp.name))).map(
+      (scenario) => ({ vp, scenario })
+    )
+  );
 
-  for (const vp of VIEWPORTS) {
-    for (const scenario of SCENARIOS) {
-      if (only && !scenario.name.includes(only)) continue;
-      if (scenario.viewports && !scenario.viewports.includes(vp.name)) continue;
-      const pages = {};
-      const errors = { legacy: [], react: [] };
-      for (const which of ['legacy', 'react']) {
-        const context = await browser.newContext({
-          viewport: { width: vp.width, height: vp.height },
-          reducedMotion: scenario.motion ? 'no-preference' : 'reduce',
-          ignoreHTTPSErrors: true,
-          locale: 'pt-BR',
-          permissions: scenario.geolocation ? ['geolocation'] : [],
-          geolocation: scenario.geolocation
-        });
-        await routeFonts(context);
-        context.setDefaultTimeout(5000);
-        const page = await context.newPage();
-        page.on('pageerror', (e) => errors[which].push(String(e)));
-        await page.addInitScript(() => {
-          let seed = 0.5;
-          Math.random = () => seed;
-          const fixed = new Date('2026-09-25T12:00:00Z').getTime();
-          const RealDate = Date;
-          // Fixed "today" (post dates) without touching timers.
-          globalThis.Date = class extends RealDate {
-            constructor(...args) {
-              super(...(args.length ? args : [fixed]));
-            }
-            static now() {
-              return fixed;
-            }
-          };
-        });
-        await page.goto(base[which] + (scenario.start || '#/splash'));
-        await page.waitForLoadState('networkidle');
-        await page.waitForTimeout(250);
-        pages[which] = page;
+  // Journeys are independent (each gets fresh browser contexts), so they can run side by side;
+  // the report keeps the fixed viewport × scenario order whatever the completion order.
+  const concurrency = Math.max(1, Number(process.env.PARITY_CONCURRENCY) || 1);
+  const perJob = new Array(jobs.length);
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, jobs.length) }, async () => {
+      while (next < jobs.length) {
+        const i = next++;
+        perJob[i] = await runScenario(browser, base, jobs[i].vp, jobs[i].scenario);
       }
-
-      const snaps = scenario.steps.filter((s) => s.do === 'snap').length || 1;
-      let snapIndex = 0;
-      const steps = scenario.steps.some((s) => s.do === 'snap')
-        ? scenario.steps
-        : [...scenario.steps, { do: 'snap', name: 'end' }];
-      for (const [stepIndex, step] of steps.entries()) {
-        if (step.only && !step.only.includes(vp.name)) continue;
-        if (step.do !== 'snap') {
-          for (const which of ['legacy', 'react']) {
-            try {
-              await runStep(pages[which], step);
-            } catch (e) {
-              errors[which].push(
-                `step #${stepIndex} ${step.do} ${step.desc || String(step.target ?? step.to ?? '').slice(0, 60)}: ${String(e).split('\n')[0]}`
-              );
-            }
-          }
-          continue;
-        }
-        snapIndex++;
-        const id = `${vp.name}__${scenario.name}__${String(snapIndex).padStart(2, '0')}-${step.name.replace(/[^a-zA-Z0-9-]+/g, '_')}`;
-        const shots = {};
-        const data = {};
-        for (const which of ['legacy', 'react']) {
-          await settle(pages[which]);
-          data[which] = await pages[which].evaluate(snapshotInPage, STYLE_PROPS);
-          shots[which] = await capture(pages[which], {
-            full: !step.viewportOnly,
-            animations: scenario.motion ? 'allow' : 'disabled'
-          });
-        }
-        const L = data.legacy;
-        const R = data.react;
-        const domDiff = diffTree(L.dom, R.dom);
-        const boxDiff = [];
-        const len = Math.max(L.boxes.length, R.boxes.length);
-        for (let i = 0; i < len && boxDiff.length < 8; i++) {
-          const a = L.boxes[i];
-          const b = R.boxes[i];
-          if (!a || !b) {
-            boxDiff.push(`element count ${L.boxes.length} ≠ ${R.boxes.length}`);
-            break;
-          }
-          if (a.box !== b.box) boxDiff.push(`${a.path} box ${a.box} ≠ ${b.box}`);
-          if (a.style !== b.style) {
-            const sa = a.style.split('|');
-            const sb = b.style.split('|');
-            const props = STYLE_PROPS.filter((_, k) => sa[k] !== sb[k]).map(
-              (p) => `${p}: ${sa[STYLE_PROPS.indexOf(p)]} ≠ ${sb[STYLE_PROPS.indexOf(p)]}`
-            );
-            boxDiff.push(`${a.path} style ${props.join('; ')}`);
-          }
-        }
-        let pixels = -1;
-        let maxDelta = 0;
-        const { width, height } = shots.legacy;
-        if (width === shots.react.width && height === shots.react.height) {
-          const diff = new PNG({ width, height });
-          pixels = pixelmatch(shots.legacy.data, shots.react.data, diff.data, width, height, {
-            threshold: PIXEL_THRESHOLD
-          });
-          maxDelta = maxChannelDelta(shots.legacy, shots.react, diff);
-          if (pixels) {
-            fs.writeFileSync(path.join(OUT, id + '.diff.png'), PNG.sync.write(diff));
-            fs.writeFileSync(path.join(OUT, id + '.legacy.png'), PNG.sync.write(shots.legacy));
-            fs.writeFileSync(path.join(OUT, id + '.react.png'), PNG.sync.write(shots.react));
-          }
-        } else {
-          fs.writeFileSync(path.join(OUT, id + '.legacy.png'), PNG.sync.write(shots.legacy));
-          fs.writeFileSync(path.join(OUT, id + '.react.png'), PNG.sync.write(shots.react));
-        }
-        const meta = [];
-        for (const k of ['focus', 'scrollY', 'hash', 'title', 'bodyClass'])
-          if (L[k] !== R[k]) meta.push(`${k}: ${JSON.stringify(L[k])} ≠ ${JSON.stringify(R[k])}`);
-        const structural = domDiff.length === 0 && boxDiff.length === 0 && meta.length === 0;
-        // A handful of pixels differing by a few levels, with DOM, styles and boxes identical, is
-        // antialiasing noise from the rasteriser (seen on the edges of masked icons), not a difference.
-        const antialias = structural && pixels > 0 && pixels <= AA_MAX_PIXELS && maxDelta <= AA_MAX_DELTA;
-        const ok = structural && (pixels === 0 || antialias);
-        results.push({
-          id,
-          viewport: vp.name,
-          scenario: scenario.name,
-          step: step.name,
-          hash: L.hash,
-          ok,
-          pixels,
-          antialias,
-          size: `${width}x${height}`,
-          domDiff,
-          boxDiff,
-          meta,
-          elements: L.boxes.length
-        });
-        process.stdout.write(
-          `${ok ? '✔' : '✘'} ${id} ${ok ? '' : JSON.stringify({ pixels, dom: domDiff.slice(0, 3), box: boxDiff.slice(0, 3), meta })}\n`
-        );
-      }
-      for (const which of ['legacy', 'react']) {
-        if (errors[which].length) {
-          results.push({
-            id: `${vp.name}__${scenario.name}__errors-${which}`,
-            viewport: vp.name,
-            scenario: scenario.name,
-            ok: false,
-            errors: errors[which]
-          });
-          process.stdout.write(`✘ ${vp.name} ${scenario.name} ${which} errors: ${errors[which].join(' | ')}\n`);
-        }
-        await pages[which].context().close();
-      }
-      void snaps;
-    }
-  }
+    })
+  );
+  const results = perJob.flat();
 
   await browser.close();
   legacyServer.close();
@@ -588,9 +639,10 @@ async function main() {
   const snapsTotal = results.filter((r) => r.step).length;
   fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(results, null, 2));
   const lines = [
-    `# Relatório de paridade (legado × React)`,
+    `# Relatório de paridade (${REFERENCE_LABEL} × React)`,
     '',
-    `- Viewports: ${VIEWPORTS.map((v) => `${v.name} ${v.width}×${v.height}`).join(', ')}`,
+    `- Referência: \`${path.relative(webRoot, REFERENCE_DIR) || '.'}\``,
+    `- Viewports: ${viewports.map((v) => `${v.name} ${v.width}×${v.height}`).join(', ')}`,
     `- Cenários: ${new Set(results.map((r) => r.scenario)).size} · capturas comparadas: ${snapsTotal}`,
     `- Idênticas (DOM + estilos computados + caixas + foco/scroll/URL + pixels): ${snapsTotal - failed.filter((r) => r.step).length}/${snapsTotal}`,
     `- Falhas: ${failed.length}`,
