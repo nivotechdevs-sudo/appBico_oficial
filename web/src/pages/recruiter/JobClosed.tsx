@@ -1,9 +1,9 @@
+import { BackBar } from '../../components/BackBar';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Icon } from '../../components/icons/Icon';
 import { KeyValue } from '../../components/KeyValue';
-import { BackBar } from '../../components/TopBar';
 import { useDb } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';

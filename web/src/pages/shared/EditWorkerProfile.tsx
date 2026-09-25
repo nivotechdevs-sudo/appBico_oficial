@@ -1,9 +1,9 @@
+import { BackBar } from '../../components/BackBar';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { PhotoSlot } from '../../components/PhotoSlot';
 import { Select } from '../../components/Select';
 import { Tag } from '../../components/Tag';
-import { BackBar } from '../../components/TopBar';
 import { CARGOS_TRABALHADOR, ESPECIALIDADES, REGIOES_TRABALHADOR } from '../../data/seed';
 import { useDb, useUI } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';

@@ -1,8 +1,8 @@
+import { BackBar } from '../../components/BackBar';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
 import { NotFound } from '../../components/NotFound';
 import { Rating } from '../../components/Rating';
-import { BackBar } from '../../components/TopBar';
 import { useDb, useRole } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack } from '../../services/router';

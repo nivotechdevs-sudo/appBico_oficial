@@ -1,3 +1,4 @@
+import { BackBar } from '../../components/BackBar';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
@@ -7,8 +8,7 @@ import { Icon } from '../../components/icons/Icon';
 import { InfoRow } from '../../components/InfoRow';
 import { Dialog } from '../../components/Modal';
 import { JobNotFound } from '../../components/NotFound';
-import { PhotoManager } from '../../components/PhotoCarousel';
-import { BackBar } from '../../components/TopBar';
+import { PhotoManager } from '../../components/PhotoManager';
 import { useDb, useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';

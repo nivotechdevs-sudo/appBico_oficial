@@ -1,5 +1,4 @@
 import type { CSSProperties, MouseEventHandler } from 'react';
-import { rem } from '../../utils/cx';
 import { ICON_DATA } from './iconData';
 
 // Same technique the source design system specified: Lucide's SVGs, loaded as a CSS mask over
@@ -17,6 +16,14 @@ type UnvendoredIcon = 'eye' | 'eye-off';
 export type IconName = keyof typeof ICON_DATA | UnvendoredIcon;
 
 const ICON_URLS: Partial<Record<IconName, string>> = ICON_DATA;
+
+/**
+ * Icon sizes are authored as familiar px-equivalent numbers (matching the source design system's
+ * scale, e.g. size 20) but the emitted CSS lengths are rem.
+ */
+function rem(px: number): string {
+  return px / 16 + 'rem';
+}
 
 interface IconProps {
   name: IconName;

@@ -1,3 +1,4 @@
+import { BackBar } from '../../components/BackBar';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import type { IconName } from '../../components/icons/Icon';
@@ -5,7 +6,6 @@ import { Input } from '../../components/Input';
 import { JobNotFound } from '../../components/NotFound';
 import { Rating } from '../../components/Rating';
 import { Tag } from '../../components/Tag';
-import { BackBar } from '../../components/TopBar';
 import { useDb, useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';

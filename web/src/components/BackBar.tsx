@@ -14,7 +14,3 @@ export function BackBar({ title, onBack }: BackBarProps) {
     </header>
   );
 }
-
-export function NotificationBell({ count = 0, onClick }: { count?: number; onClick?: () => void }) {
-  return <IconButton icon="bell" label="Notificações" onClick={onClick} badge={count > 0 ? count : null} />;
-}

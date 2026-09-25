@@ -13,7 +13,11 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), ...(standalone ? [viteSingleFile()] : [])],
     build: {
       outDir: standalone ? 'dist-standalone' : 'dist',
-      target: 'es2020'
+      target: 'es2020',
+      // Shared helpers smaller than 1 kB (a field error, a formatter…) ride along in a chunk that loads
+      // under the same conditions instead of becoming requests of their own. Rollup only merges chunks
+      // without side effects, so the order code runs in doesn't change.
+      rollupOptions: standalone ? {} : { output: { experimentalMinChunkSize: 1000 } }
     },
     test: {
       environment: 'node',

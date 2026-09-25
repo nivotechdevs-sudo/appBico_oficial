@@ -1,6 +1,6 @@
+import { BackBar } from '../../components/BackBar';
 import { EmptyState } from '../../components/EmptyState';
 import { JobTile, TileGrid } from '../../components/JobTile';
-import { BackBar } from '../../components/TopBar';
 import { useDb } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 import { getCompany, isJobClosed, savedJobs } from '../../services/selectors';

@@ -52,7 +52,7 @@ const CompanyProfile = screen(() => import('./pages/shared/CompanyProfileScreen'
 const EditCompanyProfile = screen(() => import('./pages/shared/EditCompanyProfile'));
 const Reviews = screen(() => import('./pages/shared/ReviewsScreen'));
 
-const Feed = screen(() => import('./pages/worker/Feed'));
+const Feed = screen(() => import('./pages/worker/feed/Feed'));
 const JobDetail = screen(() => import('./pages/worker/JobDetail'));
 const ConfirmApplication = screen(() => import('./pages/worker/ConfirmApplication'));
 const ApplicationSent = screen(() => import('./pages/worker/ApplicationSent'));

@@ -1,8 +1,8 @@
+import { BackBar } from '../../components/BackBar';
 import { Badge } from '../../components/Badge';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
 import { Icon } from '../../components/icons/Icon';
-import { BackBar } from '../../components/TopBar';
 import { useDb } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 import { allJobs, applicationsForJob, currentCompanyId, getWorker } from '../../services/selectors';

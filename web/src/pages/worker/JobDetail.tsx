@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { BackBar } from '../../components/BackBar';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Icon, type IconName } from '../../components/icons/Icon';
@@ -7,7 +8,6 @@ import { Dialog } from '../../components/Modal';
 import { NotFound } from '../../components/NotFound';
 import { PhotoCarousel } from '../../components/PhotoCarousel';
 import { Rating } from '../../components/Rating';
-import { BackBar } from '../../components/TopBar';
 import { useDb, useRole, useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';

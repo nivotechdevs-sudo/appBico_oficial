@@ -1,6 +1,6 @@
 import { cx } from '../utils/cx';
 import { Icon } from './icons/Icon';
-import { resetFileInput } from '../utils/jobPhotos';
+import { resetFileInput } from '../utils/fileInput';
 
 interface PhotoSlotProps {
   shape?: 'rect' | 'circle';

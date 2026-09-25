@@ -1,12 +1,12 @@
+import { BackBar } from '../../components/BackBar';
 import { Button } from '../../components/Button';
 import { FieldError } from '../../components/FieldError';
 import { Icon } from '../../components/icons/Icon';
 import { Input } from '../../components/Input';
 import { JobTile } from '../../components/JobTile';
-import { PhotoManager } from '../../components/PhotoCarousel';
+import { PhotoManager } from '../../components/PhotoManager';
 import { Tag } from '../../components/Tag';
 import { TextArea } from '../../components/TextArea';
-import { BackBar } from '../../components/TopBar';
 import { REQUISITOS_OPCOES } from '../../data/seed';
 import { useDb, useUI } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
@@ -20,6 +20,7 @@ import { toggleItem } from '../../utils/list';
 const KEY = 'create-job';
 
 type ErrorKey = 'tipo' | 'local' | 'dias' | 'periodo' | 'diarias' | 'vagas' | 'valor' | 'detalhe';
+type Errors = Partial<Record<ErrorKey, string | null>>;
 
 interface CreateJobUI {
   step: 1 | 2;
@@ -36,7 +37,7 @@ interface CreateJobUI {
   negociavel: boolean;
   requisitos: string[];
   detalhe: string;
-  errors: Partial<Record<ErrorKey, string | null>>;
+  errors: Errors;
   publishing: boolean;
 }
 
@@ -46,6 +47,31 @@ function nextJobId() {
 
 function digits(v: string, max: number) {
   return String(v).replace(/\D/g, '').slice(0, max);
+}
+
+// Step 1: what, where, when and how many. Hours are optional, but if one end is filled in, so must the other.
+function validateStep1(ui: CreateJobUI): Errors {
+  const errors: Errors = {};
+  if (!ui.tipo.trim()) errors.tipo = 'Escreva o tipo de serviço da vaga.';
+  if (!ui.local.trim()) errors.local = 'Informe o endereço da obra.';
+  if (!ui.dias) errors.dias = 'Escolha em que dias o bico pode acontecer.';
+  if (Boolean(ui.periodoInicio) !== Boolean(ui.periodoFim))
+    errors.periodo = 'Preencha o início e o fim, ou deixe os dois em branco.';
+  if (!ui.diarias || Number(ui.diarias) < 1) errors.diarias = 'Informe quantas diárias.';
+  if (!ui.vagas || Number(ui.vagas) < 1) errors.vagas = 'Informe quantas pessoas a vaga precisa.';
+  return errors;
+}
+
+// Step 2: the pay (or "a combinar") and the description.
+function validateStep2(ui: CreateJobUI): Errors {
+  const errors: Errors = {};
+  if (!ui.negociavel) {
+    const n = parseInt(ui.valor, 10);
+    if (!ui.valor.trim()) errors.valor = 'Informe o valor da diária, ou marque como a combinar.';
+    else if (!n || n < 80) errors.valor = 'Informe um valor de R$ 80 ou mais.';
+  }
+  if (!ui.detalhe.trim()) errors.detalhe = 'Descreva o serviço da vaga.';
+  return errors;
 }
 
 export default function CreateJob() {
@@ -75,31 +101,9 @@ export default function CreateJob() {
   // "Diárias" and "vagas" sit side by side and share one message.
   const countError = ui.errors.diarias || ui.errors.vagas;
 
-  function validateStep1() {
-    const errors: CreateJobUI['errors'] = {};
-    if (!ui.tipo.trim()) errors.tipo = 'Escreva o tipo de serviço da vaga.';
-    if (!ui.local.trim()) errors.local = 'Informe o endereço da obra.';
-    if (!ui.dias) errors.dias = 'Escolha em que dias o bico pode acontecer.';
-    if (Boolean(ui.periodoInicio) !== Boolean(ui.periodoFim))
-      errors.periodo = 'Preencha o início e o fim, ou deixe os dois em branco.';
-    if (!ui.diarias || Number(ui.diarias) < 1) errors.diarias = 'Informe quantas diárias.';
-    if (!ui.vagas || Number(ui.vagas) < 1) errors.vagas = 'Informe quantas pessoas a vaga precisa.';
-    return errors;
-  }
-  function validateStep2() {
-    const errors: CreateJobUI['errors'] = {};
-    if (!ui.negociavel) {
-      const n = parseInt(ui.valor, 10);
-      if (!ui.valor.trim()) errors.valor = 'Informe o valor da diária, ou marque como a combinar.';
-      else if (!n || n < 80) errors.valor = 'Informe um valor de R$ 80 ou mais.';
-    }
-    if (!ui.detalhe.trim()) errors.detalhe = 'Descreva o serviço da vaga.';
-    return errors;
-  }
-
   function advance() {
     if (ui.step === 1) {
-      const errors = validateStep1();
+      const errors = validateStep1(ui);
       if (Object.keys(errors).length) {
         setUi({ errors });
         return;
@@ -107,7 +111,7 @@ export default function CreateJob() {
       setUi({ step: 2, errors: {} });
       return;
     }
-    const errors = validateStep2();
+    const errors = validateStep2(ui);
     if (Object.keys(errors).length) {
       setUi({ errors });
       return;

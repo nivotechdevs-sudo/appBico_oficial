@@ -1,8 +1,8 @@
+import { BackBar } from '../../components/BackBar';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Icon } from '../../components/icons/Icon';
 import { Dialog } from '../../components/Modal';
-import { BackBar } from '../../components/TopBar';
 import { useUI } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 

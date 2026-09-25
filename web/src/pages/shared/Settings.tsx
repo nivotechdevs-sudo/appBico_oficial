@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
+import { BackBar } from '../../components/BackBar';
 import { Icon, type IconName } from '../../components/icons/Icon';
-import { BackBar } from '../../components/TopBar';
 import { useRole } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 
