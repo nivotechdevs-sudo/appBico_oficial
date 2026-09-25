@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import type { Job } from '../types/models';
 import { cx } from '../utils/cx';
 import { jobPhotos, resetFileInput } from '../utils/jobPhotos';
@@ -83,7 +84,8 @@ function Slides({ job, photos, frame, compact }: SlidesProps) {
       }
       const i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / (widthRef.current || 1))));
       shownPhoto.set(jobId, i);
-      setIndex(i);
+      // Synchronously, like the legacy app: the dots/counter/arrows never lag behind the photo shown.
+      flushSync(() => setIndex(i));
     };
 
     // Mouse drag to swipe (touch and trackpads already scroll natively).
