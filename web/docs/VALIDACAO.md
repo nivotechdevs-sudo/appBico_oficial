@@ -115,6 +115,19 @@ diferenças abaixo (e só elas):
   suas obras"), abrindo o mesmo seletor (GPS ou busca de cidade) — agora `components/CityPicker.tsx`,
   compartilhado pelos dois lugares.
 
+Segunda leva de mudanças pedidas (também intencionais):
+
+- Cadastro e "Completar perfil" cabem na janela no desktop (sem rolagem da página; se o conteúdo não
+  couber, rola só o miolo do cartão).
+- Cadastro dos dois perfis pede o WhatsApp e confirma o número com um código de 6 números (simulado em
+  `services/auth.ts`: `sendWhatsAppCode` / `verifyWhatsAppCode`), com reenvio liberado a cada 15 s e
+  "Corrigir" para voltar ao número. Campos com máscara mantêm o cursor no fim ao digitar.
+- "Completar perfil": sem "Região de atuação"; o trabalhador escolhe capa e foto como o recrutador (a
+  capa vira o banner do perfil ao concluir; capa e logo do recrutador idem) e digita as especialidades,
+  que se somam em chips removíveis.
+- Sino (barra do desktop e topo do mural no celular) abre um painel flutuante com as notificações, as
+  não lidas destacadas, "Marcar como lidas" (o selo acompanha) e "Ver todas as notificações".
+
 ## Rodada 1 — tela a tela
 
 Legenda: **L** layout/visual · **T** textos · **E** estados de erro/vazio · **N** navegação · **D** dados/regras.

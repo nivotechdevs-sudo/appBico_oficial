@@ -3,10 +3,13 @@ import { EmptyState } from '../../../components/EmptyState';
 import { Icon } from '../../../components/icons/Icon';
 import { IconButton } from '../../../components/IconButton';
 import { Logo } from '../../../components/Logo';
+import { NotificationsPanel } from '../../../components/NotificationsPanel';
 import { Rating } from '../../../components/Rating';
 import { Tag } from '../../../components/Tag';
-import { unreadCount } from '../../../services/notifications';
+import { useNotifications } from '../../../hooks/useNotifications';
+import { useUI } from '../../../hooks/useStore';
 import { navigate } from '../../../services/router';
+import { MENU_DEFAULTS, MENU_KEY, type MenuUI } from '../../../services/sharedUI';
 import type { Database, Job, Role } from '../../../types/models';
 import { FeedGrid, NoJobsState, SearchPill } from './FeedParts';
 import { setFeed, SORTS, type ActiveFilter, type FeedUI, type SearchMatches } from './feedUI';
@@ -20,10 +23,6 @@ export interface FeedLayoutProps {
   /** What the search finds; `null` while nothing is typed. */
   found: SearchMatches | null;
   chips: ActiveFilter[];
-}
-
-function NotificationBell({ count = 0, onClick }: { count?: number; onClick?: () => void }) {
-  return <IconButton icon="bell" label="Notificações" onClick={onClick} badge={count > 0 ? count : null} />;
 }
 
 /** The mural below 770px: search pill, filter chips, sort control and the grid of tiles. */
@@ -125,7 +124,7 @@ export function MobileFeed({ db, role, ui, ordered, found, chips }: FeedLayoutPr
           <h1 className="inline-flex" aria-label="Bicos">
             <Logo compact />
           </h1>
-          <NotificationBell count={unreadCount(role)} onClick={() => navigate('/notificacoes')} />
+          <MobileNotifications role={role} />
         </div>
         <SearchPill id="feed-search" role={role} search={ui.search} compact />
       </div>
@@ -133,5 +132,34 @@ export function MobileFeed({ db, role, ui, ordered, found, chips }: FeedLayoutPr
         <div className="mural-frame flex flex-col gap-5">{searchResults ?? browseResults}</div>
       </div>
     </div>
+  );
+}
+
+// The header bell and its panel, which opens across the top of the screen.
+function MobileNotifications({ role }: { role: Role }) {
+  const [menus, setMenus] = useUI<MenuUI>(MENU_KEY, MENU_DEFAULTS);
+  const { list, unread, markAllRead } = useNotifications(role);
+  return (
+    <>
+      <IconButton
+        icon="bell"
+        label="Notificações"
+        onClick={() => setMenus({ notificationsOpen: !menus.notificationsOpen })}
+        badge={unread > 0 ? unread : null}
+      />
+      {menus.notificationsOpen ? (
+        <NotificationsPanel
+          list={list}
+          unread={unread}
+          onMarkAllRead={markAllRead}
+          onSeeAll={() => {
+            setMenus({ notificationsOpen: false });
+            navigate('/notificacoes');
+          }}
+          onClose={() => setMenus({ notificationsOpen: false })}
+          className="fixed left-3 right-3 top-[4.25rem] sm:left-auto sm:w-[24rem]"
+        />
+      ) : null}
+    </>
   );
 }

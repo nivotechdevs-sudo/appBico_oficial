@@ -20,6 +20,20 @@ export function maskCNPJ(v: string | null | undefined): string {
   return d;
 }
 
+/** Brazilian phone as typed: "(11) 98842-3310" (mobile) or "(11) 3842-3310" (landline). */
+export function maskPhone(v: string | null | undefined): string {
+  const d = String(v || '')
+    .replace(/\D/g, '')
+    .slice(0, 11);
+  if (!d) return '';
+  if (d.length <= 2) return '(' + d;
+  const ddd = '(' + d.slice(0, 2) + ') ';
+  const rest = d.slice(2);
+  if (rest.length <= 4) return ddd + rest;
+  const split = d.length === 11 ? 5 : 4;
+  return ddd + rest.slice(0, split) + '-' + rest.slice(split);
+}
+
 export function isValidEmail(v: string | null | undefined): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || '').trim());
 }

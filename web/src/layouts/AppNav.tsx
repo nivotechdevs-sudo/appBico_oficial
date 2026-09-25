@@ -1,6 +1,8 @@
 import { useLayoutEffect, useState } from 'react';
 import { Icon, type IconName } from '../components/icons/Icon';
 import { Logo } from '../components/Logo';
+import { NotificationsPanel } from '../components/NotificationsPanel';
+import { useNotifications } from '../hooks/useNotifications';
 import { useUI } from '../hooks/useStore';
 import { navigate } from '../services/router';
 import { MENU_DEFAULTS, MENU_KEY, type MenuUI } from '../services/sharedUI';
@@ -138,8 +140,10 @@ function installGlobalListeners() {
     { passive: true }
   );
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && getUI<MenuUI>(MENU_KEY, MENU_DEFAULTS).menuOpen)
-      setUI<MenuUI>(MENU_KEY, { menuOpen: false });
+    if (e.key !== 'Escape') return;
+    const menus = getUI<MenuUI>(MENU_KEY, MENU_DEFAULTS);
+    if (menus.menuOpen || menus.notificationsOpen)
+      setUI<MenuUI>(MENU_KEY, { menuOpen: false, notificationsOpen: false });
   });
   window.addEventListener('resize', () => {
     placeIndicator(false);
@@ -158,7 +162,6 @@ interface AppNavProps {
   role: Role;
   active: string | null;
   showMobilePill?: boolean;
-  notifications?: number;
   account?: AccountSummary;
 }
 
@@ -168,7 +171,7 @@ interface AppNavProps {
  * menu on the right. Mounted afresh on every route and state change (like the legacy app, which rebuilt
  * it on every render), so the pill circle and the tab underline roll from where they last were.
  */
-export function AppNav({ role, active, showMobilePill = true, notifications = 0, account = {} }: AppNavProps) {
+export function AppNav({ role, active, showMobilePill = true, account = {} }: AppNavProps) {
   const items = ITEMS[role] || ITEMS.trabalhador;
 
   // Starting position, captured at mount; from then on placePillDot()/placeIndicator() own the style.
@@ -218,7 +221,7 @@ export function AppNav({ role, active, showMobilePill = true, notifications = 0,
           })}
         </nav>
       ) : null}
-      <TopBar role={role} items={items} active={active} notifications={notifications} account={account} />
+      <TopBar role={role} items={items} active={active} account={account} />
     </div>
   );
 }
@@ -227,16 +230,16 @@ interface TopBarProps {
   role: Role;
   items: NavItem[];
   active: string | null;
-  notifications: number;
   account: AccountSummary;
 }
 
-function TopBar({ role, items, active, notifications, account }: TopBarProps) {
+function TopBar({ role, items, active, account }: TopBarProps) {
   const [menu, setMenu] = useUI<MenuUI>(MENU_KEY, MENU_DEFAULTS);
   const go = (path: string) => {
-    setMenu({ menuOpen: false });
+    setMenu({ menuOpen: false, notificationsOpen: false });
     navigate(path);
   };
+  const notifications = useNotifications(role);
   const [indicatorStyle] = useState(() =>
     lastIndicator ? { transform: `translateX(${lastIndicator.x}px)`, width: `${lastIndicator.w}px` } : { opacity: '0' }
   );
@@ -317,20 +320,37 @@ function TopBar({ role, items, active, notifications, account }: TopBarProps) {
           />
         </nav>
         <div className="flex items-center justify-end gap-2">
-          <button
-            type="button"
-            aria-label={notifications ? `Notificações, ${notifications} novas` : 'Notificações'}
-            title="Notificações"
-            className="relative inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/70 text-concrete-900 ring-1 ring-concrete-900/5 transition-colors hover:bg-white"
-            onClick={() => go('/notificacoes')}
-          >
-            <Icon name="bell" size={18} />
-            {notifications ? (
-              <span className="absolute -top-0.5 -right-0.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-[1.125rem] text-center ring-2 ring-white">
-                {String(notifications)}
-              </span>
+          <div className="relative">
+            <button
+              type="button"
+              aria-label={notifications.unread ? `Notificações, ${notifications.unread} novas` : 'Notificações'}
+              aria-haspopup="dialog"
+              aria-expanded={menu.notificationsOpen ? 'true' : 'false'}
+              title="Notificações"
+              className={cx(
+                'relative inline-flex items-center justify-center w-11 h-11 rounded-full text-concrete-900 ring-1 transition-colors hover:bg-white',
+                menu.notificationsOpen ? 'bg-white ring-concrete-300 shadow-raised' : 'bg-white/70 ring-concrete-900/5'
+              )}
+              onClick={() => setMenu({ notificationsOpen: !menu.notificationsOpen, menuOpen: false })}
+            >
+              <Icon name="bell" size={18} />
+              {notifications.unread ? (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-danger-500 text-white text-[0.625rem] font-bold leading-[1.125rem] text-center ring-2 ring-white">
+                  {String(notifications.unread)}
+                </span>
+              ) : null}
+            </button>
+            {menu.notificationsOpen ? (
+              <NotificationsPanel
+                list={notifications.list}
+                unread={notifications.unread}
+                onMarkAllRead={notifications.markAllRead}
+                onSeeAll={() => go('/notificacoes')}
+                onClose={() => setMenu({ notificationsOpen: false })}
+                className="absolute right-0 top-full mt-3 w-[24rem]"
+              />
             ) : null}
-          </button>
+          </div>
           <div className="relative">
             <button
               type="button"
@@ -341,7 +361,7 @@ function TopBar({ role, items, active, notifications, account }: TopBarProps) {
                 'inline-flex items-center gap-2.5 h-11 pl-3.5 pr-1.5 rounded-full border bg-white/80 transition-shadow hover:bg-white hover:shadow-raised',
                 menu.menuOpen ? 'border-concrete-300 shadow-raised' : 'border-concrete-200'
               )}
-              onClick={() => setMenu({ menuOpen: !menu.menuOpen })}
+              onClick={() => setMenu({ menuOpen: !menu.menuOpen, notificationsOpen: false })}
             >
               <Icon name="menu" size={18} color="var(--gray-700)" />
               {avatar('sm')}

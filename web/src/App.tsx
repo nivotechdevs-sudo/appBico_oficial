@@ -25,7 +25,9 @@ function useLocation() {
       subscribe(() => {
         const next = getLocation();
         window.scrollTo(0, 0);
-        if (getUI<MenuUI>(MENU_KEY, MENU_DEFAULTS).menuOpen) setUI<MenuUI>(MENU_KEY, { menuOpen: false });
+        const menus = getUI<MenuUI>(MENU_KEY, MENU_DEFAULTS);
+        if (menus.menuOpen || menus.notificationsOpen)
+          setUI<MenuUI>(MENU_KEY, { menuOpen: false, notificationsOpen: false });
         if (next.path === '/') return navigate('/splash', { replace: true });
         const match = matchRoute(ROUTES, next.path);
         // A screen whose chunk is already here renders synchronously (no frame with the old screen);

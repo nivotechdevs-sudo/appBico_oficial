@@ -1,23 +1,26 @@
 import type { ReactNode } from 'react';
 import { Button } from '../../components/Button';
 import { CityPicker, LocationButton } from '../../components/CityPicker';
+import { FieldError } from '../../components/FieldError';
 import { IconButton } from '../../components/IconButton';
+import { Input } from '../../components/Input';
 import { PhotoSlot } from '../../components/PhotoSlot';
 import { Select } from '../../components/Select';
 import { Tag } from '../../components/Tag';
 import { useUI } from '../../hooks/useStore';
 import { DEFAULT_CITY } from '../../services/cities';
 import { finishSignUp } from '../../services/auth';
-import {
-  CARGOS_TRABALHADOR,
-  ESPECIALIDADES,
-  REGIOES_RECRUTADOR,
-  REGIOES_TRABALHADOR,
-  TIPOS_OBRA
-} from '../../services/catalog';
+import { CARGOS_TRABALHADOR, TIPOS_OBRA } from '../../services/catalog';
 import type { ScreenProps } from '../../types/screen';
 import { navigate } from '../../services/router';
-import { toggleItem } from '../../utils/list';
+import {
+  COMPANY_PROFILE_DEFAULTS,
+  COMPANY_PROFILE_KEY,
+  WORKER_PHOTO_KEY,
+  type CompanyProfileUI,
+  type WorkerPhotoUI
+} from '../../services/sharedUI';
+import { getUI, setUI } from '../../services/store';
 
 export default function CompleteProfile({ params }: ScreenProps) {
   return params.role === 'recrutador' ? <RecruiterFlow /> : <WorkerFlow />;
@@ -34,7 +37,7 @@ interface ShellProps {
 
 function Shell({ step, total, onBack, children, onContinue, label }: ShellProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-white lg:max-w-app lg:mx-auto lg:shadow-card lg:my-10 lg:rounded-card lg:overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-white lg:min-h-0 lg:h-[calc(100vh-5rem)] lg:max-w-app lg:mx-auto lg:shadow-card lg:my-10 lg:rounded-card lg:overflow-hidden">
       <div className="sticky top-0 z-10 bg-white border-b border-concrete-200 px-2 pb-3">
         <div className="flex items-center gap-1.5 min-h-14">
           {step > 0 ? <IconButton icon="arrow-left" label="Voltar" onClick={onBack} /> : <span className="w-11 h-11" />}
@@ -47,7 +50,9 @@ function Shell({ step, total, onBack, children, onContinue, label }: ShellProps)
           />
         </div>
       </div>
-      <div className="flex-1 px-5 sm:px-8 py-8 flex flex-col gap-7 bg-concrete-50">{children}</div>
+      <div className="flex-1 px-5 sm:px-8 py-8 flex flex-col gap-7 bg-concrete-50 lg:min-h-0 lg:overflow-y-auto">
+        {children}
+      </div>
       <div className="px-5 sm:px-8 py-3 bg-white shadow-bar">
         <Button label={label} size="lg" fullWidth onClick={onContinue} />
       </div>
@@ -67,56 +72,80 @@ function Heading({ overline, title, help }: { overline: string; title: string; h
 
 interface WorkerUI {
   step: number;
+  capa: string | null;
   photo: string | null;
   cargo: string;
   cidade: string;
   pickerOpen: boolean;
-  regiao: string;
+  /** What is being typed in the specialties field. */
+  especialidade: string;
   especialidades: string[];
-  errors: { cargo?: string | null; regiao?: string | null; especialidades?: string | null };
+  errors: { cargo?: string | null; especialidades?: string | null };
 }
 
 function WorkerFlow() {
   const [ui, setUi] = useUI<WorkerUI>('completar-trabalhador', {
     step: 0,
+    capa: null,
     photo: null,
     cargo: '',
     cidade: DEFAULT_CITY,
     pickerOpen: false,
-    regiao: '',
+    especialidade: '',
     especialidades: [],
     errors: {}
   });
 
+  const toStep1 = () => {
+    if (!ui.cargo) {
+      setUi({ errors: { cargo: 'Selecione seu cargo ou especialidade principal.' } });
+      return;
+    }
+    setUi({ step: 1, errors: {} });
+  };
+
+  // Typed specialties pile up as chips under the field (same word twice is ignored).
+  const addEspecialidade = () => {
+    const value = ui.especialidade.trim().replace(/\s+/g, ' ');
+    if (!value) return;
+    const exists = ui.especialidades.some((e) => e.toLowerCase() === value.toLowerCase());
+    setUi({
+      especialidade: '',
+      especialidades: exists ? ui.especialidades : [...ui.especialidades, value],
+      errors: { ...ui.errors, especialidades: null }
+    });
+  };
+
   if (ui.step === 0) {
     return (
-      <Shell
-        step={0}
-        total={2}
-        onBack={() => navigate('/verificar-email')}
-        onContinue={() => {
-          if (!ui.cargo) {
-            setUi({ errors: { cargo: 'Selecione seu cargo ou especialidade principal.' } });
-            return;
-          }
-          setUi({ step: 1, errors: {} });
-        }}
-        label="Continuar"
-      >
+      <Shell step={0} total={2} onBack={() => navigate('/verificar-email')} onContinue={toStep1} label="Continuar">
         <Heading
           overline="Completar perfil"
-          title="Uma foto e o seu cargo"
+          title="Capa, foto e o seu cargo"
           help="Isso aparece no seu perfil para as construtoras que virem seu bico."
         />
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-concrete-900">Foto de capa</span>
+          <PhotoSlot
+            shape="rect"
+            value={ui.capa}
+            onChange={(v) => setUi({ capa: v })}
+            height="7.5rem"
+            placeholder="Capa do seu perfil"
+          />
+        </div>
+        <div className="flex items-center gap-4">
           <PhotoSlot
             shape="circle"
             value={ui.photo}
             onChange={(v) => setUi({ photo: v })}
-            className="w-24 h-24"
+            className="w-[4.5rem] h-[4.5rem] shrink-0"
             placeholder="Sua foto"
           />
-          <Button label="Pular por enquanto" variant="ghost" onClick={() => setUi({ step: 1 })} />
+          <div className="flex flex-col gap-1">
+            <span className="text-sm font-semibold text-concrete-900">Sua foto de perfil</span>
+            <span className="text-sm text-concrete-500">Opcional. Rosto bem visível passa mais confiança.</span>
+          </div>
         </div>
         <Select
           label="Cargo ou especialidade principal"
@@ -136,13 +165,11 @@ function WorkerFlow() {
       total={2}
       onBack={() => setUi({ step: 0 })}
       onContinue={() => {
-        const errors: WorkerUI['errors'] = {};
-        if (!ui.regiao) errors.regiao = 'Selecione sua região de atuação.';
-        if (ui.especialidades.length === 0) errors.especialidades = 'Escolha ao menos uma especialidade.';
-        if (Object.keys(errors).length) {
-          setUi({ errors });
+        if (ui.especialidades.length === 0) {
+          setUi({ errors: { especialidades: 'Adicione ao menos uma especialidade.' } });
           return;
         }
+        if (ui.capa) setUI<WorkerPhotoUI>(WORKER_PHOTO_KEY, { photo: ui.capa });
         finishSignUp('trabalhador');
         navigate('/mural');
       }}
@@ -158,32 +185,39 @@ function WorkerFlow() {
         location={ui.cidade}
         onClick={() => setUi({ pickerOpen: true })}
       />
-      <Select
-        label="Região de atuação"
-        placeholder="Selecione bairro e cidade"
-        options={REGIOES_TRABALHADOR}
-        value={ui.regiao}
-        error={ui.errors.regiao}
-        onChange={(v) => setUi({ regiao: v, errors: { ...ui.errors, regiao: null } })}
-      />
       <div className="flex flex-col gap-2.5">
-        <span className="text-sm font-semibold text-concrete-900">Especialidades</span>
-        <div className="flex flex-wrap gap-2">
-          {ESPECIALIDADES.map((e) => (
-            <Tag
-              key={e}
-              label={e}
-              selected={ui.especialidades.includes(e)}
-              onClick={() =>
-                setUi({
-                  especialidades: toggleItem(ui.especialidades, e),
-                  errors: { ...ui.errors, especialidades: null }
-                })
-              }
-            />
-          ))}
+        <div className="flex items-end gap-2">
+          <Input
+            id="completar-especialidade"
+            label="Especialidades"
+            placeholder="Ex.: Reboco, pintura, elétrica"
+            icon="hammer"
+            value={ui.especialidade}
+            invalid={Boolean(ui.errors.especialidades)}
+            onInput={(v) => setUi({ especialidade: v })}
+            onEnter={addEspecialidade}
+          />
+          <Button label="Adicionar" variant="secondary" iconLeft="plus" onClick={addEspecialidade} />
         </div>
-        {ui.errors.especialidades ? <span className="text-sm text-danger-500">{ui.errors.especialidades}</span> : null}
+        {ui.errors.especialidades ? (
+          <FieldError message={ui.errors.especialidades} />
+        ) : (
+          <span className="text-sm text-concrete-500">
+            Escreva uma especialidade e toque em Adicionar ou aperte Enter.
+          </span>
+        )}
+        {ui.especialidades.length ? (
+          <div className="flex flex-wrap gap-2 pt-1" aria-label="Suas especialidades">
+            {ui.especialidades.map((e) => (
+              <Tag
+                key={e}
+                label={e}
+                selected
+                onRemove={() => setUi({ especialidades: ui.especialidades.filter((x) => x !== e) })}
+              />
+            ))}
+          </div>
+        ) : null}
       </div>
       <CityPicker
         open={ui.pickerOpen}
@@ -204,8 +238,7 @@ interface RecruiterUI {
   tipoObra: string;
   cidade: string;
   pickerOpen: boolean;
-  regiao: string;
-  errors: { tipoObra?: string | null; regiao?: string | null };
+  errors: { tipoObra?: string | null };
 }
 
 function RecruiterFlow() {
@@ -216,7 +249,6 @@ function RecruiterFlow() {
     tipoObra: '',
     cidade: DEFAULT_CITY,
     pickerOpen: false,
-    regiao: '',
     errors: {}
   });
 
@@ -267,13 +299,12 @@ function RecruiterFlow() {
       total={2}
       onBack={() => setUi({ step: 0 })}
       onContinue={() => {
-        const errors: RecruiterUI['errors'] = {};
-        if (!ui.tipoObra) errors.tipoObra = 'Selecione o tipo de obra.';
-        if (!ui.regiao) errors.regiao = 'Selecione sua região de atuação.';
-        if (Object.keys(errors).length) {
-          setUi({ errors });
+        if (!ui.tipoObra) {
+          setUi({ errors: { tipoObra: 'Selecione o tipo de obra.' } });
           return;
         }
+        const current = getUI<CompanyProfileUI>(COMPANY_PROFILE_KEY, COMPANY_PROFILE_DEFAULTS);
+        setUI<CompanyProfileUI>(COMPANY_PROFILE_KEY, { capa: ui.capa ?? current.capa, logo: ui.logo ?? current.logo });
         finishSignUp('recrutador');
         navigate('/mural');
       }}
@@ -284,23 +315,15 @@ function RecruiterFlow() {
         title="Sobre a sua obra"
         help="Usamos para destacar o tipo de obra e mostrar suas vagas na região certa."
       />
-      <LocationButton title="Onde ficam suas obras" location={ui.cidade} onClick={() => setUi({ pickerOpen: true })} />
       <Select
         label="Tipo de obra"
         placeholder="Selecione o tipo de obra"
         options={TIPOS_OBRA}
         value={ui.tipoObra}
         error={ui.errors.tipoObra}
-        onChange={(v) => setUi({ tipoObra: v, errors: { ...ui.errors, tipoObra: null } })}
+        onChange={(v) => setUi({ tipoObra: v, errors: { tipoObra: null } })}
       />
-      <Select
-        label="Região de atuação"
-        placeholder="Selecione a região"
-        options={REGIOES_RECRUTADOR}
-        value={ui.regiao}
-        error={ui.errors.regiao}
-        onChange={(v) => setUi({ regiao: v, errors: { ...ui.errors, regiao: null } })}
-      />
+      <LocationButton title="Onde ficam suas obras" location={ui.cidade} onClick={() => setUi({ pickerOpen: true })} />
       <CityPicker
         open={ui.pickerOpen}
         title="Onde ficam suas obras"

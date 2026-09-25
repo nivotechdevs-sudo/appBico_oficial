@@ -2,12 +2,13 @@
 // agrees on them. (Bags private to a single screen are declared next to that screen.)
 import type { Role } from '../types/models';
 
-/** The account menu in the navigation. Every route change closes it (see App.tsx). */
+/** The account menu and the bell's notifications panel. Every route change closes both (see App.tsx). */
 export const MENU_KEY = 'app-nav';
 export interface MenuUI {
   menuOpen: boolean;
+  notificationsOpen: boolean;
 }
-export const MENU_DEFAULTS: MenuUI = { menuOpen: false };
+export const MENU_DEFAULTS: MenuUI = { menuOpen: false, notificationsOpen: false };
 
 /**
  * The company's cover/logo pictures and the post pending deletion. Shared by the company profile, its

@@ -51,7 +51,13 @@ describe('simulated backend calls keep the legacy delays', () => {
   });
 
   it('signs up after 700 ms, refusing the two "already registered" documents', async () => {
-    const data = { role: 'trabalhador' as const, name: 'Ana', email: 'ana@x.com', password: 'abcdefgh1' };
+    const data = {
+      role: 'trabalhador' as const,
+      name: 'Ana',
+      email: 'ana@x.com',
+      whatsapp: '(11) 98842-3310',
+      password: 'abcdefgh1'
+    };
     expect(await settlesAfter(s.auth.signUp({ ...data, doc: '123.456.789-01' }), 700)).toEqual({ ok: true });
     expect(await settlesAfter(s.auth.signUp({ ...data, doc: '111.111.111-11' }), 700)).toEqual({
       ok: false,
@@ -67,6 +73,14 @@ describe('simulated backend calls keep the legacy delays', () => {
     await settlesAfter(s.auth.requestPasswordReset('ana@x.com'), 600);
     await settlesAfter(s.auth.resetPassword('abcdefgh1'), 600);
     await settlesAfter(s.account.exportMyData(), 900);
+  });
+
+  it('sends and checks the WhatsApp code after 600 ms (demo: any 6 digits but 000000)', async () => {
+    await settlesAfter(s.auth.sendWhatsAppCode('(11) 98842-3310'), 600);
+    expect(await settlesAfter(s.auth.verifyWhatsAppCode('(11) 98842-3310', '123456'), 600)).toBe(true);
+    expect(await settlesAfter(s.auth.verifyWhatsAppCode('(11) 98842-3310', '000000'), 600)).toBe(false);
+    expect(await settlesAfter(s.auth.verifyWhatsAppCode('(11) 98842-3310', '12345'), 600)).toBe(false);
+    expect(s.auth.WHATSAPP_RESEND_SECONDS).toBe(15);
   });
 
   it('sends an application after 600 ms', async () => {
@@ -133,5 +147,18 @@ describe('reference data served by services', () => {
     const file = new File(['x'], 'foto.jpg', { type: 'image/jpeg' });
     expect(mediaUrl(file)).toBe('blob:foto');
     expect(spy).toHaveBeenCalledWith(file);
+  });
+});
+
+describe('phone mask', () => {
+  it('formats mobile and landline numbers as they are typed', async () => {
+    const { maskPhone } = await import('../utils/format');
+    expect(maskPhone('')).toBe('');
+    expect(maskPhone('1')).toBe('(1');
+    expect(maskPhone('119')).toBe('(11) 9');
+    expect(maskPhone('119884')).toBe('(11) 9884');
+    expect(maskPhone('1138423310')).toBe('(11) 3842-3310');
+    expect(maskPhone('11988423310')).toBe('(11) 98842-3310');
+    expect(maskPhone('(11) 98842-33109')).toBe('(11) 98842-3310');
   });
 });

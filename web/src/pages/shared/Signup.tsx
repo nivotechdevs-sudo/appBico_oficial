@@ -5,7 +5,7 @@ import { IconButton } from '../../components/IconButton';
 import type { IconName } from '../../components/icons/Icon';
 import { Input, PasswordInput } from '../../components/Input';
 import { useUI } from '../../hooks/useStore';
-import { signUp } from '../../services/auth';
+import { sendWhatsAppCode, signUp, verifyWhatsAppCode } from '../../services/auth';
 import { AUTH_FLOW_KEY, type AuthFlowUI } from '../../services/sharedUI';
 import type { ScreenProps } from '../../types/screen';
 import { goBack as routerGoBack, navigate } from '../../services/router';
@@ -15,12 +15,14 @@ import {
   isValidEmail,
   maskCNPJ,
   maskCPF,
+  maskPhone,
   passwordStrength,
   STRENGTH_LABEL,
   strengthBarColor
 } from '../../utils/format';
+import { WhatsAppCode } from './WhatsAppCode';
 
-type FieldId = 'nome' | 'razao' | 'doc' | 'email' | 'senha';
+type FieldId = 'nome' | 'razao' | 'doc' | 'email' | 'whatsapp' | 'codigo' | 'senha';
 
 interface SignupField {
   id: FieldId;
@@ -30,7 +32,9 @@ interface SignupField {
   placeholder: string;
   icon?: IconName;
   type?: string;
-  mask?: 'cpf' | 'cnpj';
+  mask?: 'cpf' | 'cnpj' | 'phone';
+  /** The WhatsApp confirmation code step. */
+  isCode?: boolean;
   mono?: boolean;
   isPassword?: boolean;
 }
@@ -43,6 +47,24 @@ const COMUM_EMAIL = {
   icon: 'mail',
   type: 'email'
 } as const;
+const COMUM_WHATSAPP = {
+  id: 'whatsapp',
+  label: 'WhatsApp',
+  question: 'Qual é o seu WhatsApp?',
+  placeholder: '(11) 90000-0000',
+  icon: 'message-circle',
+  type: 'tel',
+  mask: 'phone',
+  mono: true
+} as const;
+const COMUM_CODIGO: SignupField = {
+  id: 'codigo',
+  label: 'Código',
+  question: 'Confirme seu WhatsApp',
+  help: 'Mandamos uma mensagem no WhatsApp com um código de 6 números. Digite o código abaixo.',
+  placeholder: '',
+  isCode: true
+};
 const COMUM_SENHA: SignupField = {
   id: 'senha',
   label: 'Senha',
@@ -75,6 +97,11 @@ const PERFIS: Record<Role, { overline: string; fields: SignupField[] }> = {
         mono: true
       },
       { ...COMUM_EMAIL, help: 'É por aqui que avisamos quando uma construtora escolher você.' },
+      {
+        ...COMUM_WHATSAPP,
+        help: 'É por ele que as construtoras falam com você. Vamos mandar um código para confirmar o número.'
+      },
+      COMUM_CODIGO,
       COMUM_SENHA
     ]
   },
@@ -100,6 +127,11 @@ const PERFIS: Record<Role, { overline: string; fields: SignupField[] }> = {
         mono: true
       },
       { ...COMUM_EMAIL, help: 'É por aqui que avisamos cada novo candidato da sua vaga.' },
+      {
+        ...COMUM_WHATSAPP,
+        help: 'É por ele que os candidatos falam com a empresa. Vamos mandar um código para confirmar o número.'
+      },
+      COMUM_CODIGO,
       COMUM_SENHA
     ]
   }
@@ -118,6 +150,10 @@ interface SignupUI {
   confirmError: string | null;
   accepted: boolean;
   acceptError: boolean;
+  /** When the last WhatsApp code was sent (ms), for the resend countdown. */
+  codeSentAt: number;
+  resending: boolean;
+  resent: boolean;
 }
 
 function validateField(field: SignupField, values: Values, role: Role): string | null {
@@ -136,6 +172,11 @@ function validateField(field: SignupField, values: Values, role: Role): string |
     return null;
   }
   if (field.id === 'email') return isValidEmail(v) ? null : 'E-mail inválido. Confira se tem @ e o domínio.';
+  if (field.id === 'whatsapp') {
+    const digits = v.replace(/\D/g, '');
+    return digits.length === 10 || digits.length === 11 ? null : 'Número inválido. Confira o DDD e o número.';
+  }
+  if (field.id === 'codigo') return /^\d{6}$/.test(v) ? null : 'Digite os 6 números do código.';
   if (field.id === 'senha') {
     if (v.length < 8) return 'Senha curta. Use 8 caracteres ou mais.';
     if (!/[a-zA-Z]/.test(v) || !/[0-9]/.test(v)) return 'Misture letras e números na senha.';
@@ -158,7 +199,10 @@ export default function Signup({ params }: ScreenProps) {
     confirmPassword: '',
     confirmError: null,
     accepted: false,
-    acceptError: false
+    acceptError: false,
+    codeSentAt: 0,
+    resending: false,
+    resent: false
   }));
   const step = Math.max(0, Math.min(ui.step, cfg.fields.length - 1));
   const field = cfg.fields[step];
@@ -177,6 +221,19 @@ export default function Signup({ params }: ScreenProps) {
     continueStep();
   };
 
+  function resendCode() {
+    setUi({ resending: true });
+    sendWhatsAppCode(ui.values.whatsapp || '').then(() =>
+      setUi((s) => ({
+        resending: false,
+        resent: true,
+        codeSentAt: Date.now(),
+        values: { ...s.values, codigo: '' },
+        errors: { ...s.errors, codigo: null }
+      }))
+    );
+  }
+
   function goBack() {
     if (step > 0) setUi({ step: step - 1, generalError: false });
     else routerGoBack('/escolha-perfil');
@@ -186,6 +243,7 @@ export default function Signup({ params }: ScreenProps) {
     let value = v;
     if (field.mask === 'cpf') value = maskCPF(v);
     if (field.mask === 'cnpj') value = maskCNPJ(v);
+    if (field.mask === 'phone') value = maskPhone(v);
     setUi((s) => ({
       values: { ...s.values, [field.id]: value },
       errors: { ...s.errors, [field.id]: null },
@@ -198,6 +256,34 @@ export default function Signup({ params }: ScreenProps) {
     const err = validateField(field, ui.values, role);
     if (err) {
       setUi((s) => ({ errors: { ...s.errors, [field.id]: err } }));
+      return;
+    }
+    if (field.id === 'whatsapp') {
+      setUi({ submitting: true });
+      sendWhatsAppCode(ui.values.whatsapp || '').then(() =>
+        setUi((s) => ({
+          submitting: false,
+          step: step + 1,
+          codeSentAt: Date.now(),
+          resent: false,
+          values: { ...s.values, codigo: '' },
+          errors: { ...s.errors, codigo: null }
+        }))
+      );
+      return;
+    }
+    if (field.id === 'codigo') {
+      setUi({ submitting: true });
+      verifyWhatsAppCode(ui.values.whatsapp || '', ui.values.codigo || '').then((ok) =>
+        setUi((s) =>
+          ok
+            ? { submitting: false, step: step + 1 }
+            : {
+                submitting: false,
+                errors: { ...s.errors, codigo: 'Código incorreto. Confira a mensagem no WhatsApp e tente de novo.' }
+              }
+        )
+      );
       return;
     }
     if (!isLast) {
@@ -218,6 +304,7 @@ export default function Signup({ params }: ScreenProps) {
       name: (role === 'trabalhador' ? ui.values.nome : ui.values.razao) || '',
       doc: ui.values.doc || '',
       email: ui.values.email || '',
+      whatsapp: ui.values.whatsapp || '',
       password: ui.values.senha || ''
     }).then((result) => {
       if (!result.ok) {
@@ -238,7 +325,7 @@ export default function Signup({ params }: ScreenProps) {
   const strengthTextColor = strength === 3 ? 'text-success-500' : strength ? 'text-warning-500' : 'text-concrete-500';
 
   return (
-    <div className="min-h-screen flex flex-col bg-white lg:max-w-app lg:mx-auto lg:shadow-card lg:my-10 lg:rounded-card lg:overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-white lg:min-h-0 lg:h-[calc(100vh-5rem)] lg:max-w-app lg:mx-auto lg:shadow-card lg:my-10 lg:rounded-card lg:overflow-hidden">
       <div className="sticky top-0 z-10 bg-white border-b border-concrete-200 px-2 pb-3">
         <div className="flex items-center gap-1.5 min-h-14">
           <IconButton icon="arrow-left" label="Voltar" onClick={goBack} />
@@ -251,7 +338,7 @@ export default function Signup({ params }: ScreenProps) {
           />
         </div>
       </div>
-      <div className="flex-1 px-5 sm:px-8 py-8 flex flex-col gap-7 bg-concrete-50">
+      <div className="flex-1 px-5 sm:px-8 py-8 flex flex-col gap-7 bg-concrete-50 lg:min-h-0 lg:overflow-y-auto">
         {ui.generalError ? (
           <div className="flex flex-col gap-3.5 p-4 bg-danger-50 border border-danger-500 rounded-card">
             <div className="flex gap-2.5 items-start">
@@ -288,7 +375,21 @@ export default function Signup({ params }: ScreenProps) {
           <h1 className="font-display font-bold text-3xl text-concrete-900">{field.question}</h1>
           <p className="text-base text-concrete-700">{field.help}</p>
         </div>
-        {field.isPassword ? (
+        {field.isCode ? (
+          <WhatsAppCode
+            id={fieldDomId}
+            phone={ui.values.whatsapp || ''}
+            code={ui.values.codigo || ''}
+            error={ui.errors.codigo}
+            sentAt={ui.codeSentAt}
+            resending={ui.resending}
+            resent={ui.resent}
+            onCode={setValue}
+            onEnter={continueByEnter}
+            onResend={resendCode}
+            onEditNumber={goBack}
+          />
+        ) : field.isPassword ? (
           <div className="flex flex-col gap-5">
             <PasswordInput
               id={key + '-senha'}
@@ -357,7 +458,9 @@ export default function Signup({ params }: ScreenProps) {
             value={ui.values[field.id] || ''}
             error={ui.errors[field.id]}
             mono={Boolean(field.mono)}
-            inputMode={field.mask ? 'numeric' : field.type === 'email' ? 'email' : 'text'}
+            inputMode={
+              field.mask === 'phone' ? 'tel' : field.mask ? 'numeric' : field.type === 'email' ? 'email' : 'text'
+            }
             onInput={setValue}
             onEnter={continueByEnter}
             autoFocus
@@ -366,7 +469,15 @@ export default function Signup({ params }: ScreenProps) {
       </div>
       <div className="px-5 sm:px-8 py-3 bg-white shadow-bar">
         <Button
-          label={isLast ? 'Criar minha conta' : 'Continuar'}
+          label={
+            isLast
+              ? 'Criar minha conta'
+              : field.id === 'whatsapp'
+                ? 'Enviar código'
+                : field.isCode
+                  ? 'Confirmar número'
+                  : 'Continuar'
+          }
           size="lg"
           fullWidth
           loading={ui.submitting}

@@ -18,6 +18,8 @@ export interface SignUpData {
   /** CPF (worker) or CNPJ (recruiter), masked as typed. */
   doc: string;
   email: string;
+  /** Confirmed by code (see sendWhatsAppCode). */
+  whatsapp: string;
   password: string;
 }
 
@@ -46,3 +48,17 @@ export async function requestPasswordReset(_email: string): Promise<void> {
 export async function resetPassword(_newPassword: string): Promise<void> {
   await mockLatency(600);
 }
+
+/** Sends the 6-digit confirmation code to the number by WhatsApp. Demo: nothing is sent. */
+export async function sendWhatsAppCode(_phone: string): Promise<void> {
+  await mockLatency(600);
+}
+
+/** Checks the code the user typed. Demo: any 6 digits confirm the number, except 000000. */
+export async function verifyWhatsAppCode(_phone: string, code: string): Promise<boolean> {
+  await mockLatency(600);
+  return /^\d{6}$/.test(code) && code !== '000000';
+}
+
+/** Seconds before the code can be sent again. */
+export const WHATSAPP_RESEND_SECONDS = 15;
