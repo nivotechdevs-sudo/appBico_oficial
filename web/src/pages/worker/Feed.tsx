@@ -2,7 +2,7 @@ import { useRef, type ReactNode } from 'react';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
-import { Icon } from '../../components/icons/Icon';
+import { Icon, type IconName } from '../../components/icons/Icon';
 import { Input } from '../../components/Input';
 import { JobTile } from '../../components/JobTile';
 import { Logo } from '../../components/Logo';
@@ -18,6 +18,7 @@ import {
   activeJobs,
   allCompanies,
   allWorkers,
+  companyOf,
   getCompany,
   isJobClosed,
   isJobSaved,
@@ -115,7 +116,7 @@ function passesFilters(j: Job, ui: FeedUI) {
 
 interface ActiveFilter {
   label: string;
-  icon: string;
+  icon: IconName;
   remove: () => void;
 }
 
@@ -134,9 +135,7 @@ function activeFilters(ui: FeedUI): ActiveFilter[] {
 
 function searchMatches(db: Database, open: Job[], q: string) {
   return {
-    jobs: open.filter((j) =>
-      (j.role + ' ' + getCompany(db, j.companyId)!.name + ' ' + j.location).toLowerCase().includes(q)
-    ),
+    jobs: open.filter((j) => (j.role + ' ' + companyOf(db, j).name + ' ' + j.location).toLowerCase().includes(q)),
     companies: allCompanies(db).filter((c) => (c.name + ' ' + c.location).toLowerCase().includes(q)),
     workers: allWorkers(db).filter((w) => (w.name + ' ' + w.role + ' ' + w.region).toLowerCase().includes(q))
   };

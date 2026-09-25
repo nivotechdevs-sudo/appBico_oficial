@@ -1,13 +1,22 @@
 import { Button } from '../../components/Button';
 import { Checkbox } from '../../components/Checkbox';
 import { IconButton } from '../../components/IconButton';
+import type { IconName } from '../../components/icons/Icon';
 import { Input, PasswordInput } from '../../components/Input';
 import { useUI } from '../../hooks/useStore';
+import { AUTH_FLOW_KEY, type AuthFlowUI } from '../../services/sharedUI';
 import type { ScreenProps } from '../../types/screen';
 import { goBack as routerGoBack, navigate } from '../../services/router';
 import { resetUI, setUI } from '../../services/store';
 import type { Role } from '../../types/models';
-import { isValidEmail, maskCNPJ, maskCPF, passwordStrength, STRENGTH_LABEL } from '../../utils/format';
+import {
+  isValidEmail,
+  maskCNPJ,
+  maskCPF,
+  passwordStrength,
+  STRENGTH_LABEL,
+  strengthBarColor
+} from '../../utils/format';
 
 type FieldId = 'nome' | 'razao' | 'doc' | 'email' | 'senha';
 
@@ -17,7 +26,7 @@ interface SignupField {
   question: string;
   help: string;
   placeholder: string;
-  icon?: string;
+  icon?: IconName;
   type?: string;
   mask?: 'cpf' | 'cnpj';
   mono?: boolean;
@@ -112,11 +121,6 @@ interface SignupUI {
   acceptError: boolean;
 }
 
-export interface AuthFlowUI {
-  role: Role;
-  email: string;
-}
-
 function validateField(field: SignupField, values: Values, role: Role): string | null {
   const v = String(values[field.id] || '').trim();
   if (field.id === 'nome') {
@@ -203,14 +207,14 @@ export default function Signup({ params }: ScreenProps) {
         return;
       }
       setUi({ submitting: false });
-      setUI<AuthFlowUI>('authFlow', { role, email: ui.values.email || 'voce@email.com' });
+      setUI<AuthFlowUI>(AUTH_FLOW_KEY, { role, email: ui.values.email || 'voce@email.com' });
       resetUI(key);
       navigate('/verificar-email');
     }, 700);
   }
 
   const strength = passwordStrength(ui.values.senha);
-  const strengthColor = strength === 3 ? 'bg-success-500' : strength ? 'bg-warning-500' : 'bg-concrete-200';
+  const strengthColor = strengthBarColor(strength);
   const strengthTextColor = strength === 3 ? 'text-success-500' : strength ? 'text-warning-500' : 'text-concrete-500';
 
   return (

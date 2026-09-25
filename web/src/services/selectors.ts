@@ -24,6 +24,19 @@ export function successfulJobsForCompany(db: Database, companyId: string): numbe
   return allJobs(db).filter((j) => j.companyId === companyId && j.closed && !j.semContratacao).length;
 }
 
+// Referential integrity of the data: every job belongs to an existing company and every application to
+// an existing worker. These accessors put that in the types (and fail loudly if it is ever broken).
+export function companyOf(db: Database, job: Pick<Job, 'id' | 'companyId'>): Company {
+  const company = getCompany(db, job.companyId);
+  if (!company) throw new Error(`Vaga ${job.id}: construtora ${job.companyId} não existe`);
+  return company;
+}
+export function workerOf(db: Database, app: Application): Worker {
+  const worker = getWorker(db, app.workerId);
+  if (!worker) throw new Error(`Candidatura ${app.id}: trabalhador ${app.workerId} não existe`);
+  return worker;
+}
+
 // ---- applications ----
 export const applicationsForJob = (db: Database, jobId: string): Application[] =>
   db.applications.filter((a) => a.jobId === jobId);

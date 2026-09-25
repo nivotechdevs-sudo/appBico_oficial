@@ -1,17 +1,20 @@
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
+import type { IconName } from '../../components/icons/Icon';
 import { Input } from '../../components/Input';
+import { JobNotFound } from '../../components/NotFound';
 import { Rating } from '../../components/Rating';
 import { Tag } from '../../components/Tag';
 import { BackBar } from '../../components/TopBar';
 import { useDb, useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
-import { currentWorkerId, getCompany, getJob } from '../../services/selectors';
+import { companyOf, currentWorkerId, getJob } from '../../services/selectors';
 import { markReviewed } from '../../services/store';
 import { dateText } from '../../utils/jobInfo';
+import { toggleItem } from '../../utils/list';
 
-const OPTIONS = [
+const OPTIONS: { id: string; label: string; icon: IconName }[] = [
   { id: 'pagou', label: 'Pagou no dia', icon: 'hand-coins' },
   { id: 'epi', label: 'EPI no local', icon: 'hard-hat' },
   { id: 'horario', label: 'Horário combinado', icon: 'clock' },
@@ -28,8 +31,8 @@ export default function RateJob({ params }: ScreenProps) {
   const db = useDb();
   const [ui, setUi] = useUI<RateUI>('rate-job', { rating: 5, selected: ['pagou'], comment: '' });
   const job = getJob(db, params.id);
-  if (!job) return <div className="p-6 text-concrete-500">Vaga não encontrada.</div>;
-  const company = getCompany(db, job.companyId)!;
+  if (!job) return <JobNotFound />;
+  const company = companyOf(db, job);
 
   return (
     <div className="flex flex-col">
@@ -56,9 +59,7 @@ export default function RateJob({ params }: ScreenProps) {
                 selected={ui.selected.includes(o.id)}
                 onClick={() =>
                   setUi({
-                    selected: ui.selected.includes(o.id)
-                      ? ui.selected.filter((x) => x !== o.id)
-                      : ui.selected.concat([o.id])
+                    selected: toggleItem(ui.selected, o.id)
                   })
                 }
               />

@@ -1,10 +1,10 @@
 import type { MouseEvent, MouseEventHandler } from 'react';
 import { cx } from '../utils/cx';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 
 interface TagProps {
   label: string;
-  icon?: string;
+  icon?: IconName;
   selected?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   onRemove?: (e: MouseEvent) => void;

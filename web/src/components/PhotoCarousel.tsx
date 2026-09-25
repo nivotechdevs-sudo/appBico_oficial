@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom';
 import type { Job } from '../types/models';
 import { cx } from '../utils/cx';
 import { jobPhotos, resetFileInput } from '../utils/jobPhotos';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 import { JobCover } from './JobCover';
 
 /** Photo being shown, per job — so the mural tile and the job page open on the same photo. */
@@ -195,7 +195,7 @@ function Slides({ job, photos, frame, compact }: SlidesProps) {
   );
   if (n === 1) return <div className={frame}>{track}</div>;
 
-  const arrow = (icon: string, label: string, dir: number, side: string) => (
+  const arrow = (icon: IconName, label: string, dir: number, side: string) => (
     <button
       type="button"
       aria-label={label}

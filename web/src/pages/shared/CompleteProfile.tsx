@@ -15,6 +15,7 @@ import { useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { navigate } from '../../services/router';
 import { setRole } from '../../services/store';
+import { toggleItem } from '../../utils/list';
 
 export default function CompleteProfile({ params }: ScreenProps) {
   return params.role === 'recrutador' ? <RecruiterFlow /> : <WorkerFlow />;
@@ -164,9 +165,7 @@ function WorkerFlow() {
               selected={ui.especialidades.includes(e)}
               onClick={() =>
                 setUi({
-                  especialidades: ui.especialidades.includes(e)
-                    ? ui.especialidades.filter((x) => x !== e)
-                    : ui.especialidades.concat([e]),
+                  especialidades: toggleItem(ui.especialidades, e),
                   errors: { ...ui.errors, especialidades: null }
                 })
               }

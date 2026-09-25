@@ -1,20 +1,21 @@
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
+import { JobNotFound } from '../../components/NotFound';
 import { BackBar } from '../../components/TopBar';
 import { useDb, useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
-import { currentWorker, getCompany, getJob } from '../../services/selectors';
+import { companyOf, currentWorker, getJob } from '../../services/selectors';
 import { applyToJob } from '../../services/store';
-import { formatBRL } from '../../utils/format';
+import { formatPay } from '../../utils/format';
 import { dateText } from '../../utils/jobInfo';
 
 export default function ConfirmApplication({ params }: ScreenProps) {
   const db = useDb();
   const [ui, setUi] = useUI<{ submitting: boolean }>('confirm-application', { submitting: false });
   const job = getJob(db, params.id);
-  if (!job) return <div className="p-6 text-concrete-500">Vaga não encontrada.</div>;
-  const company = getCompany(db, job.companyId)!;
+  if (!job) return <JobNotFound />;
+  const company = companyOf(db, job);
   const worker = currentWorker(db);
 
   return (
@@ -31,9 +32,7 @@ export default function ConfirmApplication({ params }: ScreenProps) {
             <div className="flex gap-3">
               <div className="flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5">
                 <span className="text-xs text-concrete-500">Diária</span>
-                <span className="font-mono font-bold text-2xl text-concrete-900">
-                  {job.pay == null ? 'A combinar' : formatBRL(job.pay)}
-                </span>
+                <span className="font-mono font-bold text-2xl text-concrete-900">{formatPay(job.pay)}</span>
               </div>
               <div className="flex-1 bg-concrete-100 rounded-control p-3 flex flex-col gap-0.5">
                 <span className="text-xs text-concrete-500">Data</span>

@@ -4,7 +4,9 @@ import { Card } from '../../components/Card';
 import { CandidateRow } from '../../components/CandidateRow';
 import { EmptyState } from '../../components/EmptyState';
 import { Icon } from '../../components/icons/Icon';
+import { InfoRow } from '../../components/InfoRow';
 import { Dialog } from '../../components/Modal';
+import { JobNotFound } from '../../components/NotFound';
 import { PhotoManager } from '../../components/PhotoCarousel';
 import { BackBar } from '../../components/TopBar';
 import { useDb, useUI } from '../../hooks/useStore';
@@ -15,13 +17,14 @@ import {
   approvedCount,
   currentCompanyId,
   getJob,
-  getWorker,
   isJobClosed,
-  pendingCount
+  pendingCount,
+  workerOf
 } from '../../services/selectors';
 import { closeJob, decideApplication, getDb, updateJob } from '../../services/store';
-import type { Database, Job, StatusBadge } from '../../types/models';
-import { formatBRL } from '../../utils/format';
+import type { Database, Job } from '../../types/models';
+import type { StatusBadge } from '../../types/ui';
+import { formatPay } from '../../utils/format';
 import { diasInfo, hoursText, whenText } from '../../utils/jobInfo';
 import { jobPhotos } from '../../utils/jobPhotos';
 
@@ -29,7 +32,7 @@ export default function JobManage({ params }: ScreenProps) {
   const db = useDb();
   const [ui, setUi] = useUI<{ confirmClose: boolean }>('job-manage', { confirmClose: false });
   const job = getJob(db, params.id);
-  if (!job) return <div className="p-6 text-concrete-500">Vaga não encontrada.</div>;
+  if (!job) return <JobNotFound />;
 
   if (job.companyId !== currentCompanyId()) {
     return (
@@ -62,9 +65,7 @@ export default function JobManage({ params }: ScreenProps) {
             <span className="text-xs font-bold tracking-[0.08em] uppercase text-brand-600">
               Diária que você ofereceu
             </span>
-            <span className="font-mono font-bold text-4xl text-concrete-900">
-              {job.pay == null ? 'A combinar' : formatBRL(job.pay)}
-            </span>
+            <span className="font-mono font-bold text-4xl text-concrete-900">{formatPay(job.pay)}</span>
           </div>
           <span className="text-sm text-concrete-700 text-right">
             Pago no fim
@@ -156,7 +157,7 @@ export default function JobManage({ params }: ScreenProps) {
             {applications.length ? (
               <div className="bg-white border border-concrete-200 rounded-card shadow-card overflow-hidden">
                 {applications.map((a) => {
-                  const worker = getWorker(db, a.workerId)!;
+                  const worker = workerOf(db, a);
                   const decision =
                     a.status === 'pre_selecionado' || a.status === 'contratado'
                       ? 'aprovado'
@@ -244,16 +245,4 @@ function jobStatus(db: Database, job: Job, approved: number, pending: number): S
   const total = applicationsForJob(db, job.id).length;
   if (total) return { label: total === 1 ? '1 candidato' : `${total} candidatos`, tone: 'brand', icon: 'users' };
   return { label: 'Sem candidatos ainda', tone: 'neutral', icon: 'search-x' };
-}
-
-function InfoRow({ icon, main, sub }: { icon: string; main: string; sub: string }) {
-  return (
-    <div className="flex gap-3 items-start">
-      <Icon name={icon} size={20} color="var(--text-subtle)" />
-      <div className="flex flex-col">
-        <span className="font-semibold text-concrete-900">{main}</span>
-        <span className="text-sm text-concrete-500">{sub}</span>
-      </div>
-    </div>
-  );
 }

@@ -1,10 +1,10 @@
 import { useId } from 'react';
 import { cx } from '../utils/cx';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 
 interface RadioCardProps {
   name: string;
-  icon: string;
+  icon: IconName;
   label: string;
   description: string;
   checked?: boolean;

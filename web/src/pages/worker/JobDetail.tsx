@@ -1,17 +1,19 @@
 import type { ReactNode } from 'react';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
-import { Icon } from '../../components/icons/Icon';
+import { Icon, type IconName } from '../../components/icons/Icon';
+import { InfoRow } from '../../components/InfoRow';
 import { Dialog } from '../../components/Modal';
+import { NotFound } from '../../components/NotFound';
 import { PhotoCarousel } from '../../components/PhotoCarousel';
 import { Rating } from '../../components/Rating';
 import { BackBar } from '../../components/TopBar';
 import { useDb, useRole, useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
-import { applicationFor, currentWorker, getCompany, getJob } from '../../services/selectors';
+import { applicationFor, companyOf, currentWorker, getJob } from '../../services/selectors';
 import { cancelApplication } from '../../services/store';
-import { formatBRL } from '../../utils/format';
+import { formatPay } from '../../utils/format';
 import { diasInfo, hoursText, whenText } from '../../utils/jobInfo';
 
 export default function JobDetail({ params }: ScreenProps) {
@@ -19,8 +21,8 @@ export default function JobDetail({ params }: ScreenProps) {
   const role = useRole();
   const [ui, setUi] = useUI<{ confirmCancel: boolean }>('job-detail', { confirmCancel: false });
   const job = getJob(db, params.id);
-  if (!job) return <NotFound />;
-  const company = getCompany(db, job.companyId)!;
+  if (!job) return <NotFound message="Vaga não encontrada ou encerrada." />;
+  const company = companyOf(db, job);
   const worker = currentWorker(db);
   const application = role === 'trabalhador' ? applicationFor(db, job.id, worker.id) : null;
   const canCancel = application && (application.status === 'enviada' || application.status === 'em_analise');
@@ -96,9 +98,7 @@ export default function JobDetail({ params }: ScreenProps) {
               <div className="flex items-end justify-between gap-3">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-xs font-bold tracking-[0.08em] uppercase text-brand-600">Diária</span>
-                  <span className="font-mono font-bold text-4xl text-concrete-900">
-                    {job.pay == null ? 'A combinar' : formatBRL(job.pay)}
-                  </span>
+                  <span className="font-mono font-bold text-4xl text-concrete-900">{formatPay(job.pay)}</span>
                 </div>
                 <span className="text-sm text-concrete-700 text-right">
                   Pago no fim
@@ -147,9 +147,7 @@ export default function JobDetail({ params }: ScreenProps) {
             <div className="flex flex-col gap-1">
               <span className="text-xs font-bold tracking-[0.08em] uppercase text-brand-600">Diária</span>
               <div className="flex items-baseline gap-2">
-                <span className="font-mono font-bold text-3xl text-concrete-900">
-                  {job.pay == null ? 'A combinar' : formatBRL(job.pay)}
-                </span>
+                <span className="font-mono font-bold text-3xl text-concrete-900">{formatPay(job.pay)}</span>
                 {job.pay == null ? null : <span className="text-concrete-500">por dia</span>}
               </div>
             </div>
@@ -192,7 +190,7 @@ export default function JobDetail({ params }: ScreenProps) {
   );
 }
 
-function SummaryRow({ icon, label, value }: { icon: string; label: string; value: string }) {
+function SummaryRow({ icon, label, value }: { icon: IconName; label: string; value: string }) {
   return (
     <div className="flex items-center gap-3 px-4 py-3">
       <Icon name={icon} size={18} color="var(--text-subtle)" />
@@ -209,27 +207,6 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
     <div className="flex flex-col gap-2">
       <div className="text-xs font-bold tracking-[0.08em] uppercase text-concrete-500">{title}</div>
       {children}
-    </div>
-  );
-}
-
-function InfoRow({ icon, main, sub }: { icon: string; main: string; sub: string }) {
-  return (
-    <div className="flex gap-3 items-start">
-      <Icon name={icon} size={20} color="var(--text-subtle)" />
-      <div className="flex flex-col">
-        <span className="font-semibold text-concrete-900">{main}</span>
-        <span className="text-sm text-concrete-500">{sub}</span>
-      </div>
-    </div>
-  );
-}
-
-function NotFound() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-3">
-      <p className="text-concrete-500">Vaga não encontrada ou encerrada.</p>
-      <Button label="Voltar ao mural" variant="secondary" onClick={() => navigate('/mural')} />
     </div>
   );
 }

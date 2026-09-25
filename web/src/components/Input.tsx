@@ -1,13 +1,14 @@
 import { useId, type HTMLAttributes } from 'react';
 import { useTextField } from '../hooks/useTextField';
 import { cx } from '../utils/cx';
-import { Icon } from './icons/Icon';
+import { FieldError } from './FieldError';
+import { Icon, type IconName } from './icons/Icon';
 
 interface InputProps {
   id?: string;
   label?: string;
   placeholder?: string;
-  icon?: string;
+  icon?: IconName;
   value?: string;
   onInput?: (value: string) => void;
   error?: string | null;
@@ -74,14 +75,7 @@ export function Input({
         />
         {suffix ? <span className="text-sm text-concrete-500 font-semibold shrink-0">{suffix}</span> : null}
       </div>
-      {error ? (
-        <span className="flex items-center gap-1.5 text-sm text-danger-500">
-          <Icon name="circle-alert" size={14} />
-          {error}
-        </span>
-      ) : hint ? (
-        <span className="text-sm text-concrete-500">{hint}</span>
-      ) : null}
+      {error ? <FieldError message={error} /> : hint ? <span className="text-sm text-concrete-500">{hint}</span> : null}
     </div>
   );
 }
@@ -144,12 +138,7 @@ export function PasswordInput({
           <Icon name={visible ? 'eye-off' : 'eye'} size={22} />
         </button>
       </div>
-      {error ? (
-        <span className="flex items-center gap-1.5 text-sm text-danger-500">
-          <Icon name="circle-alert" size={14} />
-          {error}
-        </span>
-      ) : null}
+      {error ? <FieldError message={error} /> : null}
     </div>
   );
 }

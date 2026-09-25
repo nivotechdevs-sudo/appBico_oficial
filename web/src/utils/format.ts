@@ -38,9 +38,19 @@ export function passwordStrength(v: string | null | undefined): PasswordStrength
 
 export const STRENGTH_LABEL: ReadonlyArray<string | null> = [null, 'Senha fraca', 'Senha média', 'Senha forte'];
 
+/** Fill of the strength bar under a password field: green when strong, amber below that, grey when empty. */
+export function strengthBarColor(strength: PasswordStrength): string {
+  return strength === 3 ? 'bg-success-500' : strength ? 'bg-warning-500' : 'bg-concrete-200';
+}
+
 export function formatBRL(n: number | string | null | undefined): string {
   const v = Math.round(Number(n) || 0);
   return 'R$ ' + v.toLocaleString('pt-BR');
+}
+
+/** A job's diária as shown everywhere: "R$ 180", or "A combinar" when the job has no fixed pay. */
+export function formatPay(pay: number | null): string {
+  return pay == null ? 'A combinar' : formatBRL(pay);
 }
 
 const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];

@@ -1,19 +1,18 @@
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Icon } from '../../components/icons/Icon';
+import { ResultIcon } from '../../components/ResultIcon';
 import { useUI } from '../../hooks/useStore';
 import { navigate } from '../../services/router';
-import type { AuthFlowUI } from './Signup';
+import { AUTH_FLOW_DEFAULTS, AUTH_FLOW_KEY, type AuthFlowUI } from '../../services/sharedUI';
 
 export default function VerifyEmail() {
-  const [flow] = useUI<AuthFlowUI>('authFlow', { role: 'trabalhador', email: 'voce@email.com' });
+  const [flow] = useUI<AuthFlowUI>(AUTH_FLOW_KEY, AUTH_FLOW_DEFAULTS);
 
   return (
     <div className="min-h-screen flex flex-col bg-concrete-50 lg:max-w-app lg:mx-auto">
       <div className="flex-1 flex flex-col items-center text-center gap-6 px-6 pt-16 pb-8">
-        <span className="inline-flex items-center justify-center w-[4.5rem] h-[4.5rem] rounded-full bg-brand-50">
-          <Icon name="mail-check" size={34} color="var(--brand)" />
-        </span>
+        <ResultIcon icon="mail-check" tone="brand" />
         <div className="flex flex-col gap-2">
           <h1 className="font-display font-bold text-2xl text-concrete-900">Conta criada. Confirme seu e-mail</h1>
           <p className="text-base text-concrete-700">

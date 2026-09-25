@@ -8,8 +8,8 @@ import { TIPOS_OBRA } from '../../data/seed';
 import { useDb, useUI } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 import { currentCompany } from '../../services/selectors';
+import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from '../../services/sharedUI';
 import { updateCompany } from '../../services/store';
-import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from './companyProfileUI';
 
 interface EditCompanyUI {
   name: string;

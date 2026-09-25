@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import { cx } from '../utils/cx';
+import { FieldError } from './FieldError';
 import { Icon } from './icons/Icon';
 
 interface SelectProps {
@@ -50,12 +51,7 @@ export function Select({ label, placeholder = 'Selecione', options = [], value =
           <Icon name="chevron-down" size={18} />
         </span>
       </div>
-      {error ? (
-        <span className="flex items-center gap-1.5 text-sm text-danger-500">
-          <Icon name="circle-alert" size={14} />
-          {error}
-        </span>
-      ) : null}
+      {error ? <FieldError message={error} /> : null}
     </div>
   );
 }

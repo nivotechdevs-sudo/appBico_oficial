@@ -1,7 +1,7 @@
 import { Button } from '../../components/Button';
-import { Icon } from '../../components/icons/Icon';
 import { IconButton } from '../../components/IconButton';
 import { Input } from '../../components/Input';
+import { ResultIcon } from '../../components/ResultIcon';
 import { useUI } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 import { isValidEmail } from '../../utils/format';
@@ -24,9 +24,7 @@ export default function ForgotPassword() {
       </div>
       {ui.sent ? (
         <div className="flex-1 flex flex-col items-center text-center gap-5 px-6 pt-16">
-          <span className="inline-flex items-center justify-center w-[4.5rem] h-[4.5rem] rounded-full bg-brand-50">
-            <Icon name="mail-check" size={34} color="var(--brand)" />
-          </span>
+          <ResultIcon icon="mail-check" tone="brand" />
           <h1 className="font-display font-bold text-2xl text-concrete-900">Link enviado</h1>
           <p className="text-base text-concrete-700">
             Mandamos um link de redefinição para <strong className="text-concrete-900">{ui.email}</strong>. Abra o link

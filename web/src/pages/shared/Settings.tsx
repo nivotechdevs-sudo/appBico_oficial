@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
-import { Icon } from '../../components/icons/Icon';
+import { Icon, type IconName } from '../../components/icons/Icon';
 import { BackBar } from '../../components/TopBar';
 import { useRole } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 
 interface RowProps {
-  icon: string;
+  icon: IconName;
   label: string;
   description?: string;
   onClick: () => void;

@@ -1,6 +1,7 @@
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
-import { Icon } from '../../components/icons/Icon';
+import { Icon, type IconName } from '../../components/icons/Icon';
+import { JobNotFound } from '../../components/NotFound';
 import { BackBar } from '../../components/TopBar';
 import { useDb, useUI } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
@@ -8,7 +9,9 @@ import { goBack, navigate } from '../../services/router';
 import { getJob } from '../../services/selectors';
 import { updateJob } from '../../services/store';
 
-const PLANS = [
+type PlanId = '24h' | '3d' | 'whats';
+
+const PLANS: { id: PlanId; label: string; desc: string; price: string }[] = [
   { id: '24h', label: 'Topo do mural por 24h', desc: 'Aparece antes das outras vagas da região.', price: 'R$ 12' },
   { id: '3d', label: 'Topo do mural por 3 dias', desc: 'Para vaga com data mais distante.', price: 'R$ 28' },
   {
@@ -21,10 +24,10 @@ const PLANS = [
 
 export default function BoostJob({ params }: ScreenProps) {
   const db = useDb();
-  const [ui, setUi] = useUI<{ plan: string }>('boost-job', { plan: '24h' });
+  const [ui, setUi] = useUI<{ plan: PlanId }>('boost-job', { plan: '24h' });
   const job = getJob(db, params.id);
-  if (!job) return <div className="p-6 text-concrete-500">Vaga não encontrada.</div>;
-  const chosen = PLANS.find((p) => p.id === ui.plan)!;
+  if (!job) return <JobNotFound />;
+  const chosen = PLANS.find((p) => p.id === ui.plan) ?? PLANS[0];
 
   return (
     <div className="flex flex-col">
@@ -100,7 +103,7 @@ export default function BoostJob({ params }: ScreenProps) {
   );
 }
 
-function Fact({ icon, text, color }: { icon: string; text: string; color: string }) {
+function Fact({ icon, text, color }: { icon: IconName; text: string; color: string }) {
   return (
     <div className="flex gap-2.5 items-start">
       <Icon name={icon} size={20} color={color} />

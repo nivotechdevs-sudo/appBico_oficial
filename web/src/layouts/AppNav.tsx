@@ -1,15 +1,16 @@
 import { useLayoutEffect, useState } from 'react';
-import { Icon } from '../components/icons/Icon';
+import { Icon, type IconName } from '../components/icons/Icon';
 import { Logo } from '../components/Logo';
 import { useUI } from '../hooks/useStore';
 import { navigate } from '../services/router';
+import { MENU_DEFAULTS, MENU_KEY, type MenuUI } from '../services/sharedUI';
 import { getUI, setUI } from '../services/store';
 import type { Role } from '../types/models';
 import { cx } from '../utils/cx';
 
 interface NavItem {
   id: string;
-  icon: string;
+  icon: IconName;
   label: string;
   desktopLabel?: string;
   path: string;
@@ -35,7 +36,7 @@ const ITEMS: Record<Role, NavItem[]> = {
 };
 
 interface MenuEntry {
-  icon: string;
+  icon: IconName;
   label: string;
   path: string;
 }
@@ -54,12 +55,6 @@ const MENU: Record<Role, MenuEntry[]> = {
     { icon: 'settings', label: 'Configurações', path: '/configuracoes' }
   ]
 };
-
-export const MENU_KEY = 'app-nav';
-export interface MenuUI {
-  menuOpen: boolean;
-}
-const MENU_DEFAULTS: MenuUI = { menuOpen: false };
 
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const reducedMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -389,7 +384,7 @@ function MenuItem({
   danger = false,
   onClick
 }: {
-  icon: string;
+  icon: IconName;
   label: string;
   danger?: boolean;
   onClick: () => void;

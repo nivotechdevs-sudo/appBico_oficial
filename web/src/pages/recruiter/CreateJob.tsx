@@ -1,4 +1,5 @@
 import { Button } from '../../components/Button';
+import { FieldError } from '../../components/FieldError';
 import { Icon } from '../../components/icons/Icon';
 import { Input } from '../../components/Input';
 import { JobTile } from '../../components/JobTile';
@@ -14,6 +15,7 @@ import { createJob, resetUI } from '../../services/store';
 import type { DiasKey } from '../../types/models';
 import { cx } from '../../utils/cx';
 import { DIAS, DIAS_ORDEM } from '../../utils/jobInfo';
+import { toggleItem } from '../../utils/list';
 
 const KEY = 'create-job';
 
@@ -70,6 +72,8 @@ export default function CreateJob() {
   const clearError = (field: ErrorKey) => ({ ...ui.errors, [field]: null });
   // Hours are optional, but if one end is filled in, so must the other.
   const hasHours = Boolean(ui.periodoInicio && ui.periodoFim);
+  // "Diárias" and "vagas" sit side by side and share one message.
+  const countError = ui.errors.diarias || ui.errors.vagas;
 
   function validateStep1() {
     const errors: CreateJobUI['errors'] = {};
@@ -178,12 +182,7 @@ export default function CreateJob() {
             />
           ))}
         </div>
-        {ui.errors.dias ? (
-          <span className="flex items-center gap-1.5 text-sm text-danger-500">
-            <Icon name="circle-alert" size={14} />
-            {ui.errors.dias}
-          </span>
-        ) : null}
+        {ui.errors.dias ? <FieldError message={ui.errors.dias} /> : null}
       </div>
       {/* Short answers get short fields, side by side where they fit. */}
       <div className="flex flex-wrap items-start gap-x-6 gap-y-6">
@@ -255,11 +254,8 @@ export default function CreateJob() {
             onInput={(v) => setUi({ vagas: digits(v, 2), errors: clearError('vagas') })}
           />
         </div>
-        {ui.errors.diarias || ui.errors.vagas ? (
-          <span className="flex items-center gap-1.5 text-sm text-danger-500">
-            <Icon name="circle-alert" size={14} />
-            {ui.errors.diarias || ui.errors.vagas}
-          </span>
+        {countError ? (
+          <FieldError message={countError} />
         ) : (
           <span className="text-sm text-concrete-500">
             Quantos dias o bico dura e quantos trabalhadores você precisa.
@@ -319,9 +315,7 @@ export default function CreateJob() {
               selected={ui.requisitos.includes(r)}
               onClick={() =>
                 setUi({
-                  requisitos: ui.requisitos.includes(r)
-                    ? ui.requisitos.filter((x) => x !== r)
-                    : ui.requisitos.concat([r])
+                  requisitos: toggleItem(ui.requisitos, r)
                 })
               }
             />
@@ -346,10 +340,7 @@ export default function CreateJob() {
           onInput={(v) => setUi({ detalhe: v, errors: { ...ui.errors, detalhe: null } })}
         />
         {ui.errors.detalhe ? (
-          <span className="flex items-center gap-1.5 text-sm text-danger-500">
-            <Icon name="circle-alert" size={14} />
-            {ui.errors.detalhe}
-          </span>
+          <FieldError message={ui.errors.detalhe} />
         ) : (
           <span className="text-sm text-concrete-500">
             Quanto mais claro, menos desencontro no canteiro. Essa descrição aparece para quem ver o bico.

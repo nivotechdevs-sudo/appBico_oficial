@@ -5,9 +5,11 @@ import { EmptyState } from '../../components/EmptyState';
 import { Icon } from '../../components/icons/Icon';
 import { IconButton } from '../../components/IconButton';
 import { Dialog, Sheet } from '../../components/Modal';
+import { NotFound } from '../../components/NotFound';
 import { Rating } from '../../components/Rating';
 import { TextArea } from '../../components/TextArea';
 import { useDb, useRole, useUI } from '../../hooks/useStore';
+import { WORKER_PHOTO_DEFAULTS, WORKER_PHOTO_KEY, type WorkerPhotoUI } from '../../services/sharedUI';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
 import {
@@ -39,11 +41,11 @@ const POSTS_DEFAULTS: PostsUI = { composing: false, mediaUrl: null, mediaType: '
 export default function WorkerProfileScreen({ params }: ScreenProps) {
   const db = useDb();
   const role = useRole();
-  const [ui] = useUI<{ photo: string | null }>('worker-profile-photo', { photo: null });
+  const [ui] = useUI<WorkerPhotoUI>(WORKER_PHOTO_KEY, WORKER_PHOTO_DEFAULTS);
 
   const isOwn = !params.id;
   const worker = isOwn ? currentWorker(db) : getWorker(db, params.id);
-  if (!worker) return <NotFound />;
+  if (!worker) return <NotFound message="Trabalhador não encontrado." />;
 
   const jobIdRaw = params.jobId;
   const jobForCtx = jobIdRaw ? getJob(db, jobIdRaw) : null;
@@ -172,9 +174,8 @@ export default function WorkerProfileScreen({ params }: ScreenProps) {
                 onClick={() => {
                   decideApplication(jobId, worker.id, 'aprovado');
                   const fresh = getDb();
-                  navigate(
-                    isJobClosed(fresh, getJob(fresh, jobId)!) ? '/fechado/' + jobId : '/vaga-gerenciar/' + jobId
-                  );
+                  const freshJob = getJob(fresh, jobId);
+                  navigate(freshJob && isJobClosed(fresh, freshJob) ? '/fechado/' + jobId : '/vaga-gerenciar/' + jobId);
                 }}
               />
               <Button
@@ -381,14 +382,5 @@ function Composer({ worker, ui, setUi }: ComposerProps) {
         }}
       />
     </Sheet>
-  );
-}
-
-function NotFound() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-3">
-      <p className="text-concrete-500">Trabalhador não encontrado.</p>
-      <Button label="Voltar ao mural" variant="secondary" onClick={() => navigate('/mural')} />
-    </div>
   );
 }

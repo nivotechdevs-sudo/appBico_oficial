@@ -49,7 +49,7 @@ function notify(): void {
   listeners.forEach((fn) => fn());
 }
 
-/** Increments on every store change (see components/FocusGuard.tsx). */
+/** Increments on every store change (see components/LegacyRerender.tsx and layouts/AppShell.tsx). */
 export function getVersion(): number {
   return version;
 }

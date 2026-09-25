@@ -1,10 +1,16 @@
 import type { Job } from '../types/models';
 import { cx } from '../utils/cx';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 
 // Illustrated cover for jobs without a photo: a trade-specific gradient, blueprint texture and
 // icon, so a grid of jobs doesn't read as a wall of grey boxes.
-const COVERS = [
+interface Cover {
+  icon: IconName;
+  from: string;
+  to: string;
+}
+
+const COVERS: (Cover & { test: RegExp })[] = [
   { test: /eletric/i, icon: 'plug-zap', from: '#2F4BB5', to: '#0A1A54' },
   { test: /pint/i, icon: 'paint-roller', from: '#2AA096', to: '#08514A' },
   { test: /azulej|porcelan|revest/i, icon: 'layout-grid', from: '#6E8DF5', to: '#1D3FB8' },
@@ -17,7 +23,7 @@ const COVERS = [
   { test: /servente|ajudante/i, icon: 'shovel', from: '#9AA3AE', to: '#3F4852' },
   { test: /pedreiro|alvenaria|reboco|acabamento/i, icon: 'brick-wall', from: '#D9774B', to: '#842F12' }
 ];
-const DEFAULT_COVER = { icon: 'hard-hat', from: '#1D4BED', to: '#0A1A54' };
+const DEFAULT_COVER: Cover = { icon: 'hard-hat', from: '#1D4BED', to: '#0A1A54' };
 
 export function JobCover({ job, large = false }: { job: Pick<Job, 'role'>; large?: boolean }) {
   const c = COVERS.find((x) => x.test.test(job.role || '')) || DEFAULT_COVER;

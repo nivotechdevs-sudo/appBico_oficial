@@ -6,8 +6,10 @@ import { Icon } from '../../components/icons/Icon';
 import { IconButton } from '../../components/IconButton';
 import { JobTile, TileGrid } from '../../components/JobTile';
 import { Dialog } from '../../components/Modal';
+import { NotFound } from '../../components/NotFound';
 import { Rating } from '../../components/Rating';
 import { useDb, useRole, useUI } from '../../hooks/useStore';
+import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from '../../services/sharedUI';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
 import {
@@ -23,8 +25,8 @@ import {
   successfulJobsForCompany
 } from '../../services/selectors';
 import { deleteJobPost, toggleSavedJob } from '../../services/store';
-import type { Database, Job, StatusBadge } from '../../types/models';
-import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from './companyProfileUI';
+import type { Database, Job } from '../../types/models';
+import type { StatusBadge } from '../../types/ui';
 
 export default function CompanyProfileScreen({ params }: ScreenProps) {
   const db = useDb();
@@ -33,7 +35,7 @@ export default function CompanyProfileScreen({ params }: ScreenProps) {
 
   const isOwn = !params.id;
   const company = isOwn ? currentCompany(db) : getCompany(db, params.id);
-  if (!company) return <NotFound />;
+  if (!company) return <NotFound message="Construtora não encontrada." />;
 
   const openJobs = activeJobs(db).filter((j) => j.companyId === company.id && !j.closed && !isJobFull(db, j));
   const successfulJobs = successfulJobsForCompany(db, company.id);
@@ -234,13 +236,4 @@ function statusBadge(db: Database, job: Job): StatusBadge {
   const total = applicationsForJob(db, job.id).length;
   if (total) return { label: total === 1 ? '1 candidato' : `${total} candidatos`, tone: 'brand', icon: 'users' };
   return { label: 'Sem candidatos', tone: 'neutral', icon: 'search-x' };
-}
-
-function NotFound() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-3">
-      <p className="text-concrete-500">Construtora não encontrada.</p>
-      <Button label="Voltar ao mural" variant="secondary" onClick={() => navigate('/mural')} />
-    </div>
-  );
 }

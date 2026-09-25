@@ -1,6 +1,6 @@
-import type { Tone } from '../types/models';
+import type { Tone } from '../types/ui';
 import { cx } from '../utils/cx';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 
 const TONES: Record<Tone, string> = {
   brand: 'bg-brand-50 text-brand-600',
@@ -15,7 +15,7 @@ const TONES: Record<Tone, string> = {
 interface BadgeProps {
   label: string;
   tone?: Tone;
-  icon?: string;
+  icon?: IconName;
 }
 
 export function Badge({ label, tone = 'neutral', icon }: BadgeProps) {

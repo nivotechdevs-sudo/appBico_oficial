@@ -8,7 +8,9 @@ import { CARGOS_TRABALHADOR, ESPECIALIDADES, REGIOES_TRABALHADOR } from '../../d
 import { useDb, useUI } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
 import { currentWorker } from '../../services/selectors';
+import { WORKER_PHOTO_DEFAULTS, WORKER_PHOTO_KEY, type WorkerPhotoUI } from '../../services/sharedUI';
 import { updateWorker } from '../../services/store';
+import { toggleItem } from '../../utils/list';
 
 interface EditWorkerUI {
   name: string;
@@ -28,7 +30,7 @@ export default function EditWorkerProfile() {
     specialties: [...worker.specialties],
     photo: null
   }));
-  const [banner, setBanner] = useUI<{ photo: string | null }>('worker-profile-photo', { photo: null });
+  const [banner, setBanner] = useUI<WorkerPhotoUI>(WORKER_PHOTO_KEY, WORKER_PHOTO_DEFAULTS);
 
   return (
     <div className="min-h-screen flex flex-col bg-concrete-50 lg:bg-transparent lg:min-h-0">
@@ -82,9 +84,7 @@ export default function EditWorkerProfile() {
                 selected={ui.specialties.includes(e)}
                 onClick={() =>
                   setUi({
-                    specialties: ui.specialties.includes(e)
-                      ? ui.specialties.filter((x) => x !== e)
-                      : ui.specialties.concat([e])
+                    specialties: toggleItem(ui.specialties, e)
                   })
                 }
               />

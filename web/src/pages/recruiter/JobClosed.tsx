@@ -2,13 +2,14 @@ import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Icon } from '../../components/icons/Icon';
+import { KeyValue } from '../../components/KeyValue';
 import { BackBar } from '../../components/TopBar';
 import { useDb } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
 import { applicationsForJob, getJob, getWorker } from '../../services/selectors';
 import type { Worker } from '../../types/models';
-import { formatBRL } from '../../utils/format';
+import { formatBRL, formatPay } from '../../utils/format';
 import { dateText } from '../../utils/jobInfo';
 
 export default function JobClosed({ params }: ScreenProps) {
@@ -74,22 +75,13 @@ export default function JobClosed({ params }: ScreenProps) {
         </div>
         <Card tone="sunken" padding="md">
           <div className="flex flex-col gap-3">
-            <KeyValue label="Diária combinada" value={job.pay == null ? 'A combinar' : formatBRL(job.pay)} />
+            <KeyValue label="Diária combinada" value={formatPay(job.pay)} />
             <KeyValue label="Local" value={job.location} />
             <KeyValue label="Total do bico" value={formatBRL(total)} />
           </div>
         </Card>
         <Button label="Voltar ao início" variant="secondary" fullWidth onClick={() => navigate('/mural')} />
       </div>
-    </div>
-  );
-}
-
-function KeyValue({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between gap-3">
-      <span className="text-sm text-concrete-500">{label}</span>
-      <span className="font-mono font-bold text-concrete-900">{value}</span>
     </div>
   );
 }

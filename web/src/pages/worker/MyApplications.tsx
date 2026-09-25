@@ -5,7 +5,7 @@ import { JobTile, TileGrid } from '../../components/JobTile';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
 import { useDb } from '../../hooks/useStore';
 import { navigate } from '../../services/router';
-import { applicationsForWorker, currentWorker, getCompany, getJob, savedJobs } from '../../services/selectors';
+import { applicationsForWorker, companyOf, currentWorker, getJob, savedJobs } from '../../services/selectors';
 import type { Application } from '../../types/models';
 import { CLOSED, IN_PROGRESS, statusInfo } from '../../utils/applicationStatus';
 import { workerToCompanyUrl } from '../../utils/whatsapp';
@@ -21,7 +21,7 @@ export default function MyApplications() {
   function appCard(app: Application, muted: boolean) {
     const job = getJob(db, app.jobId);
     if (!job) return null;
-    const company = getCompany(db, job.companyId)!;
+    const company = companyOf(db, job);
     const info = statusInfo(app.status, job.id);
     return (
       <JobTile

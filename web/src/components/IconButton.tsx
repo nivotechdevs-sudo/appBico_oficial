@@ -1,6 +1,6 @@
 import type { MouseEventHandler } from 'react';
 import { cx } from '../utils/cx';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 
 const VARIANTS = {
   ghost: 'bg-transparent text-concrete-700 hover:bg-concrete-100',
@@ -12,7 +12,7 @@ const VARIANTS = {
 const SIZES = { sm: 'w-10 h-10', md: 'w-11 h-11', lg: 'w-12 h-12' };
 
 interface IconButtonProps {
-  icon: string;
+  icon: IconName;
   label: string;
   variant?: keyof typeof VARIANTS;
   size?: keyof typeof SIZES;

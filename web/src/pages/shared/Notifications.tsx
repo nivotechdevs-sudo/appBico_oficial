@@ -1,5 +1,5 @@
 import { EmptyState } from '../../components/EmptyState';
-import { Icon } from '../../components/icons/Icon';
+import { Icon, type IconName } from '../../components/icons/Icon';
 import { BackBar } from '../../components/TopBar';
 import { useRole } from '../../hooks/useStore';
 import { goBack } from '../../services/router';
@@ -7,7 +7,7 @@ import { goBack } from '../../services/router';
 type NotifTone = 'success' | 'danger' | 'accent' | 'brand';
 
 interface Notification {
-  icon: string;
+  icon: IconName;
   tone: NotifTone;
   title: string;
   text: string;

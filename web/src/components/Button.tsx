@@ -1,6 +1,6 @@
 import type { MouseEventHandler, ReactNode } from 'react';
 import { cx } from '../utils/cx';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 
 const VARIANTS = {
   primary: 'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 border border-transparent',
@@ -25,10 +25,10 @@ interface ButtonProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
-  iconLeft?: string;
+  iconLeft?: IconName;
   /** A ready-made node in place of `iconLeft` (e.g. the Google mark). */
   iconLeftNode?: ReactNode;
-  iconRight?: string;
+  iconRight?: IconName;
   disabled?: boolean;
   loading?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;

@@ -1,8 +1,8 @@
 import { Button } from './Button';
-import { Icon } from './icons/Icon';
+import { Icon, type IconName } from './icons/Icon';
 
 interface EmptyStateProps {
-  icon: string;
+  icon: IconName;
   title: string;
   description?: string;
   actionLabel?: string | null;

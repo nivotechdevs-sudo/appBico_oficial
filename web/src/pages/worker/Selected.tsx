@@ -2,21 +2,23 @@ import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Icon } from '../../components/icons/Icon';
+import { KeyValue } from '../../components/KeyValue';
+import { JobNotFound } from '../../components/NotFound';
 import { BackBar } from '../../components/TopBar';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
 import { useDb } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
-import { applicationFor, currentWorkerId, getCompany, getJob } from '../../services/selectors';
-import { formatBRL } from '../../utils/format';
+import { applicationFor, companyOf, currentWorkerId, getJob } from '../../services/selectors';
+import { formatPay } from '../../utils/format';
 import { dateText } from '../../utils/jobInfo';
 import { workerToCompanyUrl } from '../../utils/whatsapp';
 
 export default function Selected({ params }: ScreenProps) {
   const db = useDb();
   const job = getJob(db, params.id);
-  if (!job) return <div className="p-6 text-concrete-500">Vaga não encontrada.</div>;
-  const company = getCompany(db, job.companyId)!;
+  if (!job) return <JobNotFound />;
+  const company = companyOf(db, job);
   const hired = applicationFor(db, job.id, currentWorkerId());
   const isHired = Boolean(hired && hired.status === 'contratado');
   const title = isHired ? `Você foi contratado pela ${company.name}` : `A ${company.name} quer falar com você`;
@@ -50,22 +52,13 @@ export default function Selected({ params }: ScreenProps) {
         </Card>
         <Card tone="sunken" padding="md">
           <div className="flex flex-col gap-3">
-            <KeyValue label="Diária combinada" value={job.pay == null ? 'A combinar' : formatBRL(job.pay)} />
+            <KeyValue label="Diária combinada" value={formatPay(job.pay)} />
             <KeyValue label="Local" value={job.location} />
             <KeyValue label="Contato liberado" value="Hoje · 9h10" />
           </div>
         </Card>
         <Button label="Ver a vaga de novo" variant="secondary" fullWidth onClick={() => navigate('/vaga/' + job.id)} />
       </div>
-    </div>
-  );
-}
-
-function KeyValue({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between gap-3">
-      <span className="text-sm text-concrete-500">{label}</span>
-      <span className="font-mono font-bold text-concrete-900">{value}</span>
     </div>
   );
 }

@@ -1,11 +1,11 @@
-import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
+import { NotFound } from '../../components/NotFound';
 import { Rating } from '../../components/Rating';
 import { BackBar } from '../../components/TopBar';
 import { useDb, useRole } from '../../hooks/useStore';
 import type { ScreenProps } from '../../types/screen';
-import { goBack, navigate } from '../../services/router';
+import { goBack } from '../../services/router';
 import { getCompany, getWorker } from '../../services/selectors';
 
 export default function ReviewsScreen({ params }: ScreenProps) {
@@ -15,7 +15,7 @@ export default function ReviewsScreen({ params }: ScreenProps) {
   const worker = type === 'trabalhador' ? getWorker(db, params.id) : undefined;
   const company = type === 'construtora' ? getCompany(db, params.id) : undefined;
   const subject = worker || company;
-  if (!subject) return <NotFound />;
+  if (!subject) return <NotFound message="Não encontrado." />;
 
   // Only companies see a worker's reviews, and only workers see a company's.
   const allowed = type === 'trabalhador' ? role === 'recrutador' : role === 'trabalhador';
@@ -39,7 +39,7 @@ export default function ReviewsScreen({ params }: ScreenProps) {
   }
 
   const reviews = subject.reviews || [];
-  const count = worker ? worker.jobsDone : company!.reviewCount;
+  const count = worker?.jobsDone ?? company?.reviewCount;
 
   return (
     <div className="flex flex-col">
@@ -72,15 +72,6 @@ export default function ReviewsScreen({ params }: ScreenProps) {
           </div>
         )}
       </div>
-    </div>
-  );
-}
-
-function NotFound() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-3">
-      <p className="text-concrete-500">Não encontrado.</p>
-      <Button label="Voltar ao mural" variant="secondary" onClick={() => navigate('/mural')} />
     </div>
   );
 }

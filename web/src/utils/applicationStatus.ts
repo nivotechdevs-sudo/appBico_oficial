@@ -1,6 +1,7 @@
 // Single source of truth for how a worker's application status renders as a badge +
 // next action, reused by MyApplications, SavedJobs and any other screen showing it.
-import type { ApplicationStatus, StatusBadge } from '../types/models';
+import type { ApplicationStatus } from '../types/models';
+import type { StatusBadge } from '../types/ui';
 
 interface StatusInfo extends StatusBadge {
   hint: string;

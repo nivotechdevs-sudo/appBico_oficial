@@ -1,7 +1,7 @@
 import { useSyncExternalStore, type ReactNode } from 'react';
 import { useDb, useRole, useUI } from '../hooks/useStore';
-import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from '../pages/shared/companyProfileUI';
 import { currentCompany, currentWorker } from '../services/selectors';
+import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from '../services/sharedUI';
 import { getVersion, subscribe } from '../services/store';
 import type { Role } from '../types/models';
 import { cx } from '../utils/cx';

@@ -1,10 +1,10 @@
 import { Button } from '../../components/Button';
-import { Icon } from '../../components/icons/Icon';
 import { IconButton } from '../../components/IconButton';
 import { PasswordInput } from '../../components/Input';
+import { ResultIcon } from '../../components/ResultIcon';
 import { useUI } from '../../hooks/useStore';
 import { goBack, navigate } from '../../services/router';
-import { passwordStrength, STRENGTH_LABEL } from '../../utils/format';
+import { passwordStrength, STRENGTH_LABEL, strengthBarColor } from '../../utils/format';
 
 interface ResetUI {
   senha: string;
@@ -25,14 +25,12 @@ export default function ResetPassword() {
     submitting: false
   });
   const strength = passwordStrength(ui.senha);
-  const strengthColor = strength === 3 ? 'bg-success-500' : strength ? 'bg-warning-500' : 'bg-concrete-200';
+  const strengthColor = strengthBarColor(strength);
 
   if (ui.done) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center gap-5 px-6 bg-white lg:max-w-app lg:mx-auto">
-        <span className="inline-flex items-center justify-center w-[4.5rem] h-[4.5rem] rounded-full bg-success-50">
-          <Icon name="circle-check" size={34} color="var(--green-500)" />
-        </span>
+        <ResultIcon icon="circle-check" tone="success" />
         <h1 className="font-display font-bold text-2xl text-concrete-900">Senha redefinida</h1>
         <p className="text-base text-concrete-700">Use sua nova senha para entrar na sua conta.</p>
         <Button label="Ir para o login" size="lg" onClick={() => navigate('/login')} />

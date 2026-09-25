@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import type { Company, Job, StatusBadge } from '../types/models';
+import type { Company, Job } from '../types/models';
+import type { StatusBadge, Tone } from '../types/ui';
 import { cx } from '../utils/cx';
 import { formatBRL } from '../utils/format';
 import { diasInfo, whenText } from '../utils/jobInfo';
@@ -7,8 +8,8 @@ import { Icon } from './icons/Icon';
 import { SaveFlag } from './JobCover';
 import { PhotoCarousel } from './PhotoCarousel';
 
-// Icon colour for a status badge on the photo, by tone.
-const TONE_COLOR: Record<string, string> = {
+// Icon colour for a status badge on the photo, by tone (the rest fall back to neutral's).
+const TONE_COLOR: Partial<Record<Tone, string>> = {
   brand: 'var(--text-brand)',
   success: 'var(--green-500)',
   warning: 'var(--amber-500)',

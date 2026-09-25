@@ -2,12 +2,13 @@ import { startTransition, Suspense, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { LegacyRerender } from './components/LegacyRerender';
 import { AppShell } from './layouts/AppShell';
-import { MENU_KEY, type MenuUI } from './layouts/AppNav';
 import { isAuthFlow, preloadAllScreens, ROUTES } from './routes';
 import { getLocation, matchRoute, navigate, subscribe } from './services/router';
+import { MENU_DEFAULTS, MENU_KEY, type MenuUI } from './services/sharedUI';
 import { getUI, setUI } from './services/store';
 
-function NotFound() {
+/** Unknown route (404). */
+function PageNotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-3 text-center px-6">
       <h1 className="font-display font-bold text-2xl text-concrete-900">Página não encontrada</h1>
@@ -24,7 +25,7 @@ function useLocation() {
       subscribe(() => {
         const next = getLocation();
         window.scrollTo(0, 0);
-        if (getUI<MenuUI>(MENU_KEY, { menuOpen: false }).menuOpen) setUI<MenuUI>(MENU_KEY, { menuOpen: false });
+        if (getUI<MenuUI>(MENU_KEY, MENU_DEFAULTS).menuOpen) setUI<MenuUI>(MENU_KEY, { menuOpen: false });
         if (next.path === '/') return navigate('/splash', { replace: true });
         const match = matchRoute(ROUTES, next.path);
         // A screen whose chunk is already here renders synchronously (no frame with the old screen);
@@ -48,7 +49,7 @@ export function App() {
   const { path, seq } = location;
   if (path === '/') return null;
   const match = matchRoute(ROUTES, path);
-  if (!match) return <NotFound />;
+  if (!match) return <PageNotFound />;
 
   const { Component } = match.route.value;
   const screen = <Component key={path} params={match.params} />;
