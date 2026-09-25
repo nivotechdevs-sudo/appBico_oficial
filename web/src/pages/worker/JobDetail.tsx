@@ -66,7 +66,7 @@ export default function JobDetail({ params }: ScreenProps) {
         <div className="flex flex-col gap-4 lg:gap-6">
           <Card padding="none">
             <div className="relative">
-              <PhotoCarousel job={job} className="h-60 sm:h-80 lg:h-[26rem] rounded-t-card" />
+              <PhotoCarousel job={job} className="h-72 sm:h-80 lg:h-[26rem] rounded-t-card" />
               <div className="absolute z-10 left-4 -bottom-6 w-[3.75rem] h-[3.75rem] rounded-full bg-white p-0.5 shadow-raised">
                 <div className="w-full h-full rounded-full bg-brand-50 flex items-center justify-center">
                   <Icon name="building-2" size={24} color="var(--brand)" />

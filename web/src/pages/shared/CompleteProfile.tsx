@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
 import { Button } from '../../components/Button';
+import { CityPicker, LocationButton } from '../../components/CityPicker';
 import { IconButton } from '../../components/IconButton';
 import { PhotoSlot } from '../../components/PhotoSlot';
 import { Select } from '../../components/Select';
 import { Tag } from '../../components/Tag';
 import { useUI } from '../../hooks/useStore';
+import { DEFAULT_CITY } from '../../services/cities';
 import { finishSignUp } from '../../services/auth';
 import {
   CARGOS_TRABALHADOR,
@@ -67,6 +69,8 @@ interface WorkerUI {
   step: number;
   photo: string | null;
   cargo: string;
+  cidade: string;
+  pickerOpen: boolean;
   regiao: string;
   especialidades: string[];
   errors: { cargo?: string | null; regiao?: string | null; especialidades?: string | null };
@@ -77,6 +81,8 @@ function WorkerFlow() {
     step: 0,
     photo: null,
     cargo: '',
+    cidade: DEFAULT_CITY,
+    pickerOpen: false,
     regiao: '',
     especialidades: [],
     errors: {}
@@ -147,6 +153,11 @@ function WorkerFlow() {
         title="Onde e no que você trabalha"
         help="Usamos para mostrar bicos perto de você e do jeito certo para seu ofício."
       />
+      <LocationButton
+        title="Onde você quer trabalhar"
+        location={ui.cidade}
+        onClick={() => setUi({ pickerOpen: true })}
+      />
       <Select
         label="Região de atuação"
         placeholder="Selecione bairro e cidade"
@@ -174,6 +185,14 @@ function WorkerFlow() {
         </div>
         {ui.errors.especialidades ? <span className="text-sm text-danger-500">{ui.errors.especialidades}</span> : null}
       </div>
+      <CityPicker
+        open={ui.pickerOpen}
+        title="Onde você quer trabalhar"
+        value={ui.cidade}
+        stateKey="completar-trabalhador-cidade"
+        onChoose={(cidade) => setUi({ cidade, pickerOpen: false })}
+        onClose={() => setUi({ pickerOpen: false })}
+      />
     </Shell>
   );
 }
@@ -183,6 +202,8 @@ interface RecruiterUI {
   capa: string | null;
   logo: string | null;
   tipoObra: string;
+  cidade: string;
+  pickerOpen: boolean;
   regiao: string;
   errors: { tipoObra?: string | null; regiao?: string | null };
 }
@@ -193,6 +214,8 @@ function RecruiterFlow() {
     capa: null,
     logo: null,
     tipoObra: '',
+    cidade: DEFAULT_CITY,
+    pickerOpen: false,
     regiao: '',
     errors: {}
   });
@@ -261,6 +284,7 @@ function RecruiterFlow() {
         title="Sobre a sua obra"
         help="Usamos para destacar o tipo de obra e mostrar suas vagas na região certa."
       />
+      <LocationButton title="Onde ficam suas obras" location={ui.cidade} onClick={() => setUi({ pickerOpen: true })} />
       <Select
         label="Tipo de obra"
         placeholder="Selecione o tipo de obra"
@@ -276,6 +300,14 @@ function RecruiterFlow() {
         value={ui.regiao}
         error={ui.errors.regiao}
         onChange={(v) => setUi({ regiao: v, errors: { ...ui.errors, regiao: null } })}
+      />
+      <CityPicker
+        open={ui.pickerOpen}
+        title="Onde ficam suas obras"
+        value={ui.cidade}
+        stateKey="completar-recrutador-cidade"
+        onChoose={(cidade) => setUi({ cidade, pickerOpen: false })}
+        onClose={() => setUi({ pickerOpen: false })}
       />
     </Shell>
   );

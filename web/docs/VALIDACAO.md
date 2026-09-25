@@ -99,6 +99,22 @@ Execução final, pelo mesmo método do resultado acima: celular 238/238, tablet
 elementos comparados e 9 capturas com 1 a 3 pixels de ruído de antialiasing. `docs/RELATORIO_PARIDADE.md`
 é a cópia dessa execução.
 
+## Mudanças de interface pedidas depois da revalidação
+
+Estas mudanças são **intencionais** — a partir delas, a paridade contra o legado passa a mostrar as
+diferenças abaixo (e só elas):
+
+- Cards de bico centralizados no container em todas as telas que os listam (mural, salvas, minhas
+  candidaturas, perfis): `.tile-grid` usa `auto-fit` + `justify-content: center`, então sobra de largura
+  e colunas vazias não empurram os cards para a esquerda.
+- Banner dos perfis (trabalhador e construtora) com 15rem de altura.
+- Foto da vaga maior no celular (15rem → 18rem; tablet/desktop iguais).
+- Olho de mostrar/ocultar senha visível em todos os campos de senha (ícones `eye`/`eye-off` incluídos).
+- Cadastro: Enter avança para a próxima etapa (e põe o cursor no campo seguinte).
+- Completar perfil: o mesmo botão de cidade do filtro do mural ("Onde você quer trabalhar" / "Onde ficam
+  suas obras"), abrindo o mesmo seletor (GPS ou busca de cidade) — agora `components/CityPicker.tsx`,
+  compartilhado pelos dois lugares.
+
 ## Rodada 1 — tela a tela
 
 Legenda: **L** layout/visual · **T** textos · **E** estados de erro/vazio · **N** navegação · **D** dados/regras.
@@ -158,8 +174,8 @@ Todas as linhas abaixo estão cobertas por capturas idênticas nos 3 tamanhos de
    para o Supabase já está preparada, sem conexão (`docs/SUPABASE.md`).
 2. **Login não valida nada**: "Entrar", "Continuar com o Google" e "Continuar com o celular" apenas
    entram no papel escolhido em "Entrar como (demonstração)".
-3. **Ícone do "olho" da senha é invisível**: os ícones `eye`/`eye-off` nunca foram incluídos no conjunto
-   de ícones; o botão existe e funciona, mas aparece vazio.
+3. **Ícone do "olho" da senha era invisível** no legado (os ícones `eye`/`eye-off` nunca foram
+   incluídos). Foi corrigido a pedido depois da revalidação — ver "Mudanças de interface pedidas".
 4. **Rascunhos de edição de perfil persistem**: editar o nome e tocar em "Cancelar" mantém o texto
    editado na próxima vez que a tela abre (o estado da tela é criado só uma vez).
 5. **Iniciais do trabalhador não mudam** ao editar o nome.

@@ -1,4 +1,4 @@
-import { useId, type HTMLAttributes } from 'react';
+import { useId, type HTMLAttributes, type KeyboardEvent } from 'react';
 import { useTextField } from '../hooks/useTextField';
 import { cx } from '../utils/cx';
 import { FieldError } from './FieldError';
@@ -20,6 +20,19 @@ interface InputProps {
   autoFocus?: boolean;
   /** Red border only, for fields that share one message with a neighbour. */
   invalid?: boolean;
+  /** Called when Enter is pressed in the field (e.g. to go to the next step of a form). */
+  onEnter?: () => void;
+}
+
+// Enter (outside an IME composition) runs `onEnter`.
+function enterHandler(onEnter?: () => void) {
+  if (!onEnter) return undefined;
+  return (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      onEnter();
+    }
+  };
 }
 
 /** Text field. */
@@ -37,7 +50,8 @@ export function Input({
   mono = false,
   suffix,
   autoFocus = false,
-  invalid = false
+  invalid = false,
+  onEnter
 }: InputProps) {
   const autoId = useId();
   const fieldId = id || autoId;
@@ -72,6 +86,7 @@ export function Input({
           )}
           value={value}
           onChange={handleChange}
+          onKeyDown={enterHandler(onEnter)}
         />
         {suffix ? <span className="text-sm text-concrete-500 font-semibold shrink-0">{suffix}</span> : null}
       </div>
@@ -89,6 +104,7 @@ interface PasswordInputProps {
   error?: string | null;
   visible?: boolean;
   onToggleVisible?: () => void;
+  onEnter?: () => void;
 }
 
 /** Input with a show/hide eye toggle, used for every password field in the app. */
@@ -100,7 +116,8 @@ export function PasswordInput({
   onInput,
   error,
   visible,
-  onToggleVisible
+  onToggleVisible,
+  onEnter
 }: PasswordInputProps) {
   const autoId = useId();
   const fieldId = id || autoId;
@@ -128,6 +145,7 @@ export function PasswordInput({
           value={value}
           className="flex-1 min-w-0 h-11 bg-transparent outline-none text-base text-concrete-900 placeholder:text-concrete-400"
           onChange={handleChange}
+          onKeyDown={enterHandler(onEnter)}
         />
         <button
           type="button"

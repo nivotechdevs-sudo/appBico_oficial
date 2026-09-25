@@ -3,6 +3,9 @@
 import { CIDADES_RAW } from '../data/cidades';
 import type { City } from '../types/models';
 
+/** Where the demo's jobs are, and every city choice starts. */
+export const DEFAULT_CITY = 'São Paulo, SP';
+
 let cache: City[] | null = null;
 const fold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 

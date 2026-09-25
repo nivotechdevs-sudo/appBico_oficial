@@ -1,9 +1,19 @@
 import { useMemo } from 'react';
+import { CityPicker } from '../../../components/CityPicker';
 import { useDb, useRole, useUI } from '../../../hooks/useStore';
 import { activeJobs, isJobClosed } from '../../../services/selectors';
 import { DesktopFeed } from './DesktopFeed';
-import { CityPicker, FiltersSheet } from './FeedSheets';
-import { activeFilters, FEED_DEFAULTS, FEED_KEY, orderJobs, passesFilters, searchMatches, type FeedUI } from './feedUI';
+import { FiltersSheet } from './FeedSheets';
+import {
+  activeFilters,
+  FEED_DEFAULTS,
+  FEED_KEY,
+  orderJobs,
+  setFeed,
+  passesFilters,
+  searchMatches,
+  type FeedUI
+} from './feedUI';
 import { MobileFeed } from './MobileFeed';
 
 /**
@@ -36,7 +46,14 @@ export default function Feed() {
       <MobileFeed {...layout} />
       <DesktopFeed {...layout} />
       <FiltersSheet ui={ui} count={ordered.length} />
-      <CityPicker ui={ui} />
+      <CityPicker
+        open={ui.pickerOpen}
+        title="Onde você quer trabalhar"
+        value={location}
+        stateKey="feed-city"
+        onChoose={(label) => setFeed({ location: label, pickerOpen: false })}
+        onClose={() => setFeed({ pickerOpen: false })}
+      />
     </div>
   );
 }

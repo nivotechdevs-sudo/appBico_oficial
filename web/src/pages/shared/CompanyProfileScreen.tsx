@@ -44,9 +44,9 @@ export default function CompanyProfileScreen({ params }: ScreenProps) {
     <div className="min-h-screen flex flex-col bg-concrete-50 lg:bg-transparent lg:min-h-0">
       <div className="relative">
         {isOwn && ui.capa ? (
-          <img src={ui.capa} alt="" className="w-full h-48 object-cover lg:rounded-card" />
+          <img src={ui.capa} alt="" className="w-full h-60 object-cover lg:rounded-card" />
         ) : (
-          <div className="h-48 bg-concrete-200 lg:rounded-card" />
+          <div className="h-60 bg-concrete-200 lg:rounded-card" />
         )}
         {!isOwn ? (
           <div className="absolute top-2 left-2">

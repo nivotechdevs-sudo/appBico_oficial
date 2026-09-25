@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Button } from '../../components/Button';
 import { Checkbox } from '../../components/Checkbox';
 import { IconButton } from '../../components/IconButton';
@@ -162,6 +163,19 @@ export default function Signup({ params }: ScreenProps) {
   const step = Math.max(0, Math.min(ui.step, cfg.fields.length - 1));
   const field = cfg.fields[step];
   const isLast = step === cfg.fields.length - 1;
+  const fieldDomId = key + '-' + (field.isPassword ? 'senha' : field.id);
+
+  // Enter moves to the next step: put the caret in its field so the keyboard flow continues.
+  const advancedByEnter = useRef(false);
+  useEffect(() => {
+    if (!advancedByEnter.current) return;
+    advancedByEnter.current = false;
+    document.getElementById(fieldDomId)?.focus();
+  }, [fieldDomId]);
+  const continueByEnter = () => {
+    advancedByEnter.current = true;
+    continueStep();
+  };
 
   function goBack() {
     if (step > 0) setUi({ step: step - 1, generalError: false });
@@ -180,6 +194,7 @@ export default function Signup({ params }: ScreenProps) {
   }
 
   function continueStep() {
+    if (ui.submitting) return; // Enter while the account is being created
     const err = validateField(field, ui.values, role);
     if (err) {
       setUi((s) => ({ errors: { ...s.errors, [field.id]: err } }));
@@ -284,6 +299,7 @@ export default function Signup({ params }: ScreenProps) {
               visible={ui.passwordVisible}
               onToggleVisible={() => setUi({ passwordVisible: !ui.passwordVisible })}
               onInput={setValue}
+              onEnter={continueByEnter}
             />
             <PasswordInput
               id={key + '-confirm'}
@@ -294,6 +310,7 @@ export default function Signup({ params }: ScreenProps) {
               visible={ui.passwordVisible}
               onToggleVisible={() => setUi({ passwordVisible: !ui.passwordVisible })}
               onInput={(v) => setUi({ confirmPassword: v, confirmError: null })}
+              onEnter={continueByEnter}
             />
             <div className="flex flex-col gap-5">
               <div className="flex items-center gap-3">
@@ -342,6 +359,7 @@ export default function Signup({ params }: ScreenProps) {
             mono={Boolean(field.mono)}
             inputMode={field.mask ? 'numeric' : field.type === 'email' ? 'email' : 'text'}
             onInput={setValue}
+            onEnter={continueByEnter}
             autoFocus
           />
         )}

@@ -2,21 +2,19 @@
 // order, what a search finds and which filter chips are active.
 import type { IconName } from '../../../components/icons/Icon';
 import { allCompanies, allWorkers, companyOf, isMine } from '../../../services/selectors';
+import { DEFAULT_CITY } from '../../../services/cities';
 import { setUI } from '../../../services/store';
 import type { Company, Database, Job, Role, Worker } from '../../../types/models';
 
 export const FEED_KEY = 'feed';
 
 export type Sort = 'perto' | 'valor' | 'cedo';
-type Geo = null | 'loading' | 'denied' | 'error';
 
 export interface FeedUI {
   search: string;
   location: string;
   filtersOpen: boolean;
   pickerOpen: boolean;
-  cityQuery: string;
-  geo: Geo;
   tipo: string | null;
   dist: string;
   quando: string | null;
@@ -28,7 +26,7 @@ export interface FeedUI {
 export type FeedFilters = Pick<FeedUI, 'location' | 'tipo' | 'dist' | 'quando'>;
 
 // Every seed job is in the city of São Paulo; a job may name another city in `city`.
-export const DEFAULT_CITY = 'São Paulo, SP';
+export { DEFAULT_CITY };
 const jobCity = (job: Job) => job.city || DEFAULT_CITY;
 export const NO_FILTERS: Partial<FeedUI> = { tipo: null, dist: 'Toda a cidade', quando: null, location: DEFAULT_CITY };
 export const SORTS: { id: Sort; label: string }[] = [
@@ -41,8 +39,6 @@ export const FEED_DEFAULTS: FeedUI = {
   location: DEFAULT_CITY,
   filtersOpen: false,
   pickerOpen: false,
-  cityQuery: '',
-  geo: null,
   tipo: null,
   dist: 'Toda a cidade',
   quando: null,

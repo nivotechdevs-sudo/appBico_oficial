@@ -6,16 +6,8 @@ import { ICON_DATA } from './iconData';
 // inline SVG markup. The SVGs are inlined as data: URIs (not referenced by path) because
 // `mask-image` triggers a CORS check even for same-directory files under file://.
 
-/**
- * Names the legacy app used without ever vendoring their SVG (the password field's eye/eye-off toggle):
- * they render as an empty, transparent box — kept that way on purpose.
- */
-type UnvendoredIcon = 'eye' | 'eye-off';
-
 /** Every icon name the app can render. */
-export type IconName = keyof typeof ICON_DATA | UnvendoredIcon;
-
-const ICON_URLS: Partial<Record<IconName, string>> = ICON_DATA;
+export type IconName = keyof typeof ICON_DATA;
 
 /**
  * Icon sizes are authored as familiar px-equivalent numbers (matching the source design system's
@@ -34,16 +26,14 @@ interface IconProps {
 }
 
 export function Icon({ name, size = 20, color, className = '', onClick }: IconProps) {
-  const url = ICON_URLS[name];
+  const url = ICON_DATA[name];
   const style: CSSProperties = {
     width: rem(size),
     height: rem(size),
-    WebkitMaskImage: url ? `url("${url}")` : 'none',
-    maskImage: url ? `url("${url}")` : 'none',
+    WebkitMaskImage: `url("${url}")`,
+    maskImage: `url("${url}")`,
     color: color || 'currentColor'
   };
-  // Unvendored icons render as an empty, transparent box — same as the legacy app.
-  if (!url) style.backgroundColor = 'transparent';
   return <span className={`icon shrink-0 ${className}`} style={style} aria-hidden="true" onClick={onClick} />;
 }
 
