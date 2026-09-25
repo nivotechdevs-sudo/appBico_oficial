@@ -63,6 +63,7 @@ export function Input({
         <input
           ref={fieldRef}
           id={fieldId}
+          data-focus-id={id}
           type={type}
           placeholder={placeholder}
           inputMode={inputMode || undefined}
@@ -130,6 +131,7 @@ export function PasswordInput({
         <input
           ref={fieldRef}
           id={fieldId}
+          data-focus-id={id}
           type={visible ? 'text' : 'password'}
           placeholder={placeholder}
           value={value}

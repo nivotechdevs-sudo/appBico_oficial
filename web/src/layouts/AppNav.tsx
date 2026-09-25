@@ -170,8 +170,8 @@ export interface AppNavProps {
 /**
  * The app's single navigation component. Floating tab pill on phones; on tablet and desktop
  * (>= 770px) a full-width top bar with the logo, the same tabs centered, and notifications + account
- * menu on the right. Mounted afresh on every route change (like the legacy app, which rebuilt it on
- * every render), so the pill circle and the tab underline roll from where they last were.
+ * menu on the right. Mounted afresh on every route and state change (like the legacy app, which rebuilt
+ * it on every render), so the pill circle and the tab underline roll from where they last were.
  */
 export function AppNav({ role, active, showMobilePill = true, notifications = 0, account = {} }: AppNavProps) {
   const items = ITEMS[role] || ITEMS.trabalhador;

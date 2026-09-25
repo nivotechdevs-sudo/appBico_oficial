@@ -1,5 +1,6 @@
 import { startTransition, Suspense, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
+import { LegacyRerender } from './components/LegacyRerender';
 import { AppShell } from './layouts/AppShell';
 import { MENU_KEY, type MenuUI } from './layouts/AppNav';
 import { isAuthFlow, preloadAllScreens, ROUTES } from './routes';
@@ -53,10 +54,13 @@ export function App() {
   const screen = <Component key={path} params={match.params} />;
   return (
     <Suspense fallback={null}>
+      <LegacyRerender />
       {isAuthFlow(path) ? (
         screen
       ) : (
-        <AppShell path={path} pattern={match.route.pattern} navKey={seq}>
+        // A new shell per navigation, like the legacy app (which rebuilt the whole DOM): no element
+        // carries a previous screen's styles into the next one.
+        <AppShell key={seq} path={path} pattern={match.route.pattern}>
           {screen}
         </AppShell>
       )}

@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
+import { useSyncExternalStore, type ReactNode } from 'react';
 import { useDb, useRole, useUI } from '../hooks/useStore';
 import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from '../pages/shared/companyProfileUI';
 import { currentCompany, currentWorker } from '../services/selectors';
+import { getVersion, subscribe } from '../services/store';
 import type { Role } from '../types/models';
 import { cx } from '../utils/cx';
 import { AppNav, type AccountSummary } from './AppNav';
@@ -47,15 +48,16 @@ export interface AppShellProps {
   path: string;
   /** The matched route pattern (e.g. "/vaga/:id"). */
   pattern: string;
-  /** Changes on every route dispatch; remounts the navigation like the legacy app did. */
-  navKey: number;
   children: ReactNode;
 }
 
 /** Logged-in area: navigation (pill on phones, top bar from 770px) + the screen in <main>. */
-export function AppShell({ path, pattern, navKey, children }: AppShellProps) {
+export function AppShell({ path, pattern, children }: AppShellProps) {
   const role = useRole();
   const db = useDb();
+  // The legacy app rebuilt the navigation on every state change; remounting it keeps its imperatively
+  // placed tab indicators exactly as they were (see AppNav).
+  const storeVersion = useSyncExternalStore(subscribe, getVersion);
   const [companyProfile] = useUI<CompanyProfileUI>(COMPANY_PROFILE_KEY, COMPANY_PROFILE_DEFAULTS);
 
   const isMural = path === '/mural';
@@ -72,7 +74,7 @@ export function AppShell({ path, pattern, navKey, children }: AppShellProps) {
   return (
     <div className={cx('lg:flex lg:flex-col lg:min-h-screen', isMural ? 'bg-white' : '')}>
       <AppNav
-        key={navKey}
+        key={storeVersion}
         role={role}
         active={tabIdForPath(path, role)}
         showMobilePill={showMobileNav}

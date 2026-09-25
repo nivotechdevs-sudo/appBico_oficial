@@ -580,6 +580,7 @@ function SearchPill({ id, role, ui, compact = false }: { id: string; role: Role;
         <input
           ref={inputRef}
           id={id}
+          data-focus-id={id}
           type="search"
           autoComplete="off"
           spellCheck={false}
