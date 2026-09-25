@@ -1,5 +1,6 @@
 # Relatório de paridade (legado × React)
 
+- Referência: `../app`
 - Viewports: phone 390×844, tablet 800×1024, desktop 1440×900
 - Cenários: 20 · capturas comparadas: 718
 - Idênticas (DOM + estilos computados + caixas + foco/scroll/URL + pixels): 717/718
@@ -52,7 +53,7 @@
 | phone    | rotas-trabalhador                  | /vaga-gerenciar/BC-4822           | `#/vaga-gerenciar/BC-4822`           | 14        | 0                         | ✅  |
 | phone    | rotas-trabalhador                  | /vaga-gerenciar/BC-4821           | `#/vaga-gerenciar/BC-4821`           | 206       | 0                         | ✅  |
 | phone    | rotas-trabalhador                  | /vaga-gerenciar/BC-4998           | `#/vaga-gerenciar/BC-4998`           | 141       | 0                         | ✅  |
-| phone    | rotas-trabalhador                  | /vaga-gerenciar/BC-4960           | `#/vaga-gerenciar/BC-4960`           | 91        | 1 (ruído de antialiasing) | ✅  |
+| phone    | rotas-trabalhador                  | /vaga-gerenciar/BC-4960           | `#/vaga-gerenciar/BC-4960`           | 91        | 0                         | ✅  |
 | phone    | rotas-trabalhador                  | /fechado/BC-4821                  | `#/fechado/BC-4821`                  | 43        | 0                         | ✅  |
 | phone    | rotas-trabalhador                  | /fechado/BC-4998                  | `#/fechado/BC-4998`                  | 7         | 0                         | ✅  |
 | phone    | rotas-trabalhador                  | /impulsionar/BC-4821              | `#/impulsionar/BC-4821`              | 50        | 0                         | ✅  |
@@ -194,7 +195,7 @@
 | phone    | avaliar-diaria                     | preenchido                        | `#/avaliar/BC-4703`                  | 45        | 0                         | ✅  |
 | phone    | avaliar-diaria                     | minhas-depois                     | `#/minhas-candidaturas`              | 194       | 0                         | ✅  |
 | phone    | perfil-trabalhador-posts           | composer                          | `#/perfil`                           | 99        | 0                         | ✅  |
-| phone    | perfil-trabalhador-posts           | composer-com-foto                 | `#/perfil`                           | 97        | 0                         | ✅  |
+| phone    | perfil-trabalhador-posts           | composer-com-foto                 | `#/perfil`                           | 97        | 1 (ruído de antialiasing) | ✅  |
 | phone    | perfil-trabalhador-posts           | post-publicado                    | `#/perfil`                           | 92        | 0                         | ✅  |
 | phone    | perfil-trabalhador-posts           | dialogo-excluir                   | `#/perfil`                           | 102       | 0                         | ✅  |
 | phone    | perfil-trabalhador-posts           | post-excluido                     | `#/perfil`                           | 83        | 0                         | ✅  |

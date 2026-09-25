@@ -64,6 +64,41 @@ Execução final (`npm run build && npm run parity`):
 Relatório completo por captura: `docs/RELATORIO_PARIDADE.md` (cópia da execução final; cada `npm run
 parity` gera um novo em `scripts/parity/output/`, com imagens de diff das capturas que diferirem).
 
+## Revalidação — otimização e preparação para o Supabase
+
+Depois da migração, o código passou por uma varredura de otimização (código morto, duplicações,
+tipagem, componentização, render e bundle) e pela preparação para o Supabase sem conexão
+(`docs/SUPABASE.md`). A regra era não mudar nada da interface, então cada lote só foi commitado depois
+de passar pelos mesmos comandos deste documento e por uma comparação extra, mais estrita, contra o build
+React de antes da refatoração (`PARITY_REFERENCE=<build anterior> npm run parity`: DOM, estilos
+computados, caixas, foco, rolagem, URL e pixels do React novo contra o React antigo).
+
+| Lote (commit)                                 | typecheck · lint · format · testes | × React anterior                         | × legado                       |
+| --------------------------------------------- | ---------------------------------- | ---------------------------------------- | ------------------------------ |
+| Código morto e dependência (`58f910f`)        | ✅ · ✅ · ✅ · 13/13               | 718/718                                  | 717/718, a mesma diferença     |
+| Duplicações e tipagem (`5df3116`)             | ✅ · ✅ · ✅ · 13/13               | 718/718                                  | —                              |
+| Componentização, render e bundle (`c5024ca`)  | ✅ · ✅ · ✅ · 13/13               | 718/718                                  | —                              |
+| Acesso a dados só por `services/` (`275f089`) | ✅ · ✅ · ✅ · 21/21               | 718/718                                  | —                              |
+| Estrutura do Supabase (`b97121d`)             | ✅ · ✅ · ✅ · 29/29               | build byte a byte igual ao lote anterior | —                              |
+| **Final** (`npm run build && npm run parity`) | ✅ · ✅ · ✅ · 29/29               | idem                                     | **717/718**, a mesma diferença |
+
+- O CSS gerado é byte a byte o mesmo desde o primeiro lote (que só removeu regras e tokens que nenhum
+  elemento usa).
+- Os atrasos simulados (500/600/700/900 ms) saíram das telas para `services/` com os mesmos valores, e
+  agora têm testes com relógio falso (`services.test.ts`).
+- Testes: os 13 originais continuam passando — o de regras do store só deixou de chamar
+  `markConcluded`, removida por não ter nenhum chamador (nem no legado) — e 16 novos cobrem os
+  serviços e a preparação do Supabase.
+- O harness ganhou execução concorrente (`PARITY_CONCURRENCY`), referência configurável
+  (`PARITY_REFERENCE`) e captura determinística dos estados transitórios ("Entrando…", "Publicando…"):
+  os atrasos simulados ficam retidos até a captura e são liberados em seguida.
+
+Execução final, pelo mesmo método do resultado acima: celular 238/238, tablet 240/240, desktop 239/240 —
+**717/718**, com a mesma única captura não idêntica (`desktop · recrutador-empresa · dois-aprovados`,
+11 pixels de reamostragem da miniatura, com DOM, estilos e caixas idênticos), os mesmos 91.363
+elementos comparados e 9 capturas com 1 a 3 pixels de ruído de antialiasing. `docs/RELATORIO_PARIDADE.md`
+é a cópia dessa execução.
+
 ## Rodada 1 — tela a tela
 
 Legenda: **L** layout/visual · **T** textos · **E** estados de erro/vazio · **N** navegação · **D** dados/regras.
@@ -105,7 +140,7 @@ Todas as linhas abaixo estão cobertas por capturas idênticas nos 3 tamanhos de
 | Telas sem shell no fluxo de autenticação; larguras por tela no desktop                                           | ✅ `routes.ts` (`isAuthFlow`) e `layouts/AppShell.tsx` (mesmas listas) |
 | Pilha de "voltar" própria, fallback por tela, `/` → `/splash`, 404, rolar ao topo e fechar menu a cada navegação | ✅ `services/router.ts`, `App.tsx`                                     |
 | Estado de UI por tela que sobrevive à navegação                                                                  | ✅ `useUI` (mesmas chaves do legado)                                   |
-| Componentes (inclusive os não usados: JobCard, ErrorState, Skeleton)                                             | ✅ `src/components/`                                                   |
+| Componentes (JobCard, ErrorState e Skeleton, sem uso também no legado, saíram na otimização — ver Revalidação)   | ✅ `src/components/`                                                   |
 | Regras de negócio do store (status, lotação, fechamento, encerrar, salvar, posts)                                | ✅ testes de paridade do store                                         |
 | Validações e mensagens de erro (todas as do mapeamento, §5)                                                      | ✅ textos idênticos; capturas de cada estado de erro                   |
 | Máscaras, formatação, textos de agenda, cidades, WhatsApp                                                        | ✅ testes de paridade de utilitários                                   |
@@ -119,7 +154,8 @@ Todas as linhas abaixo estão cobertas por capturas idênticas nos 3 tamanhos de
 1. **Não há Firebase** — nem Auth, nem Realtime Database, nem `/usuarios/{uid}`, nem tradução de
    erros do Firebase, nem persistência em `localStorage`/`sessionStorage`. Login/cadastro/verificação
    são simulados e todo o estado volta ao seed num recarregamento. Mantido assim; a integração real
-   seria uma mudança funcional (a camada `src/services/` está pronta para recebê-la).
+   seria uma mudança funcional. A camada `src/services/` concentra todo acesso a dados e a estrutura
+   para o Supabase já está preparada, sem conexão (`docs/SUPABASE.md`).
 2. **Login não valida nada**: "Entrar", "Continuar com o Google" e "Continuar com o celular" apenas
    entram no papel escolhido em "Entrar como (demonstração)".
 3. **Ícone do "olho" da senha é invisível**: os ícones `eye`/`eye-off` nunca foram incluídos no conjunto
