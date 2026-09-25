@@ -40,11 +40,11 @@ the page is opened via `file://` (no server = no origin to satisfy the module lo
   PhotoManager for a job's photos, and `AppNav`, the single navigation component that
   renders as a floating tab bar on phones and a full-width top navbar from `lg:` up).
 - Breakpoints: `lg` is 770px (see `tailwind.config.js`) — below it is the phone layout,
-  from it up the tablet/desktop layout. The mural (phone and desktop) is one vertical-only
-  grid of `JobTile`s — photo plus four single-line rows (role; neighborhood · days of the week;
-  date · hours; pay), so every tile is the same size —
-  with 2 columns on a phone and 3 to 7 as the window widens (`.card-grid` in
-  `css/base.css`). The only horizontal scrolling in the app is a job's photo carousel
+  from it up the tablet/desktop layout. Every job list in the app (mural, applications, saved jobs, company
+  profiles) uses the same `JobTile` in the same grid (`.tile-grid` in `css/base.css`), so a
+  tile is exactly the same size everywhere: two equal columns on a phone, a fixed
+  16.75rem-wide tile from 640px up. The mural sizes itself to whole columns, 2 up to at most
+  6 per row (`.mural-frame`). The only horizontal scrolling in the app is a job's photo carousel
   (touch swipe, mouse drag, arrows or keyboard) — on the mural tiles themselves and on the
   job page, which opens on the photo last shown on the tile.
 - `js/utils/jobInfo.js` — how a job's schedule reads everywhere: date and hours are

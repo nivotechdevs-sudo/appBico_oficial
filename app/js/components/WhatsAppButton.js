@@ -10,7 +10,15 @@ const SIZES = {
  * "Falar no WhatsApp": a real link (opens WhatsApp in a new tab/app), in WhatsApp green.
  * Clicks don't bubble, so it can sit inside a clickable tile.
  */
-export function WhatsAppButton({ href, size = 'sm', fullWidth = false, label = 'Falar no WhatsApp', shortLabel = 'WhatsApp' }) {
+export function WhatsAppButton({ href, size = 'sm', fullWidth = false, label = 'Falar no WhatsApp', shortLabel = 'WhatsApp', round = false }) {
+  if (round) {
+    // Icon-only, the size of the save flag: sits in a tile's photo corner.
+    return h('a', {
+      href: href || '#', target: '_blank', rel: 'noopener noreferrer', 'aria-label': label, title: label,
+      class: 'inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#128C4A] text-white shadow-raised ring-2 ring-white transition hover:bg-[#0E7A3F] hover:scale-105 active:scale-95 outline-none focus-visible:ring-4 focus-visible:ring-[#128C4A]/30',
+      onClick: (e) => { e.stopPropagation(); if (!href) e.preventDefault(); }
+    }, Icon('message-circle', { size: 19, color: '#fff' }));
+  }
   return h('a', {
     href: href || '#', target: '_blank', rel: 'noopener noreferrer',
     'aria-label': label,

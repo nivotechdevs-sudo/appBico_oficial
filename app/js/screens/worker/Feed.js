@@ -55,7 +55,7 @@ function tileFor(navigate, role, job) {
 
 // The mural's one grid of job tiles, 2 columns on a phone up to 7 on a wide monitor.
 function tileGrid(navigate, role, jobs) {
-  return h('div', { class: 'card-grid' }, ...jobs.map((j) => tileFor(navigate, role, j)));
+  return h('div', { class: 'tile-grid' }, ...jobs.map((j) => tileFor(navigate, role, j)));
 }
 
 // Every seed job is in the city of São Paulo; a job may name another city in `city`.
@@ -245,7 +245,7 @@ function mobileFeed(navigate, role, ui, openJobs, filtered) {
 
   return h('div', { class: 'flex flex-col lg:hidden' },
     header,
-    h('div', { class: 'px-4 pt-4 pb-6 flex flex-col gap-5' }, searching ? searchResults : browseResults),
+    h('div', { class: 'px-4 pt-4 pb-6' }, h('div', { class: 'mural-frame flex flex-col gap-5' }, searching ? searchResults : browseResults)),
 
   );
 }
@@ -284,7 +284,7 @@ function desktopFeed(navigate, role, ui, open, filtered) {
         filterButton
       )
     ),
-    h('div', { class: 'page-x pt-8 pb-20' }, body)
+    h('div', { class: 'page-x pt-8 pb-20' }, h('div', { class: 'mural-frame' }, body))
   );
 }
 

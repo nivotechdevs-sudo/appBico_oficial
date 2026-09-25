@@ -13,11 +13,12 @@ const TONE_COLOR = { brand: 'var(--text-brand)', success: 'var(--green-500)', wa
  * compact single-line rows underneath (role; neighbourhood and days of the week; date and
  * hours; pay) — no card chrome. Every row truncates, so all tiles in a grid are exactly
  * the same size whatever their content. `badge` ({ label, icon, tone }) shows a status on
- * the photo (used on "Minhas candidaturas"); `muted` greys out a closed one; `footer` is
- * an action under the text (e.g. the WhatsApp button); `corner` replaces the save flag in
- * the photo's top-right corner with another action (e.g. delete, on the company's own posts).
+ * the photo (used on "Minhas candidaturas"); `muted` greys out a closed one; `corner`
+ * replaces the save flag in the photo's top-right corner with another action (delete on
+ * the company's own posts, WhatsApp on a picked application). Nothing is ever added below
+ * the text, so every tile keeps the same size.
  */
-export function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, footer = null, corner = null }) {
+export function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, corner = null }) {
   const bairro = String(job.location || '').split(',')[0];
   const dias = diasInfo(job);
   const where = [bairro, dias && dias.short].filter(Boolean).join(' · ');
@@ -41,8 +42,8 @@ export function JobTile({ job, company, onClick, badge = null, mine = false, mut
       : onToggleSave ? SaveFlag({ saved, onToggle: onToggleSave }) : null
   );
 
-  const text = h('div', { class: 'flex flex-col pt-2 sm:pt-2.5 text-[0.8125rem] sm:text-sm leading-[1.35]' },
-    h('span', { class: cx('truncate font-semibold sm:text-[0.9375rem]', muted ? 'text-concrete-500' : 'text-concrete-900') }, job.role),
+  const text = h('div', { class: 'flex flex-col pt-2.5 sm:pt-3 text-[0.8125rem] sm:text-[0.9375rem] leading-[1.35]' },
+    h('span', { class: cx('truncate font-semibold sm:text-base', muted ? 'text-concrete-500' : 'text-concrete-900') }, job.role),
     h('span', { class: 'truncate text-concrete-500' }, where),
     h('span', { class: 'truncate text-concrete-500' }, when),
     h('span', { class: cx('truncate pt-0.5', muted ? 'text-concrete-500' : 'text-concrete-900') },
@@ -57,10 +58,10 @@ export function JobTile({ job, company, onClick, badge = null, mine = false, mut
     class: 'group min-w-0 cursor-pointer rounded-xl outline-none focus-visible:ring-4 focus-visible:ring-brand-100',
     onClick,
     onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }
-  }, photo, text, footer ? h('div', { class: 'pt-2.5' }, footer) : null);
+  }, photo, text);
 }
 
-/** Tiles laid out to the width of their column (pages narrower than the mural). */
+/** The one grid for job tiles (see .tile-grid in css/base.css): same tile size on every screen. */
 export function TileGrid(tiles) {
-  return h('div', { class: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-6 lg:gap-y-8 items-start' }, ...tiles);
+  return h('div', { class: 'tile-grid' }, ...tiles);
 }

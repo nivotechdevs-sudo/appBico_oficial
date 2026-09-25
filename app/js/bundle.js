@@ -1446,7 +1446,7 @@
       { class: cx("app-header hidden lg:block sticky top-0 z-30 page-x pt-3 pb-2 pointer-events-none", window.scrollY > 8 ? "is-scrolled" : "") },
       h(
         "div",
-        { class: "app-island pointer-events-auto h-[4.25rem] grid grid-cols-[1fr_auto_1fr] items-center gap-6 pl-3 pr-2.5 rounded-full" },
+        { class: "app-island pointer-events-auto w-full max-w-[1000px] mx-auto h-[4.25rem] grid grid-cols-[1fr_auto_1fr] items-center gap-6 pl-3 pr-2.5 rounded-full" },
         h("div", { class: "flex items-center min-w-0" }, logo),
         tabs,
         h(
@@ -3377,7 +3377,7 @@
 
   // js/components/JobTile.js
   var TONE_COLOR = { brand: "var(--text-brand)", success: "var(--green-500)", warning: "var(--amber-500)", danger: "var(--red-500)", accent: "var(--text-brand)", neutral: "var(--gray-500)" };
-  function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, footer = null, corner = null }) {
+  function JobTile({ job, company, onClick, badge = null, mine = false, muted = false, saved = false, onToggleSave = null, corner = null }) {
     const bairro = String(job.location || "").split(",")[0];
     const dias = diasInfo(job);
     const where = [bairro, dias && dias.short].filter(Boolean).join(" \xB7 ");
@@ -3405,8 +3405,8 @@
     );
     const text = h(
       "div",
-      { class: "flex flex-col pt-2 sm:pt-2.5 text-[0.8125rem] sm:text-sm leading-[1.35]" },
-      h("span", { class: cx("truncate font-semibold sm:text-[0.9375rem]", muted ? "text-concrete-500" : "text-concrete-900") }, job.role),
+      { class: "flex flex-col pt-2.5 sm:pt-3 text-[0.8125rem] sm:text-[0.9375rem] leading-[1.35]" },
+      h("span", { class: cx("truncate font-semibold sm:text-base", muted ? "text-concrete-500" : "text-concrete-900") }, job.role),
       h("span", { class: "truncate text-concrete-500" }, where),
       h("span", { class: "truncate text-concrete-500" }, when),
       h(
@@ -3427,10 +3427,10 @@
           onClick();
         }
       }
-    }, photo, text, footer ? h("div", { class: "pt-2.5" }, footer) : null);
+    }, photo, text);
   }
   function TileGrid(tiles) {
-    return h("div", { class: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-6 lg:gap-y-8 items-start" }, ...tiles);
+    return h("div", { class: "tile-grid" }, ...tiles);
   }
 
   // js/screens/shared/CompanyProfileScreen.js
@@ -3765,7 +3765,7 @@
     });
   }
   function tileGrid(navigate2, role, jobs) {
-    return h("div", { class: "card-grid" }, ...jobs.map((j) => tileFor(navigate2, role, j)));
+    return h("div", { class: "tile-grid" }, ...jobs.map((j) => tileFor(navigate2, role, j)));
   }
   var DEFAULT_CITY = "S\xE3o Paulo, SP";
   var jobCity = (job) => job.city || DEFAULT_CITY;
@@ -3996,7 +3996,7 @@
       "div",
       { class: "flex flex-col lg:hidden" },
       header,
-      h("div", { class: "px-4 pt-4 pb-6 flex flex-col gap-5" }, searching ? searchResults : browseResults)
+      h("div", { class: "px-4 pt-4 pb-6" }, h("div", { class: "mural-frame flex flex-col gap-5" }, searching ? searchResults : browseResults))
     );
   }
   function desktopFeed(navigate2, role, ui, open, filtered) {
@@ -4044,7 +4044,7 @@
           filterButton
         )
       ),
-      h("div", { class: "page-x pt-8 pb-20" }, body)
+      h("div", { class: "page-x pt-8 pb-20" }, h("div", { class: "mural-frame" }, body))
     );
   }
   function SearchPill({ id, role, ui, compact = false }) {
@@ -4451,7 +4451,21 @@
     sm: "h-9 px-3.5 gap-1.5 text-sm",
     lg: "h-14 px-5 gap-2 text-base"
   };
-  function WhatsAppButton({ href, size = "sm", fullWidth = false, label = "Falar no WhatsApp", shortLabel = "WhatsApp" }) {
+  function WhatsAppButton({ href, size = "sm", fullWidth = false, label = "Falar no WhatsApp", shortLabel = "WhatsApp", round = false }) {
+    if (round) {
+      return h("a", {
+        href: href || "#",
+        target: "_blank",
+        rel: "noopener noreferrer",
+        "aria-label": label,
+        title: label,
+        class: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#128C4A] text-white shadow-raised ring-2 ring-white transition hover:bg-[#0E7A3F] hover:scale-105 active:scale-95 outline-none focus-visible:ring-4 focus-visible:ring-[#128C4A]/30",
+        onClick: (e) => {
+          e.stopPropagation();
+          if (!href) e.preventDefault();
+        }
+      }, Icon("message-circle", { size: 19, color: "#fff" }));
+    }
     return h(
       "a",
       {
@@ -4528,7 +4542,7 @@
         onClick: () => navigate2(info.to),
         badge: { label: info.label, icon: info.icon, tone: muted ? "neutral" : info.tone },
         // Picked for the job: the WhatsApp chat with the company is open.
-        footer: app.status === "pre_selecionado" || app.status === "contratado" ? WhatsAppButton({ href: workerToCompanyUrl(company, job), fullWidth: true }) : null
+        corner: app.status === "pre_selecionado" || app.status === "contratado" ? WhatsAppButton({ href: workerToCompanyUrl(company, job), round: true }) : null
       });
     }
     return h(

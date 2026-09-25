@@ -24,8 +24,8 @@ export default function renderMyApplications(navigate) {
       job, company, muted, onClick: () => navigate(info.to),
       badge: { label: info.label, icon: info.icon, tone: muted ? 'neutral' : info.tone },
       // Picked for the job: the WhatsApp chat with the company is open.
-      footer: app.status === 'pre_selecionado' || app.status === 'contratado'
-        ? WhatsAppButton({ href: workerToCompanyUrl(company, job), fullWidth: true })
+      corner: app.status === 'pre_selecionado' || app.status === 'contratado'
+        ? WhatsAppButton({ href: workerToCompanyUrl(company, job), round: true })
         : null
     });
   }

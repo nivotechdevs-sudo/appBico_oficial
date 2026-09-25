@@ -199,7 +199,7 @@ function topBar({ role, items, active, navigate, notifications, account }) {
   // the page it sits flat on the page; once you scroll it lifts into a floating frosted
   // island (the desktop sibling of the phone's tab bar), and settles back at the top.
   return h('header', { class: cx('app-header hidden lg:block sticky top-0 z-30 page-x pt-3 pb-2 pointer-events-none', window.scrollY > 8 ? 'is-scrolled' : '') },
-    h('div', { class: 'app-island pointer-events-auto h-[4.25rem] grid grid-cols-[1fr_auto_1fr] items-center gap-6 pl-3 pr-2.5 rounded-full' },
+    h('div', { class: 'app-island pointer-events-auto w-full max-w-[1000px] mx-auto h-[4.25rem] grid grid-cols-[1fr_auto_1fr] items-center gap-6 pl-3 pr-2.5 rounded-full' },
       h('div', { class: 'flex items-center min-w-0' }, logo),
       tabs,
       h('div', { class: 'flex items-center justify-end gap-2' },
