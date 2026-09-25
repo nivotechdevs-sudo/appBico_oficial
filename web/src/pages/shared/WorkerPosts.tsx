@@ -8,6 +8,7 @@ import { IconButton } from '../../components/IconButton';
 import { Dialog, Sheet } from '../../components/Modal';
 import { TextArea } from '../../components/TextArea';
 import { useDb, useUI } from '../../hooks/useStore';
+import { mediaUrl } from '../../services/media';
 import { postsForWorker } from '../../services/selectors';
 import { addWorkerPost, deleteWorkerPost } from '../../services/store';
 import type { Worker, WorkerPost } from '../../types/models';
@@ -148,7 +149,7 @@ function Composer({ worker, ui, setUi }: ComposerProps) {
             if (!file) return;
             resetFileInput(e.target);
             setUi({
-              mediaUrl: URL.createObjectURL(file),
+              mediaUrl: mediaUrl(file),
               mediaType: file.type.indexOf('video') === 0 ? 'video' : 'image'
             });
           }}

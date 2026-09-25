@@ -3,10 +3,10 @@ import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { JobNotFound } from '../../components/NotFound';
 import { useDb, useUI } from '../../hooks/useStore';
+import { submitApplication } from '../../services/marketplace';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
 import { companyOf, currentWorker, getJob } from '../../services/selectors';
-import { applyToJob } from '../../services/store';
 import { formatPay } from '../../utils/format';
 import { dateText } from '../../utils/jobInfo';
 
@@ -63,11 +63,10 @@ export default function ConfirmApplication({ params }: ScreenProps) {
           loading={ui.submitting}
           onClick={() => {
             setUi({ submitting: true });
-            setTimeout(() => {
+            submitApplication(job.id, worker.id).then(() => {
               setUi({ submitting: false });
-              applyToJob(job.id, worker.id);
               navigate('/enviado/' + job.id);
-            }, 600);
+            });
           }}
         />
         <Button label="Voltar para a vaga" variant="ghost" fullWidth onClick={() => navigate('/vaga/' + job.id)} />

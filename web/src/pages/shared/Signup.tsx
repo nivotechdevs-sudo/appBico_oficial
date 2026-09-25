@@ -4,6 +4,7 @@ import { IconButton } from '../../components/IconButton';
 import type { IconName } from '../../components/icons/Icon';
 import { Input, PasswordInput } from '../../components/Input';
 import { useUI } from '../../hooks/useStore';
+import { signUp } from '../../services/auth';
 import { AUTH_FLOW_KEY, type AuthFlowUI } from '../../services/sharedUI';
 import type { ScreenProps } from '../../types/screen';
 import { goBack as routerGoBack, navigate } from '../../services/router';
@@ -103,9 +104,6 @@ const PERFIS: Record<Role, { overline: string; fields: SignupField[] }> = {
   }
 };
 
-// Demo-only sentinel that reproduces the "documento já cadastrado" form-level error state.
-const TAKEN_DOC = ['111.111.111-11', '11.111.111/1111-11'];
-
 type Values = Partial<Record<FieldId, string>>;
 
 interface SignupUI {
@@ -200,8 +198,15 @@ export default function Signup({ params }: ScreenProps) {
       return;
     }
     setUi({ submitting: true, acceptError: false });
-    setTimeout(() => {
-      if (TAKEN_DOC.indexOf(ui.values.doc || '') >= 0) {
+    signUp({
+      role,
+      name: (role === 'trabalhador' ? ui.values.nome : ui.values.razao) || '',
+      doc: ui.values.doc || '',
+      email: ui.values.email || '',
+      password: ui.values.senha || ''
+    }).then((result) => {
+      if (!result.ok) {
+        // The CPF/CNPJ already has an account: back to that step, with the general error.
         const docStep = cfg.fields.findIndex((f) => f.id === 'doc');
         setUi({ submitting: false, step: docStep, generalError: true });
         return;
@@ -210,7 +215,7 @@ export default function Signup({ params }: ScreenProps) {
       setUI<AuthFlowUI>(AUTH_FLOW_KEY, { role, email: ui.values.email || 'voce@email.com' });
       resetUI(key);
       navigate('/verificar-email');
-    }, 700);
+    });
   }
 
   const strength = passwordStrength(ui.values.senha);

@@ -7,11 +7,12 @@ import { JobTile } from '../../components/JobTile';
 import { PhotoManager } from '../../components/PhotoManager';
 import { Tag } from '../../components/Tag';
 import { TextArea } from '../../components/TextArea';
-import { REQUISITOS_OPCOES } from '../../data/seed';
 import { useDb, useUI } from '../../hooks/useStore';
+import { REQUISITOS_OPCOES } from '../../services/catalog';
+import { publishJob } from '../../services/marketplace';
 import { goBack, navigate } from '../../services/router';
 import { currentCompanyId, getCompany } from '../../services/selectors';
-import { createJob, resetUI } from '../../services/store';
+import { resetUI } from '../../services/store';
 import type { DiasKey } from '../../types/models';
 import { cx } from '../../utils/cx';
 import { DIAS, DIAS_ORDEM } from '../../utils/jobInfo';
@@ -39,10 +40,6 @@ interface CreateJobUI {
   detalhe: string;
   errors: Errors;
   publishing: boolean;
-}
-
-function nextJobId() {
-  return 'BC-' + (5100 + Math.floor(Math.random() * 800));
 }
 
 function digits(v: string, max: number) {
@@ -117,32 +114,24 @@ export default function CreateJob() {
       return;
     }
     setUi({ publishing: true });
-    setTimeout(() => {
-      const id = nextJobId();
-      const hours = hasHours ? `${ui.periodoInicio}h–${ui.periodoFim}h` : null;
-      const date = ui.data.trim() || null;
-      const diariasNum = Number(ui.diarias) || 1;
-      createJob({
-        id,
-        companyId: currentCompanyId(),
-        role: ui.tipo.trim(),
-        pay: ui.negociavel ? null : parseInt(ui.valor, 10),
-        location: 'Tatuapé, SP',
-        address: ui.local,
-        distance: '0 km',
-        date,
-        hours,
-        dias: ui.dias,
-        duration: diariasNum === 1 ? '1 diária' : `${diariasNum} diárias`,
-        slots: Number(ui.vagas) || 1,
-        requirements: ui.requisitos,
-        description: ui.detalhe.trim(),
-        photos: ui.fotos
-      });
+    const diariasNum = Number(ui.diarias) || 1;
+    publishJob({
+      role: ui.tipo.trim(),
+      pay: ui.negociavel ? null : parseInt(ui.valor, 10),
+      address: ui.local,
+      date: ui.data.trim() || null,
+      hours: hasHours ? `${ui.periodoInicio}h–${ui.periodoFim}h` : null,
+      dias: ui.dias,
+      duration: diariasNum === 1 ? '1 diária' : `${diariasNum} diárias`,
+      slots: Number(ui.vagas) || 1,
+      requirements: ui.requisitos,
+      description: ui.detalhe.trim(),
+      photos: ui.fotos
+    }).then((id) => {
       setUi({ publishing: false });
       resetUI(KEY);
       navigate('/vaga-publicada/' + id);
-    }, 700);
+    });
   }
 
   const step1 = (

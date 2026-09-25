@@ -2,72 +2,22 @@ import { BackBar } from '../../components/BackBar';
 import { EmptyState } from '../../components/EmptyState';
 import { Icon, type IconName } from '../../components/icons/Icon';
 import { useRole } from '../../hooks/useStore';
+import { notificationsFor } from '../../services/notifications';
 import { goBack } from '../../services/router';
+import type { NotificationKind } from '../../types/models';
 
 type NotifTone = 'success' | 'danger' | 'accent' | 'brand';
 
-interface Notification {
-  icon: IconName;
-  tone: NotifTone;
-  title: string;
-  text: string;
-  time: string;
-}
-
-const WORKER_NOTIFS: Notification[] = [
-  {
-    icon: 'circle-check',
-    tone: 'success',
-    title: 'Você foi pré-selecionado',
-    text: 'Construtora Meridiano quer falar com você sobre Pedreiro de acabamento.',
-    time: 'Há 12 min'
-  },
-  {
-    icon: 'zap',
-    tone: 'danger',
-    title: 'Bico urgente perto de você',
-    text: 'Pintor em Mooca, hoje às 8h. A combinar.',
-    time: 'Há 2h'
-  },
-  {
-    icon: 'star',
-    tone: 'accent',
-    title: 'Avalie sua última diária',
-    text: 'Obra Cangaíba · Servente de obra, 30 ago.',
-    time: 'Ontem'
-  },
-  {
-    icon: 'file-check',
-    tone: 'brand',
-    title: 'Candidatura em análise',
-    text: 'Reforma Serra de Bragança está avaliando seu perfil.',
-    time: '2 dias atrás'
-  }
-];
-
-const RECRUITER_NOTIFS: Notification[] = [
-  {
-    icon: 'users',
-    tone: 'brand',
-    title: '2 novos candidatos',
-    text: 'Pedreiro de acabamento · Tatuapé recebeu novas candidaturas.',
-    time: 'Há 30 min'
-  },
-  {
-    icon: 'circle-check',
-    tone: 'success',
-    title: 'Bico fechado',
-    text: 'Todas as vagas de Servente de obra foram preenchidas.',
-    time: 'Há 3h'
-  },
-  {
-    icon: 'star',
-    tone: 'accent',
-    title: 'Avalie o trabalhador',
-    text: 'Marcos Aurélio concluiu a diária em 21 ago.',
-    time: 'Ontem'
-  }
-];
+// How each kind of notification looks.
+const LOOK: Record<NotificationKind, { icon: IconName; tone: NotifTone }> = {
+  pre_selecionado: { icon: 'circle-check', tone: 'success' },
+  bico_urgente: { icon: 'zap', tone: 'danger' },
+  avaliar_diaria: { icon: 'star', tone: 'accent' },
+  candidatura_em_analise: { icon: 'file-check', tone: 'brand' },
+  novos_candidatos: { icon: 'users', tone: 'brand' },
+  bico_fechado: { icon: 'circle-check', tone: 'success' },
+  avaliar_trabalhador: { icon: 'star', tone: 'accent' }
+};
 
 const TONE_BG: Record<NotifTone, string> = {
   success: 'bg-success-50',
@@ -83,7 +33,7 @@ const TONE_FG: Record<NotifTone, string> = {
 };
 
 export default function Notifications() {
-  const list = useRole() === 'recrutador' ? RECRUITER_NOTIFS : WORKER_NOTIFS;
+  const list = notificationsFor(useRole());
   return (
     <div className="min-h-screen flex flex-col bg-concrete-50 lg:bg-transparent lg:min-h-0">
       <BackBar title="Notificações" onBack={() => goBack('/mural')} />
@@ -98,9 +48,9 @@ export default function Notifications() {
           {list.map((n) => (
             <div key={n.title} className="flex gap-3 p-4 bg-white border border-concrete-200 rounded-card">
               <span
-                className={`shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full ${TONE_BG[n.tone]}`}
+                className={`shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full ${TONE_BG[LOOK[n.kind].tone]}`}
               >
-                <Icon name={n.icon} size={18} color={TONE_FG[n.tone]} />
+                <Icon name={LOOK[n.kind].icon} size={18} color={TONE_FG[LOOK[n.kind].tone]} />
               </span>
               <div className="flex flex-col gap-1 min-w-0">
                 <span className="font-semibold text-concrete-900">{n.title}</span>

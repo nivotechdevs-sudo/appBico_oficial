@@ -1,3 +1,4 @@
+import { mediaUrl } from '../services/media';
 import { cx } from '../utils/cx';
 import { Icon } from './icons/Icon';
 import { resetFileInput } from '../utils/fileInput';
@@ -37,7 +38,7 @@ export function PhotoSlot({
         onChange={(e) => {
           const file = e.target.files && e.target.files[0];
           if (file) resetFileInput(e.target);
-          if (file && onChange) onChange(URL.createObjectURL(file));
+          if (file && onChange) onChange(mediaUrl(file));
         }}
       />
       {value ? (

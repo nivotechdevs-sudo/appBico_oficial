@@ -5,8 +5,8 @@ import { Input } from '../../../components/Input';
 import { Sheet } from '../../../components/Modal';
 import { Switch } from '../../../components/Switch';
 import { Tag } from '../../../components/Tag';
-import { TIPOS_SERVICO } from '../../../data/seed';
-import { nearestCity, searchCities } from '../../../utils/cidades';
+import { TIPOS_SERVICO } from '../../../services/catalog';
+import { nearestCity, searchCities } from '../../../services/cities';
 import { cx } from '../../../utils/cx';
 import { NO_FILTERS, setFeed, SORTS, type FeedUI } from './feedUI';
 

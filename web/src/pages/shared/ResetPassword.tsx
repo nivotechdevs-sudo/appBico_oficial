@@ -3,6 +3,7 @@ import { IconButton } from '../../components/IconButton';
 import { PasswordInput } from '../../components/Input';
 import { ResultIcon } from '../../components/ResultIcon';
 import { useUI } from '../../hooks/useStore';
+import { resetPassword } from '../../services/auth';
 import { goBack, navigate } from '../../services/router';
 import { passwordStrength, STRENGTH_LABEL, strengthBarColor } from '../../utils/format';
 
@@ -93,7 +94,7 @@ export default function ResetPassword() {
               return;
             }
             setUi({ submitting: true });
-            setTimeout(() => setUi({ submitting: false, done: true }), 600);
+            resetPassword(ui.senha).then(() => setUi({ submitting: false, done: true }));
           }}
         />
       </div>

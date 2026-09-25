@@ -106,6 +106,36 @@ export interface WorkerPost {
   date: string;
 }
 
+/** What a notification is about; the screen picks its icon and colour from it. */
+export type NotificationKind =
+  | 'pre_selecionado'
+  | 'bico_urgente'
+  | 'avaliar_diaria'
+  | 'candidatura_em_analise'
+  | 'novos_candidatos'
+  | 'bico_fechado'
+  | 'avaliar_trabalhador';
+
+export interface AppNotification {
+  kind: NotificationKind;
+  title: string;
+  text: string;
+  /** Relative time as shown ("Há 12 min", "Ontem"). */
+  time: string;
+  read: boolean;
+}
+
+export type BoostPlanId = '24h' | '3d' | 'whats';
+
+/** A way to put a job at the top of the mural ("Impulsionar vaga"). */
+export interface BoostPlan {
+  id: BoostPlanId;
+  label: string;
+  desc: string;
+  /** As shown ("R$ 12"). */
+  price: string;
+}
+
 /** A Brazilian municipality in the city picker. */
 export interface City {
   name: string;

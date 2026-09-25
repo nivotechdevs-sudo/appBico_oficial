@@ -3,8 +3,8 @@ import { GoogleIcon, Icon } from '../../components/icons/Icon';
 import { Input, PasswordInput } from '../../components/Input';
 import { Tag } from '../../components/Tag';
 import { useUI } from '../../hooks/useStore';
+import { signIn } from '../../services/auth';
 import { navigate } from '../../services/router';
-import { setRole } from '../../services/store';
 import type { Role } from '../../types/models';
 
 interface LoginUI {
@@ -27,11 +27,10 @@ export default function Login() {
   // Demo sign-in: e-mail/password, Google and phone all log straight into the chosen account type.
   function submit() {
     setUi({ submitting: true });
-    setTimeout(() => {
-      setRole(ui.role);
+    signIn(ui.role).then(() => {
       setUi({ submitting: false });
       navigate('/mural');
-    }, 500);
+    });
   }
 
   return (

@@ -4,6 +4,7 @@ import { Card } from '../../components/Card';
 import { Icon } from '../../components/icons/Icon';
 import { Dialog } from '../../components/Modal';
 import { useUI } from '../../hooks/useStore';
+import { exportMyData } from '../../services/account';
 import { goBack, navigate } from '../../services/router';
 
 interface PrivacyUI {
@@ -47,7 +48,7 @@ export default function Privacy() {
                 loading={ui.exporting}
                 onClick={() => {
                   setUi({ exporting: true });
-                  setTimeout(() => setUi({ exporting: false, exported: true }), 900);
+                  exportMyData().then(() => setUi({ exporting: false, exported: true }));
                 }}
               />
             )}

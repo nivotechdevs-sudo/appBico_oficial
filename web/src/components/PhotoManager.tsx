@@ -1,3 +1,4 @@
+import { mediaUrl } from '../services/media';
 import { resetFileInput } from '../utils/fileInput';
 import { Icon } from './icons/Icon';
 
@@ -43,7 +44,7 @@ export function PhotoManager({ photos, onChange, max = 6 }: PhotoManagerProps) {
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
               resetFileInput(e.target);
-              if (files.length) onChange(photos.concat(files.map((f) => URL.createObjectURL(f))).slice(0, max));
+              if (files.length) onChange(photos.concat(files.map((f) => mediaUrl(f))).slice(0, max));
             }}
           />
           <Icon name="camera" size={22} />

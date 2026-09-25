@@ -3,6 +3,7 @@ import { IconButton } from '../../components/IconButton';
 import { Input } from '../../components/Input';
 import { ResultIcon } from '../../components/ResultIcon';
 import { useUI } from '../../hooks/useStore';
+import { requestPasswordReset } from '../../services/auth';
 import { goBack, navigate } from '../../services/router';
 import { isValidEmail } from '../../utils/format';
 
@@ -64,7 +65,7 @@ export default function ForgotPassword() {
                 return;
               }
               setUi({ submitting: true });
-              setTimeout(() => setUi({ submitting: false, sent: true }), 600);
+              requestPasswordReset(ui.email).then(() => setUi({ submitting: false, sent: true }));
             }}
           />
         </div>

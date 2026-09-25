@@ -5,6 +5,7 @@ import { IconButton } from '../../../components/IconButton';
 import { Logo } from '../../../components/Logo';
 import { Rating } from '../../../components/Rating';
 import { Tag } from '../../../components/Tag';
+import { unreadCount } from '../../../services/notifications';
 import { navigate } from '../../../services/router';
 import type { Database, Job, Role } from '../../../types/models';
 import { FeedGrid, NoJobsState, SearchPill } from './FeedParts';
@@ -124,7 +125,7 @@ export function MobileFeed({ db, role, ui, ordered, found, chips }: FeedLayoutPr
           <h1 className="inline-flex" aria-label="Bicos">
             <Logo compact />
           </h1>
-          <NotificationBell count={role === 'recrutador' ? 3 : 2} onClick={() => navigate('/notificacoes')} />
+          <NotificationBell count={unreadCount(role)} onClick={() => navigate('/notificacoes')} />
         </div>
         <SearchPill id="feed-search" role={role} search={ui.search} compact />
       </div>

@@ -1,5 +1,6 @@
 import { useSyncExternalStore, type ReactNode } from 'react';
 import { useDb, useRole, useUI } from '../hooks/useStore';
+import { unreadCount } from '../services/notifications';
 import { currentCompany, currentWorker } from '../services/selectors';
 import { COMPANY_PROFILE_DEFAULTS, COMPANY_PROFILE_KEY, type CompanyProfileUI } from '../services/sharedUI';
 import { getVersion, subscribe } from '../services/store';
@@ -78,7 +79,7 @@ export function AppShell({ path, pattern, children }: AppShellProps) {
         role={role}
         active={tabIdForPath(path, role)}
         showMobilePill={showMobileNav}
-        notifications={role === 'recrutador' ? 3 : 2}
+        notifications={unreadCount(role)}
         account={account}
       />
       <main

@@ -4,30 +4,19 @@ import { Card } from '../../components/Card';
 import { Icon, type IconName } from '../../components/icons/Icon';
 import { JobNotFound } from '../../components/NotFound';
 import { useDb, useUI } from '../../hooks/useStore';
+import { BOOST_PLANS } from '../../services/catalog';
+import type { BoostPlanId } from '../../types/models';
 import type { ScreenProps } from '../../types/screen';
 import { goBack, navigate } from '../../services/router';
 import { getJob } from '../../services/selectors';
 import { updateJob } from '../../services/store';
 
-type PlanId = '24h' | '3d' | 'whats';
-
-const PLANS: { id: PlanId; label: string; desc: string; price: string }[] = [
-  { id: '24h', label: 'Topo do mural por 24h', desc: 'Aparece antes das outras vagas da região.', price: 'R$ 12' },
-  { id: '3d', label: 'Topo do mural por 3 dias', desc: 'Para vaga com data mais distante.', price: 'R$ 28' },
-  {
-    id: 'whats',
-    label: '24h + aviso por WhatsApp',
-    desc: 'Avisamos quem tem o perfil da vaga por perto.',
-    price: 'R$ 39'
-  }
-];
-
 export default function BoostJob({ params }: ScreenProps) {
   const db = useDb();
-  const [ui, setUi] = useUI<{ plan: PlanId }>('boost-job', { plan: '24h' });
+  const [ui, setUi] = useUI<{ plan: BoostPlanId }>('boost-job', { plan: '24h' });
   const job = getJob(db, params.id);
   if (!job) return <JobNotFound />;
-  const chosen = PLANS.find((p) => p.id === ui.plan) ?? PLANS[0];
+  const chosen = BOOST_PLANS.find((p) => p.id === ui.plan) ?? BOOST_PLANS[0];
 
   return (
     <div className="flex flex-col">
@@ -59,7 +48,7 @@ export default function BoostJob({ params }: ScreenProps) {
         <div className="flex flex-col gap-2.5">
           <div className="text-xs font-bold tracking-[0.08em] uppercase text-concrete-500">Por quanto tempo</div>
           <div className="flex flex-col gap-2">
-            {PLANS.map((p) => {
+            {BOOST_PLANS.map((p) => {
               const active = ui.plan === p.id;
               return (
                 <button

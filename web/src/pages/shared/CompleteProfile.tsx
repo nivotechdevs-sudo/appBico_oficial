@@ -4,17 +4,17 @@ import { IconButton } from '../../components/IconButton';
 import { PhotoSlot } from '../../components/PhotoSlot';
 import { Select } from '../../components/Select';
 import { Tag } from '../../components/Tag';
+import { useUI } from '../../hooks/useStore';
+import { finishSignUp } from '../../services/auth';
 import {
   CARGOS_TRABALHADOR,
   ESPECIALIDADES,
   REGIOES_RECRUTADOR,
   REGIOES_TRABALHADOR,
   TIPOS_OBRA
-} from '../../data/seed';
-import { useUI } from '../../hooks/useStore';
+} from '../../services/catalog';
 import type { ScreenProps } from '../../types/screen';
 import { navigate } from '../../services/router';
-import { setRole } from '../../services/store';
 import { toggleItem } from '../../utils/list';
 
 export default function CompleteProfile({ params }: ScreenProps) {
@@ -137,7 +137,7 @@ function WorkerFlow() {
           setUi({ errors });
           return;
         }
-        setRole('trabalhador');
+        finishSignUp('trabalhador');
         navigate('/mural');
       }}
       label="Concluir perfil"
@@ -251,7 +251,7 @@ function RecruiterFlow() {
           setUi({ errors });
           return;
         }
-        setRole('recrutador');
+        finishSignUp('recrutador');
         navigate('/mural');
       }}
       label="Concluir perfil"
