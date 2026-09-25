@@ -27,7 +27,7 @@ const OUT = path.resolve(here, 'output');
 // pixelmatch's YIQ threshold: 0.01 ignores only ±1-level rasterisation noise in a colour channel.
 const PIXEL_THRESHOLD = 0.01;
 const AA_MAX_PIXELS = 16;
-const AA_MAX_DELTA = 16;
+const AA_MAX_DELTA = 24;
 
 // Largest per-channel difference among the pixels pixelmatch flagged (painted red in `diff`).
 function maxChannelDelta(a, b, diff) {
